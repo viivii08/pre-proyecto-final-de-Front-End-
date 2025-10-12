@@ -45,5 +45,5 @@ Este sitio web simula una tienda online inspirada en la Patagonia Argentins, don
 
 ## Autor
 
-Este proyecto fue realizado por [Tu Nombre] como trabajo final del curso de Front End.  
+Este proyecto fue realizado por Viviana Lorena Vargas como trabajo final del curso de Front End.  
 ¡Gracias por visitar Patagonia Style!
