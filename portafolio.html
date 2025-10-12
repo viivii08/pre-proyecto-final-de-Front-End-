@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-color: #1f3c5a;      /* Azul profundo */
+      --secondary-color: #3b5d50;    /* Verde bosque */
+      --accent-color: #b67c3a;       /* Naranja/cobre */
+      --bg-light: #f4f1ee;           /* Beige claro */
+      --text-color: #2b2b2b;         /* Gris oscuro */
+      --card-shadow: rgba(0,0,0,0.12);
+      --btn-radius: 28px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-color);
+    }
+    /* Navbar */
+    .navbar {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    .navbar-brand { color: #fff !important; font-family: 'Raleway', sans-serif; font-weight: 700; letter-spacing: 1px; }
+    .navbar a { color: #fdfdfd !important; font-weight: 500; transition: color 0.3s; }
+    .navbar a:hover { color: var(--accent-color) !important; }
+    .icon-nav { font-size: 1.4rem; margin-left: 15px; cursor: pointer; color: #fff; transition: transform .2s ease, color .2s ease; }
+    .icon-nav:hover { transform: scale(1.2); color: var(--accent-color); }
+    .cart-count { position: absolute; top: -6px; right: -10px; background: var(--accent-color); color: #fff; font-size: 0.75rem; border-radius: 50%; padding: 2px 6px; }
+
+    /* Header */
+    .portfolio-header {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80") no-repeat center/cover;
+      color: #fff;
+    }
+    .portfolio-header h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+    .portfolio-header p {
+      font-size: 1.2rem;
+    }
+
+    /* Portfolio Grid */
+    .portfolio-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #fff;
+    }
+    .portfolio-item:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px var(--card-shadow);
+    }
+    .portfolio-item img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .portfolio-item:hover img {
+      transform: scale(1.08);
+    }
+    .portfolio-content {
+      padding: 15px;
+    }
+    .portfolio-content h5 {
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      padding: 40px 0;
+      color: #fff;
+      text-align: center;
+      font-weight: 500;
+      margin-top: 50px;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+      color: var(--accent-color);
+    }
+
+    .btn-custom {
+      background-color: var(--accent-color);
+      color: #fff;
+      border-radius: var(--btn-radius);
+      padding: 10px 25px;
+      text-transform: uppercase;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn-custom:hover {
+      background-color: #8d5c2b;
+      transform: scale(1.05);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--primary-color);
+      font-weight: 600;
+      position: relative;
+    }
+    .section-title::after {
+      content: "";
+      width: 70px;
+      height: 3px;
+      background: var(--accent-color);
+      display: block;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px var(--card-shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      background-color: #fff;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 30px var(--card-shadow);
+    }
+    .card-img-top {
+      object-fit: cover;
+      width: 100%;
+      height: 250px;
+      transition: transform 0.5s;
+    }
+    .card:hover .card-img-top {
+      transform: scale(1.1);
+    }
+
+    .modal-body {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .cart-quantity {
+      width: 60px;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar moderna para ecommerce -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand fw-bold" href="index.html">
+      <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:48px; width:auto; margin-right:10px;">
+      Patagonia Style
+    </a>
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Contenido navbar -->
+    <div class="collapse navbar-collapse" id="navbarEcommerce">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <a class="nav-link" href="tienda.html">Tienda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="portafolio.html">Portafolio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+      
+      </ul>
+      <!-- Barra de búsqueda -->
+      <form class="d-flex me-3" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+      <!-- Íconos usuario y carrito -->
+      <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
+        <i class="bi bi-person"></i>
+      </a>
+      <a href="#" class="btn btn-outline-light position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" title="Carrito">
+        <i class="bi bi-cart3"></i>
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+          0
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header -->
+  <header class="portfolio-header">
+    <h1>Mi Portfolio</h1>
+    <p>Una selección de proyectos creativos inspirados en la Patagonia</p>
+  </header>
+
+  <!-- Portfolio Section -->
+  <section class="container py-5">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Proyecto 1">
+          <div class="portfolio-content">
+            <h5>Proyecto 1</h5>
+            <p>Diseño gráfico inspirado en los paisajes sureños.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=800&q=80" alt="Proyecto 2">
+          <div class="portfolio-content">
+            <h5>Proyecto 2</h5>
+            <p>Arte impreso con motivos de flora y fauna local.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="portfolio-item">
+          <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80" alt="Proyecto 3">
+          <div class="portfolio-content">
+            <h5>Proyecto 3</h5>
+            <p>Cuadernos ilustrados con identidad regional.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+    <p><a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

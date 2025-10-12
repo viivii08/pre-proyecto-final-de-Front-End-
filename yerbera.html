@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yerbera Bariloche - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f4f1ee;
+      font-family: 'Poppins', sans-serif;
+      color: #2b2b2b;
+    }
+    .producto-section {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .producto-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .producto-gallery img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s, transform 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .producto-gallery img.active,
+    .producto-gallery img:hover {
+      border: 2.5px solid #b67c3a;
+      transform: scale(1.07);
+    }
+    .producto-main-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+      background: #f4f1ee;
+      transition: box-shadow 0.2s;
+    }
+    .producto-precio {
+      font-size: 2.2rem;
+      color: #3b5d50;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    .producto-precio-old {
+      text-decoration: line-through;
+      color: #aaa;
+      font-size: 1.1rem;
+      margin-left: 12px;
+      font-weight: 500;
+    }
+    .producto-descuento {
+      background: #ffb347;
+      color: #fff;
+      font-weight: 700;
+      border-radius: 8px;
+      padding: 4px 14px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: inline-block;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px rgba(255,179,71,0.12);
+    }
+    .producto-btn {
+      background: linear-gradient(90deg, #f4a259 60%, #b67c3a 100%);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 0;
+      width: 100%;
+      font-size: 1.15rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 12px rgba(244,162,89,0.10);
+      margin-top: 10px;
+    }
+    .producto-btn:hover {
+      background: linear-gradient(90deg, #b67c3a 60%, #f4a259 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .producto-stock {
+      color: #e67e22;
+      font-weight: 600;
+      font-size: 1.08rem;
+    }
+    .producto-envio {
+      color: #27ae60;
+      font-weight: 500;
+      font-size: 1.05rem;
+    }
+    .producto-cantidad {
+      width: 60px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: 0 8px;
+      font-size: 1.1rem;
+    }
+    .producto-detalle-titulo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      color: #3b5d50;
+      letter-spacing: 0.5px;
+    }
+    .producto-detalle {
+      font-size: 1.13rem;
+      margin-top: 1.1rem;
+      color: #444;
+      line-height: 1.7;
+    }
+    .breadcrumb {
+      background: none;
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .breadcrumb-item a {
+      color: #3b5d50;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .breadcrumb-item.active {
+      color: #b67c3a;
+      font-weight: 600;
+    }
+    .input-group input {
+      font-size: 1.05rem;
+    }
+    .input-group .btn {
+      font-size: 1.05rem;
+    }
+    @media (max-width: 991px) {
+      .producto-main-img { max-height: 300px; }
+      .producto-section { padding: 1.5rem 0.5rem; }
+    }
+    @media (max-width: 767px) {
+      .producto-gallery { flex-direction: row; }
+      .producto-main-img { max-height: 220px; }
+      .producto-section { padding: 1rem 0.2rem; }
+    }
+    .navbar .bi-cart3 {
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:48px; width:auto; margin-right:10px;">
+        Patagonia Style
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarEcommerce">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="tienda.html">Tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portafolio.html">Portafolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacto.html">Contacto</a>
+          </li>
+        </ul>
+        <form class="d-flex me-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
+          <i class="bi bi-person"></i>
+        </a>
+        <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
+          <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Producto principal -->
+  <main class="container producto-section">
+    <div class="row g-4 align-items-start">
+      <!-- Galería lateral -->
+      <div class="col-md-1 d-flex flex-md-column flex-row align-items-md-start align-items-center producto-gallery">
+        <img src="pages/yerbera-fondo-4ab23bd97fa2c37cbf17596964157523-1024-1024.webp" alt="Yerbera Bariloche" class="active" onclick="cambiarImagen(this)">
+        <img src="pages/yerbraportada.webp" alt="Yerbera Bariloche" onclick="cambiarImagen(this)">
+      </div>
+      <!-- Imagen principal -->
+      <div class="col-md-6">
+        <img id="main-img" src="pages/yerbera1.webp" alt="Yerbera Bariloche" class="producto-main-img">
+      </div>
+      <!-- Info producto -->
+      <div class="col-md-5">
+        <nav style="--bs-breadcrumb-divider: '·';" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="tienda.html">Tienda</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Yerbera Bariloche</li>
+          </ol>
+        </nav>
+        <h2 class="fw-bold" style="color:#3b5d50;">Yerbera Bariloche</h2>
+        <div class="mb-2">
+          <span class="producto-precio">$24.900,00</span>
+        </div>
+        <div class="mb-2 text-muted" style="font-size:1rem;">12 cuotas de $3.685,20</div>
+        <div class="mb-2" style="color:#e67e22;">10% de descuento pagando con Transferencia bancaria</div>
+        <div class="mb-2"><a href="#" style="color:#3b5d50;">Ver más detalles</a></div>
+        <div class="mb-2 producto-envio">Envío gratis superando los $50.000,00</div>
+        <div class="producto-stock mb-2">¡No te lo pierdas, es el último!</div>
+        <!-- Cantidad y botón -->
+        <form class="d-flex align-items-center mb-3" style="max-width: 300px;">
+          <button type="button" class="btn btn-outline-secondary" onclick="cambiarCantidad(-1)">-</button>
+          <input type="number" id="cantidad" class="producto-cantidad mx-2" value="1" min="1">
+          <button type="button" class="btn btn-outline-secondary" onclick="cambiarCantidad(1)">+</button>
+        </form>
+        <button class="producto-btn mb-3" onclick="agregarAlCarrito()">Agregar al carrito</button>
+        <!-- Medios de envío -->
+        <div class="mb-3">
+          <label for="codigo-postal" class="form-label">Medios de envío</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="codigo-postal" placeholder="Tu código postal">
+            <button class="btn btn-outline-secondary" type="button">Calcular</button>
+          </div>
+          <a href="#" style="font-size:0.95rem; color:#3b5d50;">No sé mi código postal</a>
+        </div>
+      </div>
+    </div>
+    <!-- Descripción larga centrada y destacada -->
+    <div class="row justify-content-center mt-5">
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0 p-4" style="background:#f9f7f4;">
+          <h3 class="fw-bold mb-3 text-center" style="color:#1f3c5a;">Yerbera Bariloche</h3>
+          <ul class="mb-3" style="list-style:none; padding-left:0; font-size:1.15rem; color:#444; text-align:center;">
+            <li><b>Material:</b> Lata esmaltada, resistente y fácil de limpiar.</li>
+            <li><b>Capacidad:</b> 500g de yerba.</li>
+            <li><b>Diseño:</b> Ilustración original de josepinta, inspirada en la naturaleza de Bariloche.</li>
+            <li><b>Ideal para:</b> Mantener tu yerba fresca y decorar tu cocina.</li>
+          </ul>
+          <div class="text-center" style="margin-top:1rem; color:#b67c3a; font-weight:600;">
+            ¡Sumá arte y color patagónico a tu ritual del mate!
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <a href="tienda.html" class="btn btn-outline-primary">&larr; Volver a la tienda</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      actualizarCarrito();
+    });
+
+    function cambiarImagen(img) {
+      document.getElementById('main-img').src = img.src;
+      document.querySelectorAll('.producto-gallery img').forEach(i => i.classList.remove('active'));
+      img.classList.add('active');
+    }
+    function cambiarCantidad(delta) {
+      const input = document.getElementById('cantidad');
+      let val = parseInt(input.value) + delta;
+      if(val < 1) val = 1;
+      input.value = val;
+    }
+    function agregarAlCarrito() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      const producto = {
+        nombre: "Jarro Zorrito Invierno", // Cambia según el producto
+        precio: 21900, // Cambia según el producto
+        cantidad: parseInt(document.getElementById('cantidad')?.value || 1)
+      };
+      const existente = carrito.find(p => p.nombre === producto.nombre);
+      if (existente) {
+        existente.cantidad += producto.cantidad;
+      } else {
+        carrito.push(producto);
+      }
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      actualizarCarrito();
+      alert(producto.nombre + " agregado al carrito");
+    }
+
+    function actualizarCarrito() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      let total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+      let badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'inline-block' : 'none';
+      }
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

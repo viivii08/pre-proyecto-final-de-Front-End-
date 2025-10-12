@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de compras - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f4f1ee;
+      font-family: 'Poppins', sans-serif;
+      color: #2b2b2b;
+    }
+    .carrito-section {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem;
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+    .carrito-titulo {
+      color: #3b5d50;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 2rem;
+    }
+    .carrito-vacio {
+      color: #aaa;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 3rem 0;
+    }
+    .carrito-producto-img {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      background: #f4f1ee;
+    }
+    .carrito-producto-nombre {
+      font-weight: 600;
+      color: #1f3c5a;
+      font-size: 1.1rem;
+    }
+    .carrito-producto-precio {
+      color: #3b5d50;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .carrito-cantidad-input {
+      width: 50px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1.05rem;
+      margin: 0 6px;
+    }
+    .carrito-total {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #b67c3a;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: right;
+    }
+    .btn-carrito {
+      background: linear-gradient(90deg, #f4a259 60%, #b67c3a 100%);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 2px 12px rgba(244,162,89,0.10);
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+    .btn-carrito:hover {
+      background: linear-gradient(90deg, #b67c3a 60%, #f4a259 100%);
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .btn-vaciar {
+      background: #e74c3c;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 0;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: background 0.2s, transform 0.2s;
+      margin-bottom: 1rem;
+    }
+    .btn-vaciar:hover {
+      background: #c0392b;
+      color: #fff;
+      transform: translateY(-2px) scale(1.03);
+    }
+    .carrito-acciones {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    @media (max-width: 991px) {
+      .carrito-section { padding: 1.5rem 0.5rem; }
+    }
+    @media (max-width: 767px) {
+      .carrito-section { padding: 1rem 0.2rem; }
+      .carrito-total { text-align: left; }
+    }
+    .navbar .bi-cart3 {
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:48px; width:auto; margin-right:10px;">
+        Patagonia Style
+      </a>
+      <div class="collapse navbar-collapse" id="navbarEcommerce">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="tienda.html">Tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portafolio.html">Portafolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacto.html">Contacto</a>
+          </li>
+        </ul>
+        <form class="d-flex me-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
+          <i class="bi bi-person"></i>
+        </a>
+        <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
+          <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <main class="container d-flex justify-content-center">
+    <section class="carrito-section w-100">
+      <h2 class="carrito-titulo"><i class="bi bi-cart3 me-2"></i>Carrito de compras</h2>
+      <div id="carrito-contenido"></div>
+      <div class="carrito-acciones mt-4">
+        <a href="tienda.html" class="btn btn-outline-primary">&larr; Seguir comprando</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    // Productos demo para mostrar imágenes (ajusta según tus productos)
+    const imagenesProductos = {
+      "Jarro Zorrito Invierno": "img/jarro1.jpg",
+      "Cuaderno Zorro": "img/cuaderno1.jpg",
+      "Yerbera Bariloche": "img/yerbera-bariloche.jpg"
+    };
+
+    function mostrarCarrito() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      let contenedor = document.getElementById('carrito-contenido');
+      if (carrito.length === 0) {
+        contenedor.innerHTML = '<div class="carrito-vacio"><i class="bi bi-cart-x" style="font-size:2.5rem;"></i><br>Tu carrito está vacío.</div>';
+        return;
+      }
+      let html = `<div class="table-responsive"><table class="table align-middle">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Producto</th>
+            <th class="text-center">Cantidad</th>
+            <th class="text-end">Precio</th>
+            <th class="text-end">Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>`;
+      let total = 0;
+      carrito.forEach((prod, idx) => {
+        let subtotal = prod.precio * prod.cantidad;
+        total += subtotal;
+        html += `<tr>
+          <td>
+            <img src="${imagenesProductos[prod.nombre] || 'img/no-image.png'}" alt="${prod.nombre}" class="carrito-producto-img">
+          </td>
+          <td class="carrito-producto-nombre">${prod.nombre}</td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${idx}, -1)">-</button>
+            <input type="number" min="1" class="carrito-cantidad-input" value="${prod.cantidad}" onchange="setCantidad(${idx}, this.value)">
+            <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${idx}, 1)">+</button>
+          </td>
+          <td class="text-end carrito-producto-precio">$${prod.precio.toLocaleString()}</td>
+          <td class="text-end carrito-producto-precio">$${subtotal.toLocaleString()}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-danger" title="Eliminar" onclick="eliminarProducto(${idx})"><i class="bi bi-trash"></i></button>
+          </td>
+        </tr>`;
+      });
+      html += `</tbody></table></div>`;
+      html += `<div class="carrito-total">Total: $${total.toLocaleString()}</div>`;
+      html += `<button class="btn-carrito" onclick="finalizarCompra()"><i class="bi bi-bag-check"></i> Finalizar compra</button>
+      <button class="btn-vaciar" onclick="vaciarCarrito()"><i class="bi bi-trash"></i> Vaciar carrito</button>`;
+      contenedor.innerHTML = html;
+    }
+
+    function cambiarCantidad(idx, delta) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito[idx].cantidad += delta;
+      if (carrito[idx].cantidad < 1) carrito[idx].cantidad = 1;
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+      actualizarCarrito();
+    }
+
+    function setCantidad(idx, value) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      let cantidad = parseInt(value);
+      if (isNaN(cantidad) || cantidad < 1) cantidad = 1;
+      carrito[idx].cantidad = cantidad;
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+      actualizarCarrito();
+    }
+
+    function eliminarProducto(idx) {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito.splice(idx, 1);
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      mostrarCarrito();
+      actualizarCarrito();
+    }
+
+    function vaciarCarrito() {
+      localStorage.removeItem('carrito');
+      mostrarCarrito();
+      actualizarCarrito();
+    }
+
+    function finalizarCompra() {
+      alert('¡Gracias por tu compra! (funcionalidad demo)');
+      vaciarCarrito();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      mostrarCarrito();
+      actualizarCarrito();
+    });
+
+    function actualizarCarrito() {
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      let total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+      let badge = document.getElementById('cart-count');
+      if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'inline-block' : 'none';
+      }
+    }
+  </script>
+</body>
+</html>
