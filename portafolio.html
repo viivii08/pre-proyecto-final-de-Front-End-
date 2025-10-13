@@ -168,94 +168,101 @@
   </style>
 </head>
 <body>
-
-  <!-- Navbar moderna para ecommerce -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="index.html">
-      <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:48px; width:auto; margin-right:10px;">
-      Patagonia Style
-    </a>
-    <!-- Botón hamburguesa -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Contenido navbar -->
-    <div class="collapse navbar-collapse" id="navbarEcommerce">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-          <a class="nav-link" href="tienda.html">Tienda</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="portafolio.html">Portafolio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contacto.html">Contacto</a>
-        </li>
-      
-      </ul>
-      <!-- Barra de búsqueda -->
-      <form class="d-flex me-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
-        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-      </form>
-      <!-- Íconos usuario y carrito -->
-      <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
-        <i class="bi bi-person"></i>
+  <!-- Navbar simple -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:40px; width:auto; margin-right:10px;">
+        Patagonia Style
       </a>
-      <a href="#" class="btn btn-outline-light position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" title="Carrito">
-        <i class="bi bi-cart3"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-          0
-        </span>
-      </a>
+      <div class="collapse navbar-collapse" id="navbarEcommerce">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="tienda.html">Tienda</a></li>
+          <li class="nav-item"><a class="nav-link active" href="portafolio.html">Portafolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
-  <!-- Header -->
-  <header class="portfolio-header">
-    <h1>Mi Portfolio</h1>
-    <p>Una selección de proyectos creativos inspirados en la Patagonia</p>
+  <!-- Título -->
+  <header class="py-5 text-center" style="background:#f4f1ee;">
+    <h1 style="color:#1f3c5a; font-weight:700;">Mi Portfolio</h1>
+    <p style="color:#3b5d50;">Proyectos creativos inspirados en la Patagonia</p>
   </header>
 
-  <!-- Portfolio Section -->
-  <section class="container py-5">
+  <!-- Portfolio sencillo -->
+  <main class="container py-5">
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-8">
+        <div class="alert alert-warning text-center shadow-sm" style="font-size:1.15rem; background: #fffbe6; border: 1px solid #ffe08a;">
+          <i class="bi bi-tools" style="font-size:2rem; color:#b67c3a;"></i><br>
+          <b>¡Portafolio en construcción!</b><br>
+          Pronto vas a poder ver más proyectos y obras inspiradas en la naturaleza y los paisajes de la Patagonia.<br>
+          <span style="color:#b67c3a;">Esta sección está creciendo, igual que la inspiración en cada estación del año.</span>
+        </div>
+      </div>
+    </div>
     <div class="row g-4">
-      <div class="col-md-4">
-        <div class="portfolio-item">
-          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" alt="Proyecto 1">
-          <div class="portfolio-content">
-            <h5>Proyecto 1</h5>
-            <p>Diseño gráfico inspirado en los paisajes sureños.</p>
+      <!-- Primavera -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm border-0">
+          <img src="pages/primavera.webp" class="card-img-top" alt="Primavera">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color:#1f3c5a;">Primavera</h5>
+            <p class="card-text" style="color:#444;">
+              La temperatura y la duración de los días aumentan.<br>
+              Brotan flores y la naturaleza se renueva.
+            </p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="portfolio-item">
-          <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=800&q=80" alt="Proyecto 2">
-          <div class="portfolio-content">
-            <h5>Proyecto 2</h5>
-            <p>Arte impreso con motivos de flora y fauna local.</p>
+      <!-- Verano -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm border-0">
+          <img src="pages/verano.webp" class="card-img-top" alt="Verano">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color:#1f3c5a;">Verano</h5>
+            <p class="card-text" style="color:#444;">
+              Temperaturas más altas y los días más largos del año.<br>
+              Colores intensos y energía vibrante.
+            </p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="portfolio-item">
-          <img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=800&q=80" alt="Proyecto 3">
-          <div class="portfolio-content">
-            <h5>Proyecto 3</h5>
-            <p>Cuadernos ilustrados con identidad regional.</p>
+      <!-- Otoño -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm border-0">
+          <img src="pages/cabaña-otonio.webp" class="card-img-top" alt="Otoño">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color:#1f3c5a;">Otoño</h5>
+            <p class="card-text" style="color:#444;">
+              Temperaturas en descenso y los días se acortan.<br>
+              Hojas doradas y paisajes cálidos.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Invierno -->
+      <div class="col-md-3">
+        <div class="card h-100 shadow-sm border-0">
+          <img src="pages/invierno.webp" class="card-img-top" alt="Invierno">
+          <div class="card-body text-center">
+            <h5 class="card-title" style="color:#1f3c5a;">Invierno</h5>
+            <p class="card-text" style="color:#444;">
+              Las temperaturas más bajas y los días más cortos del año.<br>
+              Paisajes nevados y calma patagónica.
+            </p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <!-- Footer -->
-  <footer>
+  <!-- Footer simple -->
+  <footer class="py-4 text-center" style="background: #1f3c5a; color: #fff;">
     <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+    <p>Creado por Vargas Viviana</p>
     <p><a href="#">Instagram</a> | <a href="#">Facebook</a></p>
   </footer>
 
