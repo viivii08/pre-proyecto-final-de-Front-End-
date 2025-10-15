@@ -13,6 +13,28 @@
       font-family: 'Poppins', sans-serif;
       color: #2b2b2b;
     }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 999;
+      background: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .whatsapp-float:hover {
+      background: #128c7e;
+      color: #fff;
+      transform: scale(1.08);
+    }
     .carrito-section {
       background: #fff;
       border-radius: 18px;
@@ -377,10 +399,64 @@
     }
   </script>
 
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <!-- Botón flotante para volver al inicio -->
+  <button onclick="irAInicio()" id="btnVolverInicio" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(90deg, #1f3c5a, #3b5d50);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: none;
+  " title="Ir al inicio">
+    <i class="bi bi-house-fill"></i> Inicio
+  </button>
+
   <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
     <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
     <p>Creado por Vargas Viviana</p>
     <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
   </footer>
+
+  <script>
+    // Función para ir al inicio
+    function irAInicio() {
+      window.location.href = 'index.html';
+    }
+
+    // Mostrar/ocultar botón según scroll
+    window.onscroll = function() {
+      let btn = document.getElementById('btnVolverInicio');
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+
+    // Efecto hover
+    document.getElementById('btnVolverInicio').addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.05)';
+      this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
+    });
+    
+    document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1)';
+      this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
+    });
+  </script>
 </body>
 </html>
