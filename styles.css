@@ -126,3 +126,17 @@ textarea {
 .navbar .bi-cart3 {
   color: #fff !important;
 }
+
+/* TESTIMONIOS - FONDO BLANCO SIMPLE */
+.testimonial-container {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.testimonial-container p {
+  color: #333 !important;
+}
+
+.testimonial-container h5 {
+  color: #2c3e50 !important;
+}
