@@ -218,11 +218,11 @@
       <!-- Galería lateral -->
       <div class="col-md-1 d-flex flex-md-column flex-row align-items-md-start align-items-center producto-gallery">
         <img src="pages/yerbera-fondo-4ab23bd97fa2c37cbf17596964157523-1024-1024.webp" alt="Yerbera Bariloche" class="active" onclick="cambiarImagen(this)">
-        <img src="pages/yerbraportada.webp" alt="Yerbera Bariloche" onclick="cambiarImagen(this)">
+        <img src="pages/yerbera4-5f37e6c49e8e21663617596865116643-640-0.webp" alt="Yerbera Bariloche" onclick="cambiarImagen(this)">
       </div>
       <!-- Imagen principal -->
       <div class="col-md-6">
-        <img id="main-img" src="pages/yerbera1.webp" alt="Yerbera Bariloche" class="producto-main-img">
+        <img id="main-img" src="pages/yerbera-fondo-4ab23bd97fa2c37cbf17596964157523-1024-1024.webp" alt="Yerbera Bariloche" class="producto-main-img">
       </div>
       <!-- Info producto -->
       <div class="col-md-5">
@@ -343,8 +343,8 @@
     function agregarAlCarrito() {
       let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       const producto = {
-        nombre: "Jarro Zorrito Invierno", // Cambia según el producto
-        precio: 21900, // Cambia según el producto
+        nombre: "Yerbera Bariloche",
+        precio: 24900,
         cantidad: parseInt(document.getElementById('cantidad')?.value || 1)
       };
       const existente = carrito.find(p => p.nombre === producto.nombre);
