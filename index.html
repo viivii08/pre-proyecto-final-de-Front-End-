@@ -702,42 +702,14 @@
   <script src="js/users.js"></script>
   <script src="js/navigation.js"></script>
   <script>
-    // Configuración específica para la página de inicio
+    // Inicialización de la página principal
     document.addEventListener('DOMContentLoaded', () => {
-      // Renderizar navbar usando el componente
-      const navbarContainer = document.getElementById('navbar-container');
-      if (navbarContainer) {
-        navbarContainer.innerHTML = navigationComponent.renderNavbar();
-        navigationComponent.init();
-        
-        // Solución simple para el toggle del navbar
-        setTimeout(() => {
-          const navbarToggler = document.querySelector('.navbar-toggler');
-          const navbarCollapse = document.querySelector('#navbarContent');
-          
-          if (navbarToggler && navbarCollapse) {
-            // Usar Bootstrap nativo
-            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-              toggle: false
-            });
-            
-            navbarToggler.addEventListener('click', function(e) {
-              e.preventDefault();
-              bsCollapse.toggle();
-            });
-            
-            // Cerrar al hacer click en enlaces
-            document.addEventListener('click', function(e) {
-              if (e.target.closest('.nav-link, .auth-btn')) {
-                bsCollapse.hide();
-              }
-            });
-          }
-        }, 200);
-      }
-
-      // Esperar a que store esté disponible
+      // El sistema de navegación se inicializa automáticamente
+      // Actualizar contadores después de un momento
       setTimeout(() => {
+        if (typeof navigationSystem !== 'undefined') {
+          navigationSystem.updateCartCounter();
+        }
         if (typeof store !== 'undefined') {
           store.actualizarContadorCarrito();
         }

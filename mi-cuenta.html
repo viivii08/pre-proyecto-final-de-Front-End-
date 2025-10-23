@@ -239,67 +239,7 @@
 </head>
 <body>
   <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
-    <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" height="35" class="me-2">
-        <span class="fw-bold">Patagonia Style</span>
-      </a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="tienda.html">Tienda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="portafolio.html">Portafolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contacto.html">Contacto</a>
-          </li>
-        </ul>
-        
-        <div class="d-flex align-items-center">
-          <!-- User Menu -->
-          <div class="dropdown me-3" id="userDropdown" style="display: none;">
-            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-              <i class="bi bi-person"></i>
-              <span id="userNameNav">Mi Cuenta</span>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="mi-cuenta.html"><i class="bi bi-person-circle me-2"></i>Mi Cuenta</a></li>
-              <li><a class="dropdown-item" href="mis-pedidos.html"><i class="bi bi-box-seam me-2"></i>Mis Pedidos</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#" onclick="userManager.logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
-            </ul>
-          </div>
-          
-          <!-- Login/Register buttons -->
-          <div id="authButtons">
-            <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
-              <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
-            </button>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
-              <i class="bi bi-person-plus"></i> Registrarse
-            </button>
-          </div>
-          
-          <!-- Cart -->
-          <a href="carrito.html" class="btn btn-outline-light ms-2 position-relative">
-            <i class="bi bi-cart"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div id="navbar-container"></div>
 
   <div class="container my-5">
     <!-- Welcome Message -->
@@ -682,67 +622,48 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/navigation.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Verificar si el usuario está logueado
-      if (!userManager.isLoggedIn()) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!currentUser) {
+        // Redirigir al inicio si no está logueado
+        alert('Debes iniciar sesión para acceder a tu cuenta');
         window.location.href = 'index.html';
         return;
       }
 
       // Cargar datos del usuario
-      loadUserProfile();
+      loadUserProfile(currentUser);
       loadUserOrders();
       loadUserAddresses();
 
       // Event listeners
       document.getElementById('profile-form').addEventListener('submit', saveProfile);
-      document.getElementById('login-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-        
-        if (userManager.login(email, password)) {
-          bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
-          location.reload();
-        }
-      });
-
-      document.getElementById('register-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const userData = {
-          firstName: document.getElementById('register-firstName').value,
-          lastName: document.getElementById('register-lastName').value,
-          email: document.getElementById('register-email').value,
-          password: document.getElementById('register-password').value,
-          confirmPassword: document.getElementById('register-confirmPassword').value
-        };
-        
-        if (userManager.register(userData)) {
-          bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
-          location.reload();
-        }
-      });
 
       // Actualizar contador del carrito
-      if (typeof store !== 'undefined') {
-        store.actualizarContadorCarrito();
+      if (typeof navigationSystem !== 'undefined') {
+        navigationSystem.updateCartCounter();
       }
     });
 
-    function loadUserProfile() {
-      const user = userManager.getCurrentUser();
+    function loadUserProfile(user) {
       if (!user) return;
 
-      document.getElementById('profile-name').textContent = `${user.firstName} ${user.lastName}`;
+      // Actualizar encabezado del perfil
+      document.getElementById('profile-name').textContent = user.name || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
       document.getElementById('profile-email').textContent = user.email;
-      document.getElementById('userNameNav').textContent = user.firstName;
 
-      // Llenar formulario
-      document.getElementById('firstName').value = user.firstName || '';
-      document.getElementById('lastName').value = user.lastName || '';
+      // Llenar formulario - adaptar a la estructura de nuestro sistema
+      const firstName = user.name ? user.name.split(' ')[0] : (user.firstName || '');
+      const lastName = user.name ? user.name.split(' ').slice(1).join(' ') : (user.lastName || '');
+      
+      document.getElementById('firstName').value = firstName;
+      document.getElementById('lastName').value = lastName;
       document.getElementById('email').value = user.email || '';
       document.getElementById('phone').value = user.phone || '';
       document.getElementById('birthDate').value = user.birthDate || '';
@@ -836,18 +757,37 @@
     function saveProfile(e) {
       e.preventDefault();
       
-      const userData = {
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        birthDate: document.getElementById('birthDate').value
-      };
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      if (!currentUser) return;
+      
+      // Actualizar datos del usuario
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      
+      currentUser.name = `${firstName} ${lastName}`.trim();
+      currentUser.firstName = firstName;
+      currentUser.lastName = lastName;
+      currentUser.phone = document.getElementById('phone').value;
+      currentUser.birthDate = document.getElementById('birthDate').value;
 
-      if (userManager.updateProfile(userData)) {
-        userManager.showNotification('Perfil actualizado correctamente', 'success');
-        loadUserProfile(); // Recargar datos
+      // Guardar en localStorage
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      
+      // Actualizar también en la lista de usuarios registrados
+      const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+      const userIndex = users.findIndex(u => u.email === currentUser.email);
+      if (userIndex !== -1) {
+        users[userIndex] = currentUser;
+        localStorage.setItem('registeredUsers', JSON.stringify(users));
       }
+
+      // Mostrar notificación
+      if (typeof navigationSystem !== 'undefined') {
+        navigationSystem.showNotification('Perfil actualizado correctamente', 'success');
+      }
+      
+      // Recargar datos del perfil
+      loadUserProfile(currentUser);
     }
 
     function getStatusText(status) {
