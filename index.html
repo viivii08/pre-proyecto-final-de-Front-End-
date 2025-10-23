@@ -38,6 +38,193 @@
     .icon-nav:hover { transform: scale(1.2); color: var(--accent-color); }
     .cart-count { position: absolute; top: -6px; right: -10px; background: var(--accent-color); color: #fff; font-size: 0.75rem; border-radius: 50%; padding: 2px 6px; }
 
+    /* User Menu Styles */
+    .user-avatar {
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    
+    .user-avatar-large {
+      font-size: 2rem;
+      color: var(--primary-color);
+    }
+    
+    .dropdown-menu {
+      border: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border-radius: 15px;
+      padding: 10px 0;
+      min-width: 280px;
+      margin-top: 10px;
+    }
+    
+    .dropdown-header {
+      padding: 15px 20px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      margin: -10px 0 10px 0;
+      border-radius: 15px 15px 0 0;
+    }
+    
+    .dropdown-item {
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+      border-radius: 0;
+    }
+    
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .dropdown-item i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Auth Buttons Styles */
+    .btn-warning {
+      background: linear-gradient(135deg, var(--accent-color), #d4941e);
+      border: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-warning:hover {
+      background: linear-gradient(135deg, #d4941e, var(--accent-color));
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(182, 124, 58, 0.4);
+    }
+    
+    /* Navbar Button Improvements */
+    .navbar .btn-outline-light {
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .navbar .btn-outline-light:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.5);
+      transform: translateY(-1px);
+    }
+    
+    /* Search Bar Improvements */
+    .input-group .form-control {
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+    
+    .input-group .form-control::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .input-group .form-control:focus {
+      background: rgba(255,255,255,0.25);
+      color: white;
+      box-shadow: none;
+      border: none;
+    }
+    
+    .input-group .btn {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+    }
+    
+    .input-group .btn:hover {
+      background: var(--accent-color);
+    }
+    
+    /* Responsive improvements */
+    @media (max-width: 768px) {
+      .navbar .form-control {
+        min-width: 180px !important;
+      }
+      
+      .btn span.d-none.d-sm-inline {
+        display: none !important;
+      }
+      
+      .dropdown-menu {
+        min-width: 250px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .navbar form[role="search"] {
+        min-width: 150px !important;
+      }
+      
+      .navbar .btn {
+        padding: 8px 12px !important;
+      }
+      
+      .navbar .btn i {
+        font-size: 1rem;
+      }
+    }
+
+    /* Modal Enhancements */
+    .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(31, 60, 90, 0.25);
+    }
+    
+    .modal-content {
+      overflow: hidden;
+    }
+    
+    .modal-header {
+      border: none;
+    }
+    
+    .modal-body {
+      background: #fafafa;
+    }
+    
+    /* User Avatar Styles */
+    .user-avatar, .user-avatar-large {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Search Enhancement */
+    .navbar .form-control {
+      border-radius: 25px;
+      border: 2px solid transparent;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      backdrop-filter: blur(10px);
+    }
+    
+    .navbar .form-control::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    
+    .navbar .form-control:focus {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--accent-color);
+      color: white;
+      box-shadow: 0 0 0 0.2rem rgba(182, 124, 58, 0.25);
+    }
+    
+    .navbar .btn-outline-light {
+      border-radius: 25px;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .navbar .btn-outline-light:hover {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-1px);
+    }
+
     /* Hero Carousel */
     .carousel-item {
       height: 90vh;
@@ -140,48 +327,8 @@
 </head>
 <body>
 
-  <!-- Navbar -->
-  <!-- Navbar moderna para ecommerce -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
-  <div class="container">
-    <!-- Logo -->
-    <a class="navbar-brand fw-bold" href="index.html">
-      <img src="pages/logo%20sin%20fondo%20(1).png" alt="Patagonia Style" style="height:32px; width:auto; margin-right:8px;">
-      Patagonia Style
-    </a>
-    <!-- Botón hamburguesa -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Contenido navbar -->
-    <div class="collapse navbar-collapse" id="navbarEcommerce">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="tienda.html">Tienda</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="portafolio.html">Portafolio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contacto.html">Contacto</a>
-        </li>
-      </ul>
-      <!-- Barra de búsqueda -->
-      <form class="d-flex me-3" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
-        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-      </form>
-      <!-- Íconos usuario y carrito -->
-      <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
-        <i class="bi bi-person"></i>
-      </a>
-      <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
-        <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
-        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
-      </a>
-    </div>
-  </div>
-</nav>
+  <!-- Sistema de Navegación Modular - Patagonia Style -->
+  <div id="navbar-container"></div>
 
 <!-- Preload para mejorar carga de imagen externa -->
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?auto=format&fit=crop&w=1600&q=80">
@@ -338,13 +485,204 @@
     <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
   </footer>
 
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 15px 15px 0 0; padding: 20px;">
+          <h5 class="modal-title" id="loginModalLabel">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding: 25px;">
+          <form id="login-form">
+            <div class="mb-3">
+              <label for="login-email" class="form-label">
+                <i class="bi bi-envelope me-2"></i>Correo Electrónico
+              </label>
+              <input type="email" class="form-control" id="login-email" required 
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="mb-3">
+              <label for="login-password" class="form-label">
+                <i class="bi bi-lock me-2"></i>Contraseña
+              </label>
+              <input type="password" class="form-control" id="login-password" required
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="remember-me">
+              <label class="form-check-label" for="remember-me" style="font-size: 0.9rem;">
+                Recordarme
+              </label>
+            </div>
+            <button type="submit" class="btn w-100" 
+                    style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); 
+                           color: white; border-radius: 8px; padding: 10px; font-weight: 600; font-size: 0.95rem;">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+            </button>
+          </form>
+          <div class="text-center mt-3">
+            <a href="#" class="text-decoration-none" style="color: var(--primary-color); font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
+          </div>
+          <hr style="margin: 15px 0;">
+          <div class="text-center">
+            <p class="mb-2" style="font-size: 0.9rem;">¿No tienes cuenta?</p>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal"
+                    style="border-radius: 8px; font-size: 0.9rem;">
+              <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+    <!-- Register Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+        <div class="modal-header" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; border-radius: 15px 15px 0 0; padding: 20px;">
+          <h5 class="modal-title" id="registerModalLabel">
+            <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding: 25px;">
+          <form id="register-form">
+            <div class="mb-3">
+              <label for="register-name" class="form-label">
+                <i class="bi bi-person me-2"></i>Nombre Completo
+              </label>
+              <input type="text" class="form-control" id="register-name" required
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="mb-3">
+              <label for="register-email" class="form-label">
+                <i class="bi bi-envelope me-2"></i>Correo Electrónico
+              </label>
+              <input type="email" class="form-control" id="register-email" required
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="mb-3">
+              <label for="register-password" class="form-label">
+                <i class="bi bi-lock me-2"></i>Contraseña
+              </label>
+              <input type="password" class="form-control" id="register-password" required
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="mb-3">
+              <label for="register-confirm-password" class="form-label">
+                <i class="bi bi-lock-fill me-2"></i>Confirmar Contraseña
+              </label>
+              <input type="password" class="form-control" id="register-confirm-password" required
+                     style="border-radius: 8px; padding: 10px; border: 2px solid #e9ecef; font-size: 0.9rem;">
+            </div>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="accept-terms" required>
+              <label class="form-check-label" for="accept-terms" style="font-size: 0.9rem;">
+                Acepto los <a href="#" style="color: var(--primary-color);">términos y condiciones</a>
+              </label>
+            </div>
+            <button type="submit" class="btn w-100" 
+                    style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); 
+                           color: white; border-radius: 8px; padding: 10px; font-weight: 600; font-size: 0.95rem;">
+              <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+            </button>
+          </form>
+          <hr style="margin: 15px 0;">
+          <div class="text-center">
+            <p class="mb-2" style="font-size: 0.9rem;">¿Ya tienes cuenta?</p>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#loginModal"
+                    style="border-radius: 8px; font-size: 0.9rem;">
+              <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Modal for New Users -->
+  <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
+        <div class="modal-header" style="background: linear-gradient(135deg, #00b894, #55efc4); color: white; border-radius: 15px 15px 0 0;">
+          <h5 class="modal-title" id="welcomeModalLabel">
+            <i class="bi bi-check-circle me-2"></i>¡Bienvenido a Patagonia Style!
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center" style="padding: 30px;">
+          <div class="mb-4">
+            <i class="bi bi-emoji-smile" style="font-size: 4rem; color: var(--accent-color);"></i>
+          </div>
+          <h4>¡Tu cuenta ha sido creada exitosamente!</h4>
+          <p class="text-muted mb-4">Ya puedes disfrutar de todos los beneficios de ser parte de nuestra comunidad.</p>
+          <div class="row text-center">
+            <div class="col-4">
+              <i class="bi bi-box-seam" style="font-size: 2rem; color: var(--primary-color);"></i>
+              <p class="small mt-2">Historial de pedidos</p>
+            </div>
+            <div class="col-4">
+              <i class="bi bi-geo-alt" style="font-size: 2rem; color: var(--primary-color);"></i>
+              <p class="small mt-2">Direcciones guardadas</p>
+            </div>
+            <div class="col-4">
+              <i class="bi bi-star" style="font-size: 2rem; color: var(--primary-color);"></i>
+              <p class="small mt-2">Califica productos</p>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='tienda.html'">
+            <i class="bi bi-shop me-2"></i>Explorar Tienda
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Botón flotante de WhatsApp -->
 <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
   <i class="bi bi-whatsapp"></i>
 </a>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/navigation.js"></script>
   <script>
+    // Configuración específica para la página de inicio
+    document.addEventListener('DOMContentLoaded', () => {
+      // Renderizar navbar usando el componente
+      const navbarContainer = document.getElementById('navbar-container');
+      if (navbarContainer) {
+        navbarContainer.innerHTML = navigationComponent.renderNavbar();
+        navigationComponent.init();
+      }
+
+      // Esperar a que store esté disponible
+      setTimeout(() => {
+        if (typeof store !== 'undefined') {
+          store.actualizarContadorCarrito();
+        }
+      }, 100);
+    });
+
+    // Agregar funcionalidad de búsqueda en navbar
+    document.addEventListener('submit', function(e) {
+      if (e.target.matches('form[role="search"]')) {
+        e.preventDefault();
+        const searchTerm = e.target.querySelector('input[type="search"]').value;
+        if (searchTerm.trim()) {
+          // Redirigir a tienda con parámetro de búsqueda
+          window.location.href = `tienda.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+      }
+    });
+
+    // Funciones legacy mantenidas para compatibilidad
     const products = [
       {name:"Jarrito Esmaltado", price:15, img:"https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=80"},
       {name:"Cuaderno", price:12, img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80"},
@@ -358,6 +696,7 @@
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     function renderProducts() {
+      if (!productsContainer) return;
       productsContainer.innerHTML = '';
       products.forEach((p, i) => {
         productsContainer.innerHTML += `
@@ -375,6 +714,7 @@
     }
 
     function updateCart() {
+      if (!cartItemsEl) return;
       cartItemsEl.innerHTML = '';
       let total = 0;
       cart.forEach((item, index) => {
@@ -389,8 +729,8 @@
             <td><button class="btn btn-sm btn-danger" onclick="removeFromCart(${index})">Eliminar</button></td>
           </tr>`;
       });
-      cartTotalEl.textContent = total;
-      cartCountEl.textContent = cart.reduce((sum, i) => sum + i.quantity,0);
+      if (cartTotalEl) cartTotalEl.textContent = total;
+      if (cartCountEl) cartCountEl.textContent = cart.reduce((sum, i) => sum + i.quantity,0);
       localStorage.setItem('cart', JSON.stringify(cart));
     }
 
@@ -405,34 +745,41 @@
     function removeFromCart(index){ cart.splice(index,1); updateCart(); }
     function changeQuantity(index, value){ cart[index].quantity = parseInt(value)||1; updateCart(); }
 
-    document.addEventListener('DOMContentLoaded', () => {
+    // Inicialización solo si existen los elementos
+    if (productsContainer) {
       renderProducts();
       updateCart();
       document.querySelectorAll('.add-to-cart').forEach((btn,i) => btn.addEventListener('click', () => addToCart(i)));
+    }
+    
+    if (document.getElementById('checkoutBtn')) {
       document.getElementById('checkoutBtn').addEventListener('click', () => {
         if(cart.length===0) alert('El carrito está vacío.');
         else {
           alert('Gracias por su compra! Total: $'+cart.reduce((s,i)=>s+i.price*i.quantity,0));
           cart = [];
           updateCart();
-          bootstrap.Modal.getInstance(document.getElementById('cartModal')).hide();
+          const modal = document.getElementById('cartModal');
+          if (modal) {
+            bootstrap.Modal.getInstance(modal).hide();
+          }
         }
       });
-    });
+    }
 
-    document.addEventListener('DOMContentLoaded', function() {
-  actualizarCarrito();
-});
-
-function actualizarCarrito() {
-  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-  let total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
-  let badge = document.getElementById('cart-count');
-  if (badge) {
-    badge.textContent = total;
-    badge.style.display = total > 0 ? 'inline-block' : 'none';
-  }
-}
+    function actualizarCarrito() {
+      if (typeof store !== 'undefined') {
+        store.actualizarContadorCarrito();
+      } else {
+        let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        let total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
+        let badge = document.getElementById('cart-count');
+        if (badge) {
+          badge.textContent = total;
+          badge.style.display = total > 0 ? 'inline-block' : 'none';
+        }
+      }
+    }
   </script>
 </body>
 </html>

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Producto - Patagonia Style</title>
+  <meta name="description" id="page-description" content="Descubre nuestros productos únicos inspirados en la Patagonia">
+  <meta name="keywords" id="page-keywords" content="patagonia, productos artesanales, diseño argentino">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" id="og-title" content="Producto - Patagonia Style">
+  <meta property="og:description" id="og-description" content="Descubre nuestros productos únicos inspirados en la Patagonia">
+  <meta property="og:image" id="og-image" content="">
+  <meta property="og:url" id="og-url" content="">
+  <meta property="og:type" content="product">
+  
+  <!-- Schema.org para producto -->
+  <script type="application/ld+json" id="product-schema">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Product",
+    "name": "",
+    "description": "",
+    "image": [],
+    "brand": {
+      "@type": "Brand",
+      "name": "Patagonia Style"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "",
+      "priceCurrency": "ARS",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f4f1ee;
+      font-family: 'Poppins', sans-serif;
+      color: #2b2b2b;
+    }
+    .product-container {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem;
+      margin: 2rem 0;
+    }
+    .product-image-main {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .product-image-main:hover {
+      transform: scale(1.02);
+    }
+    .product-thumbnail {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    .product-thumbnail:hover,
+    .product-thumbnail.active {
+      border-color: #3b5d50;
+      transform: scale(1.05);
+    }
+    .product-title {
+      color: #1f3c5a;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .product-price {
+      font-size: 2rem;
+      color: #3b5d50;
+      font-weight: 700;
+    }
+    .product-price-old {
+      font-size: 1.3rem;
+      color: #888;
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+    .badge-discount {
+      background: #f4a259;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .product-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #444;
+      margin: 1.5rem 0;
+    }
+    .characteristics-list {
+      list-style: none;
+      padding: 0;
+    }
+    .characteristics-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .characteristics-list li:last-child {
+      border-bottom: none;
+    }
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .quantity-btn {
+      background: #3b5d50;
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .quantity-btn:hover {
+      background: #2a4538;
+    }
+    .quantity-input {
+      width: 80px;
+      text-align: center;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 8px;
+      font-weight: 600;
+    }
+    .btn-add-cart {
+      background: linear-gradient(90deg, #f4a259 60%, #b67c3a 100%);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      width: 100%;
+      margin: 20px 0;
+      transition: all 0.3s;
+    }
+    .btn-add-cart:hover {
+      background: linear-gradient(90deg, #b67c3a 60%, #f4a259 100%);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .btn-add-cart:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .stock-info {
+      background: #e8f5e8;
+      border-left: 4px solid #28a745;
+      padding: 10px 15px;
+      border-radius: 5px;
+      margin: 15px 0;
+    }
+    .stock-info.low-stock {
+      background: #fff3cd;
+      border-left-color: #ffc107;
+    }
+    .stock-info.out-of-stock {
+      background: #f8d7da;
+      border-left-color: #dc3545;
+    }
+    .breadcrumb {
+      background: transparent;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+    .breadcrumb-item a {
+      color: #3b5d50;
+      text-decoration: none;
+    }
+    .breadcrumb-item.active {
+      color: #666;
+    }
+    .related-products {
+      margin-top: 50px;
+    }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      z-index: 999;
+      background: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.3rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .whatsapp-float:hover {
+      background: #128c7e;
+      color: #fff;
+      transform: scale(1.08);
+    }
+    .rating-stars {
+      color: #ffc107;
+      margin: 10px 0;
+    }
+    .tab-content {
+      margin-top: 20px;
+    }
+    .nav-tabs .nav-link {
+      color: #3b5d50;
+      border: none;
+      background: transparent;
+      border-bottom: 3px solid transparent;
+      font-weight: 600;
+    }
+    .nav-tabs .nav-link.active {
+      color: #3b5d50;
+      background: transparent;
+      border-bottom-color: #3b5d50;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:32px; width:auto; margin-right:8px;">
+        Patagonia Style
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarEcommerce">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="tienda.html">Tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portafolio.html">Portafolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacto.html">Contacto</a>
+          </li>
+        </ul>
+        <form class="d-flex me-3" role="search">
+          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
+          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
+          <i class="bi bi-person"></i>
+        </a>
+        <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
+          <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
+          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Breadcrumb y navegación mejorada -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+          <li class="breadcrumb-item"><a href="tienda.html">Tienda</a></li>
+          <li class="breadcrumb-item active" aria-current="page" id="breadcrumb-product">Producto</li>
+        </ol>
+      </nav>
+      <a href="tienda.html" class="btn btn-outline-primary btn-sm">
+        <i class="bi bi-arrow-left"></i> Volver a la Tienda
+      </a>
+    </div>
+
+    <div class="product-container" id="product-content">
+      <!-- El contenido del producto se carga dinámicamente -->
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Productos relacionados -->
+    <div class="related-products" id="related-products" style="display: none;">
+      <h3 class="text-center mb-4" style="color: #3b5d50; font-weight: 600;">Productos relacionados</h3>
+      <div class="row" id="related-products-container">
+        <!-- Se cargan dinámicamente -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal para imagen ampliada -->
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img id="modal-image" src="" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
+    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+    <p>Creado por Vargas Viviana</p>
+    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
+  </footer>
+
+  <!-- Botón flotante de WhatsApp -->
+  <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/ratings.js"></script>
+  <script>
+    let currentProduct = null;
+    let selectedQuantity = 1;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cargarProducto();
+      setTimeout(() => {
+        if (typeof store !== 'undefined') {
+          store.actualizarContadorCarrito();
+        }
+      }, 100);
+    });
+
+    function cargarProducto() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = parseInt(urlParams.get('id'));
+      
+      if (!productId) {
+        mostrarError('Producto no encontrado');
+        return;
+      }
+
+      // Esperar a que store esté disponible
+      setTimeout(() => {
+        if (typeof store !== 'undefined' && store.productos) {
+          currentProduct = store.productos.find(p => p.id === productId);
+          if (currentProduct) {
+            renderizarProducto(currentProduct);
+            cargarProductosRelacionados();
+            actualizarSEO(currentProduct);
+            cargarResenasProducto(productId);
+          } else {
+            mostrarError('Producto no encontrado');
+          }
+        } else {
+          mostrarError('Error al cargar el producto');
+        }
+      }, 200);
+    }
+
+    function renderizarProducto(producto) {
+      const container = document.getElementById('product-content');
+      
+      // Obtener calificaciones del producto
+      let averageRating = 0;
+      let totalReviews = 0;
+      if (typeof ratingSystem !== 'undefined') {
+        averageRating = ratingSystem.getAverageRating(producto.id);
+        totalReviews = ratingSystem.getTotalReviews(producto.id);
+      }
+      
+      // Determinar estado del stock
+      let stockClass = 'stock-info';
+      let stockMessage = `✅ Disponible (${producto.stock} unidades)`;
+      
+      if (producto.stock <= 0) {
+        stockClass += ' out-of-stock';
+        stockMessage = '❌ Sin stock';
+      } else if (producto.stock < 5) {
+        stockClass += ' low-stock';
+        stockMessage = `⚠️ ¡Últimas ${producto.stock} unidades!`;
+      }
+
+      const descuentoBadge = producto.descuento > 0 ? 
+        `<span class="badge-discount">${producto.descuento}% OFF</span>` : '';
+
+      const precioOriginal = producto.precioOriginal ? 
+        `<span class="product-price-old">$${producto.precioOriginal.toLocaleString()}</span>` : '';
+
+      // Generar miniaturas de imágenes
+      const thumbnails = producto.imagenes.map((img, index) => 
+        `<img src="${img}" alt="${producto.nombre}" class="product-thumbnail ${index === 0 ? 'active' : ''}" onclick="cambiarImagenPrincipal('${img}', this)">`
+      ).join('');
+
+      // Generar lista de características
+      const caracteristicas = producto.caracteristicas ? 
+        producto.caracteristicas.map(car => `<li><span>${car}</span></li>`).join('') : '';
+
+      // Mostrar estrellas de calificación
+      const starsDisplay = averageRating > 0 ? 
+        `<div class="rating-display mb-2">
+          <div class="d-flex align-items-center">
+            ${typeof ratingSystem !== 'undefined' ? ratingSystem.renderStars(averageRating, false, 'normal') : ''}
+            <span class="ms-2 text-muted">(${totalReviews} reseña${totalReviews !== 1 ? 's' : ''})</span>
+          </div>
+        </div>` : '';
+
+      container.innerHTML = `
+        <div class="row">
+          <!-- Columna de imágenes -->
+          <div class="col-lg-6">
+            <div class="text-center">
+              <img src="${producto.imagenes[0]}" alt="${producto.nombre}" 
+                   class="product-image-main" id="main-image" 
+                   onclick="ampliarImagen('${producto.imagenes[0]}')">
+            </div>
+            <div class="d-flex justify-content-center gap-2 mt-3 flex-wrap">
+              ${thumbnails}
+            </div>
+          </div>
+
+          <!-- Columna de información -->
+          <div class="col-lg-6">
+            <div class="ps-lg-4">
+              <h1 class="product-title">${producto.nombre}</h1>
+              
+              ${starsDisplay}
+              
+              <div class="d-flex align-items-center gap-3 mb-3">
+                <span class="product-price">$${producto.precio.toLocaleString()}</span>
+                ${precioOriginal}
+                ${descuentoBadge}
+              </div>
+
+              <div class="${stockClass}">
+                <strong>${stockMessage}</strong>
+              </div>
+
+              <p class="product-description">${producto.descripcionLarga || producto.descripcionCorta}</p>
+
+              <div class="quantity-selector">
+                <span class="fw-bold">Cantidad:</span>
+                <button class="quantity-btn" onclick="cambiarCantidad(-1)" ${producto.stock <= 0 ? 'disabled' : ''}>
+                  <i class="bi bi-dash"></i>
+                </button>
+                <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="${producto.stock}" onchange="validarCantidad()">
+                <button class="quantity-btn" onclick="cambiarCantidad(1)" ${producto.stock <= 0 ? 'disabled' : ''}>
+                  <i class="bi bi-plus"></i>
+                </button>
+              </div>
+
+              <button class="btn-add-cart" onclick="agregarAlCarrito()" ${!producto.disponible || producto.stock <= 0 ? 'disabled' : ''}>
+                <i class="bi bi-cart-plus"></i> 
+                ${producto.disponible && producto.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+              </button>
+
+              <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-outline-primary" onclick="compartirProducto()">
+                  <i class="bi bi-share"></i> Compartir
+                </button>
+                <button class="btn btn-outline-success" onclick="consultarWhatsApp()">
+                  <i class="bi bi-whatsapp"></i> Consultar
+                </button>
+              </div>
+
+              <!-- Tabs con información adicional -->
+              <div class="mt-4">
+                <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab">
+                      Especificaciones
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">
+                      Reseñas <span id="reviews-count" class="badge bg-secondary ms-1">${totalReviews}</span>
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab">
+                      Envío
+                    </button>
+                  </li>
+                </ul>
+                <div class="tab-content" id="productTabsContent">
+                  <div class="tab-pane fade show active" id="specs" role="tabpanel">
+                    <ul class="characteristics-list">
+                      ${caracteristicas}
+                      <li><span>SKU</span><span>${producto.sku}</span></li>
+                      <li><span>Peso</span><span>${producto.peso}g</span></li>
+                      <li><span>Dimensiones</span><span>${producto.dimensiones}</span></li>
+                    </ul>
+                  </div>
+                  <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div id="reviews-content">
+                      <!-- Las reseñas se cargan dinámicamente aquí -->
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="shipping" role="tabpanel">
+                    <div class="mt-3">
+                      <h6><i class="bi bi-truck"></i> Información de envío</h6>
+                      <ul class="list-unstyled">
+                        <li>• <strong>CABA:</strong> $2.500 (24-48hs)</li>
+                        <li>• <strong>GBA:</strong> $3.500 (48-72hs)</li>
+                        <li>• <strong>Interior:</strong> $5.500 (3-7 días)</li>
+                        <li>• <strong>Envío gratis</strong> en compras superiores a $50.000</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Actualizar breadcrumb
+      document.getElementById('breadcrumb-product').textContent = producto.nombre;
+    }
+
+    function cargarResenasProducto(productId) {
+      setTimeout(() => {
+        if (typeof ratingSystem !== 'undefined') {
+          const reviewsContent = document.getElementById('reviews-content');
+          if (reviewsContent) {
+            reviewsContent.innerHTML = ratingSystem.renderReviewsSection(productId);
+          }
+        }
+      }, 500);
+    }
+
+    function cambiarImagenPrincipal(src, thumbnail) {
+      document.getElementById('main-image').src = src;
+      document.querySelectorAll('.product-thumbnail').forEach(t => t.classList.remove('active'));
+      thumbnail.classList.add('active');
+    }
+
+    function ampliarImagen(src) {
+      document.getElementById('modal-image').src = src;
+      new bootstrap.Modal(document.getElementById('imageModal')).show();
+    }
+
+    function cambiarCantidad(delta) {
+      const quantityInput = document.getElementById('quantity');
+      const newValue = Math.max(1, Math.min(currentProduct.stock, selectedQuantity + delta));
+      selectedQuantity = newValue;
+      quantityInput.value = newValue;
+    }
+
+    function validarCantidad() {
+      const quantityInput = document.getElementById('quantity');
+      const value = parseInt(quantityInput.value);
+      
+      if (isNaN(value) || value < 1) {
+        selectedQuantity = 1;
+      } else if (value > currentProduct.stock) {
+        selectedQuantity = currentProduct.stock;
+      } else {
+        selectedQuantity = value;
+      }
+      
+      quantityInput.value = selectedQuantity;
+    }
+
+    function agregarAlCarrito() {
+      if (!currentProduct || typeof store === 'undefined') return;
+      
+      for (let i = 0; i < selectedQuantity; i++) {
+        store.agregarAlCarrito(currentProduct.id);
+      }
+    }
+
+    function compartirProducto() {
+      if (navigator.share) {
+        navigator.share({
+          title: currentProduct.nombre,
+          text: currentProduct.descripcionCorta,
+          url: window.location.href
+        });
+      } else {
+        // Fallback: copiar al portapapeles
+        navigator.clipboard.writeText(window.location.href);
+        alert('Enlace copiado al portapapeles');
+      }
+    }
+
+    function consultarWhatsApp() {
+      const mensaje = `Hola! Me interesa el producto: ${currentProduct.nombre} - $${currentProduct.precio.toLocaleString()}. ¿Podrías darme más información?`;
+      const url = `https://wa.me/5491136899678?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+
+    function cargarProductosRelacionados() {
+      if (typeof store === 'undefined' || !currentProduct) return;
+      
+      const relacionados = store.productos
+        .filter(p => p.categoria === currentProduct.categoria && p.id !== currentProduct.id)
+        .slice(0, 3);
+      
+      if (relacionados.length > 0) {
+        const container = document.getElementById('related-products-container');
+        container.innerHTML = '';
+        
+        relacionados.forEach(producto => {
+          const card = store.crearTarjetaProducto(producto);
+          container.appendChild(card);
+        });
+        
+        document.getElementById('related-products').style.display = 'block';
+      }
+    }
+
+    function actualizarSEO(producto) {
+      // Actualizar título
+      document.title = `${producto.nombre} - Patagonia Style`;
+      document.getElementById('page-title').content = `${producto.nombre} - Patagonia Style`;
+      
+      // Actualizar meta description
+      const description = producto.descripcionLarga || producto.descripcionCorta;
+      document.getElementById('page-description').content = description;
+      
+      // Actualizar meta keywords
+      const keywords = producto.tags ? producto.tags.join(', ') : 'patagonia, productos artesanales';
+      document.getElementById('page-keywords').content = keywords;
+      
+      // Open Graph
+      document.getElementById('og-title').content = producto.nombre;
+      document.getElementById('og-description').content = description;
+      document.getElementById('og-image').content = window.location.origin + '/' + producto.imagenes[0];
+      document.getElementById('og-url').content = window.location.href;
+      
+      // Schema.org
+      const schema = {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": producto.nombre,
+        "description": description,
+        "image": producto.imagenes.map(img => window.location.origin + '/' + img),
+        "brand": {
+          "@type": "Brand",
+          "name": "Patagonia Style"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": producto.precio,
+          "priceCurrency": "ARS",
+          "availability": producto.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+        },
+        "sku": producto.sku
+      };
+      document.getElementById('product-schema').textContent = JSON.stringify(schema);
+    }
+
+    function mostrarError(mensaje) {
+      document.getElementById('product-content').innerHTML = `
+        <div class="text-center py-5">
+          <i class="bi bi-exclamation-triangle" style="font-size: 4rem; color: #dc3545;"></i>
+          <h3 class="mt-3">${mensaje}</h3>
+          <p class="text-muted">El producto que buscas no está disponible.</p>
+          <a href="tienda.html" class="btn btn-primary">Volver a la tienda</a>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -205,42 +205,8 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:32px; width:auto; margin-right:8px;">
-        Patagonia Style
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarEcommerce">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="tienda.html">Tienda</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="portafolio.html">Portafolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contacto.html">Contacto</a>
-          </li>
-        </ul>
-        <form class="d-flex me-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
-          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-        </form>
-        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
-          <i class="bi bi-person"></i>
-        </a>
-        <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
-          <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
-          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
-        </a>
-      </div>
-    </div>
-  </nav>
+  <!-- Navbar Container -->
+  <div id="navbar-container"></div>
 
   <!-- Producto principal -->
   <main class="container producto-section">
@@ -256,13 +222,98 @@
       </div>
       <!-- Info producto -->
       <div class="col-md-5">
-        <nav style="--bs-breadcrumb-divider: '·';" aria-label="breadcrumb">
+        <!-- Barra de navegación prominente -->
+        <div class="mb-4 p-3" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); 
+                                     border-radius: 15px; 
+                                     border-left: 5px solid #b67c3a;
+                                     box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <!-- Breadcrumb mejorado -->
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb mb-0" style="background: none;">
+                <li class="breadcrumb-item">
+                  <a href="index.html" style="color: #6c757d; text-decoration: none; font-weight: 500;">
+                    <i class="bi bi-house me-1"></i>Inicio
+                  </a>
+                </li>
+                <li class="breadcrumb-item">
+                  <span style="color: #6c757d;">Cuaderno Zorro</span>
+                </li>
+              </ol>
+            </nav>
+            
+            <!-- Botón prominente volver a tienda -->
+            <a href="tienda.html" class="btn btn-lg" 
+               style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); 
+                      color: white; 
+                      border-radius: 25px; 
+                      padding: 10px 20px; 
+                      font-weight: 600; 
+                      text-decoration: none;
+                      font-size: 0.9rem;
+                      box-shadow: 0 4px 15px rgba(31, 60, 90, 0.3);
+                      transition: all 0.3s ease;
+                      min-width: 160px;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;"
+               onmouseover="this.style.transform='translateY(-2px) scale(1.05)'; 
+                           this.style.boxShadow='0 6px 20px rgba(31, 60, 90, 0.5)';
+                           this.style.background='linear-gradient(135deg, #3b5d50, #1f3c5a)';"
+               onmouseout="this.style.transform='translateY(0) scale(1)'; 
+                          this.style.boxShadow='0 4px 15px rgba(31, 60, 90, 0.3)';
+                          this.style.background='linear-gradient(135deg, #1f3c5a, #3b5d50)';">
+              <i class="bi bi-shop me-2"></i>Ver Tienda
+            </a>
+          </div>
+        </div>
+        
+        <!-- Navegación con breadcrumb oculto -->
+        <nav style="--bs-breadcrumb-divider: '·';" aria-label="breadcrumb" class="d-none">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="tienda.html">Tienda</a></li>
+            <li class="breadcrumb-item">
+              <a href="tienda.html" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); 
+                                          color: white; 
+                                          padding: 4px 12px; 
+                                          border-radius: 15px; 
+                                          text-decoration: none; 
+                                          font-weight: 600;
+                                          transition: all 0.3s ease;"
+                 onmouseover="this.style.transform='scale(1.05)';"
+                 onmouseout="this.style.transform='scale(1)';">
+                <i class="bi bi-shop me-1"></i>Tienda
+              </a>
+            </li>
             <li class="breadcrumb-item active" aria-current="page">Jarro Zorrito Invierno</li>
           </ol>
         </nav>
+        
+        <!-- Botón prominente para volver a tienda -->
+        <div class="mb-3">
+          <a href="tienda.html" class="btn btn-lg d-flex align-items-center justify-content-center" 
+             style="background: linear-gradient(135deg, #b67c3a, #d4941e); 
+                    color: white; 
+                    border-radius: 25px; 
+                    padding: 12px 20px; 
+                    font-weight: 700; 
+                    text-decoration: none;
+                    font-size: 1rem;
+                    border: 2px solid rgba(255,255,255,0.2);
+                    box-shadow: 0 4px 20px rgba(182, 124, 58, 0.4);
+                    transition: all 0.3s ease;
+                    width: 100%;
+                    max-width: 280px;"
+             onmouseover="this.style.transform='translateY(-2px) scale(1.02)'; 
+                         this.style.boxShadow='0 8px 30px rgba(182, 124, 58, 0.6)';
+                         this.style.background='linear-gradient(135deg, #d4941e, #b67c3a)';"
+             onmouseout="this.style.transform='translateY(0) scale(1)'; 
+                        this.style.boxShadow='0 4px 20px rgba(182, 124, 58, 0.4)';
+                        this.style.background='linear-gradient(135deg, #b67c3a, #d4941e)';">
+            <i class="bi bi-arrow-left-circle me-2" style="font-size: 1.2rem;"></i>
+            <span>← Volver a la Tienda</span>
+          </a>
+        </div>
         <div class="d-flex align-items-center mb-2">
           <span class="producto-descuento me-2">8% OFF</span>
           <span class="badge bg-success" style="font-size:1rem; font-weight:600;">Stock</span>
@@ -282,7 +333,19 @@
           <input type="number" id="cantidad" class="producto-cantidad mx-2" value="1" min="1">
           <button type="button" class="btn btn-outline-secondary" onclick="cambiarCantidad(1)">+</button>
         </form>
-        <button class="producto-btn mb-3" onclick="agregarAlCarrito()">Agregar al carrito</button>
+        
+        <!-- Botones de acción -->
+        <div class="d-flex gap-2 mb-3">
+          <button class="producto-btn flex-grow-1" onclick="agregarAlCarrito()">
+            <i class="bi bi-cart-plus me-2"></i>Agregar al carrito
+          </button>
+          <button class="btn btn-outline-danger" 
+                  data-favorite-id="jarro-zorrito-invierno"
+                  title="Agregar a favoritos"
+                  style="padding: 12px 16px;">
+            <i class="bi bi-heart"></i>
+          </button>
+        </div>
         <!-- Medios de envío -->
         <div class="mb-3">
           <label for="codigo-postal" class="form-label">Medios de envío</label>
@@ -309,8 +372,39 @@
             ¡Llevá la magia de la Patagonia a cada mate!
           </div>
         </div>
-        <div class="mt-4 text-center">
-          <a href="tienda.html" class="btn btn-outline-primary">&larr; Volver a la tienda</a>
+        <div class="mt-5 text-center">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <a href="tienda.html" class="btn btn-lg d-flex align-items-center justify-content-center" 
+                 style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); 
+                        color: white; 
+                        border-radius: 30px; 
+                        padding: 15px 40px; 
+                        font-weight: 700; 
+                        text-decoration: none;
+                        font-size: 1.1rem;
+                        border: 3px solid rgba(255,255,255,0.1);
+                        box-shadow: 0 6px 25px rgba(31, 60, 90, 0.4);
+                        transition: all 0.4s ease;
+                        width: 100%;"
+                 onmouseover="this.style.transform='translateY(-4px) scale(1.05)'; 
+                             this.style.boxShadow='0 12px 40px rgba(31, 60, 90, 0.6)';
+                             this.style.background='linear-gradient(135deg, #3b5d50, #1f3c5a)';
+                             this.style.borderColor='rgba(255,255,255,0.3)';"
+                 onmouseout="this.style.transform='translateY(0) scale(1)'; 
+                            this.style.boxShadow='0 6px 25px rgba(31, 60, 90, 0.4)';
+                            this.style.background='linear-gradient(135deg, #1f3c5a, #3b5d50)';
+                            this.style.borderColor='rgba(255,255,255,0.1)';">
+                <i class="bi bi-shop me-3" style="font-size: 1.3rem;"></i>
+                <span>Explorar Más Productos en la Tienda</span>
+                <i class="bi bi-arrow-right ms-3" style="font-size: 1.3rem;"></i>
+              </a>
+              <p class="mt-3 text-muted" style="font-size: 0.9rem;">
+                <i class="bi bi-heart-fill text-danger me-1"></i>
+                Descubre más productos artesanales únicos
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -335,6 +429,13 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Sección de Reviews -->
+  <section class="container">
+    <div id="reviews-container">
+      <!-- Las reviews se cargan automáticamente aquí -->
     </div>
   </section>
 
@@ -395,10 +496,47 @@
     <i class="bi bi-whatsapp"></i>
   </a>
 
+  <!-- Botón flotante para volver a tienda (más visible) -->
+  <a href="tienda.html" id="btnVolverTienda" style="
+    position: fixed;
+    top: 60%;
+    right: 20px;
+    transform: translateY(-50%);
+    background: linear-gradient(135deg, #1f3c5a, #3b5d50);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(31, 60, 90, 0.4);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);"
+     onmouseover="this.style.transform='translateY(-50%) scale(1.1)'; 
+                 this.style.boxShadow='0 6px 30px rgba(31, 60, 90, 0.6)';
+                 this.style.background='linear-gradient(135deg, #3b5d50, #1f3c5a)';
+                 this.style.right='15px';"
+     onmouseout="this.style.transform='translateY(-50%) scale(1)'; 
+                this.style.boxShadow='0 4px 20px rgba(31, 60, 90, 0.4)';
+                this.style.background='linear-gradient(135deg, #1f3c5a, #3b5d50)';
+                this.style.right='20px';"
+     title="Volver a la Tienda">
+    <i class="bi bi-shop" style="font-size: 16px; margin-bottom: 5px;"></i>
+    <span style="font-size: 12px; font-weight: 700;">TIENDA</span>
+  </a>
+
   <!-- Botón flotante para volver al inicio -->
   <button onclick="irAInicio()" id="btnVolverInicio" style="
     position: fixed;
-    bottom: 20px;
+    bottom: 180px;
     right: 20px;
     background: linear-gradient(90deg, #1f3c5a, #3b5d50);
     color: white;
@@ -442,7 +580,96 @@
       this.style.transform = 'scale(1)';
       this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
     });
+
+    // Inicializar navegación
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('navbar-container').innerHTML = navigationComponent.renderNavbar();
+      navigationComponent.init();
+    });
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/reviews.js"></script>
+
+  <!-- Modales de autenticación -->
+  <div id="auth-modals-container"></div>
+
+  <script>
+    // Cargar modales de autenticación
+    document.getElementById('auth-modals-container').innerHTML = `
+      <!-- Login Modal -->
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="border-radius: 15px; border: none;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); color: white; border-radius: 15px 15px 0 0;">
+              <h5 class="modal-title" id="loginModalLabel">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 30px;">
+              <form id="login-form">
+                <div class="mb-3">
+                  <label for="login-email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="login-email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="login-password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="login-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Register Modal -->
+      <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content" style="border-radius: 15px; border: none;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #b67c3a, #d4941e); color: white; border-radius: 15px 15px 0 0;">
+              <h5 class="modal-title" id="registerModalLabel">
+                <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" style="padding: 30px;">
+              <form id="register-form">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="register-firstName" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="register-firstName" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="register-lastName" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="register-lastName" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="register-email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="register-email" required>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="register-password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="register-password" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="register-confirmPassword" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="register-confirmPassword" required>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Crear Cuenta</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  </script>
 </body>
 </html>

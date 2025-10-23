@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Cuenta - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background: #f4f1ee;
+    }
+    
+    .account-nav {
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border: 2px solid #3b5d50;
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(59, 93, 80, 0.1);
+    }
+    
+    .account-nav .nav-link {
+      border: none;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin-bottom: 8px;
+      color: #495057;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+    
+    .account-nav .nav-link.active {
+      background: linear-gradient(135deg, #1f3c5a, #3b5d50);
+      color: white;
+      box-shadow: 0 4px 12px rgba(31, 60, 90, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .account-nav .nav-link:hover {
+      background: linear-gradient(135deg, #e9ecef, #dee2e6);
+      color: #1f3c5a;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .account-nav .nav-link.active:hover {
+      background: linear-gradient(135deg, #3b5d50, #1f3c5a);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    .profile-card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 6px 20px rgba(59, 93, 80, 0.15);
+      margin-bottom: 25px;
+      border: 2px solid rgba(59, 93, 80, 0.1);
+    }
+    
+    .profile-header {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    
+    .profile-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1f3c5a, #3b5d50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 36px;
+      color: white;
+      border: 4px solid rgba(182, 124, 58, 0.3);
+      box-shadow: 0 4px 15px rgba(31, 60, 90, 0.3);
+    }
+    
+    .order-card {
+      border: 2px solid rgba(59, 93, 80, 0.2);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .order-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .order-status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+    
+    .status-processing {
+      background: #cce7ff;
+      color: #004085;
+    }
+    
+    .status-shipped {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-delivered {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+    
+    .address-card {
+      border: 1px solid #dee2e6;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+    
+    .address-card.default {
+      border-color: #007bff;
+      background: #f8fbff;
+    }
+    
+    .address-card .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    
+    .btn-edit-address {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+    
+    .tracking-step {
+      padding: 15px 0;
+      border-left: 3px solid #dee2e6;
+      position: relative;
+      margin-left: 15px;
+      padding-left: 30px;
+    }
+    
+    .tracking-step.completed {
+      border-left-color: #28a745;
+    }
+    
+    .tracking-step.active {
+      border-left-color: #007bff;
+    }
+    
+    .tracking-step::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 20px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #dee2e6;
+    }
+    
+    .tracking-step.completed::before {
+      background: #28a745;
+    }
+    
+    .tracking-step.active::before {
+      background: #007bff;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-control {
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+    
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    .btn-custom {
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-weight: 500;
+    }
+    
+    .stats-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .stats-card h3 {
+      font-size: 2rem;
+      margin-bottom: 5px;
+    }
+    
+    .welcome-message {
+      background: linear-gradient(135deg, #1f3c5a 0%, #3b5d50 100%);
+      color: white;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(31, 60, 90, 0.3);
+      border: 3px solid rgba(182, 124, 58, 0.2);
+    }
+    
+    .welcome-message h1 {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .welcome-message p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); box-shadow: 0 3px 10px rgba(0,0,0,0.1);">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" height="35" class="me-2">
+        <span class="fw-bold">Patagonia Style</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tienda.html">Tienda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="portafolio.html">Portafolio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contacto.html">Contacto</a>
+          </li>
+        </ul>
+        
+        <div class="d-flex align-items-center">
+          <!-- User Menu -->
+          <div class="dropdown me-3" id="userDropdown" style="display: none;">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <i class="bi bi-person"></i>
+              <span id="userNameNav">Mi Cuenta</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="mi-cuenta.html"><i class="bi bi-person-circle me-2"></i>Mi Cuenta</a></li>
+              <li><a class="dropdown-item" href="mis-pedidos.html"><i class="bi bi-box-seam me-2"></i>Mis Pedidos</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#" onclick="userManager.logout()"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</a></li>
+            </ul>
+          </div>
+          
+          <!-- Login/Register buttons -->
+          <div id="authButtons">
+            <button class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
+            </button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+              <i class="bi bi-person-plus"></i> Registrarse
+            </button>
+          </div>
+          
+          <!-- Cart -->
+          <a href="carrito.html" class="btn btn-outline-light ms-2 position-relative">
+            <i class="bi bi-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container my-5">
+    <!-- Welcome Message -->
+    <div class="welcome-message">
+      <h1><i class="bi bi-person-circle me-3"></i>Mi Cuenta</h1>
+      <p class="mb-0">Gestiona tu perfil, pedidos y configuraciones</p>
+    </div>
+
+    <div class="row">
+      <!-- Sidebar Navigation -->
+      <div class="col-md-3">
+        <div class="account-nav">
+          <h5 class="mb-3"><i class="bi bi-list me-2"></i>Menú</h5>
+          <div class="nav nav-pills flex-column" id="account-nav" role="tablist">
+            <button class="nav-link active" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile" type="button" role="tab">
+              <i class="bi bi-person me-2"></i>Mi Perfil
+            </button>
+            <button class="nav-link" id="orders-tab" data-bs-toggle="pill" data-bs-target="#orders" type="button" role="tab">
+              <i class="bi bi-box-seam me-2"></i>Mis Pedidos
+            </button>
+            <button class="nav-link" id="addresses-tab" data-bs-toggle="pill" data-bs-target="#addresses" type="button" role="tab">
+              <i class="bi bi-geo-alt me-2"></i>Direcciones
+            </button>
+            <button class="nav-link" id="settings-tab" data-bs-toggle="pill" data-bs-target="#settings" type="button" role="tab">
+              <i class="bi bi-gear me-2"></i>Configuración
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-md-9">
+        <div class="tab-content" id="account-content">
+          <!-- Profile Tab -->
+          <div class="tab-pane fade show active" id="profile" role="tabpanel">
+            <div class="profile-card">
+              <div class="profile-header">
+                <div class="profile-avatar">
+                  <i class="bi bi-person-fill"></i>
+                </div>
+                <h3 id="profile-name">Usuario</h3>
+                <p class="text-muted" id="profile-email">email@ejemplo.com</p>
+                <span class="badge bg-success">Cuenta Verificada</span>
+              </div>
+
+              <form id="profile-form">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="firstName" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lastName" class="form-label">Apellido</label>
+                      <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone" class="form-label">Teléfono</label>
+                  <input type="tel" class="form-control" id="phone">
+                </div>
+
+                <div class="form-group">
+                  <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" id="birthDate">
+                </div>
+
+                <div class="d-flex gap-2">
+                  <button type="submit" class="btn btn-primary btn-custom">
+                    <i class="bi bi-check-lg me-2"></i>Guardar Cambios
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary btn-custom" onclick="changePassword()">
+                    <i class="bi bi-shield-lock me-2"></i>Cambiar Contraseña
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Orders Tab -->
+          <div class="tab-pane fade" id="orders" role="tabpanel">
+            <div class="profile-card">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-box-seam me-2"></i>Mis Pedidos</h4>
+                <div class="stats-card" style="margin: 0; padding: 15px; width: auto;">
+                  <h5 class="mb-1" id="total-orders">0</h5>
+                  <small>Pedidos Realizados</small>
+                </div>
+              </div>
+
+              <div id="orders-list">
+                <!-- Los pedidos se cargan dinámicamente aquí -->
+              </div>
+
+              <div id="no-orders" class="text-center py-5" style="display: none;">
+                <i class="bi bi-box" style="font-size: 4rem; color: #ccc;"></i>
+                <h4 class="mt-3 text-muted">No tienes pedidos aún</h4>
+                <p class="text-muted">¡Es hora de hacer tu primera compra!</p>
+                <a href="tienda.html" class="btn btn-primary btn-custom">
+                  <i class="bi bi-shop me-2"></i>Ir a la Tienda
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Addresses Tab -->
+          <div class="tab-pane fade" id="addresses" role="tabpanel">
+            <div class="profile-card">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="bi bi-geo-alt me-2"></i>Mis Direcciones</h4>
+                <button class="btn btn-primary btn-custom" onclick="addNewAddress()">
+                  <i class="bi bi-plus-circle me-2"></i>Nueva Dirección
+                </button>
+              </div>
+
+              <div id="addresses-list">
+                <!-- Las direcciones se cargan dinámicamente aquí -->
+              </div>
+
+              <div id="no-addresses" class="text-center py-5" style="display: none;">
+                <i class="bi bi-house" style="font-size: 4rem; color: #ccc;"></i>
+                <h4 class="mt-3 text-muted">No tienes direcciones guardadas</h4>
+                <p class="text-muted">Agrega una dirección para facilitar tus compras</p>
+                <button class="btn btn-primary btn-custom" onclick="addNewAddress()">
+                  <i class="bi bi-plus-circle me-2"></i>Agregar Dirección
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings Tab -->
+          <div class="tab-pane fade" id="settings" role="tabpanel">
+            <div class="profile-card">
+              <h4><i class="bi bi-gear me-2"></i>Configuración de la Cuenta</h4>
+              
+              <div class="mt-4">
+                <h6>Notificaciones</h6>
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                  <label class="form-check-label" for="emailNotifications">
+                    Recibir notificaciones por email
+                  </label>
+                </div>
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" id="orderUpdates" checked>
+                  <label class="form-check-label" for="orderUpdates">
+                    Actualizaciones de pedidos
+                  </label>
+                </div>
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" id="promotions">
+                  <label class="form-check-label" for="promotions">
+                    Ofertas y promociones
+                  </label>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="mt-4">
+                <h6>Privacidad</h6>
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" id="profilePublic">
+                  <label class="form-check-label" for="profilePublic">
+                    Perfil público
+                  </label>
+                </div>
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" id="shareData">
+                  <label class="form-check-label" for="shareData">
+                    Compartir datos para mejorar el servicio
+                  </label>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="mt-4">
+                <h6 class="text-danger">Zona de Peligro</h6>
+                <p class="text-muted small">Estas acciones son irreversibles</p>
+                <button class="btn btn-outline-danger btn-custom" onclick="deleteAccount()">
+                  <i class="bi bi-trash me-2"></i>Eliminar Cuenta
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Detail Modal -->
+  <div class="modal fade" id="orderDetailModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detalles del Pedido</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="order-detail-content">
+          <!-- El contenido se carga dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Modal -->
+  <div class="modal fade" id="addressModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="address-modal-title">Nueva Dirección</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="address-form">
+            <input type="hidden" id="address-id">
+            <div class="form-group">
+              <label for="address-alias" class="form-label">Nombre de la dirección</label>
+              <input type="text" class="form-control" id="address-alias" placeholder="Ej: Casa, Trabajo, etc." required>
+            </div>
+            <div class="form-group">
+              <label for="address-street" class="form-label">Calle y número</label>
+              <input type="text" class="form-control" id="address-street" required>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="address-city" class="form-label">Ciudad</label>
+                  <input type="text" class="form-control" id="address-city" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="address-postal" class="form-label">Código Postal</label>
+                  <input type="text" class="form-control" id="address-postal" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="address-province" class="form-label">Provincia</label>
+              <input type="text" class="form-control" id="address-province" required>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="address-default">
+              <label class="form-check-label" for="address-default">
+                Establecer como dirección principal
+              </label>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="saveAddress()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cambiar Contraseña</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="change-password-form">
+            <div class="form-group">
+              <label for="current-password" class="form-label">Contraseña Actual</label>
+              <input type="password" class="form-control" id="current-password" required>
+            </div>
+            <div class="form-group">
+              <label for="new-password" class="form-label">Nueva Contraseña</label>
+              <input type="password" class="form-control" id="new-password" required>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password" class="form-label">Confirmar Nueva Contraseña</label>
+              <input type="password" class="form-control" id="confirm-password" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" onclick="updatePassword()">Cambiar Contraseña</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Iniciar Sesión</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="login-form">
+            <div class="form-group">
+              <label for="login-email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="login-email" required>
+            </div>
+            <div class="form-group">
+              <label for="login-password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="login-password" required>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember-me">
+              <label class="form-check-label" for="remember-me">Recordarme</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Iniciar Sesión</button>
+          </form>
+          <div class="text-center mt-3">
+            <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Register Modal -->
+  <div class="modal fade" id="registerModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Crear Cuenta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="register-form">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="register-firstName" class="form-label">Nombre</label>
+                  <input type="text" class="form-control" id="register-firstName" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="register-lastName" class="form-label">Apellido</label>
+                  <input type="text" class="form-control" id="register-lastName" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="register-email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="register-email" required>
+            </div>
+            <div class="form-group">
+              <label for="register-password" class="form-label">Contraseña</label>
+              <input type="password" class="form-control" id="register-password" required>
+            </div>
+            <div class="form-group">
+              <label for="register-confirmPassword" class="form-label">Confirmar Contraseña</label>
+              <input type="password" class="form-control" id="register-confirmPassword" required>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="accept-terms" required>
+              <label class="form-check-label" for="accept-terms">
+                Acepto los <a href="#" class="text-decoration-none">términos y condiciones</a>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Crear Cuenta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Verificar si el usuario está logueado
+      if (!userManager.isLoggedIn()) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // Cargar datos del usuario
+      loadUserProfile();
+      loadUserOrders();
+      loadUserAddresses();
+
+      // Event listeners
+      document.getElementById('profile-form').addEventListener('submit', saveProfile);
+      document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        
+        if (userManager.login(email, password)) {
+          bootstrap.Modal.getInstance(document.getElementById('loginModal')).hide();
+          location.reload();
+        }
+      });
+
+      document.getElementById('register-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const userData = {
+          firstName: document.getElementById('register-firstName').value,
+          lastName: document.getElementById('register-lastName').value,
+          email: document.getElementById('register-email').value,
+          password: document.getElementById('register-password').value,
+          confirmPassword: document.getElementById('register-confirmPassword').value
+        };
+        
+        if (userManager.register(userData)) {
+          bootstrap.Modal.getInstance(document.getElementById('registerModal')).hide();
+          location.reload();
+        }
+      });
+
+      // Actualizar contador del carrito
+      if (typeof store !== 'undefined') {
+        store.actualizarContadorCarrito();
+      }
+    });
+
+    function loadUserProfile() {
+      const user = userManager.getCurrentUser();
+      if (!user) return;
+
+      document.getElementById('profile-name').textContent = `${user.firstName} ${user.lastName}`;
+      document.getElementById('profile-email').textContent = user.email;
+      document.getElementById('userNameNav').textContent = user.firstName;
+
+      // Llenar formulario
+      document.getElementById('firstName').value = user.firstName || '';
+      document.getElementById('lastName').value = user.lastName || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('phone').value = user.phone || '';
+      document.getElementById('birthDate').value = user.birthDate || '';
+    }
+
+    function loadUserOrders() {
+      const orders = userManager.getCurrentUserOrders();
+      const ordersList = document.getElementById('orders-list');
+      const noOrders = document.getElementById('no-orders');
+      const totalOrdersSpan = document.getElementById('total-orders');
+
+      totalOrdersSpan.textContent = orders.length;
+
+      if (orders.length === 0) {
+        ordersList.style.display = 'none';
+        noOrders.style.display = 'block';
+        return;
+      }
+
+      ordersList.style.display = 'block';
+      noOrders.style.display = 'none';
+
+      ordersList.innerHTML = orders.map(order => `
+        <div class="order-card">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <h6>Pedido #${order.id}</h6>
+              <p class="text-muted mb-1">
+                <i class="bi bi-calendar me-1"></i>
+                ${new Date(order.date).toLocaleDateString('es-ES')}
+              </p>
+              <p class="text-muted mb-2">
+                <i class="bi bi-box me-1"></i>
+                ${order.items.length} producto${order.items.length !== 1 ? 's' : ''}
+              </p>
+            </div>
+            <div class="text-end">
+              <span class="order-status status-${order.status}">
+                ${getStatusText(order.status)}
+              </span>
+              <h6 class="mt-2 mb-0">$${order.total.toLocaleString()}</h6>
+            </div>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-outline-primary btn-sm" onclick="viewOrderDetail('${order.id}')">
+              <i class="bi bi-eye me-1"></i>Ver Detalles
+            </button>
+            ${order.status === 'shipped' ? 
+              `<button class="btn btn-outline-info btn-sm ms-2" onclick="trackOrder('${order.id}')">
+                <i class="bi bi-truck me-1"></i>Rastrear
+              </button>` : ''
+            }
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function loadUserAddresses() {
+      const user = userManager.getCurrentUser();
+      const addresses = user.addresses || [];
+      const addressesList = document.getElementById('addresses-list');
+      const noAddresses = document.getElementById('no-addresses');
+
+      if (addresses.length === 0) {
+        addressesList.style.display = 'none';
+        noAddresses.style.display = 'block';
+        return;
+      }
+
+      addressesList.style.display = 'block';
+      noAddresses.style.display = 'none';
+
+      addressesList.innerHTML = addresses.map(address => `
+        <div class="address-card ${address.isDefault ? 'default' : ''}">
+          ${address.isDefault ? '<span class="badge bg-primary">Principal</span>' : ''}
+          <h6>${address.alias}</h6>
+          <p class="text-muted mb-1">${address.street}</p>
+          <p class="text-muted mb-3">${address.city}, ${address.province} ${address.postalCode}</p>
+          <div class="btn-edit-address">
+            <button class="btn btn-outline-primary btn-sm me-2" onclick="editAddress('${address.id}')">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-outline-danger btn-sm" onclick="deleteAddress('${address.id}')">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      
+      const userData = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        birthDate: document.getElementById('birthDate').value
+      };
+
+      if (userManager.updateProfile(userData)) {
+        userManager.showNotification('Perfil actualizado correctamente', 'success');
+        loadUserProfile(); // Recargar datos
+      }
+    }
+
+    function getStatusText(status) {
+      const statusMap = {
+        'pending': 'Pendiente',
+        'processing': 'Procesando',
+        'shipped': 'Enviado',
+        'delivered': 'Entregado'
+      };
+      return statusMap[status] || status;
+    }
+
+    function viewOrderDetail(orderId) {
+      const order = userManager.getOrderById(orderId);
+      if (!order) return;
+
+      const modalContent = document.getElementById('order-detail-content');
+      modalContent.innerHTML = `
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Información del Pedido</h6>
+            <p><strong>ID:</strong> #${order.id}</p>
+            <p><strong>Fecha:</strong> ${new Date(order.date).toLocaleDateString('es-ES')}</p>
+            <p><strong>Estado:</strong> <span class="order-status status-${order.status}">${getStatusText(order.status)}</span></p>
+            <p><strong>Total:</strong> $${order.total.toLocaleString()}</p>
+          </div>
+          <div class="col-md-6">
+            <h6>Dirección de Envío</h6>
+            <p>${order.shippingAddress.street}<br>
+            ${order.shippingAddress.city}, ${order.shippingAddress.province}<br>
+            ${order.shippingAddress.postalCode}</p>
+          </div>
+        </div>
+        <hr>
+        <h6>Productos</h6>
+        <div class="table-responsive">
+          <table class="table table-sm">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${order.items.map(item => `
+                <tr>
+                  <td>${item.name}</td>
+                  <td>${item.quantity}</td>
+                  <td>$${item.price.toLocaleString()}</td>
+                  <td>$${(item.price * item.quantity).toLocaleString()}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      new bootstrap.Modal(document.getElementById('orderDetailModal')).show();
+    }
+
+    function trackOrder(orderId) {
+      // Implementar seguimiento de pedido
+      userManager.showNotification('Función de rastreo en desarrollo', 'info');
+    }
+
+    function addNewAddress() {
+      document.getElementById('address-modal-title').textContent = 'Nueva Dirección';
+      document.getElementById('address-form').reset();
+      document.getElementById('address-id').value = '';
+      new bootstrap.Modal(document.getElementById('addressModal')).show();
+    }
+
+    function editAddress(addressId) {
+      const user = userManager.getCurrentUser();
+      const address = user.addresses.find(a => a.id === addressId);
+      if (!address) return;
+
+      document.getElementById('address-modal-title').textContent = 'Editar Dirección';
+      document.getElementById('address-id').value = address.id;
+      document.getElementById('address-alias').value = address.alias;
+      document.getElementById('address-street').value = address.street;
+      document.getElementById('address-city').value = address.city;
+      document.getElementById('address-postal').value = address.postalCode;
+      document.getElementById('address-province').value = address.province;
+      document.getElementById('address-default').checked = address.isDefault;
+
+      new bootstrap.Modal(document.getElementById('addressModal')).show();
+    }
+
+    function saveAddress() {
+      const addressData = {
+        id: document.getElementById('address-id').value,
+        alias: document.getElementById('address-alias').value,
+        street: document.getElementById('address-street').value,
+        city: document.getElementById('address-city').value,
+        postalCode: document.getElementById('address-postal').value,
+        province: document.getElementById('address-province').value,
+        isDefault: document.getElementById('address-default').checked
+      };
+
+      if (userManager.saveAddress(addressData)) {
+        bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
+        loadUserAddresses();
+      }
+    }
+
+    function deleteAddress(addressId) {
+      if (confirm('¿Estás seguro de que quieres eliminar esta dirección?')) {
+        if (userManager.deleteAddress(addressId)) {
+          loadUserAddresses();
+        }
+      }
+    }
+
+    function changePassword() {
+      document.getElementById('change-password-form').reset();
+      new bootstrap.Modal(document.getElementById('changePasswordModal')).show();
+    }
+
+    function updatePassword() {
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (newPassword !== confirmPassword) {
+        userManager.showNotification('Las contraseñas no coinciden', 'error');
+        return;
+      }
+
+      if (userManager.changePassword(currentPassword, newPassword)) {
+        bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
+      }
+    }
+
+    function deleteAccount() {
+      if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+        if (confirm('Esta acción es irreversible. ¿Continuar?')) {
+          userManager.deleteAccount();
+          window.location.href = 'index.html';
+        }
+      }
+    }
+
+    // Mejorar lógica de navegación para Mi Cuenta
+    function updateNavigation() {
+      const userDropdown = document.getElementById('userDropdown');
+      const authButtons = document.getElementById('authButtons');
+      
+      if (typeof userManager !== 'undefined' && userManager.isLoggedIn()) {
+        // Usuario logueado: mostrar dropdown, ocultar botones auth
+        if (userDropdown) userDropdown.style.display = 'block';
+        if (authButtons) authButtons.style.display = 'none';
+        
+        const user = userManager.getCurrentUser();
+        const userNameNav = document.getElementById('userNameNav');
+        if (userNameNav && user) {
+          userNameNav.textContent = user.firstName;
+        }
+      } else {
+        // Usuario no logueado: mostrar solo "Iniciar Sesión"
+        if (userDropdown) userDropdown.style.display = 'none';
+        if (authButtons) {
+          authButtons.style.display = 'flex';
+          // Ocultar el botón de registro si ya estamos en página de cuenta
+          const registerBtn = authButtons.querySelector('[data-bs-target="#registerModal"]');
+          if (registerBtn) {
+            registerBtn.style.display = 'none';
+          }
+        }
+      }
+    }
+
+    // Inicializar cuando carga la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Esperar un poco para que los managers se inicialicen
+      setTimeout(updateNavigation, 200);
+      
+      // Si no está logueado, redirigir a login
+      if (typeof userManager !== 'undefined' && !userManager.isLoggedIn()) {
+        // Mostrar modal de login automáticamente
+        setTimeout(() => {
+          const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+          loginModal.show();
+          
+          // Mensaje amigable
+          userManager.showNotification('Inicia sesión para acceder a tu cuenta', 'info');
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>

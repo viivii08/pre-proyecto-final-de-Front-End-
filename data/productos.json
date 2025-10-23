@@ -1,0 +1,131 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Jarro Zorrito Invierno",
+      "slug": "jarro-zorrito-invierno",
+      "categoria": "jarros",
+      "precio": 21900,
+      "precioOriginal": 23900,
+      "descuento": 8,
+      "stock": 15,
+      "disponible": true,
+      "descripcionCorta": "Jarro enlozado inspirado en la Patagonia. Capacidad 330ml.",
+      "descripcionLarga": "Hermoso jarro enlozado con ilustración original de zorrito patagónico en ambiente invernal. Perfecto para tus infusiones favoritas. Material de alta calidad con esmalte duradero y resistente. Diseño exclusivo de Patagonia Style que te transporta a los paisajes del sur argentino.",
+      "caracteristicas": [
+        "Capacidad: 330ml",
+        "Material: Hierro enlozado",
+        "Resistente a golpes",
+        "Apto para lavavajillas",
+        "Ilustración original",
+        "Hecho en Argentina"
+      ],
+      "imagenes": [
+        "pages/jarroportada.webp",
+        "pages/jarro1.webp",
+        "pages/jarro2.webp"
+      ],
+      "tags": ["jarro", "enlozado", "patagonia", "zorrito", "invierno", "330ml"],
+      "peso": 200,
+      "dimensiones": "8cm x 8cm x 10cm",
+      "sku": "JAR-ZOR-INV-001"
+    },
+    {
+      "id": 2,
+      "nombre": "Cuaderno Zorro",
+      "slug": "cuaderno-zorro",
+      "categoria": "papeleria",
+      "precio": 18900,
+      "precioOriginal": 21900,
+      "descuento": 14,
+      "stock": 28,
+      "disponible": true,
+      "descripcionCorta": "Cuaderno anillado A4 con diseño original de vivipinta.",
+      "descripcionLarga": "Cuaderno anillado formato A4 con tapa dura ilustrada con un hermoso zorro patagónico. Ideal para escritura, dibujo o como diario personal. Papel de excelente calidad que no traspasa la tinta. Anillado resistente que permite abrir completamente el cuaderno.",
+      "caracteristicas": [
+        "Formato: A4 (21 x 29.7 cm)",
+        "80 hojas rayadas",
+        "Papel bond 80g",
+        "Tapa dura plastificada",
+        "Anillado metálico resistente",
+        "Ilustración original exclusiva"
+      ],
+      "imagenes": [
+        "pages/cuadernoportada.webp"
+      ],
+      "tags": ["cuaderno", "anillado", "a4", "zorro", "papeleria", "escritura"],
+      "peso": 350,
+      "dimensiones": "21cm x 29.7cm x 1.5cm",
+      "sku": "CUAD-ZOR-A4-001"
+    },
+    {
+      "id": 3,
+      "nombre": "Yerbera Bariloche",
+      "slug": "yerbera-bariloche",
+      "categoria": "accesorios",
+      "precio": 24900,
+      "precioOriginal": null,
+      "descuento": 0,
+      "stock": 12,
+      "disponible": true,
+      "descripcionCorta": "Yerbera ilustrada con paisajes de montaña, bosque y lago.",
+      "descripcionLarga": "Elegante yerbera de lata con ilustraciones originales inspiradas en los paisajes de Bariloche. Diseño que captura la esencia de la Patagonia con montañas, bosques y lagos. Perfecta para conservar tu yerba mate fresca y con estilo. Tapa hermética que preserva el aroma y sabor.",
+      "caracteristicas": [
+        "Capacidad: 1kg de yerba",
+        "Material: Lata con recubrimiento alimentario",
+        "Tapa hermética",
+        "Ilustración 360° wraparound",
+        "Resistente a la humedad",
+        "Diseño exclusivo Bariloche"
+      ],
+      "imagenes": [
+        "pages/yerbraportada.webp",
+        "pages/yerbera-fondo-4ab23bd97fa2c37cbf17596964157523-1024-1024.webp",
+        "pages/yerbera4-5f37e6c49e8e21663617596865116643-640-0.webp"
+      ],
+      "tags": ["yerbera", "bariloche", "lata", "paisaje", "montana", "lago"],
+      "peso": 180,
+      "dimensiones": "11cm x 11cm x 15cm",
+      "sku": "YERB-BAR-LAT-001"
+    }
+  ],
+  "categorias": [
+    {
+      "id": "jarros",
+      "nombre": "Jarros",
+      "descripcion": "Jarros enlozados con diseños patagónicos únicos"
+    },
+    {
+      "id": "papeleria",
+      "nombre": "Papelería",
+      "descripcion": "Cuadernos y artículos de papelería con arte original"
+    },
+    {
+      "id": "accesorios",
+      "nombre": "Accesorios",
+      "descripcion": "Yerberas y accesorios para el mate"
+    }
+  ],
+  "configuracion": {
+    "iva": 21,
+    "envioGratis": 50000,
+    "descuentoTransferencia": 10,
+    "zonas_envio": [
+      {
+        "nombre": "CABA",
+        "precio": 2500,
+        "tiempoEntrega": "24-48hs"
+      },
+      {
+        "nombre": "GBA",
+        "precio": 3500,
+        "tiempoEntrega": "48-72hs"
+      },
+      {
+        "nombre": "Interior",
+        "precio": 5500,
+        "tiempoEntrega": "3-7 días"
+      }
+    ]
+  }
+}
