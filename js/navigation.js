@@ -10,8 +10,8 @@ class NavigationComponent {
     const isHomePage = currentPage === 'index.html' || currentPage === '';
     
     return `
-      <nav class="navbar navbar-expand-xl navbar-dark fixed-top professional-navbar">
-        <div class="container-fluid px-4">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top professional-navbar">
+        <div class="container-fluid px-3">
           <!-- Brand Section -->
           <div class="navbar-brand-section">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
@@ -609,48 +609,126 @@ class NavigationComponent {
           }
         }
         
-        @media (max-width: 1200px) {
+        @media (max-width: 992px) {
           .professional-navbar .container-fluid {
-            grid-template-columns: 1fr;
-            gap: 15px;
-            padding: 15px;
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+          }
+          
+          .navbar-brand-section {
+            flex: 1;
+          }
+          
+          .custom-toggler {
+            display: block !important;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            padding: 8px;
           }
           
           .navbar-collapse {
-            grid-template-columns: 1fr;
-            gap: 20px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #1f3c5a, #3b5d50) !important;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            padding: 20px;
+            margin-top: -1px;
           }
           
           .navbar-nav {
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column !important;
+            gap: 10px !important;
+            margin-bottom: 20px;
+          }
+          
+          .nav-link {
+            font-size: 1rem !important;
+            padding: 12px 20px !important;
+            border-radius: 8px;
+            text-align: center;
           }
           
           .navbar-actions-section,
           .navbar-actions-section.default-layout,
           .navbar-actions-section.home-layout {
-            grid-template-columns: 1fr;
+            display: flex !important;
+            flex-direction: column;
             gap: 15px;
-            justify-items: center;
+            align-items: center;
           }
           
           .search-container {
-            justify-self: center;
             order: 1;
+            width: 100%;
+          }
+          
+          .search-form {
+            width: 100% !important;
           }
           
           .user-actions {
             order: 2;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          
+          .auth-buttons {
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+          }
+          
+          .auth-btn {
+            width: 100% !important;
+            justify-content: center;
+            min-width: unset !important;
+          }
+          
+          .user-btn {
+            width: 100% !important;
+            justify-content: center;
+            min-width: unset !important;
           }
           
           .shopping-actions {
             order: 3;
             justify-content: center;
+            margin-top: 10px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .navbar-brand {
+            font-size: 0.9rem !important;
           }
           
-          .auth-buttons {
-            justify-content: center;
+          .brand-text {
+            display: none;
+          }
+          
+          .navbar-collapse {
+            padding: 15px;
+          }
+          
+          .nav-link {
+            font-size: 0.9rem !important;
+            padding: 10px 15px !important;
+          }
+          
+          .auth-btn {
+            font-size: 0.9rem !important;
+            padding: 10px 15px !important;
+          }
+          
+          .user-btn {
+            font-size: 0.9rem !important;
+            padding: 10px 15px !important;
           }
         }
         
@@ -753,17 +831,30 @@ class NavigationComponent {
         .custom-toggler {
           border: 2px solid rgba(255,255,255,0.3);
           border-radius: 10px;
-          padding: 10px;
+          padding: 8px;
+          display: none;
         }
         
         .custom-toggler:focus {
           box-shadow: 0 0 0 0.2rem rgba(182, 124, 58, 0.25);
         }
         
+        .custom-toggler .navbar-toggler-icon {
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+        
         /* Smooth animations */
         .navbar-collapse.collapsing,
         .navbar-collapse.show {
           transition: all 0.3s ease;
+        }
+        
+        .navbar-collapse.collapse:not(.show) {
+          display: none;
+        }
+        
+        .navbar-collapse.collapse.show {
+          display: block;
         }
         
         /* Professional spacing adjustments */
