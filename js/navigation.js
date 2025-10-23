@@ -158,6 +158,18 @@ class NavigationComponent {
           display: block;
         }
         
+        @media (max-width: 992px) {
+          .navbar-spacer {
+            height: 60px;
+          }
+        }
+        
+        @media (max-width: 768px) {
+          .navbar-spacer {
+            height: 50px;
+          }
+        }
+        
         /* Container Layout */
         .professional-navbar .container-fluid {
           display: grid;
@@ -610,22 +622,31 @@ class NavigationComponent {
         }
         
         @media (max-width: 992px) {
+          .professional-navbar {
+            min-height: 50px !important;
+          }
+          
           .professional-navbar .container-fluid {
             display: flex !important;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
+            padding: 5px 15px;
+            min-height: 50px;
           }
           
           .navbar-brand-section {
             flex: 1;
           }
           
+          .navbar-brand {
+            font-size: 0.9rem !important;
+          }
+          
           .custom-toggler {
             display: block !important;
             border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            padding: 8px;
+            border-radius: 8px;
+            padding: 6px;
           }
           
           .navbar-collapse {
@@ -638,6 +659,7 @@ class NavigationComponent {
             box-shadow: 0 8px 25px rgba(0,0,0,0.2);
             padding: 20px;
             margin-top: -1px;
+            z-index: 1050;
           }
           
           .navbar-nav {
@@ -846,15 +868,19 @@ class NavigationComponent {
         /* Smooth animations */
         .navbar-collapse.collapsing,
         .navbar-collapse.show {
-          transition: all 0.3s ease;
+          transition: all 0.3s ease !important;
         }
         
         .navbar-collapse.collapse:not(.show) {
-          display: none;
+          display: none !important;
         }
         
         .navbar-collapse.collapse.show {
-          display: block;
+          display: block !important;
+        }
+        
+        .navbar-collapse.collapsing {
+          display: block !important;
         }
         
         /* Professional spacing adjustments */
@@ -913,6 +939,20 @@ class NavigationComponent {
         
         // Mostrar notificación
         this.showNotification('Sesión cerrada correctamente', 'info');
+      }
+    });
+
+    // Cerrar menú móvil al hacer click en enlaces
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.nav-link') || e.target.matches('.auth-btn') || e.target.matches('.dropdown-item')) {
+        const navbarCollapse = document.querySelector('#navbarContent');
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+          // Usar Bootstrap para cerrar el menú
+          const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+          if (bsCollapse) {
+            bsCollapse.hide();
+          }
+        }
       }
     });
 

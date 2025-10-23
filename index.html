@@ -152,6 +152,37 @@
       .dropdown-menu {
         min-width: 250px;
       }
+      
+      /* Carousel mobile improvements */
+      .carousel-item {
+        min-height: 70vh !important;
+        background-size: cover !important;
+      }
+      
+      .carousel-caption {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 90%;
+        padding: 20px;
+      }
+      
+      .carousel-caption h1 {
+        font-size: 2rem !important;
+        margin-bottom: 10px !important;
+      }
+      
+      .carousel-caption p {
+        font-size: 1.1rem !important;
+        margin-bottom: 15px !important;
+      }
+      
+      .btn-custom {
+        padding: 12px 25px !important;
+        font-size: 1rem !important;
+      }
     }
     
     @media (max-width: 576px) {
@@ -165,6 +196,24 @@
       
       .navbar .btn i {
         font-size: 1rem;
+      }
+      
+      /* Mobile carousel specific */
+      .carousel-item {
+        min-height: 60vh !important;
+      }
+      
+      .carousel-caption h1 {
+        font-size: 1.8rem !important;
+      }
+      
+      .carousel-caption p {
+        font-size: 1rem !important;
+      }
+      
+      .btn-custom {
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
       }
     }
 
@@ -660,6 +709,31 @@
       if (navbarContainer) {
         navbarContainer.innerHTML = navigationComponent.renderNavbar();
         navigationComponent.init();
+        
+        // Solución simple para el toggle del navbar
+        setTimeout(() => {
+          const navbarToggler = document.querySelector('.navbar-toggler');
+          const navbarCollapse = document.querySelector('#navbarContent');
+          
+          if (navbarToggler && navbarCollapse) {
+            // Usar Bootstrap nativo
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+              toggle: false
+            });
+            
+            navbarToggler.addEventListener('click', function(e) {
+              e.preventDefault();
+              bsCollapse.toggle();
+            });
+            
+            // Cerrar al hacer click en enlaces
+            document.addEventListener('click', function(e) {
+              if (e.target.closest('.nav-link, .auth-btn')) {
+                bsCollapse.hide();
+              }
+            });
+          }
+        }, 200);
       }
 
       // Esperar a que store esté disponible
