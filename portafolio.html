@@ -191,36 +191,8 @@
   </style>
 </head>
 <body>
-  <!-- Navbar simple -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:32px; width:auto; margin-right:8px;">
-        Patagonia Style
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarEcommerce">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="tienda.html">Tienda</a></li>
-          <li class="nav-item"><a class="nav-link active" href="portafolio.html">Portafolio</a></li>
-          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-        </ul>
-        <form class="d-flex me-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
-          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-        </form>
-        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
-          <i class="bi bi-person"></i>
-        </a>
-        <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito">
-          <i class="bi bi-cart3" style="font-size:1.3rem;"></i>
-          <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:0.9rem; display:none;">0</span>
-        </a>
-      </div>
-    </div>
-  </nav>
+  <!-- Navigation -->
+  <div id="navbar-container"></div>
 
   <!-- Título -->
   <header class="py-5 text-center" style="background:#f4f1ee;">
@@ -436,6 +408,17 @@
       this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
     });
   </script>
+  
+  <!-- Universal Navbar -->
+  <script src="js/universal-navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new UniversalNavbar('navbar-container', {
+        showSearch: false
+      });
+    });
+  </script>
+  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

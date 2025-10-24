@@ -275,51 +275,8 @@
   </style>
 </head>
 <body>
-  <!-- Navbar moderna para ecommerce -->
-  <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
-    <div class="container">
-      <!-- Logo -->
-      <a class="navbar-brand fw-bold" href="index.html">
-        <img src="pages/logo sin fondo (1).png" alt="Patagonia Style" style="height:32px; width:auto; margin-right:8px;">
-        Patagonia Style
-      </a>
-      <!-- Botón hamburguesa -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarEcommerce" aria-controls="navbarEcommerce" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <!-- Contenido navbar -->
-      <div class="collapse navbar-collapse" id="navbarEcommerce">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="tienda.html">Tienda</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" href="portafolio.html">Portafolio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="contacto.html">Contacto</a>
-          </li>
-          
-        </ul>
-        <!-- Barra de búsqueda -->
-        <form class="d-flex me-3" role="search">
-          <input class="form-control me-2" type="search" placeholder="Buscar productos..." aria-label="Buscar">
-          <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
-        </form>
-        <!-- Íconos usuario y carrito -->
-        <a href="#" class="btn btn-outline-light me-2" title="Mi cuenta">
-          <i class="bi bi-person"></i>
-        </a>
-        <a href="#" class="btn btn-outline-light position-relative" data-bs-toggle="modal" data-bs-target="#cartModal" title="Carrito">
-          <i class="bi bi-cart3"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-            0
-          </span>
-        </a>
-      </div>
-    </div>
-  </nav>
+  <!-- Navigation -->
+  <div id="navbar-container"></div>
 
   <!-- Contenido principal -->
   <main class="container py-5">
@@ -428,6 +385,16 @@
     document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
       this.style.transform = 'scale(1)';
       this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
+    });
+  </script>
+
+  <!-- Universal Navbar -->
+  <script src="js/universal-navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      new UniversalNavbar('navbar-container', {
+        showSearch: false
+      });
     });
   </script>
 

@@ -8,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dropdown-fix.css">
   
   <style>
     :root {
@@ -24,6 +25,7 @@
       font-family: 'Poppins', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-color);
+      padding-top: 50px; /* Para compensar el navbar fixed */
     }
 
     /* Navbar */
@@ -36,18 +38,78 @@
     .navbar a:hover { color: var(--accent-color) !important; }
     .icon-nav { font-size: 1.4rem; margin-left: 15px; cursor: pointer; color: #fff; transition: transform .2s ease, color .2s ease; }
     .icon-nav:hover { transform: scale(1.2); color: var(--accent-color); }
-    .cart-count { position: absolute; top: -6px; right: -10px; background: var(--accent-color); color: #fff; font-size: 0.75rem; border-radius: 50%; padding: 2px 6px; }
 
-    /* User Menu Styles */
-    .user-avatar {
-      font-size: 1.2rem;
-      color: #fff;
+    /* Dropdown Styles */
+    .dropdown-menu {
+      background: white !important;
+      border: 1px solid #ddd !important;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+    }
+    .dropdown-menu li a {
+      color: #333 !important;
+      font-size: 0.9rem !important;
+      font-weight: 500 !important;
+      text-decoration: none !important;
     }
     
-    .user-avatar-large {
-      font-size: 2rem;
-      color: var(--primary-color);
+    /* Forzar visibilidad del texto en dropdown */
+    .dropdown-menu .dropdown-item {
+      color: #333333 !important;
+      background: transparent !important;
+      font-size: 0.9rem !important;
+      font-weight: 500 !important;
+      padding: 12px 16px !important;
     }
+    .dropdown-menu .dropdown-item:hover {
+      color: #1f3c5a !important;
+      background-color: #f8f9fa !important;
+    }
+    .dropdown-menu .dropdown-item span {
+      color: #333333 !important;
+      font-size: 0.9rem !important;
+      font-weight: 500 !important;
+      display: inline !important;
+      visibility: visible !important;
+    }
+    .dropdown-menu .dropdown-item:hover span {
+      color: #1f3c5a !important;
+    }
+    /* Específico para cerrar sesión */
+    .dropdown-menu .dropdown-item.text-danger {
+      color: #dc3545 !important;
+    }
+    .dropdown-menu .dropdown-item.text-danger span {
+      color: #dc3545 !important;
+    }
+    
+    /* Hero Carousel */
+    .carousel-item { position: relative; min-height: 500px; }
+    .carousel-caption { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; z-index: 5; }
+    .carousel-caption h1 { font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); margin-bottom: 1rem; }
+    .carousel-caption p { font-size: 1.5rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); margin-bottom: 2rem; }
+
+    /* Buttons */
+    .btn-custom { background: var(--accent-color); color: #fff; font-weight: 600; border-radius: var(--btn-radius); padding: 12px 30px; font-size: 1.1rem; border: none; transition: all 0.3s; }
+    .btn-custom:hover { background: #996538; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(182, 124, 58, 0.4); }
+
+    /* Sections */
+    .section-title { text-align:center; font-size:2.5rem; margin-bottom:2rem; color: var(--primary-color); font-weight:600; position: relative; }
+    .section-title::after { content: ""; width: 70px; height: 3px; background: var(--accent-color); display:block; margin:10px auto 0; border-radius:2px; }
+
+    .card { border:none; border-radius:15px; overflow:hidden; box-shadow:0 6px 20px var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; background-color:#fff; }
+    .card:hover { transform: translateY(-8px) scale(1.03); box-shadow:0 15px 30px var(--card-shadow); }
+    .card-img-top { object-fit:cover; width:100%; height:250px; transition: transform 0.5s; }
+    .card:hover .card-img-top { transform: scale(1.1); }
+
+    footer { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); padding:40px 0; color:#fff; text-align:center; font-weight:500; }
+    footer a { color:#fff; text-decoration:none; margin:0 10px; }
+    footer a:hover { text-decoration:underline; color: var(--accent-color); }
+
+    .modal-body { max-height: 400px; overflow-y: auto; }
+    .cart-quantity { width:60px; }
+    html {
+  scroll-behavior: smooth;
+}
     
     .dropdown-menu {
       border: none;
@@ -376,7 +438,7 @@
 </head>
 <body>
 
-  <!-- Sistema de Navegación Modular - Patagonia Style -->
+  <!-- Navigation -->
   <div id="navbar-container"></div>
 
 <!-- Preload para mejorar carga de imagen externa -->
@@ -458,7 +520,8 @@
   <div class="row justify-content-center">
     <div class="col-lg-10 col-xl-8">
       <div class="ratio ratio-16x9">
-        <iframe src="https://www.youtube.com/embed/zZtDtEbCtXw?start=632" title="Paisaje Patagonia Argentina" frameborder="0" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/zZtDtEbCtXw?start=632" title="Paisaje Patagonia Argentina" frameborder="0" allowfullscreen 
+                style="border-radius: 15px; box-shadow: 0 8px 25px rgba(0,0,0,0.15);"></iframe>
       </div>
     </div>
   </div>
@@ -700,20 +763,173 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
-  <script src="js/navigation.js"></script>
   <script>
+    // Función para buscar productos
+    function buscarProductos(event) {
+      event.preventDefault();
+      const searchTerm = document.getElementById('navbar-search').value.trim();
+      if (searchTerm) {
+        window.location.href = `tienda.html?search=${encodeURIComponent(searchTerm)}`;
+      }
+      return false;
+    }
+
+    // Función para actualizar el navbar según el estado del usuario
+    function actualizarNavbarUsuario() {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      const navbarActions = document.getElementById('navbarActions');
+      
+      if (currentUser) {
+        // Usuario logueado - mostrar menú desplegable más visible
+        navbarActions.innerHTML = `
+          <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" 
+                    data-bs-toggle="dropdown" aria-expanded="false"
+                    style="border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.1); 
+                           border-radius: 20px; padding: 6px 12px; font-weight: 500; font-size: 0.9rem;">
+              <i class="bi bi-person-circle me-1" style="font-size: 1rem;"></i>
+              ${currentUser.name || currentUser.email.split('@')[0]}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" 
+                style="border: 1px solid #ddd; border-radius: 10px; padding: 8px 0; margin-top: 5px; 
+                       box-shadow: 0 5px 15px rgba(0,0,0,0.2); min-width: 200px; background: white;">
+              <li style="padding: 8px 15px; border-bottom: 1px solid #eee;">
+                <div style="color: #666; font-size: 0.8rem;">Logueado como:</div>
+                <div style="color: #333; font-weight: bold; font-size: 0.9rem;">${currentUser.name || 'Usuario'}</div>
+              </li>
+              <li>
+                <a href="mi-cuenta.html" 
+                   style="display: block; padding: 10px 15px; color: #333 !important; text-decoration: none; 
+                          font-size: 0.9rem; font-weight: 500; border: none; background: none;">
+                  <i class="bi bi-person" style="color: #1f3c5a; font-size: 0.9rem; margin-right: 8px;"></i>
+                  <span style="color: #333;">Mi cuenta</span>
+                </a>
+              </li>
+              <li>
+                <a href="mis-pedidos.html"
+                   style="display: block; padding: 10px 15px; color: #333 !important; text-decoration: none; 
+                          font-size: 0.9rem; font-weight: 500; border: none; background: none;">
+                  <i class="bi bi-box-seam" style="color: #1f3c5a; font-size: 0.9rem; margin-right: 8px;"></i>
+                  <span style="color: #333;">Mis pedidos</span>
+                </a>
+              </li>
+              <li>
+                <a href="mis-favoritos.html"
+                   style="display: block; padding: 10px 15px; color: #333 !important; text-decoration: none; 
+                          font-size: 0.9rem; font-weight: 500; border: none; background: none;">
+                  <i class="bi bi-heart" style="color: #1f3c5a; font-size: 0.9rem; margin-right: 8px;"></i>
+                  <span style="color: #333;">Favoritos</span>
+                </a>
+              </li>
+              <li style="border-top: 1px solid #eee; margin-top: 5px;">
+                <a href="#" onclick="cerrarSesion()" 
+                   style="display: block; padding: 10px 15px; color: #dc3545 !important; text-decoration: none; 
+                          font-size: 0.9rem; font-weight: 500; border: none; background: none;">
+                  <i class="bi bi-box-arrow-right" style="color: #dc3545; font-size: 0.9rem; margin-right: 8px;"></i>
+                  <span style="color: #dc3545;">Cerrar sesión</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        `;
+      } else {
+        // Usuario no logueado - mostrar botones de login/registro
+        navbarActions.innerHTML = `
+          <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
+                  style="border-radius: 20px; border: 2px solid rgba(255,255,255,0.5); background: rgba(255,255,255,0.1);">
+            <i class="bi bi-person me-1"></i>Ingresar
+          </button>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerModal"
+                  style="border-radius: 20px; background: var(--accent-color); border: none; font-weight: 600;">
+            <i class="bi bi-person-plus me-1"></i>Registrarme
+          </button>
+        `;
+      }
+    }
+
+    // Función para cerrar sesión
+    function cerrarSesion() {
+      localStorage.removeItem('currentUser');
+      actualizarNavbarUsuario();
+      window.location.reload();
+    }
+
     // Inicialización de la página principal
     document.addEventListener('DOMContentLoaded', () => {
-      // El sistema de navegación se inicializa automáticamente
+      // Actualizar navbar según estado del usuario
+      actualizarNavbarUsuario();
+      
       // Actualizar contadores después de un momento
       setTimeout(() => {
-        if (typeof navigationSystem !== 'undefined') {
-          navigationSystem.updateCartCounter();
-        }
         if (typeof store !== 'undefined') {
           store.actualizarContadorCarrito();
         }
+        actualizarCarrito();
       }, 100);
+
+      // Event listeners para los formularios de login y registro
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const email = document.getElementById('login-email').value;
+          const password = document.getElementById('login-password').value;
+          
+          // Simular login exitoso (deberías usar tu lógica real)
+          const userData = {
+            email: email,
+            name: email.split('@')[0], // Usar parte del email como nombre
+            id: Date.now()
+          };
+          
+          localStorage.setItem('currentUser', JSON.stringify(userData));
+          
+          // Cerrar modal
+          const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+          modal.hide();
+          
+          // Actualizar navbar
+          actualizarNavbarUsuario();
+          
+          // Mostrar mensaje de éxito
+          alert('¡Bienvenido de vuelta!');
+        });
+      }
+
+      if (registerForm) {
+        registerForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const name = document.getElementById('register-name').value;
+          const email = document.getElementById('register-email').value;
+          const password = document.getElementById('register-password').value;
+          
+          // Simular registro exitoso
+          const userData = {
+            email: email,
+            name: name,
+            id: Date.now()
+          };
+          
+          localStorage.setItem('currentUser', JSON.stringify(userData));
+          
+          // Cerrar modal de registro
+          const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
+          modal.hide();
+          
+          // Actualizar navbar
+          actualizarNavbarUsuario();
+          
+          // Mostrar modal de bienvenida
+          setTimeout(() => {
+            const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
+            welcomeModal.show();
+          }, 500);
+        });
+      }
     });
 
     // Agregar funcionalidad de búsqueda en navbar
@@ -827,5 +1043,16 @@
       }
     }
   </script>
+
+<!-- Universal Navbar -->
+<script src="js/universal-navbar.js?v=3"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new UniversalNavbar('navbar-container', {
+      showSearch: false
+    });
+  });
+</script>
+
 </body>
 </html>
