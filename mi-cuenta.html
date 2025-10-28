@@ -622,34 +622,21 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/navigation.js"></script>
+  
+  <!-- Sistemas Profesionales -->
+  <script src="js/validation.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/error-manager.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/performance.js"></script>
+  
+  <!-- Sistemas Base -->
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
+  <script src="js/universal-navbar.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Verificar si el usuario está logueado
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-      
-      if (!currentUser) {
-        // Redirigir al inicio si no está logueado
-        alert('Debes iniciar sesión para acceder a tu cuenta');
-        window.location.href = 'index.html';
-        return;
-      }
-
-      // Cargar datos del usuario
-      loadUserProfile(currentUser);
-      loadUserOrders();
-      loadUserAddresses();
-
-      // Event listeners
-      document.getElementById('profile-form').addEventListener('submit', saveProfile);
-
-      // Actualizar contador del carrito
-      if (typeof navigationSystem !== 'undefined') {
-        navigationSystem.updateCartCounter();
-      }
-    });
+    // Variables globales para la página
+    let currentUser = null;
 
     function loadUserProfile(user) {
       if (!user) return;
@@ -964,20 +951,84 @@
 
     // Inicializar cuando carga la página
     document.addEventListener('DOMContentLoaded', function() {
-      // Esperar un poco para que los managers se inicialicen
-      setTimeout(updateNavigation, 200);
+      // Inicializar sistemas profesionales
+      try {
+        if (typeof ValidationSystem !== 'undefined') window.validationSystem = new ValidationSystem();
+        if (typeof LoadingSystem !== 'undefined') window.loadingSystem = new LoadingSystem();
+        if (typeof ErrorManager !== 'undefined') window.errorManager = new ErrorManager();
+        if (typeof NotificationSystem !== 'undefined') window.notificationSystem = new NotificationSystem();
+        if (typeof PerformanceMonitor !== 'undefined') window.performanceMonitor = new PerformanceMonitor();
+        
+        console.log('✅ Sistemas profesionales inicializados');
+      } catch (error) {
+        console.warn('⚠️ Algunos sistemas profesionales no se pudieron inicializar:', error);
+      }
       
-      // Si no está logueado, redirigir a login
-      if (typeof userManager !== 'undefined' && !userManager.isLoggedIn()) {
-        // Mostrar modal de login automáticamente
-        setTimeout(() => {
+      // Inicializar sistemas base
+      try {
+        if (typeof Store !== 'undefined') {
+          window.store = new Store();
+          console.log('✅ Store inicializado');
+        }
+        if (typeof UserManager !== 'undefined') {
+          window.userManager = new UserManager();
+          console.log('✅ UserManager inicializado');
+        }
+        
+        // Inicializar navbar universal
+        new UniversalNavbar();
+        console.log('✅ Navbar inicializado');
+        
+        // Event listeners para login exitoso
+        document.addEventListener('userLoggedIn', function(event) {
+          console.log('🔐 Usuario logueado exitosamente');
+          currentUser = event.detail.user;
+          loadUserProfile(currentUser);
+          loadUserOrders();
+          loadUserAddresses();
+          
+          // Cerrar modal de login si está abierto
+          const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+          if (loginModal) {
+            loginModal.hide();
+          }
+          
+          if (window.notificationSystem) {
+            window.notificationSystem.success('Bienvenido', `Hola ${currentUser.firstName}!`);
+          }
+        });
+        
+      } catch (error) {
+        console.error('❌ Error inicializando sistemas base:', error);
+      }
+      
+      // Verificar estado de login y cargar contenido
+      setTimeout(() => {
+        if (window.userManager && window.userManager.isLoggedIn()) {
+          // Usuario logueado: cargar datos
+          currentUser = window.userManager.currentUser;
+          loadUserProfile(currentUser);
+          loadUserOrders();
+          loadUserAddresses();
+          
+          // Event listeners
+          const profileForm = document.getElementById('profile-form');
+          if (profileForm) {
+            profileForm.addEventListener('submit', saveProfile);
+          }
+          
+          console.log('✅ Usuario logueado - datos cargados');
+        } else {
+          // Usuario no logueado: mostrar modal de login
+          console.log('⚠️ Usuario no logueado - mostrando modal login');
           const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
           loginModal.show();
           
-          // Mensaje amigable
-          userManager.showNotification('Inicia sesión para acceder a tu cuenta', 'info');
-        }, 500);
-      }
+          if (window.notificationSystem) {
+            window.notificationSystem.info('Acceso requerido', 'Inicia sesión para acceder a tu cuenta');
+          }
+        }
+      }, 300);
     });
   </script>
 </body>

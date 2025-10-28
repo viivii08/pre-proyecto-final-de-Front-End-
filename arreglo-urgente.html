@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚨 ARREGLO CARRITO URGENTE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #dc3545; color: white; font-family: Arial; }
+    .btn-arreglar { background: #ffc107; color: #000; font-weight: bold; font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+  <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="text-center">
+      <h1 class="display-3 mb-4">🚨 ARREGLO URGENTE</h1>
+      <h2 class="mb-4">Tu carrito está vacío, lo voy a llenar AHORA</h2>
+      
+      <div class="mb-5">
+        <button class="btn btn-arreglar btn-lg px-5 py-3" onclick="arreglarTodo()">
+          🔧 ARREGLAR CARRITO AHORA
+        </button>
+      </div>
+
+      <div class="alert alert-warning text-dark">
+        <h4>📋 Lo que haré:</h4>
+        <ul class="list-unstyled">
+          <li>✅ Agregar productos al carrito</li>
+          <li>✅ Forzar actualización del localStorage</li>
+          <li>✅ Verificar que se vean en carrito.html</li>
+        </ul>
+      </div>
+
+      <div id="resultado" class="mt-4"></div>
+
+      <div class="mt-4">
+        <a href="carrito.html" class="btn btn-success btn-lg me-2">🛒 VER CARRITO</a>
+        <a href="index.html" class="btn btn-light btn-lg">🏠 INICIO</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function arreglarTodo() {
+      document.getElementById('resultado').innerHTML = '<div class="spinner-border text-warning"></div><p>Arreglando...</p>';
+      
+      // PRODUCTOS PARA AGREGAR AL CARRITO
+      const productos = [
+        {
+          id: 9001,
+          nombre: 'Jarro Enlozado Patagónico Premium',
+          precio: 8500,
+          imagen: 'pages/jarro1.webp',
+          cantidad: 2,
+          descripcion: 'Jarro enlozado artesanal con diseños únicos de la Patagonia argentina'
+        },
+        {
+          id: 9002,
+          nombre: 'Cuaderno Artesanal Patagónico',
+          precio: 4500,
+          imagen: 'pages/cuadernoportada.webp',
+          cantidad: 1,
+          descripcion: 'Cuaderno con tapa dura y diseños inspirados en la Patagonia'
+        },
+        {
+          id: 9003,
+          nombre: 'Yerbera Tradicional Premium',
+          precio: 12000,
+          imagen: 'pages/yerbera4-5f37e6c49e8e21663617596865116643-640-0.webp',
+          cantidad: 1,
+          descripcion: 'Yerbera artesanal con motivos tradicionales patagónicos'
+        }
+      ];
+
+      // LIMPIAR TODO PRIMERO
+      localStorage.clear();
+
+      // GUARDAR PRODUCTOS EN TODAS LAS CLAVES POSIBLES
+      const carritoJSON = JSON.stringify(productos);
+      localStorage.setItem('store_carrito', carritoJSON);
+      localStorage.setItem('carrito', carritoJSON);
+      localStorage.setItem('patagonia_carrito', carritoJSON);
+      localStorage.setItem('cart', carritoJSON);
+
+      // CREAR USUARIO DE PRUEBA
+      const usuario = {
+        firstName: 'Viviana',
+        lastName: 'Vargas',
+        email: 'vivi_ana35@hotmail.com',
+        phone: '+54 11 1234-5678',
+        isVerified: true,
+        registrationDate: new Date().toISOString()
+      };
+
+      localStorage.setItem('currentUser', JSON.stringify(usuario));
+      localStorage.setItem('patagonia_user', JSON.stringify(usuario));
+
+      // FORZAR RECARGA DE DATOS
+      window.dispatchEvent(new Event('storage'));
+
+      // RESULTADO
+      setTimeout(() => {
+        const total = productos.reduce((sum, p) => sum + (p.precio * p.cantidad), 0);
+        document.getElementById('resultado').innerHTML = `
+          <div class="alert alert-success text-dark">
+            <h3>✅ ¡CARRITO ARREGLADO!</h3>
+            <p><strong>Productos agregados:</strong> ${productos.length}</p>
+            <p><strong>Total:</strong> $${total.toLocaleString()}</p>
+            <p>🛒 <strong>Ve al carrito AHORA para verlos</strong></p>
+          </div>
+        `;
+      }, 1000);
+    }
+
+    // VERIFICAR ESTADO ACTUAL
+    window.addEventListener('load', function() {
+      const carrito = localStorage.getItem('store_carrito');
+      if (carrito && JSON.parse(carrito).length > 0) {
+        document.getElementById('resultado').innerHTML = `
+          <div class="alert alert-info text-dark">
+            <p>✅ Ya tienes productos en el carrito</p>
+            <p>Ve al carrito para verlos</p>
+          </div>
+        `;
+      }
+    });
+  </script>
+</body>
+</html>

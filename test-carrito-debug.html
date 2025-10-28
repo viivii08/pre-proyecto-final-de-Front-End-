@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛒 Debug Carrito - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">🔧 Debug del Carrito</h4>
+          </div>
+          <div class="card-body">
+            
+            <!-- Agregar productos de prueba -->
+            <div class="mb-4">
+              <h5>🛒 Agregar Productos de Prueba</h5>
+              <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-success" onclick="agregarJarro()">
+                  <i class="bi bi-plus"></i> Jarro Enlozado
+                </button>
+                <button class="btn btn-success" onclick="agregarCuaderno()">
+                  <i class="bi bi-plus"></i> Cuaderno Patagónico
+                </button>
+                <button class="btn btn-success" onclick="agregarYerbera()">
+                  <i class="bi bi-plus"></i> Yerbera
+                </button>
+                <button class="btn btn-danger" onclick="limpiarCarrito()">
+                  <i class="bi bi-trash"></i> Limpiar
+                </button>
+              </div>
+            </div>
+
+            <!-- Estado actual -->
+            <div class="mb-4">
+              <h5>📊 Estado Actual</h5>
+              <div id="estado-carrito" class="alert alert-info">
+                Cargando...
+              </div>
+            </div>
+
+            <!-- Navegación -->
+            <div class="mb-4">
+              <h5>🔗 Navegación</h5>
+              <div class="d-flex gap-2">
+                <a href="carrito.html" class="btn btn-primary">
+                  <i class="bi bi-cart3"></i> Ver Carrito
+                </a>
+                <a href="tienda.html" class="btn btn-outline-primary">
+                  <i class="bi bi-shop"></i> Tienda
+                </a>
+                <a href="index.html" class="btn btn-outline-secondary">
+                  <i class="bi bi-house"></i> Inicio
+                </a>
+              </div>
+            </div>
+
+            <!-- Debug de localStorage -->
+            <div class="mb-4">
+              <h5>🗄️ LocalStorage Debug</h5>
+              <textarea id="localStorage-debug" class="form-control" rows="8" readonly></textarea>
+              <button class="btn btn-info mt-2" onclick="actualizarDebug()">
+                <i class="bi bi-arrow-clockwise"></i> Actualizar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Sistemas Profesionales -->
+  <script src="js/validation.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/error-manager.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/performance.js"></script>
+  <script src="js/mercadopago.js"></script>
+  
+  <!-- Sistemas Base -->
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/universal-navbar.js"></script>
+
+  <script>
+    let store;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar sistemas
+      if (typeof ValidationSystem !== 'undefined') window.validationSystem = new ValidationSystem();
+      if (typeof LoadingSystem !== 'undefined') window.loadingSystem = new LoadingSystem();
+      if (typeof ErrorManager !== 'undefined') window.errorManager = new ErrorManager();
+      if (typeof NotificationSystem !== 'undefined') window.notificationSystem = new NotificationSystem();
+      if (typeof PerformanceMonitor !== 'undefined') window.performanceMonitor = new PerformanceMonitor();
+      if (typeof MercadoPagoIntegration !== 'undefined') window.mercadoPagoIntegration = new MercadoPagoIntegration();
+      
+      // Inicializar Store
+      if (typeof Store !== 'undefined') {
+        store = new Store();
+        window.store = store;
+      }
+      
+      if (typeof UserManager !== 'undefined') window.userManager = new UserManager();
+      
+      setTimeout(() => {
+        actualizarEstado();
+        actualizarDebug();
+      }, 500);
+    });
+
+    function agregarJarro() {
+      if (!store) {
+        alert('Store no inicializado');
+        return;
+      }
+      
+      const jarro = {
+        id: Date.now(),
+        nombre: 'Jarro Enlozado Patagónico',
+        precio: 8500,
+        imagen: 'pages/jarro1.webp',
+        cantidad: 1,
+        descripcion: 'Jarro enlozado con diseños patagónicos únicos'
+      };
+      
+      store.agregarAlCarrito(jarro);
+      notificationSystem.success('Producto Agregado', 'Jarro agregado al carrito');
+      actualizarEstado();
+    }
+
+    function agregarCuaderno() {
+      if (!store) return;
+      
+      const cuaderno = {
+        id: Date.now() + 1,
+        nombre: 'Cuaderno Patagónico',
+        precio: 4500,
+        imagen: 'pages/cuadernoportada.webp',
+        cantidad: 1,
+        descripcion: 'Cuaderno con tapa dura y diseños patagónicos'
+      };
+      
+      store.agregarAlCarrito(cuaderno);
+      notificationSystem.success('Producto Agregado', 'Cuaderno agregado al carrito');
+      actualizarEstado();
+    }
+
+    function agregarYerbera() {
+      if (!store) return;
+      
+      const yerbera = {
+        id: Date.now() + 2,
+        nombre: 'Yerbera Patagónica',
+        precio: 12000,
+        imagen: 'pages/yerbera4-5f37e6c49e8e21663617596865116643-640-0.webp',
+        cantidad: 1,
+        descripcion: 'Yerbera artesanal con motivos patagónicos'
+      };
+      
+      store.agregarAlCarrito(yerbera);
+      notificationSystem.success('Producto Agregado', 'Yerbera agregada al carrito');
+      actualizarEstado();
+    }
+
+    function limpiarCarrito() {
+      if (!store) return;
+      
+      if (confirm('¿Limpiar carrito?')) {
+        store.carrito = [];
+        store.guardarCarrito();
+        store.actualizarContadorCarrito();
+        notificationSystem.info('Carrito Limpio', 'Todos los productos eliminados');
+        actualizarEstado();
+      }
+    }
+
+    function actualizarEstado() {
+      if (!store) {
+        document.getElementById('estado-carrito').innerHTML = '❌ Store no inicializado';
+        return;
+      }
+      
+      const carrito = store.carrito || [];
+      const total = store.calcularTotal();
+      
+      let html = `
+        <strong>📦 Productos en carrito:</strong> ${carrito.length}<br>
+        <strong>💰 Total:</strong> $${total.toLocaleString()}<br><br>
+      `;
+      
+      if (carrito.length > 0) {
+        html += '<strong>🛍️ Productos:</strong><ul>';
+        carrito.forEach(item => {
+          html += `<li>${item.nombre} - $${item.precio.toLocaleString()} x ${item.cantidad}</li>`;
+        });
+        html += '</ul>';
+      } else {
+        html += '<em>Carrito vacío</em>';
+      }
+      
+      document.getElementById('estado-carrito').innerHTML = html;
+    }
+
+    function actualizarDebug() {
+      const debug = {};
+      
+      // LocalStorage completo
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        try {
+          const value = localStorage.getItem(key);
+          debug[key] = JSON.parse(value);
+        } catch {
+          debug[key] = localStorage.getItem(key);
+        }
+      }
+      
+      document.getElementById('localStorage-debug').value = JSON.stringify(debug, null, 2);
+    }
+
+    // Auto-actualizar cada 3 segundos
+    setInterval(() => {
+      actualizarEstado();
+    }, 3000);
+  </script>
+</body>
+</html>

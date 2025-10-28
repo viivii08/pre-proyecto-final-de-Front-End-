@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Sistemas Profesionales - Patagonia Style</title>
+  <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f4f1ee 0%, #e8e5e0 100%);
+      padding-top: 20px;
+    }
+
+    .demo-container {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .demo-title {
+      color: #1f3c5a;
+      font-weight: 700;
+      border-bottom: 3px solid #3b5d50;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-demo {
+      background: linear-gradient(45deg, #3b5d50, #2d4940);
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-weight: 600;
+      padding: 12px 25px;
+      margin: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(59, 93, 80, 0.3);
+    }
+
+    .btn-demo:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 93, 80, 0.4);
+      color: white;
+    }
+
+    .code-example {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-card {
+      background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      border-color: #3b5d50;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .performance-metrics {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      color: white;
+      border-radius: 12px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    .lazy-image-demo {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+
+    #demo-form {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 2px solid #e9ecef;
+    }
+
+    .validation-feedback {
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="text-center mb-5">
+      <h1 class="display-4 text-primary mb-3">
+        <i class="bi bi-gear-fill"></i>
+        Sistemas Profesionales Demo
+      </h1>
+      <p class="lead text-muted">
+        Demostración completa de todas las funcionalidades profesionales implementadas
+      </p>
+    </div>
+
+    <!-- 1. Sistema de Validación -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-check-circle-fill text-success"></i>
+        Sistema de Validación Profesional
+      </h2>
+      
+      <p class="mb-4">
+        Validación en tiempo real con sanitización y feedback visual profesional.
+      </p>
+
+      <div class="row">
+        <div class="col-md-6">
+          <form id="demo-form">
+            <div class="mb-3">
+              <label for="demo-email" class="form-label">Email</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="demo-email" 
+                name="email"
+                data-validate="required,email"
+                placeholder="tu@email.com"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="demo-phone" class="form-label">Teléfono</label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                id="demo-phone" 
+                name="phone"
+                data-validate="required,phone"
+                placeholder="+54 9 11 1234-5678"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="demo-password" class="form-label">Contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="demo-password" 
+                name="password"
+                data-validate="required,strongPassword"
+                placeholder="Mínimo 8 caracteres"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="demo-age" class="form-label">Edad</label>
+              <input 
+                type="number" 
+                class="form-control" 
+                id="demo-age" 
+                name="age"
+                data-validate="required,min:18,max:100"
+                placeholder="18-100"
+              >
+            </div>
+
+            <button type="submit" class="btn btn-demo">
+              <i class="bi bi-check-lg"></i>
+              Validar Formulario
+            </button>
+          </form>
+        </div>
+
+        <div class="col-md-6">
+          <h5>Características:</h5>
+          <ul class="list-unstyled">
+            <li><i class="bi bi-check text-success"></i> Validación en tiempo real</li>
+            <li><i class="bi bi-check text-success"></i> Sanitización automática</li>
+            <li><i class="bi bi-check text-success"></i> Feedback visual inmediato</li>
+            <li><i class="bi bi-check text-success"></i> 15+ validadores incluidos</li>
+            <li><i class="bi bi-check text-success"></i> Personalizable</li>
+          </ul>
+
+          <div class="code-example">
+validationSystem.setupFormValidation('demo-form');
+// Auto-setup con data-validate
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Sistema de Loading -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-arrow-repeat text-primary"></i>
+        Sistema de Loading Estados
+      </h2>
+      
+      <p class="mb-4">
+        Múltiples tipos de loading con animaciones profesionales.
+      </p>
+
+      <div class="row">
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoOverlayLoading()">
+            <i class="bi bi-layers"></i>
+            Overlay Loading
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoButtonLoading()">
+            <i class="bi bi-arrow-clockwise"></i>
+            Button Loading
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoInlineLoading()">
+            <i class="bi bi-three-dots"></i>
+            Inline Loading
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoSkeletonLoading()">
+            <i class="bi bi-window-stack"></i>
+            Skeleton Loading
+          </button>
+        </div>
+      </div>
+
+      <div id="loading-demo-area" class="mt-4 p-4 border rounded">
+        <p class="text-muted">Los demos de loading aparecerán aquí...</p>
+      </div>
+
+      <div class="code-example">
+loadingSystem.showOverlay('Cargando datos...');
+loadingSystem.showButton('btn-id', 'Guardando...');
+loadingSystem.showInline('container', 'pulse');
+loadingSystem.showSkeleton('content-area', 'card');
+      </div>
+    </div>
+
+    <!-- 3. Sistema de Notificaciones -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-bell-fill text-warning"></i>
+        Sistema de Notificaciones
+      </h2>
+      
+      <p class="mb-4">
+        Toast notifications profesionales con diferentes tipos y acciones.
+      </p>
+
+      <div class="row">
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoSuccessNotification()">
+            <i class="bi bi-check-circle"></i>
+            Success
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoErrorNotification()">
+            <i class="bi bi-x-circle"></i>
+            Error
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoWarningNotification()">
+            <i class="bi bi-exclamation-triangle"></i>
+            Warning
+          </button>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-demo w-100" onclick="demoInfoNotification()">
+            <i class="bi bi-info-circle"></i>
+            Info
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-3">
+        <button class="btn btn-demo" onclick="demoActionNotification()">
+          <i class="bi bi-gear"></i>
+          Notificación con Acciones
+        </button>
+        <button class="btn btn-demo" onclick="notificationSystem.dismissAll()">
+          <i class="bi bi-x-lg"></i>
+          Cerrar Todas
+        </button>
+      </div>
+
+      <div class="code-example">
+notificationSystem.success('¡Éxito!', 'Operación completada');
+notificationSystem.error('Error', 'Algo salió mal', { duration: 0 });
+notificationSystem.info('Info', 'Mensaje informativo', {
+  actions: [{ id: 'action', label: 'Acción', handler: () => {} }]
+});
+      </div>
+    </div>
+
+    <!-- 4. Sistema de Error Management -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+        Sistema de Gestión de Errores
+      </h2>
+      
+      <p class="mb-4">
+        Manejo profesional de errores con retry automático y logging.
+      </p>
+
+      <div class="row">
+        <div class="col-md-4">
+          <button class="btn btn-demo w-100" onclick="demoNetworkError()">
+            <i class="bi bi-wifi-off"></i>
+            Error de Red
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-demo w-100" onclick="demoValidationError()">
+            <i class="bi bi-exclamation-circle"></i>
+            Error de Validación
+          </button>
+        </div>
+        <div class="col-md-4">
+          <button class="btn btn-demo w-100" onclick="demoRetryableError()">
+            <i class="bi bi-arrow-clockwise"></i>
+            Error con Retry
+          </button>
+        </div>
+      </div>
+
+      <div class="code-example">
+errorManager.handleError(error, 'operation_type');
+errorManager.safeFetch('/api/data', options)
+  .then(data => console.log(data))
+  .catch(error => console.error('Handled error:', error));
+      </div>
+    </div>
+
+    <!-- 5. Sistema de Performance -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-speedometer text-info"></i>
+        Sistema de Optimización de Performance
+      </h2>
+      
+      <p class="mb-4">
+        Lazy loading, cache, debounce y métricas de rendimiento.
+      </p>
+
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Lazy Loading Demo</h5>
+          <div style="height: 300px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; padding: 10px;">
+            <img data-src="https://picsum.photos/400/200?random=1" class="lazy-image-demo" alt="Lazy 1">
+            <img data-src="https://picsum.photos/400/200?random=2" class="lazy-image-demo" alt="Lazy 2">
+            <img data-src="https://picsum.photos/400/200?random=3" class="lazy-image-demo" alt="Lazy 3">
+            <img data-src="https://picsum.photos/400/200?random=4" class="lazy-image-demo" alt="Lazy 4">
+            <img data-src="https://picsum.photos/400/200?random=5" class="lazy-image-demo" alt="Lazy 5">
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <h5>Métricas de Performance</h5>
+          <div id="performance-metrics" class="performance-metrics">
+            <div class="row text-center">
+              <div class="col-6">
+                <h6>Page Load</h6>
+                <span id="metric-pageload">Calculando...</span>
+              </div>
+              <div class="col-6">
+                <h6>First Paint</h6>
+                <span id="metric-firstpaint">Calculando...</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-demo mt-3" onclick="showPerformanceReport()">
+            <i class="bi bi-graph-up"></i>
+            Ver Reporte Completo
+          </button>
+
+          <div class="code-example">
+performanceOptimizer.setupLazyImages();
+performanceOptimizer.cachedFetch('/api/data');
+const report = performanceOptimizer.getPerformanceReport();
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. MercadoPago Integration -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-credit-card-fill text-success"></i>
+        Integración MercadoPago
+      </h2>
+      
+      <p class="mb-4">
+        Sistema completo de pagos con MercadoPago (modo sandbox para testing).
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card" onclick="demoCheckoutPro()">
+          <h5><i class="bi bi-cart-check"></i> Checkout Pro</h5>
+          <p>Checkout completo con redirección a MercadoPago</p>
+        </div>
+
+        <div class="feature-card" onclick="demoTransparentCheckout()">
+          <h5><i class="bi bi-credit-card"></i> Checkout Transparente</h5>
+          <p>Formulario de tarjeta integrado en tu sitio</p>
+        </div>
+
+        <div class="feature-card" onclick="demoPaymentStatus()">
+          <h5><i class="bi bi-check-circle"></i> Estado de Pagos</h5>
+          <p>Seguimiento y notificaciones de pago</p>
+        </div>
+
+        <div class="feature-card" onclick="demoWebhooks()">
+          <h5><i class="bi bi-arrow-left-right"></i> Webhooks</h5>
+          <p>Procesamiento automático de notificaciones</p>
+        </div>
+      </div>
+
+      <div class="code-example">
+const preference = await mercadoPago.createPreference(items, payer);
+await mercadoPago.initCheckoutPro('container', preference.id);
+// O checkout transparente:
+await mercadoPago.initTransparentCheckout('form-id');
+      </div>
+    </div>
+
+    <!-- Resumen de Características -->
+    <div class="demo-container">
+      <h2 class="demo-title">
+        <i class="bi bi-list-check text-success"></i>
+        Resumen de Mejoras Profesionales
+      </h2>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Funcionalidades Implementadas:</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Sistema de validación con 15+ validadores
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Loading states con 4 tipos diferentes
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Notificaciones toast profesionales
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Error management con retry automático
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Optimización de performance
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-check-circle-fill text-success me-2"></i>
+              Integración completa MercadoPago
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-6">
+          <h5>Beneficios Técnicos:</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-lightning-fill text-warning me-2"></i>
+              Mejora significativa en UX
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-shield-check-fill text-primary me-2"></i>
+              Validación robusta y segura
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-speedometer text-info me-2"></i>
+              Performance optimizada
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-bug-fill text-danger me-2"></i>
+              Manejo profesional de errores
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-credit-card-fill text-success me-2"></i>
+              Sistema de pagos real
+            </li>
+            <li class="list-group-item d-flex align-items-center">
+              <i class="bi bi-code-square text-secondary me-2"></i>
+              Código modular y mantenible
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Sistemas Profesionales -->
+  <script src="js/validation.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/error-manager.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/performance.js"></script>
+  <script src="js/mercadopago.js"></script>
+
+  <script>
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Setup validación del formulario demo
+      validationSystem.setupFormValidation('demo-form');
+      
+      // Setup lazy loading
+      performanceOptimizer.setupLazyImages('.lazy-image-demo[data-src]');
+      
+      // Mostrar métricas de performance
+      updatePerformanceMetrics();
+      
+      // Bienvenida
+      setTimeout(() => {
+        notificationSystem.info(
+          'Demo Sistemas Profesionales',
+          'Explora todas las funcionalidades haciendo clic en los botones',
+          { duration: 6000 }
+        );
+      }, 1000);
+    });
+
+    // Demo Functions - Loading
+    function demoOverlayLoading() {
+      loadingSystem.showOverlay('Simulando carga de datos...');
+      setTimeout(() => {
+        loadingSystem.hideOverlay();
+        notificationSystem.success('Completado', 'Overlay loading demo terminado');
+      }, 3000);
+    }
+
+    function demoButtonLoading() {
+      const btn = event.target;
+      loadingSystem.showButton(btn, 'Procesando...');
+      setTimeout(() => {
+        loadingSystem.hideButton(btn);
+        notificationSystem.success('Completado', 'Button loading demo terminado');
+      }, 2000);
+    }
+
+    function demoInlineLoading() {
+      const area = document.getElementById('loading-demo-area');
+      loadingSystem.showInline(area, 'pulse');
+      setTimeout(() => {
+        loadingSystem.hideInline(area);
+        area.innerHTML = '<p class="text-success">✅ Inline loading completado!</p>';
+      }, 2500);
+    }
+
+    function demoSkeletonLoading() {
+      const area = document.getElementById('loading-demo-area');
+      loadingSystem.showSkeleton(area, 'card');
+      setTimeout(() => {
+        loadingSystem.hideSkeleton(area);
+        area.innerHTML = `
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contenido Cargado</h5>
+              <p class="card-text">El skeleton loading ha sido reemplazado por el contenido real.</p>
+            </div>
+          </div>
+        `;
+      }, 3000);
+    }
+
+    // Demo Functions - Notifications
+    function demoSuccessNotification() {
+      notificationSystem.success(
+        '¡Operación Exitosa!',
+        'Todo se completó correctamente. Este es un mensaje de éxito.',
+        { duration: 4000 }
+      );
+    }
+
+    function demoErrorNotification() {
+      notificationSystem.error(
+        'Error del Sistema',
+        'Se encontró un problema que necesita atención inmediata.',
+        { 
+          duration: 0,
+          actions: [{
+            id: 'retry',
+            label: 'Reintentar',
+            style: 'primary',
+            handler: () => {
+              notificationSystem.info('Reintentando', 'Procesando solicitud...');
+            }
+          }]
+        }
+      );
+    }
+
+    function demoWarningNotification() {
+      notificationSystem.warning(
+        'Advertencia Importante',
+        'Hay algo que requiere tu atención antes de continuar.',
+        { duration: 6000 }
+      );
+    }
+
+    function demoInfoNotification() {
+      notificationSystem.info(
+        'Información del Sistema',
+        'Esta es una notificación informativa para el usuario.',
+        { duration: 5000 }
+      );
+    }
+
+    function demoActionNotification() {
+      notificationSystem.show(
+        'info',
+        'Notificación Interactiva',
+        'Esta notificación tiene múltiples acciones disponibles.',
+        {
+          duration: 0,
+          actions: [
+            {
+              id: 'accept',
+              label: 'Aceptar',
+              style: 'primary',
+              handler: (id) => {
+                notificationSystem.success('Aceptado', 'Has aceptado la acción');
+              }
+            },
+            {
+              id: 'cancel',
+              label: 'Cancelar',
+              style: '',
+              handler: (id) => {
+                notificationSystem.warning('Cancelado', 'Has cancelado la acción');
+              }
+            }
+          ]
+        }
+      );
+    }
+
+    // Demo Functions - Error Management
+    function demoNetworkError() {
+      const error = new Error('Network connection failed');
+      error.type = 'NetworkError';
+      errorManager.handleError(error, 'network_demo');
+    }
+
+    function demoValidationError() {
+      const error = new Error('Validation failed: Email format is invalid');
+      error.type = 'ValidationError';
+      errorManager.handleError(error, 'validation_demo');
+    }
+
+    function demoRetryableError() {
+      errorManager.safeFetch('https://httpstat.us/500', { 
+        method: 'GET',
+        timeout: 5000 
+      })
+      .then(data => {
+        notificationSystem.success('Éxito', 'Request completado después de retry');
+      })
+      .catch(error => {
+        console.log('Final error after retries:', error);
+      });
+    }
+
+    // Demo Functions - Performance
+    function updatePerformanceMetrics() {
+      setTimeout(() => {
+        const report = performanceOptimizer.getPerformanceReport();
+        
+        document.getElementById('metric-pageload').textContent = 
+          report.pageLoad ? `${Math.round(report.pageLoad)}ms` : 'N/A';
+        
+        document.getElementById('metric-firstpaint').textContent = 
+          report.firstPaint ? `${Math.round(report.firstPaint)}ms` : 'N/A';
+      }, 2000);
+    }
+
+    function showPerformanceReport() {
+      const report = performanceOptimizer.getPerformanceReport();
+      
+      notificationSystem.info(
+        'Reporte de Performance',
+        `
+        Page Load: ${report.pageLoad || 'N/A'}ms<br>
+        First Paint: ${report.firstPaint || 'N/A'}ms<br>
+        Cache Size: ${report.cacheSize} items<br>
+        Lazy Images: ${report.lazyImagesLoaded} loaded
+        `,
+        { 
+          duration: 0,
+          actions: [{
+            id: 'console',
+            label: 'Ver en Consola',
+            style: 'primary',
+            handler: () => console.log('Performance Report:', report)
+          }]
+        }
+      );
+    }
+
+    // Demo Functions - MercadoPago
+    function demoCheckoutPro() {
+      notificationSystem.info(
+        'MercadoPago Checkout Pro',
+        'En producción, esto redirigiría al checkout de MercadoPago',
+        {
+          duration: 0,
+          actions: [{
+            id: 'simulate',
+            label: 'Simular',
+            style: 'primary',
+            handler: () => {
+              loadingSystem.showOverlay('Redirigiendo a MercadoPago...');
+              setTimeout(() => {
+                loadingSystem.hideOverlay();
+                notificationSystem.success('Simulación', 'Checkout Pro iniciado');
+              }, 2000);
+            }
+          }]
+        }
+      );
+    }
+
+    function demoTransparentCheckout() {
+      notificationSystem.info(
+        'Checkout Transparente',
+        'Checkout con formulario de tarjeta integrado en tu sitio',
+        { duration: 5000 }
+      );
+    }
+
+    function demoPaymentStatus() {
+      const statuses = ['approved', 'pending', 'rejected'];
+      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+      
+      const messages = {
+        approved: { type: 'success', title: '¡Pago Aprobado!', message: 'La transacción fue procesada exitosamente' },
+        pending: { type: 'warning', title: 'Pago Pendiente', message: 'El pago está siendo procesado' },
+        rejected: { type: 'error', title: 'Pago Rechazado', message: 'Hubo un problema con el pago' }
+      };
+      
+      const msg = messages[randomStatus];
+      notificationSystem[msg.type](msg.title, msg.message, { duration: 6000 });
+    }
+
+    function demoWebhooks() {
+      notificationSystem.info(
+        'Webhook Simulado',
+        'Notificación de MercadoPago procesada automáticamente',
+        { duration: 4000 }
+      );
+      
+      // Simular webhook después de un delay
+      setTimeout(() => {
+        notificationSystem.success(
+          'Webhook Procesado',
+          'Estado del pago actualizado automáticamente',
+          { duration: 4000 }
+        );
+      }, 2000);
+    }
+
+    // Error handling global
+    window.addEventListener('error', (e) => {
+      errorManager.handleError(e.error, 'demo_global');
+    });
+  </script>
+</body>
+</html>

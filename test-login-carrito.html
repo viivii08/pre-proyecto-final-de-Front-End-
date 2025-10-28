@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Login y Carrito - Patagonia Style</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-center mb-5">🧪 Test de Funcionalidades</h1>
+    
+    <!-- Navbar de prueba -->
+    <div id="navbar-container"></div>
+    
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>🔐 Test de Login</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Usuario de prueba:</strong></p>
+            <ul>
+              <li>Email: <code>test@patagonia.com</code></li>
+              <li>Contraseña: <code>123456</code></li>
+            </ul>
+            <button class="btn btn-primary" onclick="testQuickLogin()">
+              <i class="bi bi-person-check"></i> Login Rápido
+            </button>
+            <button class="btn btn-outline-danger ms-2" onclick="testLogout()">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            <h5>🛒 Test de Carrito</h5>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-success" onclick="testAddToCart()">
+              <i class="bi bi-plus-circle"></i> Agregar Producto
+            </button>
+            <button class="btn btn-warning ms-2" onclick="testClearCart()">
+              <i class="bi bi-trash"></i> Vaciar Carrito
+            </button>
+            <div class="mt-3">
+              <small class="text-muted">Items en carrito: <span id="cart-status">0</span></small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>📊 Estado Actual</h5>
+          </div>
+          <div class="card-body">
+            <div id="status-info">
+              <p>Cargando...</p>
+            </div>
+            <button class="btn btn-info" onclick="updateStatus()">
+              <i class="bi bi-arrow-clockwise"></i> Actualizar Estado
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h5>🔧 Herramientas de Debug</h5>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-outline-secondary" onclick="clearAllData()">
+              <i class="bi bi-eraser"></i> Limpiar LocalStorage
+            </button>
+            <button class="btn btn-outline-info ms-2" onclick="showLocalStorage()">
+              <i class="bi bi-database"></i> Ver LocalStorage
+            </button>
+            <button class="btn btn-outline-success ms-2" onclick="testNotifications()">
+              <i class="bi bi-bell"></i> Test Notificaciones
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Sistemas Profesionales -->
+  <script src="js/validation.js"></script>
+  <script src="js/loading.js"></script>
+  <script src="js/error-manager.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/performance.js"></script>
+  <script src="js/mercadopago.js"></script>
+  
+  <!-- Sistemas Base -->
+  <script src="js/store.js"></script>
+  <script src="js/users.js"></script>
+  <script src="js/universal-navbar.js"></script>
+
+  <script>
+    // Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Crear instancias globales si no existen
+      if (!window.store) {
+        window.store = new Store();
+      }
+      if (!window.userManager) {
+        window.userManager = new UserManager();
+      }
+      
+      // Inicializar navbar
+      new UniversalNavbar();
+      
+      // Estado inicial
+      updateStatus();
+      
+      console.log('🧪 Test page loaded successfully');
+    });
+
+    // Funciones de test
+    async function testQuickLogin() {
+      if (!window.userManager) {
+        alert('UserManager no disponible');
+        return;
+      }
+      
+      const result = await userManager.login('test@patagonia.com', '123456');
+      
+      if (result.success) {
+        notificationSystem.success('Login Exitoso', 'Usuario logueado correctamente');
+      } else {
+        notificationSystem.error('Error de Login', result.error);
+      }
+      
+      updateStatus();
+    }
+
+    function testLogout() {
+      if (window.userManager) {
+        userManager.logout();
+        updateStatus();
+      }
+    }
+
+    function testAddToCart() {
+      if (!window.store) {
+        alert('Store no disponible');
+        return;
+      }
+      
+      const testProduct = {
+        id: Date.now(),
+        nombre: `Producto Test ${Math.floor(Math.random() * 100)}`,
+        precio: Math.floor(Math.random() * 1000) + 100,
+        imagen: 'https://via.placeholder.com/150',
+        cantidad: 1
+      };
+      
+      store.agregarAlCarrito(testProduct);
+      notificationSystem.success('Producto Agregado', `${testProduct.nombre} agregado al carrito`);
+      updateStatus();
+    }
+
+    function testClearCart() {
+      if (window.store) {
+        store.carrito = [];
+        store.guardarCarrito();
+        notificationSystem.info('Carrito Vacío', 'Todos los productos fueron eliminados');
+        updateStatus();
+      }
+    }
+
+    function updateStatus() {
+      const user = window.userManager?.currentUser;
+      const cartItems = window.store?.carrito || [];
+      
+      const statusHtml = `
+        <div class="row">
+          <div class="col-md-6">
+            <h6>👤 Usuario</h6>
+            ${user ? `
+              <p class="text-success">✅ Logueado como: <strong>${user.firstName} ${user.lastName}</strong></p>
+              <small class="text-muted">Email: ${user.email}</small>
+            ` : `
+              <p class="text-warning">❌ No logueado</p>
+            `}
+          </div>
+          <div class="col-md-6">
+            <h6>🛒 Carrito</h6>
+            <p>Items: <strong>${cartItems.length}</strong></p>
+            <p>Total: <strong>$${cartItems.reduce((sum, item) => sum + (item.precio * item.cantidad), 0).toLocaleString()}</strong></p>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <h6>🔧 Sistemas</h6>
+            <div class="d-flex flex-wrap gap-2">
+              <span class="badge ${window.store ? 'bg-success' : 'bg-danger'}">Store</span>
+              <span class="badge ${window.userManager ? 'bg-success' : 'bg-danger'}">UserManager</span>
+              <span class="badge ${window.notificationSystem ? 'bg-success' : 'bg-danger'}">Notifications</span>
+              <span class="badge ${window.loadingSystem ? 'bg-success' : 'bg-danger'}">Loading</span>
+              <span class="badge ${window.validationSystem ? 'bg-success' : 'bg-danger'}">Validation</span>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById('status-info').innerHTML = statusHtml;
+      document.getElementById('cart-status').textContent = cartItems.length;
+    }
+
+    function clearAllData() {
+      if (confirm('¿Seguro que quieres limpiar todos los datos?')) {
+        localStorage.clear();
+        location.reload();
+      }
+    }
+
+    function showLocalStorage() {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+      }
+      console.log('📦 LocalStorage:', data);
+      notificationSystem.info('LocalStorage', 'Datos mostrados en consola (F12)');
+    }
+
+    function testNotifications() {
+      notificationSystem.success('Test Success', 'Notificación de éxito');
+      setTimeout(() => {
+        notificationSystem.warning('Test Warning', 'Notificación de advertencia');
+      }, 1000);
+      setTimeout(() => {
+        notificationSystem.error('Test Error', 'Notificación de error');
+      }, 2000);
+      setTimeout(() => {
+        notificationSystem.info('Test Info', 'Notificación informativa');
+      }, 3000);
+    }
+
+    // Auto-actualizar estado cada 5 segundos
+    setInterval(updateStatus, 5000);
+  </script>
+</body>
+</html>
