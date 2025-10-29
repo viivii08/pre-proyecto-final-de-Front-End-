@@ -119,12 +119,6 @@ class PatagoniaStore {
               <button class="btn btn-card flex-grow-1" onclick="store.verDetalleProducto(${producto.id})">
                 <i class="bi bi-eye"></i> Ver más
               </button>
-              <button class="btn btn-outline-danger" 
-                      data-favorite-id="${producto.sku || producto.id}"
-                      title="Agregar a favoritos"
-                      style="padding: 8px 12px;">
-                <i class="bi bi-heart"></i>
-              </button>
             </div>
             <button class="btn btn-card agregar-carrito-btn w-100" onclick="store.agregarAlCarrito(${producto.id})" ${!producto.disponible || producto.stock === 0 ? 'disabled' : ''}>
               <i class="bi bi-cart-plus"></i> ${producto.disponible && producto.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}

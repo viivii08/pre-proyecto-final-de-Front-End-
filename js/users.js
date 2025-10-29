@@ -106,8 +106,22 @@ class UserManager {
   logout() {
     this.currentUser = null;
     localStorage.removeItem('patagonia_user');
+    localStorage.removeItem('currentUser'); // Compatibilidad
+    
+    // Disparar evento para actualizar UI
+    const event = new CustomEvent('userLoggedOut', {
+      detail: { timestamp: new Date().toISOString() }
+    });
+    document.dispatchEvent(event);
+    
     this.updateUIForLoggedUser();
     this.showNotification('Sesión cerrada exitosamente', 'info');
+    
+    // Actualizar navbar universal si existe
+    if (typeof universalNavbar !== 'undefined') {
+      universalNavbar.currentUser = null;
+      universalNavbar.renderNavbar();
+    }
     
     // Redirigir a inicio si está en página protegida
     if (window.location.pathname.includes('mi-cuenta') || 
@@ -134,7 +148,8 @@ class UserManager {
       return { isValid: false, message: 'El apellido debe tener al menos 2 caracteres' };
     }
     
-    if (!data.phone || data.phone.length < 10) {
+    // Validación de teléfono más flexible
+    if (data.phone && data.phone !== '0000000000' && data.phone.length < 10) {
       return { isValid: false, message: 'Teléfono inválido' };
     }
 
@@ -473,11 +488,23 @@ class UserManager {
   }
 
   showNotification(message, type = 'info') {
+    // Para errores de validación, usar un estilo más suave
+    if (type === 'error' && (message.includes('inválido') || message.includes('debe tener'))) {
+      // Mostrar error en consola y usar tipo 'warning' en lugar de 'error'
+      console.warn('Validación:', message);
+      type = 'warning';
+    }
+    
     // Reutilizar el sistema de notificaciones existente
     if (typeof store !== 'undefined' && store.mostrarNotificacion) {
       store.mostrarNotificacion(message, type);
     } else {
-      alert(message); // Fallback
+      // Fallback más suave
+      if (type === 'error') {
+        console.error('Error:', message);
+      } else {
+        console.log(`${type.toUpperCase()}:`, message);
+      }
     }
   }
 

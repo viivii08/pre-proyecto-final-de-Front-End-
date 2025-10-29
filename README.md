@@ -83,7 +83,6 @@
 │   ├── navigation.js          # Sistema de navegación dinámico
 │   ├── users.js               # Gestión de usuarios
 │   ├── store.js               # Funcionalidad del carrito
-│   └── favorites.js           # Sistema de favoritos
 ├── 📁 pages/                  # Imágenes y recursos
 └── 📁 videos/                 # Contenido multimedia
 ```
@@ -179,7 +178,7 @@ showNotification(message, type = 'info') {
 ### **Páginas de Productos Individuales**
 - Galerías de imágenes interactivas
 - Información detallada de productos
-- Botones de compra y favoritos
+- Botones de compra
 - Navegación de retorno optimizada
 
 ### **Carrito de Compras**

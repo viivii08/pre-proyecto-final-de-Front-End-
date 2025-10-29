@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
   <style>
+    body {
+      padding-top: 70px; /* Espacio para navbar fijo */
+    }
+    
     .orders-header {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -506,7 +510,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/navigation.js"></script>
+  <script src="js/universal-navbar.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script>
@@ -516,23 +520,45 @@
     const ordersPerPage = 5;
     let currentOrderDetail = null;
 
+    // Función para verificar autenticación de manera consistente
+    function getCurrentUser() {
+      try {
+        const claves = ['currentUser', 'patagonia_user'];
+        for (let clave of claves) {
+          const userData = localStorage.getItem(clave);
+          if (userData && userData !== 'null') {
+            const parsedUser = JSON.parse(userData);
+            if (parsedUser && (parsedUser.email || parsedUser.id)) {
+              return parsedUser;
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Error cargando usuario:', error);
+      }
+      return null;
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
-      // Verificar si el usuario está logueado
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      // Verificar si el usuario está logueado - usar función consistente
+      const currentUser = getCurrentUser();
       
       if (!currentUser) {
-        alert('Debes iniciar sesión para ver tus pedidos');
-        window.location.href = 'index.html';
+        // Usar modal de login existente en lugar de alert
+        const modal = new bootstrap.Modal(document.getElementById('loginModal'));
+        modal.show();
         return;
       }
+
+      console.log('Usuario logueado:', currentUser);
 
       // Cargar datos
       loadOrdersData();
       setupEventListeners();
 
-      // Actualizar contador del carrito
-      if (typeof navigationSystem !== 'undefined') {
-        navigationSystem.updateCartCounter();
+      // Actualizar contador del carrito usando el sistema universal
+      if (typeof universalNavbar !== 'undefined') {
+        universalNavbar.updateCartCounter();
       }
     });
 

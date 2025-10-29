@@ -339,12 +339,6 @@
           <button class="producto-btn flex-grow-1" onclick="agregarAlCarrito()">
             <i class="bi bi-cart-plus me-2"></i>Agregar al carrito
           </button>
-          <button class="btn btn-outline-danger" 
-                  data-favorite-id="jarro-zorrito-invierno"
-                  title="Agregar a favoritos"
-                  style="padding: 12px 16px;">
-            <i class="bi bi-heart"></i>
-          </button>
         </div>
         <!-- Medios de envío -->
         <div class="mb-3">
@@ -581,15 +575,10 @@
       this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
     });
 
-    // Inicializar navegación
-    document.addEventListener('DOMContentLoaded', function() {
-      document.getElementById('navbar-container').innerHTML = navigationComponent.renderNavbar();
-      navigationComponent.init();
-    });
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
+  <script src="js/universal-navbar.js"></script>
   <script src="js/navigation.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/reviews.js"></script>
