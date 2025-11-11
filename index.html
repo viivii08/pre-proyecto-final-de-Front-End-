@@ -552,6 +552,21 @@
   transform: scale(1.08);
 }
 
+    /* FOOTER - Asegurar cobertura completa */
+    footer { 
+      width: 100% !important; 
+      margin: 0 !important; 
+      padding: 40px 0 !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+    }
+    
+    /* Remover márgenes del body que puedan afectar el footer */
+    body { 
+      margin: 0 !important; 
+      padding: 0 !important; 
+    }
+
   </style>
   <style>
     /* Ocultar modales persistentes cuando el usuario está logueado */
@@ -724,10 +739,15 @@
   </div>
 </section>
 
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
-    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p>Creado por Vargas Viviana</p>
-    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
+  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 30px 0; margin-top: 50px; width: 100%; position: relative; bottom: 0; left: 0; right: 0;">
+    <div class="container">
+      <p style="margin-bottom: 10px; font-size: 0.9rem;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+      <p style="margin-bottom: 10px; font-size: 0.85rem;">Creado por Vargas Viviana</p>
+      <p style="margin: 0;">
+        <a href="#" style="color: #b67c3a; text-decoration: none; margin: 0 10px;">Instagram</a> | 
+        <a href="#" style="color: #b67c3a; text-decoration: none; margin: 0 10px;">Facebook</a>
+      </p>
+    </div>
   </footer>
 
   <!-- Login Modal - Compacto y Profesional -->
@@ -772,9 +792,9 @@
             <a href="#" class="text-decoration-none" style="color: var(--primary-color); font-size: 0.75rem;">¿Olvidaste tu contraseña?</a>
           </div>
           
-          <div class="text-center">
+          <div class="text-center" style="display: none;">
             <span style="font-size: 0.75rem; color: #666;">¿No tienes cuenta? </span>
-            <button class="btn-link-compact" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">
+            <button class="btn-link-compact" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal" style="display: none;">
               Crear Cuenta
             </button>
           </div>
@@ -898,6 +918,50 @@
   <script src="js/users.js"></script>
   <script src="js/debug-auth.js"></script>
   <script>
+    // Observer para detectar y eliminar elementos problemáticos inmediatamente
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // Elemento HTML
+            // Verificar si el elemento agregado contiene texto problemático
+            if (node.textContent && 
+                (node.textContent.includes('Crear Cuenta') || 
+                 node.textContent.includes('¿Ya tienes cuenta?')) &&
+                !node.closest('.modal')) {
+              console.log('🚫 Observer: Eliminando elemento recién agregado:', node);
+              if (node.parentNode) {
+                node.parentNode.removeChild(node);
+              }
+            }
+            
+            // Verificar elementos hijos también
+            const elementosProblematicos = node.querySelectorAll('*');
+            elementosProblematicos.forEach(el => {
+              if (el.textContent && 
+                  (el.textContent.includes('Crear Cuenta') || 
+                   el.textContent.includes('¿Ya tienes cuenta?')) &&
+                  !el.closest('.modal')) {
+                console.log('🚫 Observer: Eliminando elemento hijo problemático:', el);
+                if (el.parentNode) {
+                  el.parentNode.removeChild(el);
+                }
+              }
+            });
+          }
+        });
+      });
+    });
+
+    // Iniciar observación cuando se carga la página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Observar cambios en todo el document
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+      
+      console.log('🛡️ Observer de limpieza activado');
+    });
     // Función para buscar productos
     function buscarProductos(event) {
       event.preventDefault();
@@ -1012,6 +1076,66 @@
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
+        
+        // ELIMINAR COMPLETAMENTE cualquier elemento "Crear Cuenta" fuera de modales
+        function eliminarElementosAuth() {
+          const textosProblematicos = ['Crear Cuenta', '¿Ya tienes cuenta?', 'Registrarse', 'Regístrate'];
+          
+          textosProblematicos.forEach(texto => {
+            // Buscar todos los elementos
+            const todosLosElementos = document.querySelectorAll('*');
+            
+            todosLosElementos.forEach(element => {
+              // Si el elemento contiene el texto problemático
+              if (element.textContent && 
+                  (element.textContent.trim() === texto || 
+                   element.textContent.includes(texto)) &&
+                  // Y NO está dentro de un modal
+                  !element.closest('.modal') && 
+                  // Y NO es un script
+                  element.tagName !== 'SCRIPT' &&
+                  // Y es visible
+                  element.offsetParent !== null) {
+                
+                console.log('🗑️ Eliminando elemento problemático:', texto, element);
+                
+                // Eliminar completamente del DOM
+                if (element.parentNode) {
+                  element.parentNode.removeChild(element);
+                }
+              }
+            });
+          });
+          
+          // Buscar botones específicos con clases o ids problemáticos
+          const selectoresProblematicos = [
+            'button[data-bs-target="#registerModal"]',
+            'a[data-bs-target="#registerModal"]', 
+            '.btn-signup',
+            '.signup-btn',
+            'button:contains("Crear Cuenta")',
+            'a:contains("Crear Cuenta")'
+          ];
+          
+          selectoresProblematicos.forEach(selector => {
+            try {
+              const elementos = document.querySelectorAll(selector);
+              elementos.forEach(el => {
+                if (!el.closest('.modal')) {
+                  console.log('🗑️ Eliminando botón problemático:', el);
+                  if (el.parentNode) {
+                    el.parentNode.removeChild(el);
+                  }
+                }
+              });
+            } catch (e) {
+              // Selector no válido, continuar
+            }
+          });
+        }
+
+        // Ejecutar limpieza inmediata
+        eliminarElementosAuth();
         
         // ELIMINAR DIRECTAMENTE cualquier elemento que contenga "Crear Cuenta" fuera de modales
         const crearCuentaElements = document.querySelectorAll('*');
@@ -1485,28 +1609,44 @@
       document.body.classList.remove('user-logged-in');
     });
 
-    // Función para limpiar elementos persistentes cada 3 segundos
+    // Función para limpiar elementos persistentes cada 2 segundos
     setInterval(() => {
       const currentUser = getCurrentUser();
       if (currentUser) {
         // Buscar y eliminar elementos problemáticos que puedan haber aparecido
-        const problematicTexts = ['Crear Cuenta', '¿Ya tienes cuenta?'];
+        const problematicTexts = ['Crear Cuenta', '¿Ya tienes cuenta?', 'Registrarse', 'Regístrate'];
         problematicTexts.forEach(text => {
           const elements = document.querySelectorAll('*');
           elements.forEach(element => {
             if (element.textContent && 
-                element.textContent.trim() === text && 
+                (element.textContent.trim() === text || element.textContent.includes(text)) && 
                 !element.closest('.modal') && 
-                !element.closest('nav') &&
+                !element.closest('script') &&
                 element.tagName !== 'SCRIPT' &&
                 element.offsetParent !== null) {
-              console.log('Limpieza periódica: eliminando', text);
-              element.remove();
+              console.log('🧹 Limpieza periódica: eliminando', text, element);
+              if (element.parentNode) {
+                element.parentNode.removeChild(element);
+              }
             }
           });
         });
+        
+        // Eliminar botones específicos que puedan haber aparecido
+        const buttonsToRemove = document.querySelectorAll('button, a');
+        buttonsToRemove.forEach(btn => {
+          if ((btn.textContent.includes('Crear Cuenta') || 
+               btn.textContent.includes('Registrarse') ||
+               btn.getAttribute('data-bs-target') === '#registerModal') &&
+              !btn.closest('.modal')) {
+            console.log('🧹 Eliminando botón persistente:', btn);
+            if (btn.parentNode) {
+              btn.parentNode.removeChild(btn);
+            }
+          }
+        });
       }
-    }, 3000);
+    }, 2000); // Cada 2 segundos
   </script>
 
 <!-- Universal Navbar -->
@@ -1515,9 +1655,27 @@
 <script src="js/frontend-utils.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar el navbar universal
     new UniversalNavbar('navbar-container', {
       showSearch: false
     });
+    
+    // Función para ocultar "Crear Cuenta" sin romper funcionalidad
+    function ocultarCrearCuentaSinRomper() {
+      const elementos = document.querySelectorAll('button, a');
+      elementos.forEach(el => {
+        if (el.textContent && el.textContent.trim() === 'Crear Cuenta') {
+          const estaEnModal = el.closest('.modal') !== null;
+          const estaEnNavbar = el.closest('.navbar, #navbar-container') !== null;
+          if (!estaEnModal && estaEnNavbar) {
+            el.style.display = 'none';
+          }
+        }
+      });
+    }
+    
+    // Ejecutar después de que el navbar se cargue
+    setTimeout(ocultarCrearCuentaSinRomper, 2000);
   });
 </script>
 
