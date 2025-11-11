@@ -9,6 +9,11 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <!-- Frontend Improvements -->
+  <link rel="stylesheet" href="css/optimizations.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/responsive-advanced.css">
+  <link rel="stylesheet" href="css/dark-theme.css">
   <style>
     body {
       background: #f4f1ee;
@@ -346,7 +351,9 @@
   </a>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/carrito-fix.js"></script>
   <script src="js/store.js"></script>
+  <script src="js/frontend-utils.js"></script>
   <script>
     let envioSeleccionado = null;
     let metodoPagoSeleccionado = null;
@@ -405,36 +412,71 @@
     function cargarResumenPedido() {
       const resumenContainer = document.getElementById('resumen-productos');
       
-      // Esperar a que store esté disponible
-      setTimeout(() => {
-        if (typeof store !== 'undefined' && store.carrito) {
-          let html = '';
-          store.carrito.forEach(item => {
-            html += `
-              <div class="resumen-producto">
-                <div class="d-flex justify-content-between align-items-center">
-                  <div>
-                    <strong>${item.nombre}</strong>
-                    <br>
-                    <small class="text-muted">Cantidad: ${item.cantidad}</small>
-                  </div>
-                  <div class="text-end">
-                    <strong>$${(item.precio * item.cantidad).toLocaleString()}</strong>
-                  </div>
+      // Usar el sistema de carrito robusto si está disponible
+      let carritoActual = [];
+      
+      if (window.carritoEmergencia) {
+        carritoActual = window.carritoEmergencia.carrito;
+        console.log('✅ Usando carritoEmergencia:', carritoActual);
+      } else {
+        // Fallback: cargar directamente desde localStorage
+        carritoActual = JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
+        console.log('⚠️ Usando localStorage fallback:', carritoActual);
+      }
+      
+      if (carritoActual.length === 0) {
+        resumenContainer.innerHTML = `
+          <div class="alert alert-warning text-center">
+            <i class="bi bi-exclamation-triangle fs-2 mb-3"></i>
+            <h4>Tu carrito está vacío</h4>
+            <p class="mb-3">Agrega productos antes de finalizar la compra</p>
+            <div class="d-flex gap-2 justify-content-center">
+              <a href="test-carrito.html" class="btn btn-primary">
+                <i class="bi bi-plus-circle me-1"></i>Agregar Productos
+              </a>
+              <a href="tienda.html" class="btn btn-outline-secondary">
+                <i class="bi bi-shop me-1"></i>Ir a la Tienda
+              </a>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      carritoActual.forEach(item => {
+        html += `
+          <div class="resumen-producto">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <img src="${item.imagen}" alt="${item.nombre}" 
+                     style="width:50px;height:50px;object-fit:cover;border-radius:8px;margin-right:15px;"
+                     onerror="this.src='pages/logo sin fondo (1).png'">
+                <div>
+                  <strong>${item.nombre}</strong>
+                  <br><small class="text-muted">Cantidad: ${item.cantidad}</small>
                 </div>
               </div>
-            `;
-          });
-          resumenContainer.innerHTML = html;
-          actualizarResumenCostos();
-        }
-      }, 100);
+              <div class="text-end">
+                <strong>$${(item.precio * item.cantidad).toLocaleString()}</strong>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      resumenContainer.innerHTML = html;
+      
+      // Actualizar los cálculos usando el carrito actual
+      actualizarResumenCostos(carritoActual);
     }
 
-    function actualizarResumenCostos() {
-      if (typeof store === 'undefined' || !store.carrito) return;
+    function actualizarResumenCostos(carritoActual = null) {
+      // Si no se pasa carrito, obtenerlo de localStorage
+      const carrito = carritoActual || JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
+      
+      if (carrito.length === 0) return;
 
-      const subtotal = store.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+      const subtotal = carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
       const envio = envioSeleccionado ? envioSeleccionado.precio : 0;
       const descuentoTransferencia = metodoPagoSeleccionado === 'transferencia' ? Math.round(subtotal * 0.1) : 0;
       const total = subtotal + envio - descuentoTransferencia;
@@ -511,8 +553,18 @@
     function finalizarCompra() {
       if (!validarFormulario()) return;
 
-      if (typeof store === 'undefined' || store.carrito.length === 0) {
-        alert('Tu carrito está vacío.');
+      // Obtener carrito del sistema robusto
+      let carritoActual = [];
+      
+      if (window.carritoEmergencia) {
+        carritoActual = window.carritoEmergencia.carrito;
+      } else {
+        carritoActual = JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
+      }
+      
+      if (carritoActual.length === 0) {
+        alert('Tu carrito está vacío. Agrega productos antes de continuar.');
+        window.location.href = 'test-carrito.html'; // Página de prueba para agregar productos
         return;
       }
 
@@ -538,9 +590,9 @@
           costo: envioSeleccionado.precio
         },
         metodoPago: metodoPagoSeleccionado,
-        productos: [...store.carrito],
-        subtotal: store.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0),
-        total: store.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0) + envioSeleccionado.precio - (metodoPagoSeleccionado === 'transferencia' ? Math.round(store.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0) * 0.1) : 0)
+        productos: [...carritoActual],
+        subtotal: carritoActual.reduce((total, item) => total + (item.precio * item.cantidad), 0),
+        total: carritoActual.reduce((total, item) => total + (item.precio * item.cantidad), 0) + envioSeleccionado.precio - (metodoPagoSeleccionado === 'transferencia' ? Math.round(carritoActual.reduce((total, item) => total + (item.precio * item.cantidad), 0) * 0.1) : 0)
       };
 
       // Guardar pedido en localStorage
@@ -555,8 +607,17 @@
       // Mostrar confirmación
       alert(`¡Pedido realizado exitosamente!\n\nNúmero de pedido: ${numeroPedido}\n\nTe redirigiremos a WhatsApp para coordinar el pago y envío.`);
 
-      // Vaciar carrito
-      store.vaciarCarrito();
+      // Vaciar carrito usando el sistema robusto
+      if (window.carritoEmergencia) {
+        window.carritoEmergencia.carrito = [];
+        window.carritoEmergencia.guardarCarrito();
+        window.carritoEmergencia.actualizarContador();
+      } else {
+        // Fallback: limpiar localStorage manualmente
+        localStorage.removeItem('patagonia_carrito');
+        localStorage.removeItem('store_carrito');
+        localStorage.removeItem('carrito');
+      }
 
       // Redirigir a WhatsApp
       window.open(urlWhatsApp, '_blank');

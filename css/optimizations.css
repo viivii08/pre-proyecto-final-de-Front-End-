@@ -1,0 +1,88 @@
+/* 🚀 OPTIMIZACIONES DE PERFORMANCE - NO TOCAR EL CÓDIGO EXISTENTE */
+
+/* 1. Optimización de fuentes */
+@font-face {
+  font-family: 'Poppins';
+  font-display: swap; /* Mejora la carga de fuentes */
+}
+
+/* 2. Optimización de imágenes */
+img {
+  loading: lazy; /* Carga diferida automática */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+/* 3. Animaciones optimizadas */
+* {
+  will-change: auto; /* Evita uso excesivo de GPU */
+}
+
+.card-producto:hover {
+  transform: translateY(-2px) scale(1.02);
+  transition: transform 0.2s ease-out;
+}
+
+/* 4. Scroll suave para toda la página */
+html {
+  scroll-behavior: smooth;
+}
+
+/* 5. Optimización de botones */
+.btn {
+  transition: all 0.2s ease;
+  backface-visibility: hidden; /* Previene flickering */
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* 6. Loading states mejorados */
+.loading {
+  position: relative;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 7. Skeleton loading para tarjetas */
+.skeleton-card {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 8. Optimización para móviles */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .card-img-top {
+    height: 180px; /* Altura fija en móvil */
+  }
+}

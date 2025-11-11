@@ -1,0 +1,117 @@
+/* ==============================================
+   OPCIÓN 3: SECCIÓN INTEGRADA ANTES DEL FOOTER
+   Call-to-action prominente pero no invasivo
+   ============================================== */
+
+.signup-cta-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="rgba(255,255,255,0.1)"/></svg>') no-repeat;
+  background-size: cover;
+  opacity: 0.1;
+}
+
+.signup-cta-content {
+  position: relative;
+  z-index: 2;
+}
+
+.signup-cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.signup-cta-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.signup-cta-btn {
+  background: var(--accent-color);
+  color: white;
+  border: 3px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.signup-cta-btn:hover {
+  background: #996538;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(182, 124, 58, 0.4);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.signup-cta-btn i {
+  font-size: 1.3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .signup-cta-section {
+    padding: 40px 0;
+  }
+  
+  .signup-cta-title {
+    font-size: 2rem;
+  }
+  
+  .signup-cta-subtitle {
+    font-size: 1rem;
+  }
+  
+  .signup-cta-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+}
+
+/* Variante con fondo de imagen */
+.signup-cta-section.with-bg {
+  background: linear-gradient(135deg, rgba(31,60,90,0.9), rgba(59,93,80,0.9)), 
+              url('pages/fondo.png') center/cover;
+}
+
+/* Animación de entrada */
+.signup-cta-section.animate-in {
+  animation: slideInFromBottom 0.8s ease-out;
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

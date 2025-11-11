@@ -3,417 +3,665 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contacto - Patagonia Style</title>
+  <title>Contacto - Patagonia Style | Comunícate con Nosotros</title>
+  <meta name="description" content="Contacta con Patagonia Style. Estamos aquí para ayudarte con consultas, pedidos, devoluciones y soporte. Formulario de contacto seguro y rápido.">
+  <meta name="keywords" content="contacto, patagonia style, consultas, soporte, formulario contacto, atención al cliente">
+  <link rel="canonical" href="https://patagoniastyle.com/contacto">
   <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
+  
+  <!-- CSS Framework -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
-  <!-- Enlace al CSS externo, ajusta la ruta si tu styles.css está en otra carpeta -->
-  <link rel="stylesheet" href="../styles.css">
+  
+  <!-- CSS Principal y Sistema de Diseño -->
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  <!-- Schema.org markup para SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contacto - Patagonia Style",
+    "description": "Página de contacto de Patagonia Style para consultas, soporte y atención al cliente",
+    "url": "https://patagoniastyle.com/contacto",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Patagonia Style",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+54-11-3689-9678",
+        "contactType": "customer service",
+        "email": "info@patagoniastyle.com"
+      }
+    }
+  }
+  </script>
+  
+  <!-- Estilos específicos para formulario mejorado -->
   <style>
-    :root {
-      --primary-color: #1f3c5a;      /* Azul profundo */
-      --secondary-color: #3b5d50;    /* Verde bosque */
-      --accent-color: #b67c3a;       /* Naranja/cobre */
-      --bg-light: #f4f1ee;           /* Beige claro */
-      --text-color: #2b2b2b;         /* Gris oscuro */
-      --card-shadow: rgba(0,0,0,0.12);
-      --btn-radius: 28px;
+    .contact-hero {
+      background: linear-gradient(135deg, var(--primary-500) 0%, var(--secondary-500) 100%);
+      color: white;
+      padding: var(--space-20) 0 var(--space-16);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-light); /* o el color claro que elijas */
-      color: var(--text-color);
+    
+    .contact-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('pages/fondo.png') center/cover;
+      opacity: 0.1;
+      z-index: 1;
     }
-
+    
+    .contact-hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .contact-hero h1 {
+      font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+      font-weight: var(--font-bold);
+      margin-bottom: var(--space-4);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .contact-hero p {
+      font-size: clamp(var(--text-lg), 2.5vw, var(--text-xl));
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    .contact-section {
+      padding: var(--space-16) 0;
+      background: var(--gray-50);
+    }
+    
+    .contact-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 var(--space-4);
+    }
+    
+    .form-container {
+      background: white;
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-2xl);
+      padding: var(--space-12);
+      border: 1px solid var(--gray-200);
+    }
+    
+    .form-title {
+      color: var(--primary-700);
+      font-size: var(--text-2xl);
+      font-weight: var(--font-semibold);
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+    
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+      padding: var(--space-8);
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .contact-info-item {
+      text-align: center;
+      padding: var(--space-6);
+      border-radius: var(--radius-lg);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      transition: all var(--transition-base);
+    }
+    
+    .contact-info-item:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary-300);
+    }
+    
+    .contact-info-item i {
+      font-size: var(--text-3xl);
+      color: var(--primary-500);
+      margin-bottom: var(--space-4);
+    }
+    
+    .contact-info-item h3 {
+      color: var(--primary-700);
+      font-size: var(--text-lg);
+      font-weight: var(--font-semibold);
+      margin-bottom: var(--space-2);
+    }
+    
+    .contact-info-item p {
+      color: var(--gray-600);
+      margin: 0;
+    }
+    
+    .contact-info-item a {
+      color: var(--primary-600);
+      text-decoration: none;
+      font-weight: var(--font-medium);
+      transition: color var(--transition-base);
+    }
+    
+    .contact-info-item a:hover {
+      color: var(--primary-700);
+      text-decoration: underline;
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--primary-500);
+      color: white;
+      border-radius: var(--radius-full);
+      text-decoration: none;
+      font-size: var(--text-xl);
+      transition: all var(--transition-base);
+    }
+    
+    .social-link:hover {
+      background: var(--primary-600);
+      transform: scale(1.1);
+      color: white;
+    }
+    
     .whatsapp-float {
       position: fixed;
-      bottom: 90px;
-      right: 20px;
-      z-index: 999;
+      bottom: var(--space-20);
+      right: var(--space-5);
+      z-index: var(--z-fixed);
       background: #25d366;
-      color: #fff;
-      border-radius: 50%;
+      color: white;
+      border-radius: var(--radius-full);
       width: 60px;
       height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2.3rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-      transition: background 0.2s, transform 0.2s;
+      font-size: var(--text-2xl);
+      box-shadow: var(--shadow-xl);
+      transition: all var(--transition-base);
+      text-decoration: none;
     }
+    
     .whatsapp-float:hover {
       background: #128c7e;
-      color: #fff;
-      transform: scale(1.08);
-    }
-
-    /* Navbar */
-    .navbar {
-      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    .navbar-brand { 
-      color: #fff !important; 
-      font-family: 'Raleway', sans-serif; 
-      font-weight: 700; 
-      letter-spacing: 1px; 
-    }
-    .navbar a { 
-      color: #fdfdfd !important; 
-      font-weight: 500; 
-      transition: color 0.3s; 
-    }
-    .navbar a:hover { 
-      color: var(--accent-color) !important; 
-    }
-    .icon-nav {
-      font-size: 1.4rem;
-      margin-left: 15px;
-      cursor: pointer;
-      color: #fff;
-      transition: transform .2s ease, color .2s ease;
-    }
-    .icon-nav:hover {
-      transform: scale(1.2); 
-      color: var(--accent-color);
-    }
-    .navbar .bi-cart3 {
-      color: #fff !important;
-    }
-    .cart-count {
-      position: absolute;
-      top: -6px;
-      right: -10px;
-      background: var(--accent-color);
-      color: #fff;
-      font-size: 0.75rem;
-      border-radius: 50%;
-      padding: 2px 6px;
-    }
-
-    /* Header */
-    .contact-header {
-      background-color: var(--primary-color);
-      color: #fff;
-      padding: 60px 20px;
-      text-align: center;
-    }
-    .contact-header h1 {
-      font-size: 3rem;
-      font-weight: 700;
-    }
-    .contact-header p {
-      font-size: 1.2rem;
-    }
-
-    /* Contact Form */
-    .contact-section {
-      padding: 50px 20px;
-    }
-    .contact-form {
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 6px 20px var(--card-shadow);
-      border: 1px solid var(--primary-color);
-    }
-    .form-label {
-      color: var(--text-color);
-      font-weight: 500;
-    }
-    .btn-custom {
-      background-color: var(--accent-color);
-      color: #fff;
-      border-radius: var(--btn-radius);
-      padding: 10px 25px;
-      text-transform: uppercase;
-      font-weight: 600;
-      transition: 0.3s;
-      border: none;
-    }
-    .btn-custom:hover {
-      background-color: #8d5c2b;
-      transform: scale(1.05);
-    }
-
-    /* Footer */
-    footer {
-      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-      padding: 40px 0;
-      color: #fff;
-      text-align: center;
-      font-weight: 500;
-    }
-    footer a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    footer a:hover {
-      text-decoration: underline;
-      color: var(--accent-color);
-    }
-
-    /* Hero Carousel */
-    .carousel-item {
-      height: 90vh;
-      min-height: 400px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      width: 100%;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .carousel-item.first-img {
-      background-size: contain;
-    }
-    .carousel-item::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(rgba(31, 60, 90, 0.55), rgba(31, 60, 90, 0.35));
-    }
-    .carousel-caption {
-      position: absolute;
-      top: 65%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      text-align: center;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 20px 30px;
-      border-radius: 15px;
-      backdrop-filter: blur(6px);
-    }
-    .carousel-caption h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #fff;
-      font-family: 'Raleway', sans-serif;
-      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
-    }
-    .carousel-caption p {
-      font-size: 1.2rem;
-      color: #fdfdfd;
-      margin-bottom: 15px;
-    }
-
-    @media (max-width: 768px) {
-      .carousel-caption {
-        top: 65%;
-        padding: 15px 20px;
-      }
-      .carousel-caption h1 {
-        font-size: 2.2rem;
-      }
-      .carousel-caption p {
-        font-size: 1rem;
-      }
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
-      color: var(--primary-color);
-      font-weight: 600;
-      position: relative;
-    }
-    .section-title::after {
-      content: "";
-      width: 70px;
-      height: 3px;
-      background: var(--accent-color);
-      display: block;
-      margin: 10px auto 0;
-      border-radius: 2px;
-    }
-
-    .card {
-      border: none;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 6px 20px var(--card-shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      background-color: #fff;
-    }
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 15px 30px var(--card-shadow);
-    }
-    .card-img-top {
-      object-fit: cover;
-      width: 100%;
-      height: 250px;
-      transition: transform 0.5s;
-    }
-    .card:hover .card-img-top {
+      color: white;
       transform: scale(1.1);
     }
-
-    .modal-body {
-      max-height: 400px;
-      overflow-y: auto;
+    
+    .back-to-home {
+      position: fixed;
+      bottom: var(--space-32);
+      right: var(--space-5);
+      background: linear-gradient(135deg, var(--primary-500), var(--secondary-500));
+      color: white;
+      border: none;
+      border-radius: var(--radius-2xl);
+      padding: var(--space-3) var(--space-4);
+      font-size: var(--text-sm);
+      font-weight: var(--font-semibold);
+      cursor: pointer;
+      box-shadow: var(--shadow-lg);
+      transition: all var(--transition-base);
+      z-index: var(--z-fixed);
+      display: none;
+      text-decoration: none;
     }
-    .cart-quantity {
-      width: 60px;
+    
+    .back-to-home:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, var(--accent-500), var(--accent-600));
+      color: white;
     }
-    html {
-      scroll-behavior: smooth;
+    
+    .back-to-home.show {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .contact-hero {
+        padding: var(--space-16) 0 var(--space-12);
+      }
+      
+      .form-container {
+        padding: var(--space-8);
+        margin: 0 var(--space-4);
+      }
+      
+      .contact-info-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+        margin: var(--space-8) var(--space-4);
+        padding: var(--space-6);
+      }
+      
+      .whatsapp-float {
+        bottom: var(--space-16);
+        right: var(--space-4);
+      }
+      
+      .back-to-home {
+        bottom: var(--space-24);
+        right: var(--space-4);
+      }
     }
   </style>
 </head>
 <body>
-<<<<<<< HEAD
-  <!-- Navigation -->
-=======
+  <!-- Skip link para accesibilidad -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
   <!-- Navbar Universal -->
->>>>>>> 01a202e (Cambios)
-  <div id="navbar-container"></div>
+  <div id="navbar-container" role="navigation" aria-label="Navegación principal"></div>
+
+  <!-- Breadcrumbs mejorados -->
+  <div class="breadcrumb-section" aria-label="Ubicación actual">
+    <div class="container">
+      <nav aria-label="breadcrumb" role="navigation">
+        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+          <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+            <a href="index.html" itemprop="item" aria-label="Ir al inicio">
+              <span itemprop="name">Inicio</span>
+            </a>
+            <meta itemprop="position" content="1" />
+          </li>
+          <li class="breadcrumb-item active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" aria-current="page">
+            <span itemprop="name">Contacto</span>
+            <meta itemprop="position" content="2" />
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="contact-hero">
+    <div class="contact-hero-content container">
+      <h1>Contacta con Nosotros</h1>
+      <p>Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.</p>
+    </div>
+  </header>
 
   <!-- Contenido principal -->
-  <main class="container py-5">
-    <h2 class="section-title">Contacto</h2>
-        <form action="https://formspree.io/f/mrbyoaga" method="POST" class="p-4 rounded shadow bg-light" style="max-width: 500px; margin: auto;">
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre completo</label>
-        <input type="text" class="form-control" id="nombre" name="nombre" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Correo electrónico</label>
-        <input type="email" class="form-control" id="email" name="email" required>
-      </div>
-      <div class="mb-3">
-        <label for="telefono" class="form-label">Teléfono (opcional)</label>
-        <input type="tel" class="form-control" id="telefono" name="telefono">
-      </div>
-      <div class="mb-3">
-        <label for="motivo" class="form-label">Motivo de consulta</label>
-        <select class="form-select" id="motivo" name="motivo" required>
-          <option value="">Selecciona una opción</option>
-          <option>Consulta general</option>
-          <option>Estado de pedido</option>
-          <option>Devoluciones</option>
-          <option>Soporte técnico</option>
-          <option>Otro</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="mensaje" class="form-label">Mensaje</label>
-        <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="privacidad" required>
-        <label class="form-check-label" for="privacidad">Acepto la <a href="#">política de privacidad</a></label>
-      </div>
-      <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
-    <div class="text-center mt-4">
-      <p>También puedes escribirnos a <a href="mailto:info@patagoniastyle.com">info@patagoniastyle.com</a> o llamarnos al <strong>+54 11 3689-9678</strong></p>
-      <p>
-        <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
-        <a href="#"><i class="bi bi-whatsapp"></i></a>
-      </p>
+  <main id="main-content" class="contact-section">
+    <div class="contact-container">
+      
+      <!-- Formulario de contacto mejorado -->
+      <section class="form-container">
+        <h2 class="form-title">Envíanos un Mensaje</h2>
+        
+        <form id="contactForm" action="https://formspree.io/f/mrbyoaga" method="POST" 
+              class="needs-validation" novalidate
+              itemscope itemtype="https://schema.org/ContactPage">
+          
+          <!-- Nombre completo -->
+          <div class="form-group">
+            <label for="name" class="form-label">
+              Nombre completo <span class="required" aria-label="Campo obligatorio">*</span>
+            </label>
+            <input type="text" 
+                   class="form-control" 
+                   id="name" 
+                   name="name" 
+                   required 
+                   autocomplete="name"
+                   aria-describedby="name-help"
+                   placeholder="Tu nombre completo">
+            <div class="form-text" id="name-help">
+              Ingresa tu nombre y apellido para identificarte
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              Correo electrónico <span class="required" aria-label="Campo obligatorio">*</span>
+            </label>
+            <input type="email" 
+                   class="form-control" 
+                   id="email" 
+                   name="email" 
+                   required 
+                   autocomplete="email"
+                   aria-describedby="email-help"
+                   placeholder="tu@email.com">
+            <div class="form-text" id="email-help">
+              Usaremos este email para responderte
+            </div>
+          </div>
+
+          <!-- Teléfono -->
+          <div class="form-group">
+            <label for="phone" class="form-label">
+              Teléfono (opcional)
+            </label>
+            <input type="tel" 
+                   class="form-control" 
+                   id="phone" 
+                   name="phone" 
+                   autocomplete="tel"
+                   aria-describedby="phone-help"
+                   placeholder="11-1234-5678">
+            <div class="form-text" id="phone-help">
+              Formato: 11-1234-5678 (código de área - número)
+            </div>
+          </div>
+
+          <!-- Asunto -->
+          <div class="form-group">
+            <label for="subject" class="form-label">
+              Asunto <span class="required" aria-label="Campo obligatorio">*</span>
+            </label>
+            <select class="form-control" 
+                    id="subject" 
+                    name="subject" 
+                    required
+                    aria-describedby="subject-help">
+              <option value="">Selecciona el motivo de tu consulta</option>
+              <option value="consulta-general">Consulta general</option>
+              <option value="estado-pedido">Estado de pedido</option>
+              <option value="devoluciones">Devoluciones y cambios</option>
+              <option value="soporte-tecnico">Soporte técnico</option>
+              <option value="colaboraciones">Colaboraciones</option>
+              <option value="otro">Otro</option>
+            </select>
+            <div class="form-text" id="subject-help">
+              Esto nos ayuda a dirigir tu consulta al área correcta
+            </div>
+          </div>
+
+          <!-- Mensaje -->
+          <div class="form-group">
+            <label for="message" class="form-label">
+              Mensaje <span class="required" aria-label="Campo obligatorio">*</span>
+            </label>
+            <textarea class="form-control" 
+                      id="message" 
+                      name="message" 
+                      rows="5" 
+                      required
+                      maxlength="1000"
+                      aria-describedby="message-help"
+                      placeholder="Escribe tu mensaje aquí..."></textarea>
+            <div class="form-text" id="message-help">
+              Describe tu consulta con el mayor detalle posible
+            </div>
+          </div>
+
+          <!-- Checkbox de privacidad -->
+          <div class="form-group">
+            <div class="form-check">
+              <input type="checkbox" 
+                     class="form-check-input" 
+                     id="privacy" 
+                     name="privacy" 
+                     required
+                     aria-describedby="privacy-help">
+              <label class="form-check-label" for="privacy">
+                Acepto la <a href="politica-privacidad.html" target="_blank" rel="noopener">política de privacidad</a> 
+                y el <a href="terminos-condiciones.html" target="_blank" rel="noopener">tratamiento de datos</a>
+                <span class="required" aria-label="Campo obligatorio">*</span>
+              </label>
+              <div class="form-text" id="privacy-help">
+                Necesitamos tu consentimiento para procesar tu consulta
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de envío -->
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="bi bi-envelope me-2" aria-hidden="true"></i>
+              Enviar Mensaje
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Información de contacto -->
+      <section class="contact-info-grid" aria-labelledby="contact-info-title">
+        <h2 id="contact-info-title" class="sr-only">Información de contacto adicional</h2>
+        
+        <div class="contact-info-item">
+          <i class="bi bi-envelope-fill" aria-hidden="true"></i>
+          <h3>Email</h3>
+          <p>
+            <a href="mailto:info@patagoniastyle.com">info@patagoniastyle.com</a>
+          </p>
+        </div>
+
+        <div class="contact-info-item">
+          <i class="bi bi-telephone-fill" aria-hidden="true"></i>
+          <h3>Teléfono</h3>
+          <p>
+            <a href="tel:+5411368996678">+54 11 3689-9678</a><br>
+            <small>Lun-Vie 9:00-18:00</small>
+          </p>
+        </div>
+
+        <div class="contact-info-item">
+          <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          <h3>WhatsApp</h3>
+          <p>
+            <a href="https://wa.me/5491136899678" target="_blank" rel="noopener">Chatear ahora</a><br>
+            <small>Respuesta inmediata</small>
+          </p>
+        </div>
+
+        <div class="contact-info-item">
+          <i class="bi bi-clock-fill" aria-hidden="true"></i>
+          <h3>Horarios</h3>
+          <p>
+            Lunes a Viernes<br>
+            9:00 - 18:00 hs<br>
+            <small>Sábados 10:00-14:00</small>
+          </p>
+        </div>
+      </section>
+
+      <!-- Redes sociales -->
+      <section class="text-center mt-5">
+        <h3>Síguenos en nuestras redes</h3>
+        <div class="social-links">
+          <a href="https://facebook.com/patagoniastyle" class="social-link" target="_blank" rel="noopener" aria-label="Síguenos en Facebook">
+            <i class="bi bi-facebook" aria-hidden="true"></i>
+          </a>
+          <a href="https://instagram.com/patagoniastyle" class="social-link" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+            <i class="bi bi-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="https://wa.me/5491136899678" class="social-link" target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">
+            <i class="bi bi-whatsapp" aria-hidden="true"></i>
+          </a>
+          <a href="mailto:info@patagoniastyle.com" class="social-link" aria-label="Envíanos un email">
+            <i class="bi bi-envelope-fill" aria-hidden="true"></i>
+          </a>
+        </div>
+      </section>
     </div>
   </main>
 
-  <!-- Modal Carrito (opcional, si lo tienes en index.html) -->
-  <!-- ...aquí tu modal si lo necesitas... -->
-
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
-    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p>Creado por Vargas Viviana</p>
-    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
+  <!-- Footer -->
+  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <p class="mb-2">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+          <p class="mb-3">Creado por Vargas Viviana</p>
+          <div class="footer-links">
+            <a href="politica-privacidad.html" style="color: #b67c3a; text-decoration: none; margin: 0 15px;">Política de Privacidad</a>
+            <a href="terminos-condiciones.html" style="color: #b67c3a; text-decoration: none; margin: 0 15px;">Términos y Condiciones</a>
+            <a href="https://instagram.com/patagoniastyle" style="color: #b67c3a; text-decoration: none; margin: 0 15px;" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://facebook.com/patagoniastyle" style="color: #b67c3a; text-decoration: none; margin: 0 15px;" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
-    <i class="bi bi-whatsapp"></i>
+  <a href="https://wa.me/5491136899678?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos" 
+     class="whatsapp-float" 
+     target="_blank" 
+     rel="noopener"
+     aria-label="Contactar por WhatsApp">
+    <i class="bi bi-whatsapp" aria-hidden="true"></i>
   </a>
 
   <!-- Botón flotante para volver al inicio -->
-  <button onclick="irAInicio()" id="btnVolverInicio" style="
-    position: fixed;
-    bottom: 180px;
-    right: 20px;
-    background: linear-gradient(90deg, #1f3c5a, #3b5d50);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    display: none;
-  " title="Ir al inicio">
-    <i class="bi bi-house-fill"></i> Inicio
-  </button>
+  <a href="index.html" 
+     class="back-to-home" 
+     id="backToHome"
+     aria-label="Volver al inicio">
+    <i class="bi bi-house-fill" aria-hidden="true"></i>
+    <span>Inicio</span>
+  </a>
 
-  <script>
-    // Función para ir al inicio
-    function irAInicio() {
-      window.location.href = 'index.html';
-    }
-
-    // Mostrar/ocultar botón según scroll
-    window.onscroll = function() {
-      let btn = document.getElementById('btnVolverInicio');
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        btn.style.display = 'block';
-      } else {
-        btn.style.display = 'none';
-      }
-    }
-
-    // Efecto hover
-    document.getElementById('btnVolverInicio').addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.05)';
-      this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
-    });
-    
-    document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-      this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
-    });
-  </script>
-
-<<<<<<< HEAD
-  <!-- Universal Navbar -->
-  <script src="js/universal-navbar.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      new UniversalNavbar('navbar-container', {
-        showSearch: false
-      });
-    });
-  </script>
-=======
-  <!-- Scripts del sistema universal -->
-  <script src="js/validation.js"></script>
-  <script src="js/loading.js"></script>
-  <script src="js/error-manager.js"></script>
-  <script src="js/notifications.js"></script>
-  <script src="js/performance.js"></script>
-  <script src="js/store.js"></script>
-  <script src="js/users.js"></script>
-  <script src="js/universal-navbar.js"></script>
->>>>>>> 01a202e (Cambios)
-
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Sistema de validación de formularios -->
+  <script src="js/form-validation.js"></script>
+  
+  <!-- Universal Navbar -->
+  <script src="js/navigation_new.js"></script>
+  
+  <!-- Script específico para la página de contacto -->
+  <script>
+    // Inicializar navbar universal
+    document.addEventListener('DOMContentLoaded', function() {
+      // Cargar navbar si existe la función
+      if (typeof loadUniversalNavbar === 'function') {
+        loadUniversalNavbar('navbar-container');
+      }
+      
+      // Mostrar/ocultar botón de volver al inicio según scroll
+      const backButton = document.getElementById('backToHome');
+      
+      function toggleBackButton() {
+        if (window.pageYOffset > 300) {
+          backButton.classList.add('show');
+        } else {
+          backButton.classList.remove('show');
+        }
+      }
+      
+      // Escuchar scroll
+      window.addEventListener('scroll', toggleBackButton);
+      
+      // Smooth scroll para todos los enlaces anchor
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+      
+      // Configuración avanzada de validación de formularios
+      if (typeof FormValidator !== 'undefined') {
+        const validator = new FormValidator('#contactForm');
+        
+        validator.setRules({
+          name: [
+            { type: 'required', message: 'El nombre es obligatorio' },
+            { type: 'minLength', value: 2, message: 'El nombre debe tener al menos 2 caracteres' },
+            { type: 'pattern', pattern: '^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+$', message: 'Solo se permiten letras y espacios' }
+          ],
+          email: [
+            { type: 'required', message: 'El email es obligatorio' },
+            { type: 'email', message: 'Ingresa un email válido' }
+          ],
+          phone: [
+            { type: 'phone', message: 'Formato: 11-1234-5678' }
+          ],
+          subject: [
+            { type: 'required', message: 'Selecciona el motivo de tu consulta' }
+          ],
+          message: [
+            { type: 'required', message: 'El mensaje es obligatorio' },
+            { type: 'minLength', value: 20, message: 'El mensaje debe tener al menos 20 caracteres' },
+            { type: 'maxLength', value: 1000, message: 'El mensaje no puede exceder 1000 caracteres' }
+          ],
+          privacy: [
+            { type: 'required', message: 'Debes aceptar la política de privacidad' }
+          ]
+        });
+
+        // Personalizar mensajes de éxito
+        const originalShowSuccess = validator.showSuccess;
+        validator.showSuccess = function() {
+          this.removeFormMessages();
+          
+          const successDiv = document.createElement('div');
+          successDiv.className = 'alert alert-success';
+          successDiv.setAttribute('role', 'alert');
+          successDiv.innerHTML = `
+            <i class="bi bi-check-circle-fill me-2" aria-hidden="true"></i>
+            <strong>¡Mensaje enviado exitosamente!</strong><br>
+            Te responderemos en las próximas 24 horas a tu email.
+          `;
+          
+          this.form.insertBefore(successDiv, this.form.firstChild);
+          
+          // Scroll al mensaje
+          successDiv.scrollIntoView({ behavior: 'smooth' });
+          
+          // Auto-ocultar después de 7 segundos
+          setTimeout(() => {
+            if (successDiv.parentNode) {
+              successDiv.remove();
+            }
+          }, 7000);
+        };
+      }
+      
+      // Analíticas básicas (opcional)
+      console.log('Página de contacto cargada correctamente');
+    });
+
+    // Función de utilidad para formatear teléfono argentino
+    document.getElementById('phone')?.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 10) {
+        // Formato: XX-XXXX-XXXX
+        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+      e.target.value = value;
+    });
+  </script>
 </body>
 </html>

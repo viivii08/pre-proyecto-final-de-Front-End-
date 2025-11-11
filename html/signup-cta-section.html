@@ -1,0 +1,40 @@
+<!-- ======================================================
+     IMPLEMENTACIÓN OPCIÓN 3: SECCIÓN CTA ANTES DEL FOOTER
+     Agrega este HTML antes del footer
+     ====================================================== -->
+
+<section class="signup-cta-section animate-in">
+  <div class="container">
+    <div class="signup-cta-content">
+      <h2 class="signup-cta-title">Únete a Patagonia Style</h2>
+      <p class="signup-cta-subtitle">
+        Descubre productos únicos inspirados en la naturaleza argentina. 
+        Crea tu cuenta y obtén acceso a ofertas exclusivas y envío gratis en tu primera compra.
+      </p>
+      <a href="#" class="signup-cta-btn" data-bs-toggle="modal" data-bs-target="#registerModal">
+        <i class="bi bi-person-plus"></i>
+        Crear Mi Cuenta
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+// Animación de entrada cuando la sección es visible
+function animateSignupSection() {
+  const section = document.querySelector('.signup-cta-section');
+  if (!section) return;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, { threshold: 0.3 });
+  
+  observer.observe(section);
+}
+
+document.addEventListener('DOMContentLoaded', animateSignupSection);
+</script>
