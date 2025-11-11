@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🛒 Demo CarritoManager v2.0 - Patagonia Sustentable</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .demo-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 3rem 0;
+    }
+    
+    .product-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    }
+    
+    .cart-stats {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+    }
+    
+    .cart-item {
+      transition: all 0.3s ease;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    
+    .cart-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      min-width: 300px;
+      animation: slideInRight 0.3s ease;
+    }
+    
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .btn-cart {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      border: none;
+      color: white;
+      border-radius: 25px;
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-cart:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+    }
+    
+    .btn-cart.loading {
+      background: #6c757d;
+      cursor: not-allowed;
+    }
+    
+    .section-title {
+      position: relative;
+      text-align: center;
+      margin: 3rem 0 2rem 0;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 2px;
+    }
+
+    .comparison-table {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .comparison-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem;
+      border: none;
+    }
+
+    .comparison-table td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .feature-good {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .feature-bad {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Demo Header -->
+  <div class="demo-header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 mb-3">
+            <i class="fas fa-shopping-cart me-3"></i>
+            CarritoManager v2.0
+          </h1>
+          <p class="lead">
+            Sistema de carrito optimizado con modelo de datos híbrido, validaciones robustas 
+            y función renderCarrito() centralizada
+          </p>
+        </div>
+        <div class="col-lg-4 text-end">
+          <div class="cart-stats">
+            <h4><i class="fas fa-chart-bar me-2"></i>Estadísticas Live</h4>
+            <div class="row text-center mt-3">
+              <div class="col-6">
+                <h3 class="mb-0" data-cart-counter>0</h3>
+                <small>Productos</small>
+              </div>
+              <div class="col-6">
+                <h3 class="mb-0" data-cart-total>$0</h3>
+                <small>Total</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+
+    <!-- Comparación: Antes vs Después -->
+    <h2 class="section-title">📊 Comparación: Sistema Anterior vs CarritoManager v2.0</h2>
+    
+    <div class="comparison-table mb-5">
+      <table class="table table-striped mb-0">
+        <thead>
+          <tr>
+            <th width="30%">Característica</th>
+            <th width="35%">❌ Sistema Anterior</th>
+            <th width="35%">✅ CarritoManager v2.0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Modelo de Datos</strong></td>
+            <td class="feature-bad">Solo objeto completo, sin optimización</td>
+            <td class="feature-good">Híbrido inteligente: id+qty cuando es apropiado</td>
+          </tr>
+          <tr>
+            <td><strong>Validación de Duplicados</strong></td>
+            <td class="feature-bad">Básica, sin consideración de variantes</td>
+            <td class="feature-good">Avanzada: compara ID + variantes exactas</td>
+          </tr>
+          <tr>
+            <td><strong>Suma de Cantidades</strong></td>
+            <td class="feature-bad">Sin límites, puede generar valores incorrectos</td>
+            <td class="feature-good">Validación de límites (1-99), suma controlada</td>
+          </tr>
+          <tr>
+            <td><strong>Actualización de DOM</strong></td>
+            <td class="feature-bad">Múltiples funciones dispersas</td>
+            <td class="feature-good">renderCarrito() centralizada para TODO</td>
+          </tr>
+          <tr>
+            <td><strong>Mensajes de Feedback</strong></td>
+            <td class="feature-bad">Inconsistentes, sin iconos claros</td>
+            <td class="feature-good">Estandarizados, concisos con iconos</td>
+          </tr>
+          <tr>
+            <td><strong>Manejo de Errores</strong></td>
+            <td class="feature-bad">Básico, sin recuperación</td>
+            <td class="feature-good">Robusto con validación de integridad</td>
+          </tr>
+          <tr>
+            <td><strong>Persistencia</strong></td>
+            <td class="feature-bad">localStorage directo sin validación</td>
+            <td class="feature-good">Schema validation + migración automática</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Productos de Demo -->
+    <h2 class="section-title">🛍️ Productos Demo - Prueba las Funcionalidades</h2>
+    
+    <div class="row">
+      <!-- Producto 1: Sin variantes -->
+      <div class="col-md-4 mb-4">
+        <div class="card product-card h-100">
+          <img src="pages/jarro1.webp" class="card-img-top" alt="Jarro Zorrito" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Jarro Zorrito Invierno</h5>
+            <p class="card-text text-muted">Jarro de cerámica enlozada con ilustración patagónica</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="h5 text-success mb-0">$21.900</span>
+              <div class="btn-group" role="group">
+                <input type="number" class="form-control" id="qty-jarro" value="1" min="1" max="99" style="width: 70px;">
+                <button class="btn btn-cart ms-2" onclick="addJarro()">
+                  <i class="fas fa-cart-plus me-2"></i>Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2: Con variantes (color) -->
+      <div class="col-md-4 mb-4">
+        <div class="card product-card h-100">
+          <img src="pages/cuadernoportada.webp" class="card-img-top" alt="Cuaderno" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Cuaderno Ecológico</h5>
+            <p class="card-text text-muted">Papel reciclado con diseños patagónicos</p>
+            
+            <!-- Selector de color como variante -->
+            <div class="mb-3">
+              <label class="form-label">Color:</label>
+              <select class="form-select" id="cuaderno-color">
+                <option value="verde">Verde Bosque</option>
+                <option value="azul">Azul Lago</option>
+                <option value="marron">Marrón Tierra</option>
+              </select>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="h5 text-success mb-0">$8.500</span>
+              <div class="btn-group" role="group">
+                <input type="number" class="form-control" id="qty-cuaderno" value="1" min="1" max="99" style="width: 70px;">
+                <button class="btn btn-cart ms-2" onclick="addCuaderno()">
+                  <i class="fas fa-cart-plus me-2"></i>Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3: Con múltiples variantes -->
+      <div class="col-md-4 mb-4">
+        <div class="card product-card h-100">
+          <img src="pages/yerbraportada.webp" class="card-img-top" alt="Yerbera" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title">Yerbera Artesanal</h5>
+            <p class="card-text text-muted">Contenedor de madera patagónica tallada</p>
+            
+            <!-- Múltiples variantes -->
+            <div class="row mb-3">
+              <div class="col-6">
+                <label class="form-label">Madera:</label>
+                <select class="form-select form-select-sm" id="yerbera-madera">
+                  <option value="lenga">Lenga</option>
+                  <option value="ciprés">Ciprés</option>
+                  <option value="alerce">Alerce</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label">Grabado:</label>
+                <select class="form-select form-select-sm" id="yerbera-grabado">
+                  <option value="ninguno">Sin grabado</option>
+                  <option value="iniciales">Iniciales</option>
+                  <option value="logo">Logo custom</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="h5 text-success mb-0">$15.200</span>
+              <div class="btn-group" role="group">
+                <input type="number" class="form-control" id="qty-yerbera" value="1" min="1" max="99" style="width: 70px;">
+                <button class="btn btn-cart ms-2" onclick="addYerbera()">
+                  <i class="fas fa-cart-plus me-2"></i>Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carrito Visual -->
+    <h2 class="section-title">🛒 Carrito en Tiempo Real</h2>
+    
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-shopping-bag me-2"></i>
+              Contenido del Carrito
+              <span class="badge bg-light text-dark ms-2" data-cart-counter>0</span>
+            </h5>
+          </div>
+          <div class="card-body" data-cart-list style="min-height: 300px;">
+            <!-- El CarritoManager renderizará aquí automáticamente -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-calculator me-2"></i>
+              Resumen
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-3">
+              <span>Items:</span>
+              <span data-cart-items-count>0 items</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <span>Total:</span>
+              <span class="h5 text-success" data-cart-total>$0</span>
+            </div>
+            <hr>
+            <button class="btn btn-success w-100 mb-2" data-cart-checkout>
+              <i class="fas fa-credit-card me-2"></i>
+              Finalizar Compra
+            </button>
+            <button class="btn btn-outline-danger w-100" data-cart-clear onclick="clearCart()">
+              <i class="fas fa-trash me-2"></i>
+              Vaciar Carrito
+            </button>
+          </div>
+        </div>
+        
+        <!-- Estadísticas Detalladas -->
+        <div class="card mt-3">
+          <div class="card-header bg-info text-white">
+            <h6 class="mb-0">
+              <i class="fas fa-chart-pie me-2"></i>
+              Estadísticas Detalladas
+            </h6>
+          </div>
+          <div class="card-body" id="detailed-stats">
+            <div class="text-center text-muted">
+              <i class="fas fa-chart-bar fa-2x mb-2"></i>
+              <p>Agrega productos para ver estadísticas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pruebas de Validación -->
+    <h2 class="section-title">🧪 Pruebas de Validación</h2>
+    
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-warning text-dark">
+            <h5 class="mb-0">
+              <i class="fas fa-vial me-2"></i>
+              Pruebas de Límites
+            </h5>
+          </div>
+          <div class="card-body">
+            <p>Prueba las validaciones del sistema:</p>
+            
+            <button class="btn btn-outline-warning me-2 mb-2" onclick="testQuantityLimit()">
+              ⚠️ Probar Límite Cantidad (100+)
+            </button>
+            
+            <button class="btn btn-outline-warning me-2 mb-2" onclick="testZeroQuantity()">
+              ⚠️ Cantidad Cero
+            </button>
+            
+            <button class="btn btn-outline-warning me-2 mb-2" onclick="testCartLimit()">
+              ⚠️ Límite de Productos (50+)
+            </button>
+            
+            <button class="btn btn-outline-info me-2 mb-2" onclick="testDuplicates()">
+              🔄 Duplicados Inteligentes
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-tools me-2"></i>
+              Herramientas de Debug
+            </h5>
+          </div>
+          <div class="card-body">
+            <p>Herramientas para desarrolladores:</p>
+            
+            <button class="btn btn-outline-secondary me-2 mb-2" onclick="showCartData()">
+              📋 Ver Datos Raw
+            </button>
+            
+            <button class="btn btn-outline-secondary me-2 mb-2" onclick="exportCartData()">
+              📤 Exportar Carrito
+            </button>
+            
+            <button class="btn btn-outline-secondary me-2 mb-2" onclick="importCartData()">
+              📥 Importar Carrito
+            </button>
+            
+            <button class="btn btn-outline-danger me-2 mb-2" onclick="corruptCartTest()">
+              💥 Simular Datos Corruptos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensajes de Feedback -->
+    <h2 class="section-title">💬 Mensajes de Feedback Estandarizados</h2>
+    
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h1 class="text-success">✅</h1>
+            <h6>Éxito</h6>
+            <small class="text-muted">Producto agregado<br>Cantidad actualizada<br>Producto eliminado<br>Carrito vaciado</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h1 class="text-warning">⚠️</h1>
+            <h6>Advertencia</h6>
+            <small class="text-muted">Cantidad mínima: 1<br>Cantidad máxima: 99<br>Límite de productos<br>Variante ya existe</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h1 class="text-danger">❌</h1>
+            <h6>Error</h6>
+            <small class="text-muted">Producto inválido<br>Precio inválido<br>Error almacenamiento<br>Producto no encontrado</small>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-3">
+        <div class="card text-center">
+          <div class="card-body">
+            <h1 class="text-info">ℹ️</h1>
+            <h6>Información</h6>
+            <small class="text-muted">Cantidad actualizada:<br>2 → 5<br>Producto duplicado<br>Acción completada</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Container de Notificaciones -->
+  <div id="notifications-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/storage/StorageManager.js"></script>
+  <script src="js/carrito/CarritoManager.js"></script>
+
+  <script>
+    // 🎯 Funciones para agregar productos específicos
+    
+    function addJarro() {
+      const cantidad = parseInt(document.getElementById('qty-jarro').value || 1);
+      const producto = {
+        id: 'jarro-zorrito-invierno',
+        nombre: 'Jarro Zorrito Invierno',
+        precio: 21900,
+        cantidad: cantidad,
+        imagen: 'pages/jarro1.webp',
+        categoria: 'jarros',
+        descripcion: 'Jarro de cerámica enlozada con ilustración patagónica'
+      };
+      
+      const result = Carrito.addToCarrito(producto);
+      mostrarNotificacion(result.message, result.success ? 'success' : 'warning');
+      updateDetailedStats();
+    }
+    
+    function addCuaderno() {
+      const cantidad = parseInt(document.getElementById('qty-cuaderno').value || 1);
+      const color = document.getElementById('cuaderno-color').value;
+      
+      const producto = {
+        id: 'cuaderno-ecologico',
+        nombre: 'Cuaderno Ecológico',
+        precio: 8500,
+        cantidad: cantidad,
+        imagen: 'pages/cuadernoportada.webp',
+        categoria: 'papeleria',
+        descripcion: 'Papel reciclado con diseños patagónicos',
+        variante: { color: color }
+      };
+      
+      const result = Carrito.addToCarrito(producto);
+      mostrarNotificacion(result.message, result.success ? 'success' : 'warning');
+      updateDetailedStats();
+    }
+    
+    function addYerbera() {
+      const cantidad = parseInt(document.getElementById('qty-yerbera').value || 1);
+      const madera = document.getElementById('yerbera-madera').value;
+      const grabado = document.getElementById('yerbera-grabado').value;
+      
+      const producto = {
+        id: 'yerbera-artesanal',
+        nombre: 'Yerbera Artesanal',
+        precio: 15200,
+        cantidad: cantidad,
+        imagen: 'pages/yerbraportada.webp',
+        categoria: 'artesanias',
+        descripcion: 'Contenedor de madera patagónica tallada',
+        variante: { madera: madera, grabado: grabado }
+      };
+      
+      const result = Carrito.addToCarrito(producto);
+      mostrarNotificacion(result.message, result.success ? 'success' : 'warning');
+      updateDetailedStats();
+    }
+
+    // 🧹 Vaciar carrito
+    function clearCart() {
+      const result = Carrito.clearCarrito();
+      mostrarNotificacion(result.message, result.success ? 'success' : 'error');
+      updateDetailedStats();
+    }
+
+    // 🧪 Funciones de testing
+    function testQuantityLimit() {
+      const producto = {
+        id: 'test-limit',
+        nombre: 'Producto Test',
+        precio: 1000,
+        cantidad: 150, // Excede el límite de 99
+        imagen: 'pages/jarro1.webp',
+        categoria: 'test'
+      };
+      
+      const result = Carrito.addToCarrito(producto);
+      mostrarNotificacion(result.message, result.success ? 'success' : 'warning');
+    }
+
+    function testZeroQuantity() {
+      const producto = {
+        id: 'test-zero',
+        nombre: 'Producto Zero',
+        precio: 1000,
+        cantidad: 0, // Cantidad inválida
+        imagen: 'pages/jarro1.webp',
+        categoria: 'test'
+      };
+      
+      const result = Carrito.addToCarrito(producto);
+      mostrarNotificacion(result.message, result.success ? 'success' : 'warning');
+    }
+
+    function testCartLimit() {
+      // Agregar muchos productos únicos para probar el límite
+      for (let i = 1; i <= 55; i++) {
+        const producto = {
+          id: `test-product-${i}`,
+          nombre: `Producto Test ${i}`,
+          precio: 1000,
+          cantidad: 1,
+          imagen: 'pages/jarro1.webp',
+          categoria: 'test'
+        };
+        Carrito.addToCarrito(producto);
+      }
+      
+      mostrarNotificacion('🧪 Test de límite completado', 'info');
+      updateDetailedStats();
+    }
+
+    function testDuplicates() {
+      // Agregar el mismo producto varias veces
+      addJarro();
+      setTimeout(() => addJarro(), 500);
+      setTimeout(() => addJarro(), 1000);
+      
+      mostrarNotificacion('🔄 Test de duplicados en progreso...', 'info');
+    }
+
+    // 🛠️ Herramientas de debug
+    function showCartData() {
+      const carrito = Carrito.getCarrito();
+      const stats = Carrito.getCarritoStats();
+      
+      console.group('🛒 Datos del Carrito');
+      console.log('Productos:', carrito);
+      console.log('Estadísticas:', stats);
+      console.groupEnd();
+      
+      mostrarNotificacion('📋 Datos mostrados en consola', 'info');
+    }
+
+    function exportCartData() {
+      const carrito = Carrito.getCarrito();
+      const dataStr = JSON.stringify(carrito, null, 2);
+      
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `carrito-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      mostrarNotificacion('📤 Carrito exportado', 'success');
+    }
+
+    function importCartData() {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json';
+      input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (Array.isArray(data)) {
+              Carrito.setCarrito(data);
+              Carrito.renderCarrito();
+              updateDetailedStats();
+              mostrarNotificacion('📥 Carrito importado correctamente', 'success');
+            } else {
+              mostrarNotificacion('❌ Formato de archivo inválido', 'error');
+            }
+          } catch (error) {
+            mostrarNotificacion('❌ Error al leer archivo', 'error');
+          }
+        };
+        reader.readAsText(file);
+      };
+      input.click();
+    }
+
+    function corruptCartTest() {
+      // Simular datos corruptos en localStorage
+      localStorage.setItem('patagonia_carrito_v2', '{"datos": "corruptos", "invalid": true}');
+      
+      // Intentar leer carrito (debería autorreparar)
+      Carrito.validateCarritoIntegrity();
+      Carrito.renderCarrito();
+      
+      mostrarNotificacion('💥 Test de corrupción completado - Sistema auto-reparado', 'warning');
+    }
+
+    // 📊 Actualizar estadísticas detalladas
+    function updateDetailedStats() {
+      setTimeout(() => {
+        const stats = Carrito.getCarritoStats();
+        const container = document.getElementById('detailed-stats');
+        
+        if (stats.totalItems === 0) {
+          container.innerHTML = `
+            <div class="text-center text-muted">
+              <i class="fas fa-chart-bar fa-2x mb-2"></i>
+              <p>Agrega productos para ver estadísticas</p>
+            </div>
+          `;
+          return;
+        }
+
+        let categoriesHTML = '';
+        for (const [cat, data] of Object.entries(stats.categories)) {
+          categoriesHTML += `
+            <div class="d-flex justify-content-between mb-1">
+              <small>${cat}:</small>
+              <small>${data.count} items ($${data.value.toLocaleString()})</small>
+            </div>
+          `;
+        }
+
+        container.innerHTML = `
+          <div class="mb-3">
+            <small class="text-muted">Productos únicos:</small>
+            <div class="fw-bold">${stats.uniqueProducts}</div>
+          </div>
+          
+          <div class="mb-3">
+            <small class="text-muted">Precio promedio:</small>
+            <div class="fw-bold">$${stats.averageItemPrice.toLocaleString()}</div>
+          </div>
+          
+          <div class="mb-3">
+            <small class="text-muted">Por categorías:</small>
+            ${categoriesHTML}
+          </div>
+          
+          ${stats.oldestItem ? `
+            <div class="mb-2">
+              <small class="text-muted">Más antiguo:</small>
+              <div class="small">${stats.oldestItem.nombre}</div>
+            </div>
+          ` : ''}
+          
+          ${stats.newestItem ? `
+            <div>
+              <small class="text-muted">Más reciente:</small>
+              <div class="small">${stats.newestItem.nombre}</div>
+            </div>
+          ` : ''}
+        `;
+      }, 100);
+    }
+
+    // 🎨 Sistema de notificaciones (compatible con el existente)
+    function mostrarNotificacion(mensaje, tipo = 'info') {
+      let container = document.getElementById('notifications-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'notifications-container';
+        document.body.appendChild(container);
+      }
+
+      const iconos = {
+        success: '✅',
+        warning: '⚠️',
+        error: '❌',
+        info: 'ℹ️'
+      };
+      
+      const colores = {
+        success: 'success',
+        warning: 'warning',
+        error: 'danger',
+        info: 'info'
+      };
+
+      const notification = document.createElement('div');
+      notification.className = 'notification';
+      notification.innerHTML = `
+        <div class="alert alert-${colores[tipo]} alert-dismissible fade show shadow">
+          <strong>${iconos[tipo]} ${mensaje}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+      
+      container.appendChild(notification);
+      
+      // Auto remove después de 4 segundos
+      setTimeout(() => {
+        if (notification.parentNode) {
+          notification.remove();
+        }
+      }, 4000);
+    }
+
+    // 🚀 Inicialización
+    document.addEventListener('DOMContentLoaded', function() {
+      // Asegurar que el carrito esté renderizado al cargar
+      Carrito.renderCarrito();
+      updateDetailedStats();
+      
+      // Escuchar eventos del carrito
+      document.addEventListener('carritoUpdated', function(event) {
+        updateDetailedStats();
+      });
+      
+      console.log('🛒 Demo CarritoManager v2.0 inicializada correctamente');
+    });
+  </script>
+
+</body>
+</html>

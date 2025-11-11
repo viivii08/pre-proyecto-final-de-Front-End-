@@ -1,0 +1,92 @@
+/* ==============================================
+   OPCIÓN 2: BANNER FLOTANTE LATERAL
+   Posicionado a la derecha sin interferir contenido
+   ============================================== */
+
+.signup-float-banner {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 20px 16px;
+  border-radius: 15px 0 0 15px;
+  box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-width: 50px;
+  text-align: center;
+}
+
+.signup-float-banner:hover {
+  transform: translateY(-50%) translateX(-5px);
+  background: linear-gradient(135deg, var(--accent-color), #d4941e);
+  color: white;
+  text-decoration: none;
+}
+
+.signup-float-banner .banner-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.signup-float-banner .banner-icon {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .signup-float-banner {
+    display: none; /* Ocultar en móvil para no interferir */
+  }
+}
+
+/* Alternativa móvil: Banner superior colapsable */
+.mobile-signup-banner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-signup-banner.show {
+  transform: translateY(0);
+}
+
+.mobile-signup-banner .close-banner {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .mobile-signup-banner {
+    display: block;
+  }
+  
+  body {
+    padding-top: 90px; /* Ajustar cuando el banner está visible */
+  }
+}

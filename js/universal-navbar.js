@@ -164,28 +164,57 @@ class UniversalNavbar {
     const userEmail = this.currentUser.email || '';
 
     return `
-      <div class="user-menu-fixed" style="position: relative;">
-                  <div class="user-menu-items">
-            <a href="mi-cuenta.html" 
-               class="user-menu-item d-flex align-items-center p-2 text-decoration-none"
-               style="color: #333; border-radius: 4px; margin-bottom: 2px;">
-              <i class="bi bi-person-circle me-2"></i>
-              Mi cuenta
+      <div class="dropdown">
+        <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="userDropdown" 
+                data-bs-toggle="dropdown" aria-expanded="false"
+                style="background: rgba(255,255,255,0.1); 
+                       border: 1px solid rgba(255,255,255,0.3); 
+                       color: white; 
+                       padding: 4px 8px; 
+                       border-radius: 12px; 
+                       font-size: 0.8rem;">
+          <i class="bi bi-person-circle me-1" style="color: white;"></i>
+          <span style="color: white;">${userName}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" 
+            style="background: linear-gradient(135deg, #3b5d50, #1f3c5a); 
+                   border: none; 
+                   border-radius: 8px; 
+                   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                   padding: 8px 0;
+                   min-width: 180px;">
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="mi-cuenta.html"
+               style="color: white !important; 
+                      padding: 8px 16px; 
+                      font-size: 0.9rem; 
+                      transition: all 0.2s ease;">
+              <i class="bi bi-person-circle me-2" style="color: white !important;"></i>
+              <span style="color: white !important;">Mi cuenta</span>
             </a>
-            <a href="mis-pedidos.html" 
-               class="user-menu-item d-flex align-items-center p-2 text-decoration-none"
-               style="color: #333; border-radius: 4px; margin-bottom: 2px;">
-              <i class="bi bi-box-seam me-2"></i>
-              Mis pedidos
+          </li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="mis-pedidos.html"
+               style="color: white !important; 
+                      padding: 8px 16px; 
+                      font-size: 0.9rem; 
+                      transition: all 0.2s ease;">
+              <i class="bi bi-box-seam me-2" style="color: white !important;"></i>
+              <span style="color: white !important;">Mis pedidos</span>
             </a>
-            <hr class="my-2">
-            <a href="#" onclick="logoutUser()" 
-               class="user-menu-item d-flex align-items-center p-2 text-decoration-none text-danger"
-               style="border-radius: 4px;">
-              <i class="bi bi-box-arrow-right me-2"></i>
-              Cerrar sesión
+          </li>
+          <li><hr class="dropdown-divider" style="border-color: rgba(255,255,255,0.2);"></li>
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="#" onclick="logoutUser()"
+               style="color: #ff6b6b !important; 
+                      padding: 8px 16px; 
+                      font-size: 0.9rem; 
+                      transition: all 0.2s ease;">
+              <i class="bi bi-box-arrow-right me-2" style="color: #ff6b6b !important;"></i>
+              <span style="color: #ff6b6b !important;">Cerrar sesión</span>
             </a>
-          </div>
+          </li>
+        </ul>
       </div>
     `;
   }
@@ -229,7 +258,58 @@ class UniversalNavbar {
         border-color: rgba(255,255,255,0.9) !important;
       }
       
-      /* Responsivo para la búsqueda */
+      /* Estilos específicos para el dropdown de usuario */
+      .dropdown-toggle:after {
+        margin-left: 8px !important;
+        color: white !important;
+      }
+      
+      .dropdown-menu.show {
+        display: block !important;
+        background: linear-gradient(135deg, #3b5d50, #1f3c5a) !important;
+        border: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+      }
+      
+      .dropdown-item {
+        color: white !important;
+        background: transparent !important;
+        transition: all 0.2s ease !important;
+      }
+      
+      .dropdown-item:hover,
+      .dropdown-item:focus {
+        background: rgba(255,255,255,0.1) !important;
+        color: white !important;
+      }
+      
+      .dropdown-item i {
+        color: white !important;
+      }
+      
+      .dropdown-item:hover i {
+        color: white !important;
+      }
+      
+      /* Específico para el item de cerrar sesión */
+      .dropdown-item[onclick*="logoutUser"] {
+        color: #ff6b6b !important;
+      }
+      
+      .dropdown-item[onclick*="logoutUser"] i {
+        color: #ff6b6b !important;
+      }
+      
+      .dropdown-item[onclick*="logoutUser"]:hover {
+        background: rgba(255,107,107,0.1) !important;
+        color: #ff6b6b !important;
+      }
+      
+      .dropdown-item[onclick*="logoutUser"]:hover i {
+        color: #ff6b6b !important;
+      }
+      
+      /* Responsive para la búsqueda */
       @media (max-width: 991px) {
         .navbar-collapse .d-flex {
           flex-direction: column;
@@ -252,45 +332,6 @@ class UniversalNavbar {
           font-size: 0.85rem !important;
           padding: 6px 10px !important;
         }
-      }
-      
-      /* Menú de usuario FIJO - MICRO TAMAÑO */
-      .user-menu-fixed {
-        position: relative !important;
-        display: inline-block !important;
-      }
-      
-      .user-menu-container {
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        position: relative !important;
-        z-index: 1000 !important;
-        min-width: 140px !important;
-        max-width: 140px !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        border: none !important;
-        border-radius: 6px !important;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08) !important;
-        background: #fff !important;
-      }
-      
-      .user-menu-container a {
-        display: flex !important;
-        align-items: center !important;
-        padding: 4px 8px !important;
-        color: #333 !important;
-        text-decoration: none !important;
-        border: none !important;
-        transition: all 0.2s ease !important;
-        font-size: 0.65rem !important;
-        line-height: 1.2 !important;
-      }
-      
-      .user-menu-container a:hover {
-        background: #f8f9fa !important;
-        color: #333 !important;
       }
       
       /* Espaciado del body para navbar fijo */

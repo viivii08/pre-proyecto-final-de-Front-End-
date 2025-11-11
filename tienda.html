@@ -9,7 +9,114 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
+  <!-- Frontend Improvements -->
+  <link rel="stylesheet" href="css/optimizations.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  <link rel="stylesheet" href="css/responsive-advanced.css">
+  <link rel="stylesheet" href="css/dark-theme.css">
   <style>
+    /* Estilos específicos para que el dropdown se vea como en la imagen 2 */
+    .dropdown-menu {
+      background: linear-gradient(135deg, #3b5d50, #1f3c5a) !important;
+      border: none !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+      padding: 8px 0 !important;
+      min-width: 180px !important;
+    }
+    
+    .dropdown-item {
+      color: white !important;
+      background: transparent !important;
+      padding: 8px 16px !important;
+      font-size: 0.9rem !important;
+      transition: all 0.2s ease !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: rgba(255,255,255,0.1) !important;
+      color: white !important;
+    }
+    
+    .dropdown-item i {
+      color: white !important;
+      margin-right: 8px !important;
+    }
+    
+    .dropdown-item:hover i {
+      color: white !important;
+    }
+    
+    .dropdown-item span {
+      color: white !important;
+    }
+    
+    .dropdown-item:hover span {
+      color: white !important;
+    }
+    
+    /* Específico para cerrar sesión */
+    .dropdown-item[onclick*="logoutUser"] {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"] i {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"] span {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover {
+      background: rgba(255,107,107,0.1) !important;
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover i {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover span {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-divider {
+      border-color: rgba(255,255,255,0.2) !important;
+      margin: 6px 0 !important;
+    }
+    
+    /* Botón del dropdown */
+    .dropdown-toggle {
+      background: rgba(255,255,255,0.1) !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      color: white !important;
+      padding: 4px 8px !important;
+      border-radius: 12px !important;
+      font-size: 0.8rem !important;
+    }
+    
+    .dropdown-toggle:hover {
+      background: rgba(255,255,255,0.2) !important;
+      border-color: rgba(255,255,255,0.4) !important;
+      color: white !important;
+    }
+    
+    .dropdown-toggle:focus {
+      background: rgba(255,255,255,0.2) !important;
+      border-color: rgba(255,255,255,0.4) !important;
+      color: white !important;
+      box-shadow: 0 0 0 0.25rem rgba(255,255,255,0.25) !important;
+    }
+    
+    .dropdown-toggle::after {
+      margin-left: 8px !important;
+      color: white !important;
+    }
+    
     .card-img-top {
       object-fit: cover;
       width: 100%;
@@ -184,7 +291,7 @@
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/ratings.js"></script>
-  <script src="js/favorites.js"></script>
+  <script src="js/frontend-utils.js"></script>
   <script>
   // Inicializar tienda
   document.addEventListener('DOMContentLoaded', function() {
