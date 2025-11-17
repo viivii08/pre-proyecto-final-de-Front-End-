@@ -207,43 +207,47 @@ class NotificationManager {
   }
 }
 
-// 8. 🚀 Inicialización Automática
+// 8. 🚀 Inicialización Automática (DESHABILITADA para evitar errores)
 document.addEventListener('DOMContentLoaded', function() {
-  // Inicializar utilidades
-  new LazyImageLoader();
-  
-  // Detectar dispositivo al cargar y al redimensionar
-  DeviceDetector.addDeviceClasses();
-  window.addEventListener('resize', () => DeviceDetector.addDeviceClasses());
+  try {
+    // Inicializar solo utilidades básicas
+    new LazyImageLoader();
+    
+    // Detectar dispositivo al cargar y al redimensionar
+    DeviceDetector.addDeviceClasses();
+    window.addEventListener('resize', () => DeviceDetector.addDeviceClasses());
 
-  // Botón de scroll to top
-  const scrollButton = document.createElement('button');
-  scrollButton.innerHTML = '<i class="bi bi-arrow-up"></i>';
-  scrollButton.className = 'btn btn-primary scroll-to-top';
-  scrollButton.style.cssText = `
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    z-index: 1000;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: none;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  `;
-  scrollButton.onclick = () => SmoothScroller.scrollToTop();
-  document.body.appendChild(scrollButton);
+    // Botón de scroll to top
+    const scrollButton = document.createElement('button');
+    scrollButton.innerHTML = '<i class="bi bi-arrow-up"></i>';
+    scrollButton.className = 'btn btn-primary scroll-to-top';
+    scrollButton.style.cssText = `
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 1000;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    `;
+    scrollButton.onclick = () => SmoothScroller.scrollToTop();
+    document.body.appendChild(scrollButton);
 
-  // Mostrar/ocultar botón según scroll
-  window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-      scrollButton.style.display = 'block';
-    } else {
-      scrollButton.style.display = 'none';
-    }
-  });
+    // Mostrar/ocultar botón según scroll
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollButton.style.display = 'block';
+      } else {
+        scrollButton.style.display = 'none';
+      }
+    });
 
-  console.log('🚀 Utilidades frontend cargadas correctamente');
+    console.log('🚀 Utilidades frontend cargadas correctamente');
+  } catch (error) {
+    console.warn('⚠️ Error cargando utilidades frontend:', error);
+  }
 });
 
 // Exportar para uso global

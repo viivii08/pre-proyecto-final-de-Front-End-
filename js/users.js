@@ -499,11 +499,20 @@ class UserManager {
     if (typeof store !== 'undefined' && store.mostrarNotificacion) {
       store.mostrarNotificacion(message, type);
     } else {
-      // Fallback más suave
+      // Fallback mejorado con colores y emojis
+      const styles = {
+        error: 'color: #dc3545; font-weight: bold; background: #f8d7da; padding: 4px 8px; border-radius: 4px;',
+        success: 'color: #155724; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 4px;',
+        warning: 'color: #856404; font-weight: bold; background: #fff3cd; padding: 4px 8px; border-radius: 4px;',
+        info: 'color: #0c5460; font-weight: bold; background: #d1ecf1; padding: 4px 8px; border-radius: 4px;'
+      };
+      
+      const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
+      
       if (type === 'error') {
-        console.error('Error:', message);
+        console.error(`%c${icons.error} USER MANAGER ERROR`, styles.error, message);
       } else {
-        console.log(`${type.toUpperCase()}:`, message);
+        console.log(`%c${icons[type] || 'ℹ️'} USER MANAGER ${type.toUpperCase()}`, styles[type] || styles.info, message);
       }
     }
   }

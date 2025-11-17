@@ -4,7 +4,14 @@ class PatagoniaStore {
     this.productos = [];
     this.categorias = [];
     this.configuracion = {};
-    this.carrito = JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
+    
+    // Usar StorageUtils si está disponible
+    if (window.storageUtils) {
+      this.carrito = window.storageUtils.load('carrito', []);
+    } else {
+      this.carrito = JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
+    }
+    
     this.init();
   }
 
@@ -88,50 +95,82 @@ class PatagoniaStore {
   }
 
   crearTarjetaProducto(producto) {
-    const col = document.createElement('div');
-    col.className = 'col';
+    const productCard = document.createElement('div');
+    productCard.className = 'col';
+    productCard.style.cssText = `
+      display: flex;
+      margin-bottom: 1.5rem;
+    `;
 
-    const descuentoBadge = producto.descuento > 0 ? 
+    const discountBadge = producto.descuento > 0 ? 
       `<span class="badge-descuento position-absolute">${producto.descuento}% OFF</span>` : '';
 
-    const precioOriginal = producto.precioOriginal ? 
-      `<span class="card-price-old" style="font-size:1.05rem;">$${producto.precioOriginal.toLocaleString()}</span>` : '';
+    const originalPriceDisplay = producto.precioOriginal ? 
+      `<span class="card-price-old" style="font-size:1rem; color:#888; text-decoration: line-through; margin-left: 8px;">$${producto.precioOriginal.toLocaleString()}</span>` : '';
 
-    const stockBadge = producto.stock < 5 ? 
-      `<small class="text-warning">¡Últimas ${producto.stock} unidades!</small>` : '';
+    const lowStockWarning = producto.stock < 5 ? 
+      `<small class="text-warning d-block" style="color: #e67e22 !important; font-weight: 600;">¡Últimas ${producto.stock} unidades!</small>` : '';
 
-    col.innerHTML = `
-      <div class="card h-100 shadow-lg border-0 position-relative overflow-hidden card-producto" data-producto-id="${producto.id}">
-        <div class="overflow-hidden rounded-top" style="height:260px;">
-          <img src="${producto.imagenes[0]}" class="card-img-top" alt="${producto.nombre}" onerror="this.src='pages/no-image.png'">
-          ${descuentoBadge}
+    const isOutOfStock = !producto.disponible || producto.stock === 0;
+    const addToCartButtonText = isOutOfStock ? 'Sin stock' : 'Agregar al carrito';
+
+    productCard.innerHTML = `
+      <div class="card h-100 border-0 position-relative overflow-hidden card-producto" 
+           data-producto-id="${producto.id}" 
+           style="box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 16px; background: white; max-width: 100%; width: 100%;">
+        <div class="overflow-hidden" style="height:220px; border-radius: 16px 16px 0 0;">
+          <img src="${producto.imagenes[0]}" 
+               class="card-img-top" 
+               alt="${producto.nombre}" 
+               style="object-fit: cover; height: 100%; width: 100%; transition: transform 0.3s ease;"
+               onerror="this.src='pages/no-image.png'">
+          ${discountBadge}
         </div>
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title mb-2" style="font-weight:700; color:#1f3c5a; font-size:1.35rem;">${producto.nombre}</h5>
-          <p class="card-text mb-3" style="color:#444;">${producto.descripcionCorta}</p>
-          <div class="mb-3">
-            <span class="card-price" style="font-size:1.3rem; color:#3b5d50; font-weight:700;">$${producto.precio.toLocaleString()}</span>
-            ${precioOriginal}
+        <div class="card-body d-flex flex-column p-3">
+          <h5 class="card-title mb-2" style="font-weight:700; color:#1f3c5a; font-size:1.1rem; line-height: 1.3; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${producto.nombre}</h5>
+          <p class="card-text mb-2" style="color:#666; font-size:0.9rem; line-height: 1.4; height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${producto.descripcionCorta}</p>
+          <div class="mb-2">
+            <span class="card-price d-inline" style="font-size:1.3rem; color:#2c5530; font-weight:700;">$${producto.precio.toLocaleString()}</span>
+            ${originalPriceDisplay}
           </div>
-          ${stockBadge}
+          ${lowStockWarning}
           <div class="mt-auto">
             <div class="d-flex gap-2 mb-2">
-              <button class="btn btn-card flex-grow-1" onclick="store.verDetalleProducto(${producto.id})">
-                <i class="bi bi-eye"></i> Ver más
+              <button class="btn btn-outline-secondary flex-grow-1" 
+                      style="border-color: #3b5d50; color: #3b5d50; font-weight: 600; padding: 8px 12px; font-size: 0.9rem;"
+                      onclick="store.verDetalleProducto(${producto.id})"
+                      onmouseover="this.style.background='#3b5d50'; this.style.color='white'"
+                      onmouseout="this.style.background='transparent'; this.style.color='#3b5d50'">
+                <i class="bi bi-eye me-1"></i> Ver más
+              </button>
               </button>
             </div>
-            <button class="btn btn-card agregar-carrito-btn w-100" onclick="store.agregarAlCarrito(${producto.id})" ${!producto.disponible || producto.stock === 0 ? 'disabled' : ''}>
-              <i class="bi bi-cart-plus"></i> ${producto.disponible && producto.stock > 0 ? 'Agregar al carrito' : 'Sin stock'}
+            <button class="btn w-100 btn-agregar-carrito" 
+                    style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; font-weight: 600; border: none; padding: 10px; font-size: 0.9rem;"
+                    data-product-id="${producto.id}"
+                    data-quantity="1"
+                    ${isOutOfStock ? 'disabled' : ''}
+                    onclick="store.agregarAlCarrito(${producto.id})"
+                    onmouseover="if(!this.disabled) this.style.background='linear-gradient(135deg, #2c5530, #1d3a22)'"
+                    onmouseout="if(!this.disabled) this.style.background='linear-gradient(135deg, #3b5d50, #2c5530)'">
+              <i class="bi bi-cart-plus me-2"></i> ${addToCartButtonText}
             </button>
           </div>
         </div>
       </div>
     `;
 
-    return col;
+    return productCard;
   }
 
   agregarAlCarrito(productoId) {
+    // Si el nuevo sistema está disponible, usarlo
+    if (typeof carritoManager !== 'undefined' && carritoManager.initialized) {
+      carritoManager.agregarAlCarrito(productoId, 1);
+      return;
+    }
+    
+    // Fallback al sistema original
     const producto = this.productos.find(p => p.id === productoId);
     if (!producto || !producto.disponible || producto.stock === 0) {
       this.mostrarNotificacion('Producto no disponible', 'error');
@@ -195,16 +234,54 @@ class PatagoniaStore {
 
   calcularDescuentoTransferencia() {
     const total = this.calcularTotal();
-    return Math.round(total * (this.configuracion.descuentoTransferencia || 10) / 100);
+    
+    // Validación de casos edge
+    if (total <= 0) {
+      console.warn('⚠️ Total del carrito es 0 o negativo:', total);
+      return 0;
+    }
+    
+    const porcentaje = this.configuracion?.descuentoTransferencia || 10;
+    
+    // Validar porcentaje válido
+    if (porcentaje <= 0) {
+      console.warn('⚠️ Porcentaje de descuento inválido:', porcentaje);
+      return 0;
+    }
+    
+    if (porcentaje >= 100) {
+      console.warn('⚠️ Porcentaje de descuento >= 100%:', porcentaje);
+      return total; // Descuento total
+    }
+    
+    const descuento = Math.round(total * porcentaje / 100);
+    console.log(`💰 Descuento calculado: ${porcentaje}% de $${total.toLocaleString()} = $${descuento.toLocaleString()}`);
+    
+    return descuento;
   }
 
   buscarProductos(termino) {
-    const terminoLower = termino.toLowerCase();
-    return this.productos.filter(producto => 
-      producto.nombre.toLowerCase().includes(terminoLower) ||
-      producto.descripcionCorta.toLowerCase().includes(terminoLower) ||
+    // Validación de entrada
+    if (!termino || typeof termino !== 'string') {
+      console.warn('⚠️ buscarProductos: término de búsqueda inválido', termino);
+      return [];
+    }
+    
+    const terminoLimpio = termino.trim();
+    if (terminoLimpio.length < 2) {
+      console.log('ℹ️ buscarProductos: término muy corto, mínimo 2 caracteres');
+      return [];
+    }
+    
+    const terminoLower = terminoLimpio.toLowerCase();
+    const resultados = this.productos.filter(producto => 
+      producto.nombre?.toLowerCase().includes(terminoLower) ||
+      producto.descripcionCorta?.toLowerCase().includes(terminoLower) ||
       producto.tags?.some(tag => tag.toLowerCase().includes(terminoLower))
     );
+    
+    console.log(`🔍 Búsqueda: "${terminoLimpio}" encontró ${resultados.length} productos`);
+    return resultados;
   }
 
   filtrarPorCategoria(categoria) {
@@ -215,9 +292,28 @@ class PatagoniaStore {
   }
 
   filtrarPorPrecio(min, max) {
-    return this.productos.filter(producto => 
+    // Validación de parámetros
+    if (typeof min !== 'number' || typeof max !== 'number') {
+      console.error('❌ filtrarPorPrecio: min y max deben ser números', { min, max });
+      return this.productos;
+    }
+    
+    if (min < 0 || max < 0) {
+      console.warn('⚠️ filtrarPorPrecio: valores negativos no permitidos', { min, max });
+      return this.productos;
+    }
+    
+    if (min > max) {
+      console.warn('⚠️ filtrarPorPrecio: min no puede ser mayor que max', { min, max });
+      [min, max] = [max, min]; // Intercambiar valores
+    }
+    
+    const resultados = this.productos.filter(producto => 
       producto.precio >= min && producto.precio <= max
     );
+    
+    console.log(`🔍 Filtro por precio: $${min.toLocaleString()} - $${max.toLocaleString()}: ${resultados.length} productos`);
+    return resultados;
   }
 
   verDetalleProducto(productoId) {
@@ -230,7 +326,12 @@ class PatagoniaStore {
   }
 
   guardarCarrito() {
-    localStorage.setItem('patagonia_carrito', JSON.stringify(this.carrito));
+    // Usar StorageUtils si está disponible, sino fallback
+    if (window.storageUtils) {
+      window.storageUtils.save('carrito', this.carrito);
+    } else {
+      localStorage.setItem('patagonia_carrito', JSON.stringify(this.carrito));
+    }
   }
 
   actualizarContadorCarrito() {

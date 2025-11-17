@@ -11,9 +11,12 @@
   <link rel="stylesheet" href="styles.css">
   <!-- Frontend Improvements -->
   <link rel="stylesheet" href="css/optimizations.css">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/mejoras-semanticas.css">
   <link rel="stylesheet" href="css/accessibility.css">
   <link rel="stylesheet" href="css/responsive-advanced.css">
   <link rel="stylesheet" href="css/dark-theme.css">
+  <link rel="stylesheet" href="css/product-cards-improved.css">
   <style>
     /* Estilos específicos para que el dropdown se vea como en la imagen 2 */
     .dropdown-menu {
@@ -187,20 +190,232 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* 🔧 CORRECCIONES URGENTES PARA LEGIBILIDAD */
+    
+    /* Forzar tema claro en tienda */
+    body {
+      background: #e6e8ea !important;
+      color: #333 !important;
+    }
+    
+    /* Cards de productos con fondo claro y texto legible */
+    .card-producto {
+      background: white !important;
+      color: #333 !important;
+      border: 1px solid #e0e0e0 !important;
+    }
+    
+    .card-title {
+      color: #1f3c5a !important;
+      font-weight: 700 !important;
+    }
+    
+    .card-text {
+      color: #666 !important;
+    }
+    
+    .card-price {
+      color: #3b5d50 !important;
+      font-weight: 700 !important;
+    }
+    
+    .card-price-old {
+      color: #888 !important;
+      text-decoration: line-through !important;
+    }
+    
+    /* Selectores de filtro legibles */
+    .form-select,
+    .form-label {
+      color: #333 !important;
+      background: white !important;
+      border-color: #ddd !important;
+    }
+    
+    /* Títulos y texto principal */
+    h1, h2, h3, h4, h5, h6 {
+      color: #3b5d50 !important;
+    }
+    
+    .lead {
+      color: #666 !important;
+    }
+    
+    /* Breadcrumbs legibles */
+    .breadcrumb-section {
+      background: rgba(255, 255, 255, 0.9) !important;
+    }
+    
+    .breadcrumb-item a {
+      color: #3b5d50 !important;
+    }
+    
+    .breadcrumb-item.active {
+      color: #666 !important;
+    }
+    
+    /* Botones mejorados */
+    .btn-card {
+      background: linear-gradient(90deg, #f4a259 60%, #b67c3a 100%) !important;
+      color: white !important;
+      border: none !important;
+    }
+    
+    .btn-card:hover {
+      background: linear-gradient(90deg, #e09145 60%, #a26730 100%) !important;
+      color: white !important;
+    }
+    
+    /* Testimonios con mejor contraste */
+    .testimonial-container {
+      background: white !important;
+      color: #333 !important;
+    }
+    
+    blockquote {
+      color: #333 !important;
+    }
+    
+    cite {
+      color: #3b5d50 !important;
+    }
+    
+    /* Mensaje de no productos */
+    #no-productos {
+      color: #666 !important;
+    }
+    
+    #no-productos h3 {
+      color: #888 !important;
+    }
+    
+    /* Mejorar espaciado entre productos */
+    .row.g-4 {
+      gap: 1.5rem !important;
+    }
+    
+    /* Mejor visualización de badges de descuento */
+    .badge-descuento {
+      background: #ff6b35 !important;
+      color: white !important;
+      font-weight: 700 !important;
+      font-size: 0.9rem !important;
+      padding: 8px 12px !important;
+      border-radius: 12px !important;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3) !important;
+    }
+    
+    /* Warnings de stock bajo */
+    .text-warning {
+      color: #e67e22 !important;
+      font-weight: 600 !important;
+    }
+    
+    /* Deshabilitar tema oscuro automático */
+    [data-theme="dark"] body,
+    [data-theme="dark"] .card,
+    [data-theme="dark"] .form-control,
+    [data-theme="dark"] .form-select {
+      background: white !important;
+      color: #333 !important;
+      border-color: #ddd !important;
+    }
+    
+    /* Ocultar botón de cambio de tema temporalmente */
+    .theme-toggle {
+      display: none !important;
+    }
+    
+    /* Mejorar contraste del texto en general */
+    body * {
+      color: inherit;
+    }
+    
+    /* Asegurar que las imágenes se vean bien */
+    .card-img-top {
+      border-radius: 12px 12px 0 0 !important;
+      object-fit: cover !important;
+    }
+    
+    /* Container principal con mejor espaciado */
+    .container {
+      max-width: 1200px !important;
+    }
+    
+    /* Grid más organizado y espaciado */
+    #productos-container {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      gap: 1.5rem !important;
+      justify-content: center !important;
+    }
+    
+    #productos-container .col {
+      flex: 0 0 calc(33.333% - 1rem) !important;
+      max-width: 350px !important;
+      margin-bottom: 0 !important;
+    }
+    
+    @media (max-width: 768px) {
+      #productos-container .col {
+        flex: 0 0 100% !important;
+        max-width: 400px !important;
+      }
+      
+      .container {
+        padding: 0 1rem !important;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 991px) {
+      #productos-container .col {
+        flex: 0 0 calc(50% - 0.75rem) !important;
+        max-width: 350px !important;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      #productos-container .col {
+        flex: 0 0 calc(33.333% - 1rem) !important;
+        max-width: 370px !important;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <div id="navbar-container"></div>
+  <!-- Skip Link para accesibilidad -->
+  <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
 
-  <!-- Catálogo de productos -->
-  <main class="container py-5">
-    <h2 class="text-center mb-5" style="font-size:2.7rem; font-weight:700; color:#3b5d50; letter-spacing:1px;">Tienda</h2>
+  <!-- Header con navegación principal -->
+  <header role="banner">
+    <nav id="navbar-container" role="navigation" aria-label="Navegación principal"></nav>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <nav aria-label="Breadcrumb" class="breadcrumb-section py-2">
+    <div class="container">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tienda</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main id="main-content" class="container py-5" role="main">
+    <header class="text-center mb-5">
+      <h1 class="section-title" style="font-size:2.7rem; font-weight:700; color:#3b5d50; letter-spacing:1px;">Tienda</h1>
+      <p class="lead text-muted">Descubre nuestros productos únicos inspirados en la Patagonia</p>
+    </header>
     
-    <!-- Filtros y ordenamiento -->
-    <div class="row mb-4">
-      <div class="col-md-6">
-        <select class="form-select" id="filtro-categoria" onchange="store.aplicarFiltros()">
+    <!-- Sección de Filtros y ordenamiento -->
+    <section aria-labelledby="filtros-title" class="mb-4">
+      <h2 id="filtros-title" class="sr-only">Filtros y ordenamiento de productos</h2>
+      <div class="row mb-4">
+      <div class="col-md-6 mb-3 mb-md-0">
+        <label for="filtro-categoria" class="form-label fw-bold">Filtrar por categoría:</label>
+        <select class="form-select" id="filtro-categoria">
           <option value="todos">Todas las categorías</option>
           <option value="jarros">Jarros</option>
           <option value="papeleria">Papelería</option>
@@ -208,7 +423,8 @@
         </select>
       </div>
       <div class="col-md-6">
-        <select class="form-select" id="ordenamiento" onchange="store.aplicarOrdenamiento()">
+        <label for="ordenamiento" class="form-label fw-bold">Ordenar por:</label>
+        <select class="form-select" id="ordenamiento">
           <option value="nombre">Ordenar por nombre</option>
           <option value="precio-asc">Precio: menor a mayor</option>
           <option value="precio-desc">Precio: mayor a menor</option>
@@ -217,128 +433,214 @@
       </div>
     </div>
 
-    <!-- Contenedor de productos dinámico -->
-    <div class="row row-cols-1 row-cols-md-3 g-5" id="productos-container">
-      <!-- Los productos se cargan dinámicamente aquí -->
-    </div>
+      <!-- Sección de productos -->
+      <section aria-labelledby="productos-title" class="mt-4">
+        <h2 id="productos-title" class="sr-only">Catálogo de productos</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" 
+             id="productos-container" 
+             role="list"
+             style="gap: 1.5rem; justify-content: center;">
+          <!-- Los productos se cargan dinámicamente aquí -->
+        </div>
 
-    <!-- Mensaje de no hay productos -->
-    <div id="no-productos" class="text-center py-5" style="display: none;">
-      <i class="bi bi-search" style="font-size: 3rem; color: #ccc;"></i>
-      <h4 class="mt-3 text-muted">No se encontraron productos</h4>
-      <p class="text-muted">Intenta con otros términos de búsqueda o filtros</p>
-    </div>
+        <!-- Mensaje de no hay productos -->
+        <div id="no-productos" class="text-center py-5" style="display: none;" role="status" aria-live="polite">
+          <i class="bi bi-search" style="font-size: 3rem; color: #ccc;" aria-hidden="true"></i>
+          <h3 class="mt-3 text-muted">No se encontraron productos</h3>
+          <p class="text-muted">Intenta con otros términos de búsqueda o filtros</p>
+        </div>
+      </section>
+    </section>
   </main>
 
   <!-- Sección de Testimonios -->
-  <section class="container my-5">
-    <h2 class="text-center mb-5" style="color: #3b5d50; font-weight: 600;">Testimonios</h2>
+  <section class="container my-5" aria-labelledby="testimonios-title">
+    <h2 id="testimonios-title" class="text-center mb-5" style="color: #3b5d50; font-weight: 600;">Testimonios</h2>
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="testimonial-container" style="background: white; border-radius: 15px; padding: 50px 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0;">
+        <article class="testimonial-container" style="background: white; border-radius: 15px; padding: 50px 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0;">
           <div class="text-center">
-            <div class="mb-4">
+            <div class="mb-4" aria-hidden="true">
               <i class="bi bi-quote" style="font-size: 3rem; color: #3b5d50; opacity: 0.2;"></i>
             </div>
-            <p class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
+            <blockquote class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
               "Vivi, tus productos son pura magia. Compré una libreta y unos jarros enlozados, y cada vez que los uso, siento que me transportan a la Patagonia. La calidad es increíble y los detalles ilustrados son hermosos."
-            </p>
-            <div class="mt-4">
-              <h5 class="mb-0" style="color: #3b5d50; font-weight: 600;">Sofia de Buenos Aires</h5>
-            </div>
+            </blockquote>
+            <footer class="mt-4">
+              <cite style="color: #3b5d50; font-weight: 600; font-style: normal;">Sofia de Buenos Aires</cite>
+            </footer>
           </div>
-        </div>
-      </div>
-    </div>
-            <!-- Testimonio 2 -->
-            <div class="carousel-item">
-              <div class="text-center p-4">
-                <div class="mb-4">
-                  <i class="bi bi-quote" style="font-size: 3rem; color: #3b5d50; opacity: 0.3;"></i>
-                </div>
-                <p class="fs-5 mb-4" style="color: #3b5d50; line-height: 1.6; font-style: italic;">
-                  Increíble calidad y diseños únicos. Compré varios productos para regalar y todos quedaron encantados. El arte patagónico que manejan es realmente especial.
-                </p>
-                <h5 class="mb-0" style="color: #3b5d50; font-weight: 600;">María de Córdoba</h5>
-              </div>
-            </div>
-            <!-- Testimonio 3 -->
-            <div class="carousel-item">
-              <div class="text-center p-4">
-                <div class="mb-4">
-                  <i class="bi bi-quote" style="font-size: 3rem; color: #3b5d50; opacity: 0.3;"></i>
-                </div>
-                <p class="fs-5 mb-4" style="color: #3b5d50; line-height: 1.6; font-style: italic;">
-                  Los cuadernos son hermosos y de excelente calidad. Me encanta escribir en ellos, cada página es una inspiración. Definitivamente volveré a comprar.
-                </p>
-                <h5 class="mb-0" style="color: #3b5d50; font-weight: 600;">Carlos de Mendoza</h5>
-              </div>
-            </div>
-          </div>
-          <!-- Controles del carousel -->
-          <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width: 5%;">
-            <i class="bi bi-chevron-left" style="font-size: 2rem; color: #3b5d50;"></i>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width: 5%;">
-            <i class="bi bi-chevron-right" style="font-size: 2rem; color: #3b5d50;"></i>
-          </button>
-        </div>
+        </article>
       </div>
     </div>
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Utilidades JavaScript mejoradas -->
+  <script src="js/utils/logger.js"></script>
+  <script src="js/utils/validators.js"></script>
+  <script src="js/utils/helpers.js"></script>
+  <script src="js/utils/improvements.js"></script>
+  
+  <!-- Sistema mejorado de tarjetas de productos -->
+  <script src="js/utils/product-card-builder.js"></script>
+  <script src="js/utils/product-renderer.js"></script>
+  
+  <!-- Scripts principales -->
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/ratings.js"></script>
   <script src="js/frontend-utils.js"></script>
   <script>
+  // 🔧 Deshabilitar tema oscuro en tienda para mejor legibilidad
+  document.addEventListener('DOMContentLoaded', function() {
+    // Forzar tema claro
+    document.documentElement.setAttribute('data-theme', 'light');
+    localStorage.setItem('theme', 'light');
+    
+    // Ocultar botón de cambio de tema
+    const themeToggle = document.querySelector('.theme-toggle');
+    if (themeToggle) {
+      themeToggle.style.display = 'none';
+    }
+    
+    // Asegurar que el body no tenga clases de tema oscuro
+    document.body.classList.remove('theme-dark');
+    document.body.classList.add('theme-light');
+  });
+  
   // Inicializar tienda
   document.addEventListener('DOMContentLoaded', function() {
-    // Funciones adicionales para filtros y ordenamiento
-    if (typeof store !== 'undefined') {
+    // Esperar a que store se inicialice
+    function inicializarTienda() {
+      if (typeof store === 'undefined' || !store.productos || store.productos.length === 0) {
+        setTimeout(inicializarTienda, 100);
+        return;
+      }
+
+      // Variables para mantener el estado de filtros
+      let productosFiltrados = [...store.productos];
+      let categoriaActual = 'todos';
+      let ordenamientoActual = 'nombre';
+
+      // Función para aplicar filtros
       store.aplicarFiltros = function() {
         const categoria = document.getElementById('filtro-categoria').value;
-        const productosFiltrados = this.filtrarPorCategoria(categoria);
+        categoriaActual = categoria;
+        
+        // Filtrar por categoría
+        if (categoria === 'todos') {
+          productosFiltrados = [...this.productos];
+        } else {
+          productosFiltrados = this.filtrarPorCategoria(categoria);
+        }
+        
+        // Aplicar ordenamiento actual
+        aplicarOrdenamientoInterno();
+        
+        // Renderizar productos filtrados
         this.renderizarProductos(productosFiltrados);
         
+        // Mostrar/ocultar mensaje de no productos
         const noProductos = document.getElementById('no-productos');
+        const contenedor = document.getElementById('productos-container');
         if (productosFiltrados.length === 0) {
           noProductos.style.display = 'block';
+          if (contenedor) contenedor.style.display = 'none';
         } else {
           noProductos.style.display = 'none';
+          if (contenedor) contenedor.style.display = 'flex';
         }
       };
 
+      // Función para aplicar ordenamiento
       store.aplicarOrdenamiento = function() {
         const ordenamiento = document.getElementById('ordenamiento').value;
-        let productosOrdenados = [...this.productos];
-        
-        switch(ordenamiento) {
+        ordenamientoActual = ordenamiento;
+        aplicarOrdenamientoInterno();
+        this.renderizarProductos(productosFiltrados);
+      };
+
+      // Función interna para ordenar
+      function aplicarOrdenamientoInterno() {
+        switch(ordenamientoActual) {
           case 'precio-asc':
-            productosOrdenados.sort((a, b) => a.precio - b.precio);
+            productosFiltrados.sort((a, b) => a.precio - b.precio);
             break;
           case 'precio-desc':
-            productosOrdenados.sort((a, b) => b.precio - a.precio);
+            productosFiltrados.sort((a, b) => b.precio - a.precio);
             break;
           case 'descuento':
-            productosOrdenados.sort((a, b) => b.descuento - a.descuento);
+            productosFiltrados.sort((a, b) => (b.descuento || 0) - (a.descuento || 0));
             break;
           case 'nombre':
           default:
-            productosOrdenados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+            productosFiltrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
             break;
         }
+      }
+
+      // Procesar búsqueda desde URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchTerm = urlParams.get('search');
+      if (searchTerm) {
+        // Realizar búsqueda
+        productosFiltrados = store.buscarProductos(searchTerm);
+        store.renderizarProductos(productosFiltrados);
         
-        this.renderizarProductos(productosOrdenados);
-      };
+        // Mostrar término de búsqueda
+        const titulo = document.querySelector('main h2');
+        if (titulo && productosFiltrados.length > 0) {
+          titulo.innerHTML = `Resultados de búsqueda: "${searchTerm}" <small class="text-muted">(${productosFiltrados.length} producto${productosFiltrados.length !== 1 ? 's' : ''})</small>`;
+        }
+        
+        // Actualizar select de categoría si hay resultados
+        if (productosFiltrados.length > 0 && productosFiltrados[0].categoria) {
+          const filtroSelect = document.getElementById('filtro-categoria');
+          if (filtroSelect) {
+            filtroSelect.value = 'todos';
+          }
+        }
+      } else {
+        // Renderizar todos los productos si no hay búsqueda
+        store.renderizarProductos(store.productos);
+      }
       
-      // Inicializar tienda
+      // Agregar event listeners a los selectores
+      const filtroCategoria = document.getElementById('filtro-categoria');
+      const ordenamiento = document.getElementById('ordenamiento');
+      
+      if (filtroCategoria) {
+        filtroCategoria.addEventListener('change', function() {
+          if (typeof store !== 'undefined' && store.aplicarFiltros) {
+            store.aplicarFiltros();
+          }
+        });
+      }
+      
+      if (ordenamiento) {
+        ordenamiento.addEventListener('change', function() {
+          if (typeof store !== 'undefined' && store.aplicarOrdenamiento) {
+            store.aplicarOrdenamiento();
+          }
+        });
+      }
+      
+      // Inicializar contador de carrito
       setTimeout(() => {
-        store.actualizarContadorCarrito();
+        if (typeof store !== 'undefined') {
+          store.actualizarContadorCarrito();
+        }
+        if (typeof carritoEmergencia !== 'undefined') {
+          carritoEmergencia.actualizarContador();
+        }
         updateProductCardsWithRatings();
       }, 500);
     }
+
+    // Iniciar cuando el DOM esté listo
+    inicializarTienda();
   });
 
   function updateProductCardsWithRatings() {
@@ -381,10 +683,7 @@
   }
 </script>
 
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
-  <i class="bi bi-whatsapp"></i>
-</a>
+
 
 <!-- Botón flotante para volver al inicio -->
 <button onclick="irAInicio()" id="btnVolverInicio" style="
@@ -441,12 +740,7 @@
   });
 </script>
 
-<!-- Modales de autenticación -->
-<div id="auth-modals-container"></div>
-
-<script>
-  // Cargar modales de autenticación
-  document.getElementById('auth-modals-container').innerHTML = `
+<!-- Modales universales se cargan automáticamente con universal-modals.js -->
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -473,6 +767,13 @@
               </div>
               <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
             </form>
+            <div class="text-center mt-3">
+              <p class="mb-0">¿No tienes cuenta? 
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+                  <strong>Crear cuenta</strong>
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -522,6 +823,13 @@
               </div>
               <button type="submit" class="btn btn-warning w-100">Crear Cuenta</button>
             </form>
+            <div class="text-center mt-3">
+              <p class="mb-0">¿Ya tienes cuenta? 
+                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">
+                  <strong>Iniciar Sesión</strong>
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -546,15 +854,141 @@
         </div>
       </div>
     </div>
+    
+    <!-- Cart Modal -->
+    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 15px; border: none; max-height: 90vh; overflow-y: auto;">
+          <div class="modal-header" style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; border-radius: 15px 15px 0 0;">
+            <h5 class="modal-title" id="cartModalLabel">
+              <i class="bi bi-cart3 me-2"></i>Carrito de compras
+              <span id="cart-items-count" class="badge bg-light text-dark ms-2">0</span>
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body" style="padding: 20px;">
+            <!-- Items del carrito -->
+            <div id="cart-items" class="cart-items mb-4">
+              <!-- Se llenan dinámicamente -->
+            </div>
+            
+            <!-- Estado carrito vacío -->
+            <div id="empty-cart" class="text-center py-5" style="display: none;">
+              <i class="bi bi-cart-x" style="font-size: 4rem; color: #ccc;"></i>
+              <h4 class="mt-3 text-muted">Tu carrito está vacío</h4>
+              <p class="text-muted">Agrega productos para comenzar tu compra</p>
+              <button class="btn btn-primary" data-bs-dismiss="modal">
+                <i class="bi bi-shop me-2"></i>Continuar comprando
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer" id="cart-footer" style="border-top: 1px solid #eee; padding: 20px; background: #f8f9fa; border-radius: 0 0 15px 15px;">
+            <!-- Resumen del carrito -->
+            <div class="w-100">
+              <div id="cart-summary" class="cart-summary mb-3">
+                <!-- Se llena dinámicamente -->
+              </div>
+              <div class="d-flex gap-2 w-100">
+                <button type="button" class="btn btn-outline-secondary flex-grow-1" data-bs-dismiss="modal">
+                  <i class="bi bi-arrow-left me-2"></i>Seguir comprando
+                </button>
+                <a href="carrito.html" class="btn btn-primary flex-grow-1">
+                  <i class="bi bi-credit-card me-2"></i>Ir al checkout
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   `;
 </script>
 
+<!-- Sistema de WhatsApp simple -->
+<script src="js/simple-whatsapp.js"></script>
+<!-- Sistemas de checkout -->
+<script src="js/whatsapp-checkout.js"></script>
+
 <!-- Universal Navbar -->
 <script src="js/universal-navbar.js?v=3"></script>
+
+<!-- Modales universales -->
+<script src="js/universal-modals.js"></script>
+
+<!-- Sistema de carrito optimizado -->
+<script src="js/feedback-system.js"></script>
+<script src="js/cart-validator.js"></script>
+<script src="js/cart-system.js"></script>
+<script src="js/cart-renderer.js"></script>
+<script src="js/carrito-manager.js"></script>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     new UniversalNavbar('navbar-container', {
       showSearch: true
+    });
+    
+    // Esperar a que el carrito esté listo
+    document.addEventListener('carritoManager:ready', function() {
+      console.log('🛒 Sistema de carrito listo');
+      
+      // Función para actualizar contadores del carrito
+      const updateCartUI = () => {
+        const totalItems = carritoManager.getTotalItems();
+        const cartData = carritoManager.getCartSummary();
+        
+        // Actualizar contador en navbar
+        const navbarCounter = document.getElementById('cart-counter');
+        if (navbarCounter) {
+          navbarCounter.textContent = totalItems;
+          navbarCounter.style.display = totalItems > 0 ? 'inline-block' : 'none';
+        }
+        
+        // Actualizar modal del carrito
+        const modalCounter = document.getElementById('cart-items-count');
+        if (modalCounter) {
+          modalCounter.textContent = totalItems;
+        }
+        
+        // Mostrar/ocultar contenido del carrito
+        const cartItems = document.getElementById('cart-items');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartFooter = document.getElementById('cart-footer');
+        
+        if (totalItems === 0) {
+          if (cartItems) cartItems.style.display = 'none';
+          if (emptyCart) emptyCart.style.display = 'block';
+          if (cartFooter) cartFooter.style.display = 'none';
+        } else {
+          if (cartItems) cartItems.style.display = 'block';
+          if (emptyCart) emptyCart.style.display = 'none';
+          if (cartFooter) cartFooter.style.display = 'block';
+          
+          // Renderizar items en el modal del carrito
+          carritoManager.renderComponent('items', cartItems, {
+            items: carritoManager.getCartItems(),
+            products: [] // Se obtendrán dinámicamente
+          });
+          
+          // Renderizar resumen
+          const cartSummary = document.getElementById('cart-summary');
+          if (cartSummary) {
+            carritoManager.cartRenderer.renderComponent('summary', cartSummary, {
+              cartData: cartData
+            });
+          }
+        }
+      };
+      
+      // Configurar eventos del carrito
+      document.addEventListener('cart:updated', updateCartUI);
+      document.addEventListener('cart:item:added', updateCartUI);
+      document.addEventListener('cart:item:removed', updateCartUI);
+      document.addEventListener('cart:item:quantityChanged', updateCartUI);
+      document.addEventListener('cart:cleared', updateCartUI);
+      
+      // Actualizar al cargar
+      updateCartUI();
     });
   });
 </script>

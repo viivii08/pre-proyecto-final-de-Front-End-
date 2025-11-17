@@ -1,84 +1,164 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mis Pedidos - Patagonia Style</title>
-  <link rel="icon" type="image/png" href="pages/logo%20sin%20fondo%20(1).png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body {
-      padding-top: 70px; /* Espacio para navbar fijo */
+<!DOCTYPE html><!DOCTYPE html>
+
+<html lang="es"><html lang="es">
+
+<head><head>
+
+    <meta charset="UTF-8">  <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis Pedidos - Patagonia Style</title>  <title>Mis Pedidos - Patagonia Style</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">  <link rel="icon" type="image/png" href="pages/logo%20sin%20fondo%20(1).png">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+</head>  <link rel="stylesheet" href="styles.css">
+
+<body>  <style>
+
+    <!-- Navbar -->    body {
+
+    <div id="navbar-container"></div>      padding-top: 70px; /* Espacio para navbar fijo */
+
     }
-    
-    .orders-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border-radius: 15px;
-      padding: 30px;
-      text-align: center;
+
+    <div class="container mt-5">    
+
+        <div class="row">    .orders-header {
+
+            <div class="col-12">      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+                <h2><i class="bi bi-box-seam me-2"></i>Mis Pedidos</h2>      color: white;
+
+                <hr>      border-radius: 15px;
+
+            </div>      padding: 30px;
+
+        </div>      text-align: center;
+
       margin-bottom: 30px;
-    }
-    
-    .order-card {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-      border-left: 4px solid #007bff;
-    }
-    
-    .order-card:hover {
-      transform: translateY(-5px);
+
+        <div class="row">    }
+
+            <div class="col-12">    
+
+                <div class="card">    .order-card {
+
+                    <div class="card-body">      background: white;
+
+                        <div class="text-center py-5">      border-radius: 15px;
+
+                            <i class="bi bi-inbox display-4 text-muted"></i>      padding: 25px;
+
+                            <h4 class="mt-3">No tienes pedidos aún</h4>      margin-bottom: 20px;
+
+                            <p class="text-muted">Cuando realices tu primera compra, aparecerá aquí el estado de tus pedidos.</p>      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+                            <a href="tienda.html" class="btn btn-primary">      transition: all 0.3s ease;
+
+                                <i class="bi bi-shop me-2"></i>Ir a la Tienda      border-left: 4px solid #007bff;
+
+                            </a>    }
+
+                        </div>    
+
+                    </div>    .order-card:hover {
+
+                </div>      transform: translateY(-5px);
+
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    }
-    
-    .order-header {
-      display: flex;
-      justify-content: between;
-      align-items: start;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    
-    .order-status {
-      padding: 6px 16px;
-      border-radius: 25px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    
-    .status-pending {
-      background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
-      color: #d63031;
-    }
-    
-    .status-processing {
-      background: linear-gradient(135deg, #74b9ff, #0984e3);
-      color: white;
-    }
-    
+
+                <div class="card mt-4">    }
+
+                    <div class="card-header">    
+
+                        <h5><i class="bi bi-info-circle me-2"></i>Información de Envíos</h5>    .order-header {
+
+                    </div>      display: flex;
+
+                    <div class="card-body">      justify-content: between;
+
+                        <div class="row">      align-items: start;
+
+                            <div class="col-md-6">      margin-bottom: 20px;
+
+                                <h6><i class="bi bi-truck"></i> Envío Gratis</h6>      flex-wrap: wrap;
+
+                                <p class="text-muted">En compras mayores a $50.000</p>    }
+
+                            </div>    
+
+                            <div class="col-md-6">    .order-status {
+
+                                <h6><i class="bi bi-clock"></i> Tiempo de Entrega</h6>      padding: 6px 16px;
+
+                                <p class="text-muted">3-5 días hábiles en Capital Federal<br>      border-radius: 25px;
+
+                                5-7 días hábiles en el interior del país</p>      font-size: 0.875rem;
+
+                            </div>      font-weight: 600;
+
+                        </div>      text-transform: uppercase;
+
+                        <hr>      letter-spacing: 0.5px;
+
+                        <p class="mb-0">    }
+
+                            <i class="bi bi-whatsapp text-success me-2"></i>    
+
+                            Para consultas sobre tu pedido, contáctanos por WhatsApp:     .status-pending {
+
+                            <a href="https://wa.me/5491136899678" target="_blank" class="text-decoration-none">      background: linear-gradient(135deg, #ffeaa7, #fdcb6e);
+
+                                +54 11 3689-9678      color: #d63031;
+
+                            </a>    }
+
+                        </p>    
+
+                    </div>    .status-processing {
+
+                </div>      background: linear-gradient(135deg, #74b9ff, #0984e3);
+
+            </div>      color: white;
+
+        </div>    }
+
+    </div>    
+
     .status-shipped {
-      background: linear-gradient(135deg, #55efc4, #00b894);
-      color: white;
-    }
-    
-    .status-delivered {
-      background: linear-gradient(135deg, #fd79a8, #e84393);
-      color: white;
-    }
-    
-    .order-total {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #2d3436;
-    }
+
+    <!-- Scripts -->      background: linear-gradient(135deg, #55efc4, #00b894);
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>      color: white;
+
+    <script src="js/simple-whatsapp.js"></script>    }
+
+    <script src="js/universal-navbar.js?v=3"></script>    
+
+        .status-delivered {
+
+    <script>      background: linear-gradient(135deg, #fd79a8, #e84393);
+
+        document.addEventListener('DOMContentLoaded', function() {      color: white;
+
+            new UniversalNavbar('navbar-container', {    }
+
+                showSearch: false    
+
+            });    .order-total {
+
+        });      font-size: 1.5rem;
+
+    </script>      font-weight: 700;
+
+</body>      color: #2d3436;
+
+</html>    }
     
     .order-items {
       background: #f8f9fa;

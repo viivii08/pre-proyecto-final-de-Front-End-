@@ -370,22 +370,37 @@
         return;
       }
 
-      // Esperar a que store esté disponible
-      setTimeout(() => {
-        if (typeof store !== 'undefined' && store.productos) {
+      // Esperar a que store esté disponible y tenga productos cargados
+      function intentarCargarProducto(intentos = 0) {
+        if (intentos > 50) { // Máximo 5 segundos
+          mostrarError('Error al cargar el producto. Por favor, recarga la página.');
+          return;
+        }
+
+        if (typeof store !== 'undefined' && store.productos && store.productos.length > 0) {
           currentProduct = store.productos.find(p => p.id === productId);
           if (currentProduct) {
             renderizarProducto(currentProduct);
             cargarProductosRelacionados();
             actualizarSEO(currentProduct);
             cargarResenasProducto(productId);
+            
+            // Actualizar contador de carrito
+            if (typeof store !== 'undefined') {
+              store.actualizarContadorCarrito();
+            }
+            if (typeof carritoEmergencia !== 'undefined') {
+              carritoEmergencia.actualizarContador();
+            }
           } else {
             mostrarError('Producto no encontrado');
           }
         } else {
-          mostrarError('Error al cargar el producto');
+          setTimeout(() => intentarCargarProducto(intentos + 1), 100);
         }
-      }, 200);
+      }
+
+      intentarCargarProducto();
     }
 
     function renderizarProducto(producto) {
@@ -593,11 +608,63 @@
     }
 
     function agregarAlCarrito() {
-      if (!currentProduct || typeof store === 'undefined') return;
-      
-      for (let i = 0; i < selectedQuantity; i++) {
-        store.agregarAlCarrito(currentProduct.id);
+      if (!currentProduct) {
+        alert('Error: Producto no disponible');
+        return;
       }
+      
+      // Validar stock
+      if (currentProduct.stock <= 0) {
+        alert('Lo sentimos, este producto no tiene stock disponible');
+        return;
+      }
+      
+      if (selectedQuantity > currentProduct.stock) {
+        alert(`Solo hay ${currentProduct.stock} unidades disponibles`);
+        selectedQuantity = currentProduct.stock;
+        document.getElementById('quantity').value = selectedQuantity;
+        return;
+      }
+      
+      // Usar store si está disponible
+      if (typeof store !== 'undefined' && store.agregarAlCarrito) {
+        // Agregar la cantidad especificada
+        for (let i = 0; i < selectedQuantity; i++) {
+          store.agregarAlCarrito(currentProduct.id);
+        }
+        // Mostrar notificación
+        if (store.mostrarNotificacion) {
+          store.mostrarNotificacion(`${selectedQuantity} x ${currentProduct.nombre} agregado${selectedQuantity > 1 ? 's' : ''} al carrito`, 'success');
+        }
+      } 
+      // Fallback a CarritoEmergencia
+      else if (typeof carritoEmergencia !== 'undefined') {
+        const productoParaCarrito = {
+          id: currentProduct.id,
+          nombre: currentProduct.nombre,
+          precio: currentProduct.precio,
+          imagen: currentProduct.imagenes[0],
+          sku: currentProduct.sku
+        };
+        
+        for (let i = 0; i < selectedQuantity; i++) {
+          carritoEmergencia.agregarProducto(productoParaCarrito);
+        }
+      }
+      // Último fallback
+      else {
+        alert(`${selectedQuantity} x ${currentProduct.nombre} agregado${selectedQuantity > 1 ? 's' : ''} al carrito`);
+      }
+      
+      // Actualizar contador
+      setTimeout(() => {
+        if (typeof store !== 'undefined' && store.actualizarContadorCarrito) {
+          store.actualizarContadorCarrito();
+        }
+        if (typeof carritoEmergencia !== 'undefined' && carritoEmergencia.actualizarContador) {
+          carritoEmergencia.actualizarContador();
+        }
+      }, 100);
     }
 
     function compartirProducto() {

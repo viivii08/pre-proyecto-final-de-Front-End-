@@ -102,7 +102,8 @@ class UniversalNavbar {
                 ${this.renderUserActions()}
               </div>
 
-              <a href="carrito.html" class="btn btn-outline-light position-relative" title="Carrito"
+              <a href="#" class="btn btn-outline-light position-relative" title="Carrito"
+                 data-bs-toggle="modal" data-bs-target="#cartModal"
                  style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
                 <i class="bi bi-cart3" style="font-size:0.85rem;"></i>
                 <span id="cart-counter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
@@ -424,7 +425,7 @@ function logoutUser() {
   if (typeof store !== 'undefined' && store.mostrarNotificacion) {
     store.mostrarNotificacion('Sesión cerrada exitosamente', 'info');
   } else {
-    console.log('Sesión cerrada exitosamente');
+    console.log('%c✅ NAVBAR: Sesión cerrada exitosamente', 'color: #28a745; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 4px;');
   }
   
   // Redirigir a inicio si está en página protegida
