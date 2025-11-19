@@ -20,7 +20,18 @@ class UniversalNavbar {
     this.loadCurrentUser();
     this.renderNavbar();
     this.setupEventListeners();
+    this.syncCartFromLocalStorage();
     this.updateCartCounter();
+  }
+
+  syncCartFromLocalStorage() {
+    try {
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      this.cartCount = carrito.reduce((total, item) => total + (item.cantidad || 1), 0);
+    } catch (error) {
+      console.error('Error sincronizando carrito:', error);
+      this.cartCount = 0;
+    }
   }
 
   loadCurrentUser() {
@@ -106,8 +117,18 @@ class UniversalNavbar {
                  data-bs-toggle="modal" data-bs-target="#cartModal"
                  style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
                 <i class="bi bi-cart3" style="font-size:0.85rem;"></i>
-                <span id="cart-counter" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
-                      style="display: none; font-size: 0.7rem; font-weight: bold;">0</span>
+                <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
+                      style="display: none; 
+                             font-size: 0.65rem; 
+                             font-weight: bold;
+                             background: #ff4444;
+                             color: white;
+                             border: 2px solid white;
+                             min-width: 20px;
+                             height: 20px;
+                             line-height: 16px;
+                             text-align: center;
+                             box-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</span>
               </a>
             </div>
           </div>
@@ -278,6 +299,32 @@ class UniversalNavbar {
         transition: all 0.2s ease !important;
       }
       
+      /* Estilos mejorados para el contador del carrito */
+      #cart-count {
+        background: #ff4444 !important;
+        color: white !important;
+        font-weight: bold !important;
+        font-size: 0.65rem !important;
+        border: 2px solid white !important;
+        min-width: 20px !important;
+        height: 20px !important;
+        line-height: 16px !important;
+        text-align: center !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+        z-index: 1050 !important;
+      }
+      
+      /* Animación del contador cuando se actualiza */
+      @keyframes counterPulse {
+        0% { transform: translateX(-50%) translateY(-50%) scale(1); }
+        50% { transform: translateX(-50%) translateY(-50%) scale(1.2); }
+        100% { transform: translateX(-50%) translateY(-50%) scale(1); }
+      }
+      
+      #cart-count.updated {
+        animation: counterPulse 0.3s ease-in-out;
+      }
+      
       .dropdown-item:hover,
       .dropdown-item:focus {
         background: rgba(255,255,255,0.1) !important;
@@ -372,15 +419,31 @@ class UniversalNavbar {
   }
 
   updateCartCounter() {
-    const counter = document.getElementById('cart-counter');
+    const counter = document.getElementById('cart-count');
     if (counter) {
+      const oldCount = parseInt(counter.textContent) || 0;
+      
       if (this.cartCount > 0) {
         counter.textContent = this.cartCount;
-        counter.style.display = 'block';
+        counter.style.display = 'inline-block';
+        
+        // Animar si el contador cambió
+        if (oldCount !== this.cartCount) {
+          counter.classList.add('updated');
+          setTimeout(() => {
+            counter.classList.remove('updated');
+          }, 300);
+        }
       } else {
         counter.style.display = 'none';
       }
     }
+  }
+
+  // Función pública para actualizar el contador desde otros archivos
+  refreshCartCounter() {
+    this.syncCartFromLocalStorage();
+    this.updateCartCounter();
   }
 
   handleSearch(event) {

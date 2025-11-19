@@ -22,8 +22,8 @@
 
         <div class="row">
             <!-- Resumen del pedido -->
-            <div class="col-lg-8">
-                <div class="card">
+            <div class="col-lg-6">
+                <div class="card mb-4">
                     <div class="card-header">
                         <h5><i class="bi bi-list-check me-2"></i>Resumen del Pedido</h5>
                     </div>
@@ -31,73 +31,198 @@
                         <div id="checkout-items">
                             <!-- Los items se cargarán aquí -->
                         </div>
-                        
-                        <div class="mt-3">
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Subtotal:</strong>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <span id="checkout-subtotal">$0.00</span>
-                                </div>
+                    </div>
+                </div>
+
+                <!-- Método de pago -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="bi bi-credit-card me-2"></i>Método de Pago</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="payment-methods">
+                            <div class="form-check mb-3 p-3 border rounded">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="transferencia" value="transferencia" checked>
+                                <label class="form-check-label w-100" for="transferencia">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="bi bi-bank me-2 text-success"></i>
+                                            <strong>Transferencia Bancaria</strong>
+                                            <br><small class="text-muted">10% de descuento</small>
+                                        </div>
+                                        <div class="badge bg-success">-10%</div>
+                                    </div>
+                                </label>
                             </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong>Envío:</strong>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <span>Gratis</span>
-                                </div>
+
+                            <div class="form-check mb-3 p-3 border rounded">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="mercadopago" value="mercadopago">
+                                <label class="form-check-label w-100" for="mercadopago">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="bi bi-credit-card me-2 text-primary"></i>
+                                            <strong>MercadoPago</strong>
+                                            <br><small class="text-muted">Tarjetas de crédito/débito</small>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-6">
-                                    <h5><strong>Total:</strong></h5>
-                                </div>
-                                <div class="col-6 text-end">
-                                    <h5><strong id="checkout-total">$0.00</strong></h5>
-                                </div>
+
+                            <div class="form-check mb-3 p-3 border rounded">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="efectivo" value="efectivo">
+                                <label class="form-check-label w-100" for="efectivo">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <i class="bi bi-cash me-2 text-warning"></i>
+                                            <strong>Efectivo</strong>
+                                            <br><small class="text-muted">Pago contra entrega</small>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Información del cliente -->
-            <div class="col-lg-4">
-                <div class="card">
+            <!-- Información del cliente y envío -->
+            <div class="col-lg-6">
+                <!-- Información del cliente -->
+                <div class="card mb-4">
                     <div class="card-header">
                         <h5><i class="bi bi-person me-2"></i>Información de Contacto</h5>
                     </div>
                     <div class="card-body">
                         <form id="checkout-form">
-                            <div class="mb-3">
-                                <label for="customer-name" class="form-label">Nombre completo</label>
-                                <input type="text" class="form-control" id="customer-name" required>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="customer-name" class="form-label">Nombre completo *</label>
+                                    <input type="text" class="form-control" id="customer-name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="customer-email" class="form-label">Email *</label>
+                                    <input type="email" class="form-control" id="customer-email" required>
+                                </div>
                             </div>
                             <div class="mb-3">
-                                <label for="customer-email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="customer-email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="customer-phone" class="form-label">Teléfono</label>
+                                <label for="customer-phone" class="form-label">Teléfono *</label>
                                 <input type="tel" class="form-control" id="customer-phone" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="customer-address" class="form-label">Dirección</label>
-                                <textarea class="form-control" id="customer-address" rows="3" required></textarea>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Opciones de envío -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="bi bi-truck me-2"></i>Opciones de Envío</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="provincia" class="form-label">Provincia *</label>
+                            <select class="form-select" id="provincia" required onchange="calcularEnvio()">
+                                <option value="">Seleccionar provincia</option>
+                                <option value="caba">CABA</option>
+                                <option value="bsas">Buenos Aires</option>
+                                <option value="cordoba">Córdoba</option>
+                                <option value="santa-fe">Santa Fe</option>
+                                <option value="mendoza">Mendoza</option>
+                                <option value="tucuman">Tucumán</option>
+                                <option value="entre-rios">Entre Ríos</option>
+                                <option value="salta">Salta</option>
+                                <option value="other">Otra provincia</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="customer-address" class="form-label">Dirección completa *</label>
+                            <textarea class="form-control" id="customer-address" rows="3" required 
+                                      placeholder="Calle, número, piso, departamento, código postal, localidad"></textarea>
+                        </div>
+
+                        <!-- Opciones de envío -->
+                        <div class="shipping-options" id="shipping-options" style="display: none;">
+                            <h6 class="mb-3">Selecciona el tipo de envío:</h6>
+                            
+                            <div class="form-check mb-3 p-3 border rounded">
+                                <input class="form-check-input" type="radio" name="shippingMethod" id="standard" value="standard">
+                                <label class="form-check-label w-100" for="standard">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong>Envío Estándar</strong>
+                                            <br><small class="text-muted" id="standard-time">5-7 días hábiles</small>
+                                        </div>
+                                        <div>
+                                            <span class="fw-bold" id="standard-price">$12.000</span>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
 
-                            <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-success btn-lg" id="confirm-order-btn">
-                                    <i class="bi bi-whatsapp me-2"></i>
-                                    Confirmar Pedido por WhatsApp
-                                </button>
-                                <a href="carrito.html" class="btn btn-outline-secondary">
-                                    <i class="bi bi-arrow-left me-2"></i>
-                                    Volver al Carrito
-                                </a>
+                            <div class="form-check mb-3 p-3 border rounded">
+                                <input class="form-check-input" type="radio" name="shippingMethod" id="express" value="express">
+                                <label class="form-check-label w-100" for="express">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <strong>Envío Express</strong>
+                                            <br><small class="text-muted" id="express-time">1-3 días hábiles</small>
+                                        </div>
+                                        <div>
+                                            <span class="fw-bold" id="express-price">$18.000</span>
+                                        </div>
+                                    </div>
+                                </label>
                             </div>
+
+                            <div class="alert alert-info mt-3" id="free-shipping-alert" style="display: none;">
+                                <i class="bi bi-truck me-2"></i>
+                                <strong>¡Envío gratis!</strong> Tu compra califica para envío gratuito.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen final -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="bi bi-calculator me-2"></i>Resumen Final</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-8">Subtotal:</div>
+                            <div class="col-4 text-end" id="checkout-subtotal">$0.00</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-8">Envío:</div>
+                            <div class="col-4 text-end" id="checkout-shipping">$0</div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-8"><h5><strong>Total:</strong></h5></div>
+                            <div class="col-4 text-end"><h5><strong id="checkout-total">$0.00</strong></h5></div>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button type="button" class="btn btn-success btn-lg" id="confirm-order-btn">
+                                <i class="bi bi-whatsapp me-2"></i>
+                                Confirmar Pedido por WhatsApp
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="window.history.back()">
+                                <i class="bi bi-arrow-left me-2"></i>
+                                Volver
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <small class="text-muted">
+                                <i class="bi bi-shield-check me-1"></i>
+                                Pago 100% seguro
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
                         </form>
                     </div>
                 </div>
@@ -114,21 +239,37 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Inicializando página de checkout...');
+            
             // Inicializar navbar
             new UniversalNavbar('navbar-container', {
                 showSearch: false
             });
 
-            // Cargar items del carrito
+            // Cargar items del carrito inmediatamente
             loadCheckoutItems();
 
             // Configurar botón de confirmar
             document.getElementById('confirm-order-btn').addEventListener('click', confirmOrder);
+            
+            console.log('✅ Checkout inicializado correctamente');
         });
 
         function loadCheckoutItems() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || 
-                        JSON.parse(localStorage.getItem('carrito')) || [];
+            console.log('🛒 Cargando productos del carrito en checkout...');
+            
+            // Debug: verificar todas las keys del localStorage
+            console.log('🔍 Contenido de localStorage:');
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                console.log(`  ${key}:`, value);
+            }
+            
+            // Solo usar 'carrito' como key para consistencia
+            const cart = JSON.parse(localStorage.getItem('carrito') || '[]');
+            console.log('📦 Productos encontrados en carrito:', cart);
+            console.log('📊 Cantidad de productos:', cart.length);
             
             const container = document.getElementById('checkout-items');
             const subtotalEl = document.getElementById('checkout-subtotal');
@@ -142,6 +283,8 @@
                         <a href="tienda.html" class="btn btn-primary">Ir a la Tienda</a>
                     </div>
                 `;
+                subtotalEl.textContent = '$0.00';
+                totalEl.textContent = '$0.00';
                 return;
             }
 
@@ -149,90 +292,253 @@
             let html = '';
 
             cart.forEach(item => {
-                const price = item.price || item.precio || 0;
-                const quantity = item.quantity || item.cantidad || 1;
-                const name = item.name || item.nombre || 'Producto';
-                const image = item.image || item.img || 'https://via.placeholder.com/50';
+                const price = item.precio || 0; // Usar solo 'precio'
+                const quantity = item.cantidad || 1; // Usar solo 'cantidad'
+                const name = item.nombre || 'Producto'; // Usar solo 'nombre'
+                const image = item.imagen || 'pages/logo sin fondo (1).png'; // Usar solo 'imagen'
                 const itemTotal = price * quantity;
                 subtotal += itemTotal;
 
                 html += `
                     <div class="row align-items-center mb-3 pb-3 border-bottom">
                         <div class="col-2">
-                            <img src="${image}" alt="${name}" class="img-fluid rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            <img src="${image}" alt="${name}" class="img-fluid rounded" style="width: 60px; height: 60px; object-fit: cover;">
                         </div>
                         <div class="col-6">
                             <h6 class="mb-1">${name}</h6>
-                            <small class="text-muted">Cantidad: ${quantity}</small>
+                            <small class="text-muted">Cantidad: ${quantity} | Precio unitario: $${price.toLocaleString()}</small>
                         </div>
                         <div class="col-4 text-end">
-                            <span class="fw-bold">$${itemTotal.toFixed(2)}</span>
+                            <span class="fw-bold">$${itemTotal.toLocaleString()}</span>
                         </div>
                     </div>
                 `;
             });
 
             container.innerHTML = html;
-            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-            totalEl.textContent = `$${subtotal.toFixed(2)}`;
+            
+            // Guardar subtotal para cálculos posteriores
+            window.checkoutSubtotal = subtotal;
+            
+            subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+            
+            // Calcular total inicial
+            calculateTotals();
+            
+            console.log('✅ Productos cargados correctamente. Total:', subtotal);
         }
 
-        function confirmOrder() {
-            const form = document.getElementById('checkout-form');
-            const formData = new FormData(form);
-            
-            // Validar formulario
-            if (!form.checkValidity()) {
-                form.classList.add('was-validated');
+        // Función para calcular envío basado en provincia
+        function calcularEnvio() {
+            const provincia = document.getElementById('provincia').value;
+            const shippingOptions = document.getElementById('shipping-options');
+            const standardPrice = document.getElementById('standard-price');
+            const expressPrice = document.getElementById('express-price');
+            const standardTime = document.getElementById('standard-time');
+            const expressTime = document.getElementById('express-time');
+            const freeShippingAlert = document.getElementById('free-shipping-alert');
+
+            if (!provincia) {
+                shippingOptions.style.display = 'none';
                 return;
             }
 
-            const cart = JSON.parse(localStorage.getItem('cart')) || 
-                        JSON.parse(localStorage.getItem('carrito')) || [];
+            let standardCost = 0;
+            let expressCost = 0;
+            let standardTimeText = '';
+            let expressTimeText = '';
+            let freeShippingLimit = 0;
+
+            if (provincia === 'caba' || provincia === 'bsas') {
+                standardCost = 8500;
+                expressCost = 12000;
+                standardTimeText = '3-5 días hábiles';
+                expressTimeText = '1-2 días hábiles';
+                freeShippingLimit = 50000;
+            } else {
+                standardCost = 12000;
+                expressCost = 18000;
+                standardTimeText = '5-7 días hábiles';
+                expressTimeText = '2-4 días hábiles';
+                freeShippingLimit = 75000;
+            }
+
+            // Verificar si califica para envío gratis
+            const subtotal = window.checkoutSubtotal || 0;
+            const qualifiesForFreeShipping = subtotal >= freeShippingLimit;
+
+            if (qualifiesForFreeShipping) {
+                standardCost = 0;
+                expressCost = Math.max(0, expressCost - standardCost);
+                freeShippingAlert.style.display = 'block';
+            } else {
+                freeShippingAlert.style.display = 'none';
+            }
+
+            standardPrice.textContent = standardCost > 0 ? `$${standardCost.toLocaleString()}` : 'Gratis';
+            expressPrice.textContent = expressCost > 0 ? `$${expressCost.toLocaleString()}` : 'Gratis';
+            standardTime.textContent = standardTimeText;
+            expressTime.textContent = expressTimeText;
+
+            // Seleccionar envío estándar por defecto
+            document.getElementById('standard').checked = true;
+
+            shippingOptions.style.display = 'block';
+            calculateTotals();
+        }
+
+        // Función para calcular totales
+        function calculateTotals() {
+            const subtotal = window.checkoutSubtotal || 0;
+            const subtotalEl = document.getElementById('checkout-subtotal');
+            const shippingEl = document.getElementById('checkout-shipping');
+            const totalEl = document.getElementById('checkout-total');
+
+            // Calcular costo de envío
+            let shippingCost = 0;
+            const shippingMethod = document.querySelector('input[name="shippingMethod"]:checked')?.value;
+            if (shippingMethod) {
+                const shippingPriceText = document.getElementById(shippingMethod + '-price').textContent;
+                if (shippingPriceText !== 'Gratis') {
+                    shippingCost = parseInt(shippingPriceText.replace('$', '').replace('.', '').replace(',', ''));
+                }
+            }
+
+            shippingEl.textContent = `$${shippingCost.toLocaleString()}`;
+            
+            const total = subtotal + shippingCost;
+
+            subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
+            totalEl.textContent = `$${total.toLocaleString()}`;
+
+            // Guardar para usar en confirmación
+            window.checkoutTotal = total;
+            window.checkoutShipping = shippingCost;
+            window.checkoutShipping = shippingCost;
+        }
+
+        // Event listeners para recalcular totales
+        document.addEventListener('change', function(e) {
+            if (e.target.name === 'paymentMethod' || e.target.name === 'shippingMethod') {
+                calculateTotals();
+            }
+        });
+
+        function confirmOrder() {
+            const form = document.getElementById('checkout-form');
+            
+            // Validar formulario básico
+            if (!form.checkValidity()) {
+                form.classList.add('was-validated');
+                alert('Por favor completa todos los campos requeridos');
+                return;
+            }
+
+            // Validaciones adicionales
+            const provincia = document.getElementById('provincia').value;
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+            const shippingMethod = document.querySelector('input[name="shippingMethod"]:checked')?.value;
+
+            if (!provincia) {
+                alert('Por favor selecciona una provincia');
+                return;
+            }
+
+            if (provincia !== '' && !shippingMethod) {
+                alert('Por favor selecciona un método de envío');
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('carrito') || '[]');
             
             if (cart.length === 0) {
                 alert('El carrito está vacío');
                 return;
             }
 
-            // Crear mensaje para WhatsApp
+            // Obtener datos del formulario
             const customerName = document.getElementById('customer-name').value;
             const customerEmail = document.getElementById('customer-email').value;
             const customerPhone = document.getElementById('customer-phone').value;
             const customerAddress = document.getElementById('customer-address').value;
 
-            let mensaje = `¡Hola! Quiero confirmar mi pedido:%0A%0A`;
-            mensaje += `👤 *Cliente:* ${customerName}%0A`;
-            mensaje += `📧 *Email:* ${customerEmail}%0A`;
-            mensaje += `📱 *Teléfono:* ${customerPhone}%0A`;
-            mensaje += `📍 *Dirección:* ${customerAddress}%0A%0A`;
-            mensaje += `🛍️ *Productos:*%0A`;
+            // Obtener información de pago y envío
+            const paymentMethods = {
+                'transferencia': 'Transferencia Bancaria (10% desc.)',
+                'mercadopago': 'MercadoPago',
+                'efectivo': 'Efectivo contra entrega'
+            };
 
-            let total = 0;
+            const shippingMethods = {
+                'standard': 'Envío Estándar',
+                'express': 'Envío Express'
+            };
+
+            const paymentText = paymentMethods[paymentMethod] || paymentMethod;
+            const shippingText = shippingMethods[shippingMethod] || shippingMethod;
+            const shippingPrice = document.getElementById(shippingMethod + '-price').textContent;
+            const shippingTime = document.getElementById(shippingMethod + '-time').textContent;
+
+            // Crear mensaje para WhatsApp
+            let mensaje = `🛍️ *NUEVO PEDIDO - PATAGONIA STYLE*%0A%0A`;
+            mensaje += `👤 *DATOS DEL CLIENTE*%0A`;
+            mensaje += `• Nombre: ${customerName}%0A`;
+            mensaje += `• Email: ${customerEmail}%0A`;
+            mensaje += `• Teléfono: ${customerPhone}%0A`;
+            mensaje += `• Dirección: ${customerAddress}%0A`;
+            mensaje += `• Provincia: ${provincia.toUpperCase()}%0A%0A`;
+
+            mensaje += `📦 *PRODUCTOS SOLICITADOS*%0A`;
+
+            let subtotal = 0;
             cart.forEach(item => {
-                const price = item.price || item.precio || 0;
-                const quantity = item.quantity || item.cantidad || 1;
-                const name = item.name || item.nombre || 'Producto';
+                const price = item.precio || 0;
+                const quantity = item.cantidad || 1;
+                const name = item.nombre || 'Producto';
                 const itemTotal = price * quantity;
-                total += itemTotal;
-                mensaje += `• ${name} (x${quantity}) - $${itemTotal.toFixed(2)}%0A`;
+                subtotal += itemTotal;
+                mensaje += `• ${name}%0A`;
+                mensaje += `  Cantidad: ${quantity} x $${price.toLocaleString()} = $${itemTotal.toLocaleString()}%0A`;
             });
 
-            mensaje += `%0A💰 *Total: $${total.toFixed(2)}*%0A%0A`;
-            mensaje += `¡Esperando la confirmación! 😊`;
+            mensaje += `%0A� *MÉTODO DE PAGO*%0A`;
+            mensaje += `• ${paymentText}%0A%0A`;
 
-            // Limpiar carrito
-            localStorage.removeItem('cart');
-            localStorage.removeItem('carrito');
+            mensaje += `🚚 *ENVÍO*%0A`;
+            mensaje += `• Método: ${shippingText}%0A`;
+            mensaje += `• Tiempo: ${shippingTime}%0A`;
+            mensaje += `• Costo: ${shippingPrice}%0A%0A`;
+
+            mensaje += ` *RESUMEN FINANCIERO*%0A`;
+            mensaje += `• Subtotal: $${subtotal.toLocaleString()}%0A`;
+            mensaje += `• Envío: $${window.checkoutShipping.toLocaleString()}%0A`;
+            mensaje += `• *TOTAL: $${window.checkoutTotal.toLocaleString()}*%0A%0A`;
+
+            if (paymentMethod === 'transferencia') {
+                mensaje += `🏦 *DATOS PARA TRANSFERENCIA*%0A`;
+                mensaje += `• Banco: Banco Nación%0A`;
+                mensaje += `• CBU: 0110599520000012345678%0A`;
+                mensaje += `• Alias: PATAGONIA.STYLE%0A`;
+                mensaje += `• Titular: Patagonia Style%0A%0A`;
+            }
+
+            mensaje += `📞 *¡Esperamos tu confirmación!*%0A`;
+            mensaje += `Nos pondremos en contacto contigo para coordinar el pago y envío.%0A%0A`;
+            mensaje += `✨ ¡Gracias por elegirnos! ✨`;
 
             // Abrir WhatsApp
-            window.open(`https://wa.me/5491136899678?text=${mensaje}`, '_blank');
+            const whatsappUrl = `https://wa.me/5491136899678?text=${mensaje}`;
+            console.log('📱 Abriendo WhatsApp con mensaje:', mensaje);
+            window.open(whatsappUrl, '_blank');
+
+            // Limpiar carrito después de enviar
+            localStorage.removeItem('carrito');
 
             // Mostrar mensaje de éxito y redirigir
             setTimeout(() => {
-                alert('¡Pedido enviado! Te contactaremos pronto.');
-                window.location.href = 'index.html';
-            }, 1000);
+                alert('¡Pedido enviado! Te contactaremos pronto por WhatsApp.');
+                window.location.href = 'tienda.html';
+            }, 2000);
         }
     </script>
 </body>

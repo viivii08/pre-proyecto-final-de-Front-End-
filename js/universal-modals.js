@@ -15,6 +15,12 @@ class UniversalModals {
         
         this.loadModals();
         this.setupEventListeners();
+        
+        // Actualizar el carrito modal después de que se carguen los modales
+        setTimeout(() => {
+            this.updateCartModal();
+        }, 100);
+        
         this.modalsLoaded = true;
     }
 
@@ -127,7 +133,7 @@ class UniversalModals {
                 <div class="modal-dialog modal-lg modal-dialog-centered">
                     <div class="modal-content" style="border-radius: 15px; border: none; max-height: 90vh; overflow-y: auto;">
                         <div class="modal-header" style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="modal-title" id="cartModalLabel">
+                            <h5 class="modal-title" id="cartModalLabel" style="color: white !important;">
                                 <i class="bi bi-cart3 me-2"></i>Carrito de compras
                                 <span id="cart-items-count" class="badge bg-light text-dark ms-2">0</span>
                             </h5>
@@ -185,6 +191,13 @@ class UniversalModals {
             if (event.target.id === 'register-form') {
                 event.preventDefault();
                 this.handleRegister(event.target);
+            }
+        });
+
+        // Event listener para actualizar carrito cuando se abre el modal
+        document.addEventListener('shown.bs.modal', (event) => {
+            if (event.target.id === 'cartModal') {
+                this.updateCartModal();
             }
         });
     }
@@ -271,8 +284,149 @@ class UniversalModals {
     }
 
     showCart() {
+        this.updateCartModal(); // Actualizar contenido antes de mostrar
         const modal = new bootstrap.Modal(document.getElementById('cartModal'));
         modal.show();
+    }
+
+    // Nueva función para actualizar el modal del carrito
+    updateCartModal() {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartContainer = document.getElementById('empty-cart');
+            const cartFooter = document.getElementById('cart-footer');
+            const cartItemsCount = document.getElementById('cart-items-count');
+            const cartSummary = document.getElementById('cart-summary');
+
+            if (!cartItemsContainer || !emptyCartContainer || !cartFooter) {
+                console.error('Contenedores del modal del carrito no encontrados');
+                return;
+            }
+
+            // Actualizar contador en el título
+            if (cartItemsCount) {
+                const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+                cartItemsCount.textContent = totalItems;
+            }
+
+            if (carrito.length === 0) {
+                // Mostrar carrito vacío
+                cartItemsContainer.style.display = 'none';
+                emptyCartContainer.style.display = 'block';
+                cartFooter.style.display = 'none';
+            } else {
+                // Mostrar productos
+                cartItemsContainer.style.display = 'block';
+                emptyCartContainer.style.display = 'none';
+                cartFooter.style.display = 'flex';
+
+                // Generar HTML de los productos
+                let html = '';
+                let total = 0;
+
+                carrito.forEach((item, index) => {
+                    const subtotal = item.precio * item.cantidad;
+                    total += subtotal;
+
+                    html += `
+                        <div class="cart-item d-flex align-items-center py-3 border-bottom">
+                            <img src="${item.imagen || 'pages/logo sin fondo (1).png'}" 
+                                 alt="${item.nombre}" 
+                                 style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px;" 
+                                 class="me-3">
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1">${item.nombre}</h6>
+                                <div class="d-flex align-items-center">
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="universalModals.changeQuantity(${index}, -1)">-</button>
+                                    <span class="mx-2">${item.cantidad}</span>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="universalModals.changeQuantity(${index}, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <div class="fw-bold">$${subtotal.toLocaleString()}</div>
+                                <button class="btn btn-sm btn-outline-danger" onclick="universalModals.removeItem(${index})" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                cartItemsContainer.innerHTML = html;
+
+                // Actualizar resumen del carrito
+                if (cartSummary) {
+                    cartSummary.innerHTML = `
+                        <div class="d-flex justify-content-between">
+                            <span>Total:</span>
+                            <strong>$${total.toLocaleString()}</strong>
+                        </div>
+                    `;
+                }
+            }
+
+        } catch (error) {
+            console.error('Error actualizando modal del carrito:', error);
+        }
+    }
+
+    // Función para cambiar cantidad desde el modal
+    changeQuantity(index, change) {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            if (carrito[index]) {
+                carrito[index].cantidad += change;
+                
+                if (carrito[index].cantidad <= 0) {
+                    carrito.splice(index, 1);
+                }
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                this.updateCartModal();
+                
+                // Actualizar contador en navbar
+                this.updateNavbarCounter();
+            }
+        } catch (error) {
+            console.error('Error cambiando cantidad:', error);
+        }
+    }
+
+    // Función para eliminar item desde el modal
+    removeItem(index) {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            this.updateCartModal();
+            
+            // Actualizar contador en navbar
+            this.updateNavbarCounter();
+        } catch (error) {
+            console.error('Error eliminando item:', error);
+        }
+    }
+
+    // Función para actualizar contador en navbar
+    updateNavbarCounter() {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const contador = carrito.reduce((total, item) => total + item.cantidad, 0);
+            
+            const contadorElement = document.getElementById('cart-count');
+            if (contadorElement) {
+                contadorElement.textContent = contador;
+                contadorElement.style.display = contador > 0 ? 'inline-block' : 'none';
+            }
+
+            // También actualizar el navbar si existe
+            if (window.universalNavbar && typeof window.universalNavbar.refreshCartCounter === 'function') {
+                window.universalNavbar.refreshCartCounter();
+            }
+        } catch (error) {
+            console.error('Error actualizando contador navbar:', error);
+        }
     }
 }
 

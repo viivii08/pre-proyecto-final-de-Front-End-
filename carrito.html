@@ -178,6 +178,10 @@
       letter-spacing: 1px;
     }
   </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div id="navbar"></div>
 
   <main class="container d-flex justify-content-center">
     <section class="carrito-section w-100">
@@ -207,7 +211,7 @@
                     "Vivi, tus productos son pura magia. Compré una libreta y unos jarros enlozados, y cada vez que los uso, siento que me transportan a la Patagonia. La calidad es increíble y los detalles ilustrados son hermosos."
                   </p>
                   <div class="mt-4">
-                    <h5 class="mb-0" style="color: #2c3e50; font-weight: 600;">Sofia de Buenos Aires</h5>
+                    <h5 class="mb-0" style="color: #ffffff; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Sofia de Buenos Aires</h5>
                   </div>
                 </div>
               </div>
@@ -545,7 +549,215 @@
     <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
   </footer>
 
+  <!-- Scripts necesarios -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/simple-whatsapp.js"></script>
+  <script src="js/universal-navbar.js?v=3"></script>
+
   <script>
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('🛒 Inicializando página del carrito...');
+        
+        // Crear navbar
+        try {
+            new UniversalNavbar('navbar', {
+                showSearch: false
+            });
+        } catch (error) {
+            console.error('Error creando navbar:', error);
+        }
+        
+        // Renderizar el carrito inmediatamente
+        renderizarCarrito();
+    });
+
+    // Función para renderizar el carrito
+    function renderizarCarrito() {
+        try {
+            const contenedor = document.getElementById('carrito-contenido');
+            if (!contenedor) {
+                console.error('No se encontró el contenedor del carrito');
+                return;
+            }
+
+            // Obtener productos del carrito
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            console.log('📦 Productos en carrito:', carrito);
+
+            if (carrito.length === 0) {
+                mostrarCarritoVacio();
+                return;
+            }
+
+            // Crear HTML del carrito
+            let html = '<div class="carrito-productos">';
+            let total = 0;
+
+            carrito.forEach((item, index) => {
+                const subtotal = item.precio * item.cantidad;
+                total += subtotal;
+
+                html += `
+                    <div class="row align-items-center mb-3 p-3" style="border: 1px solid #eee; border-radius: 10px;">
+                        <div class="col-2">
+                            <img src="${item.imagen || 'pages/logo sin fondo (1).png'}" 
+                                 alt="${item.nombre}" 
+                                 class="carrito-producto-img">
+                        </div>
+                        <div class="col-4">
+                            <div class="carrito-producto-nombre">${item.nombre}</div>
+                            <div class="text-muted">Código: ${item.id}</div>
+                        </div>
+                        <div class="col-2">
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${index}, -1)">-</button>
+                                <input type="number" value="${item.cantidad}" 
+                                       class="carrito-cantidad-input" 
+                                       min="1" 
+                                       onchange="actualizarCantidad(${index}, this.value)">
+                                <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${index}, 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="carrito-producto-precio">$${subtotal.toLocaleString()}</div>
+                        </div>
+                        <div class="col-2 text-end">
+                            <button class="btn btn-sm btn-outline-danger" onclick="eliminarProducto(${index})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+
+            // Agregar total y botones
+            html += `
+                <hr>
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <h4>Total: <span class="carrito-producto-precio">$${total.toLocaleString()}</span></h4>
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-outline-danger me-2" onclick="vaciarCarrito()">
+                            <i class="bi bi-trash me-1"></i>Vaciar carrito
+                        </button>
+                        <a href="checkout.html" class="btn btn-primary">
+                            <i class="bi bi-credit-card me-1"></i>Finalizar compra
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            contenedor.innerHTML = html;
+
+        } catch (error) {
+            console.error('❌ Error renderizando carrito:', error);
+            mostrarCarritoVacio();
+        }
+    }
+
+    // Función para mostrar carrito vacío
+    function mostrarCarritoVacio() {
+        const contenedor = document.getElementById('carrito-contenido');
+        if (contenedor) {
+            contenedor.innerHTML = `
+                <div class="carrito-vacio">
+                    <i class="bi bi-cart-x" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Tu carrito está vacío</p>
+                    <a href="tienda.html" class="btn btn-primary">Ir a la tienda</a>
+                </div>
+            `;
+        }
+    }
+
+    // Función para cambiar cantidad
+    function cambiarCantidad(index, cambio) {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            if (carrito[index]) {
+                carrito[index].cantidad += cambio;
+                
+                if (carrito[index].cantidad <= 0) {
+                    carrito.splice(index, 1);
+                }
+                
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                renderizarCarrito();
+                actualizarContadorCarrito();
+            }
+        } catch (error) {
+            console.error('Error cambiando cantidad:', error);
+        }
+    }
+
+    // Función para actualizar cantidad directamente
+    function actualizarCantidad(index, nuevaCantidad) {
+        try {
+            const cantidad = parseInt(nuevaCantidad);
+            if (cantidad <= 0) {
+                eliminarProducto(index);
+                return;
+            }
+            
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            if (carrito[index]) {
+                carrito[index].cantidad = cantidad;
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                renderizarCarrito();
+                actualizarContadorCarrito();
+            }
+        } catch (error) {
+            console.error('Error actualizando cantidad:', error);
+        }
+    }
+
+    // Función para eliminar producto
+    function eliminarProducto(index) {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            carrito.splice(index, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            renderizarCarrito();
+            actualizarContadorCarrito();
+        } catch (error) {
+            console.error('Error eliminando producto:', error);
+        }
+    }
+
+    // Función para vaciar carrito
+    function vaciarCarrito() {
+        if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
+            localStorage.removeItem('carrito');
+            renderizarCarrito();
+            actualizarContadorCarrito();
+        }
+    }
+
+    // Función para actualizar contador del carrito
+    function actualizarContadorCarrito() {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const contador = carrito.reduce((total, item) => total + item.cantidad, 0);
+            
+            // Actualizar contador en navbar si existe
+            const contadorElement = document.getElementById('cart-count');
+            if (contadorElement) {
+                contadorElement.textContent = contador;
+                contadorElement.style.display = contador > 0 ? 'inline-block' : 'none';
+            }
+
+            // También actualizar el navbar si existe
+            if (window.universalNavbar && typeof window.universalNavbar.refreshCartCounter === 'function') {
+                window.universalNavbar.refreshCartCounter();
+            }
+        } catch (error) {
+            console.error('Error actualizando contador:', error);
+        }
+    }
+
     // Función para ir al inicio
     function irAInicio() {
       window.location.href = 'index.html';
@@ -554,22 +766,27 @@
     // Mostrar/ocultar botón según scroll
     window.onscroll = function() {
       let btn = document.getElementById('btnVolverInicio');
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+      if (btn && (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300)) {
         btn.style.display = 'block';
-      } else {
+      } else if (btn) {
         btn.style.display = 'none';
       }
     }
 
-    // Efecto hover
-    document.getElementById('btnVolverInicio').addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.05)';
-      this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
-    });
-    
-    document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-      this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
+    // Efecto hover para botón de inicio
+    document.addEventListener('DOMContentLoaded', function() {
+        const btn = document.getElementById('btnVolverInicio');
+        if (btn) {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
+            });
+        }
     });
   </script>
 </body>

@@ -5,12 +5,8 @@ class PatagoniaStore {
     this.categorias = [];
     this.configuracion = {};
     
-    // Usar StorageUtils si está disponible
-    if (window.storageUtils) {
-      this.carrito = window.storageUtils.load('carrito', []);
-    } else {
-      this.carrito = JSON.parse(localStorage.getItem('patagonia_carrito')) || [];
-    }
+    // Cargar carrito del localStorage usando key consistente
+    this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
     
     this.init();
   }
@@ -164,41 +160,60 @@ class PatagoniaStore {
   }
 
   agregarAlCarrito(productoId) {
-    // Si el nuevo sistema está disponible, usarlo
-    if (typeof carritoManager !== 'undefined' && carritoManager.initialized) {
-      carritoManager.agregarAlCarrito(productoId, 1);
-      return;
-    }
-    
-    // Fallback al sistema original
-    const producto = this.productos.find(p => p.id === productoId);
-    if (!producto || !producto.disponible || producto.stock === 0) {
-      this.mostrarNotificacion('Producto no disponible', 'error');
-      return;
-    }
-
-    const itemCarrito = this.carrito.find(item => item.id === productoId);
-    
-    if (itemCarrito) {
-      if (itemCarrito.cantidad >= producto.stock) {
-        this.mostrarNotificacion('Stock insuficiente', 'warning');
+    try {
+      // Encontrar el producto
+      const producto = this.productos.find(p => p.id === productoId);
+      if (!producto || !producto.disponible || producto.stock === 0) {
+        this.mostrarNotificacion('Producto no disponible', 'error');
         return;
       }
-      itemCarrito.cantidad++;
-    } else {
-      this.carrito.push({
-        id: producto.id,
-        nombre: producto.nombre,
-        precio: producto.precio,
-        imagen: producto.imagenes[0],
-        cantidad: 1,
-        sku: producto.sku
-      });
-    }
 
-    this.guardarCarrito();
-    this.actualizarContadorCarrito();
-    this.mostrarNotificacion(`${producto.nombre} agregado al carrito`, 'success');
+      // Obtener carrito actual del localStorage
+      let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      
+      // Buscar si el producto ya está en el carrito
+      const itemExistente = carrito.find(item => item.id === productoId);
+      
+      if (itemExistente) {
+        // Si ya existe, incrementar cantidad
+        if (itemExistente.cantidad >= producto.stock) {
+          this.mostrarNotificacion('Stock insuficiente', 'warning');
+          return;
+        }
+        itemExistente.cantidad++;
+      } else {
+        // Si no existe, agregarlo
+        carrito.push({
+          id: producto.id,
+          nombre: producto.nombre,
+          precio: producto.precio,
+          imagen: producto.imagenes ? producto.imagenes[0] : 'pages/logo sin fondo (1).png',
+          cantidad: 1,
+          sku: producto.sku || producto.id
+        });
+      }
+
+      // Guardar el carrito actualizado
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      
+      // Actualizar la variable local del carrito
+      this.carrito = carrito;
+      
+      // Actualizar contador y mostrar notificación
+      this.actualizarContadorCarrito();
+      this.mostrarNotificacion(`${producto.nombre} agregado al carrito`, 'success');
+      
+      // Actualizar modal del carrito si está disponible
+      if (window.universalModals && typeof window.universalModals.updateCartModal === 'function') {
+        window.universalModals.updateCartModal();
+      }
+      
+      console.log('✅ Producto agregado al carrito:', producto.nombre);
+      
+    } catch (error) {
+      console.error('❌ Error agregando producto al carrito:', error);
+      this.mostrarNotificacion('Error agregando al carrito', 'error');
+    }
   }
 
   eliminarDelCarrito(productoId) {
@@ -326,26 +341,42 @@ class PatagoniaStore {
   }
 
   guardarCarrito() {
-    // Usar StorageUtils si está disponible, sino fallback
-    if (window.storageUtils) {
-      window.storageUtils.save('carrito', this.carrito);
-    } else {
-      localStorage.setItem('patagonia_carrito', JSON.stringify(this.carrito));
-    }
+    // Siempre usar 'carrito' como key para consistencia
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
 
   actualizarContadorCarrito() {
-    const contador = document.getElementById('cart-count');
-    if (contador) {
-      const totalItems = this.carrito.reduce((total, item) => total + item.cantidad, 0);
-      contador.textContent = totalItems;
-      contador.style.display = totalItems > 0 ? 'inline-block' : 'none';
+    try {
+      // Leer directamente del localStorage para máxima consistencia
+      const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+      const contador = document.getElementById('cart-count');
+      
+      if (contador) {
+        const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+        contador.textContent = totalItems;
+        contador.style.display = totalItems > 0 ? 'inline-block' : 'none';
+      }
+
+      // Actualizar navbar si existe
+      if (window.universalNavbar && typeof window.universalNavbar.refreshCartCounter === 'function') {
+        window.universalNavbar.refreshCartCounter();
+      }
+
+      // Actualizar modal del carrito si está disponible
+      if (window.universalModals && typeof window.universalModals.updateCartModal === 'function') {
+        window.universalModals.updateCartModal();
+      }
+    } catch (error) {
+      console.error('Error actualizando contador del carrito:', error);
     }
   }
 
   renderizarCarrito() {
     const contenedor = document.getElementById('carrito-contenido');
     if (!contenedor) return;
+
+    // Siempre leer del localStorage para tener datos actualizados
+    this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 
     if (this.carrito.length === 0) {
       contenedor.innerHTML = `

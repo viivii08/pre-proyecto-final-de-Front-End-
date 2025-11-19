@@ -140,3 +140,14 @@ textarea {
 .testimonial-container h5 {
   color: #2c3e50 !important;
 }
+
+/* MODAL CARRITO - TITULO BLANCO */
+#cartModalLabel, 
+#cartModalLabel *,
+.modal-title#cartModalLabel {
+  color: white !important;
+}
+
+#cartModal .modal-header h5 {
+  color: white !important;
+}
