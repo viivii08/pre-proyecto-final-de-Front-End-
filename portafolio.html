@@ -1,9 +1,38 @@
 ﻿<!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio - Patagonia Style</title>
+  <style>
+    /* 🎯 DISEÑO PROFESIONAL LIMPIO - ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      background: #f4f1ee !important;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex-shrink: 0;
+      margin-bottom: 0 !important;
+    }
+  </style>
   <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -187,6 +216,7 @@
     }
     html {
       scroll-behavior: smooth;
+    }
   </style>
 </head>
 <body>
@@ -338,7 +368,7 @@
   </section>
 
   <!-- Footer -->
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
+  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
     <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
     <p>Creado por Vargas Viviana</p>
     <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
@@ -433,5 +463,8 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Botón WhatsApp flotante -->
+  <script src="js/simple-whatsapp.js"></script>
 </body>
 </html>

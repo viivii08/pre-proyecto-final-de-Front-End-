@@ -1,9 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tienda - Patagonia Style</title>
+  <style>
+    /* 🎯 DISEÑO PROFESIONAL LIMPIO - ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      background: #e6e8ea !important;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex-shrink: 0;
+      margin-bottom: 0 !important;
+    }
+  </style>
   <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,6 +46,8 @@
   <link rel="stylesheet" href="css/responsive-advanced.css">
   <link rel="stylesheet" href="css/dark-theme.css">
   <link rel="stylesheet" href="css/product-cards-improved.css">
+  <!-- Solución para ocultar botón Crear Cuenta flotante -->
+  <link rel="stylesheet" href="css/ocultar-crear-cuenta.css">
   <style>
     /* Estilos específicos para que el dropdown se vea como en la imagen 2 */
     .dropdown-menu {
@@ -174,22 +205,6 @@
     .navbar .bi-cart3 {
       color: #fff !important;
     }
-    footer {
-      background: #3b5d50;
-      color: #fff;
-      text-align: center;
-      padding: 20px 0;
-      position: relative;
-      bottom: 0;
-      width: 100%;
-    }
-    footer a {
-      color: #ffb347;
-      text-decoration: none;
-    }
-    footer a:hover {
-      text-decoration: underline;
-    }
 
     /* 🔧 CORRECCIONES URGENTES PARA LEGIBILIDAD */
     
@@ -197,6 +212,31 @@
     body {
       background: #e6e8ea !important;
       color: #333 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      padding-top: 50px !important; /* Solo para navbar fijo */
+      overflow-x: hidden !important;
+    }
+    
+    /* Eliminar TODA línea blanca debajo del footer */
+    html {
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      height: 100% !important;
+    }
+    
+    html, body {
+      min-height: 100% !important;
+    }
+    
+    /* Footer pegado al fondo SIN línea blanca */
+    footer {
+      width: 100vw !important;
+      margin: 0 !important;
+      margin-left: calc(-50vw + 50%) !important;
+      padding: 30px 0 !important;
+      box-sizing: border-box !important;
     }
     
     /* Cards de productos con fondo claro y texto legible */
@@ -327,6 +367,47 @@
       display: none !important;
     }
     
+    /* 🚫 OCULTAR AGRESIVAMENTE todos los botones "Crear Cuenta" fuera de modales */
+    body > button[data-bs-target="#registerModal"],
+    body > div:not(.modal):not(.modal-backdrop) button[data-bs-target="#registerModal"],
+    body > div:not(.modal):not(.modal-backdrop) a[data-bs-target="#registerModal"],
+    nav button[data-bs-target="#registerModal"],
+    nav a[data-bs-target="#registerModal"],
+    header button[data-bs-target="#registerModal"],
+    header a[data-bs-target="#registerModal"],
+    .navbar button[data-bs-target="#registerModal"],
+    .navbar a[data-bs-target="#registerModal"],
+    footer button[data-bs-target="#registerModal"],
+    footer a[data-bs-target="#registerModal"],
+    /* Ocultar CUALQUIER elemento con ID que contenga "register" fuera de modales */
+    body > *:not(.modal) #registerButton,
+    body > *:not(.modal) #createAccountBtn,
+    body > *:not(.modal) .register-btn,
+    body > *:not(.modal) .signup-btn {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      position: absolute !important;
+      left: -9999px !important;
+      width: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+    }
+    
+    /* ✅ MANTENER visible solo dentro del modal de login */
+    .modal#loginModal button[data-bs-target="#registerModal"],
+    .modal#loginModal a[data-bs-target="#registerModal"],
+    .modal .modal-body button[data-bs-target="#registerModal"],
+    .modal .modal-body a[data-bs-target="#registerModal"] {
+      display: inline !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      position: relative !important;
+      left: auto !important;
+    }
+    
     /* Mejorar contraste del texto en general */
     body * {
       color: inherit;
@@ -380,6 +461,31 @@
         flex: 0 0 calc(33.333% - 1rem) !important;
         max-width: 370px !important;
       }
+    }
+    
+    /* 🎯 SOLUCIÓN DEFINITIVA PARA ELIMINAR LÍNEA BLANCA DEBAJO DEL FOOTER */
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      min-height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    main {
+      flex: 1 0 auto;
+    }
+    
+    footer {
+      flex-shrink: 0;
+      margin-bottom: 0 !important;
+      padding-bottom: 40px !important;
     }
   </style>
 </head>
@@ -469,8 +575,6 @@
           </div>
           <div class="mt-4" style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); padding: 20px; text-align: center;">
             <cite style="color: #ffffff !important; font-weight: 700; font-style: normal;">Sofia de Buenos Aires</cite>
-          </div>
-            </footer>
           </div>
         </article>
       </div>
@@ -685,61 +789,71 @@
   }
 </script>
 
-
-
-<!-- Botón flotante para volver al inicio -->
-<button onclick="irAInicio()" id="btnVolverInicio" style="
-  position: fixed;
-  bottom: 180px;
-  right: 20px;
-  background: linear-gradient(90deg, #1f3c5a, #3b5d50);
-  color: white;
-  border: none;
-  border-radius: 25px;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-  z-index: 1000;
-  display: none;
-" title="Ir al inicio">
-  <i class="bi bi-house-fill"></i> Inicio
-</button>
-
-<footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
-  <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-  <p>Creado por Vargas Viviana</p>
-  <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
+<footer role="contentinfo" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
+  <div class="container">
+    <p style="margin-bottom: 10px; font-size: 0.9rem;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+    <p style="margin-bottom: 10px; font-size: 0.85rem;">Creado por Vargas Viviana</p>
+    <nav aria-label="Redes sociales" style="margin: 0;">
+      <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+        <li>
+          <a href="https://instagram.com/patagoniastyle" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             style="color: #b67c3a; text-decoration: none;" 
+             aria-label="Síguenos en Instagram">
+            Instagram
+          </a>
+        </li>
+        <li aria-hidden="true" style="color: #b67c3a;">|</li>
+        <li>
+          <a href="https://facebook.com/patagoniastyle" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             style="color: #b67c3a; text-decoration: none;" 
+             aria-label="Síguenos en Facebook">
+            Facebook
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </footer>
+
+<style>
+  /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
+  /* Ocultar cualquier botón o enlace con "Crear Cuenta" que NO esté dentro de un modal */
+  body > a[data-bs-target="#registerModal"],
+  body > button[data-bs-target="#registerModal"],
+  body > .auth-button,
+  body > .signup-button,
+  a[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *),
+  button[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+  }
+  
+  /* Ocultar elementos con texto "Crear Cuenta" fuera de modales */
+  footer ~ a:not([href*="instagram"]):not([href*="facebook"]):not([href*="wa.me"]),
+  footer ~ button:not(.whatsapp-simple) {
+    display: none !important;
+  }
+  
+  /* Asegurar que solo WhatsApp sea visible como botón flotante */
+  body > a[href*="wa.me"],
+  .whatsapp-simple {
+    display: flex !important;
+  }
+</style>
 
 <script>
   // Función para ir al inicio
   function irAInicio() {
     window.location.href = 'index.html';
   }
-
-  // Mostrar/ocultar botón según scroll
-  window.onscroll = function() {
-    let btn = document.getElementById('btnVolverInicio');
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      btn.style.display = 'block';
-    } else {
-      btn.style.display = 'none';
-    }
-  }
-
-  // Efecto hover
-  document.getElementById('btnVolverInicio').addEventListener('mouseenter', function() {
-    this.style.transform = 'scale(1.05)';
-    this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
-  });
-  
-  document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
-    this.style.transform = 'scale(1)';
-    this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
-  });
 </script>
 
 <!-- Modales universales se cargan automáticamente con universal-modals.js -->
@@ -769,13 +883,6 @@
               </div>
               <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
             </form>
-            <div class="text-center mt-3">
-              <p class="mb-0">¿No tienes cuenta? 
-                <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
-                  <strong>Crear cuenta</strong>
-                </a>
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -930,6 +1037,96 @@
       showSearch: true
     });
     
+    // 🚫 ELIMINAR AGRESIVAMENTE botones "Crear Cuenta" flotantes
+    function eliminarBotonesCrearCuenta() {
+      // Buscar todos los elementos que puedan contener "Crear Cuenta"
+      const todosLosElementos = document.querySelectorAll('button, a, div, span');
+      
+      todosLosElementos.forEach(elemento => {
+        // Verificar si está dentro de un modal (SI está, NO tocar)
+        const estaEnModal = elemento.closest('.modal') !== null;
+        if (estaEnModal) return; // No tocar elementos dentro de modales
+        
+        // Verificar si tiene el atributo data-bs-target="#registerModal"
+        const targetRegister = elemento.getAttribute('data-bs-target') === '#registerModal';
+        
+        // Verificar si el texto contiene "Crear Cuenta" o "Crear cuenta"
+        const textoElemento = elemento.textContent || '';
+        const tieneTextoCrearCuenta = textoElemento.includes('Crear Cuenta') || 
+                                       textoElemento.includes('Crear cuenta') ||
+                                       textoElemento.includes('crear cuenta');
+        
+        // Si cumple cualquiera de estas condiciones Y NO está en modal, ELIMINAR
+        if ((targetRegister || tieneTextoCrearCuenta) && !estaEnModal) {
+          console.log('�️ ELIMINANDO elemento "Crear Cuenta":', elemento);
+          
+          // Método 1: Remove directo
+          elemento.remove();
+          
+          // Método 2: Por si el remove no funciona
+          if (elemento.parentNode) {
+            try {
+              elemento.parentNode.removeChild(elemento);
+            } catch (e) {
+              // Silenciar errores
+            }
+          }
+          
+          // Método 3: Ocultar completamente
+          elemento.style.display = 'none';
+          elemento.style.visibility = 'hidden';
+          elemento.style.opacity = '0';
+          elemento.style.position = 'absolute';
+          elemento.style.left = '-9999px';
+          elemento.style.pointerEvents = 'none';
+        }
+      });
+    }
+    
+    // Ejecutar INMEDIATAMENTE
+    eliminarBotonesCrearCuenta();
+    
+    // Ejecutar cada 50ms durante los primeros 5 segundos
+    const intervalos = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000, 4000, 5000];
+    intervalos.forEach(delay => {
+      setTimeout(eliminarBotonesCrearCuenta, delay);
+    });
+    
+    // Observer ULTRA agresivo
+    const observer = new MutationObserver((mutations) => {
+      let debeEliminar = false;
+      
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === 1) { // Es un elemento HTML
+            // Verificar el nodo mismo
+            const targetRegister = node.getAttribute && node.getAttribute('data-bs-target') === '#registerModal';
+            const textoNodo = node.textContent || '';
+            const tieneTextoCrearCuenta = textoNodo.includes('Crear Cuenta') || 
+                                           textoNodo.includes('Crear cuenta');
+            
+            if (targetRegister || tieneTextoCrearCuenta) {
+              const estaEnModal = node.closest('.modal') !== null;
+              if (!estaEnModal) {
+                debeEliminar = true;
+              }
+            }
+          }
+        });
+      });
+      
+      if (debeEliminar) {
+        eliminarBotonesCrearCuenta();
+      }
+    });
+    
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['data-bs-target', 'class', 'id']
+    });
+    
     // Esperar a que el carrito esté listo
     document.addEventListener('carritoManager:ready', function() {
       console.log('🛒 Sistema de carrito listo');
@@ -992,6 +1189,37 @@
       // Actualizar al cargar
       updateCartUI();
     });
+  });
+</script>
+
+<script>
+  // 🎯 SOLUCIÓN DEFINITIVA: Eliminar espacio blanco debajo del footer
+  window.addEventListener('DOMContentLoaded', function() {
+    function eliminarEspacioFooter() {
+      const footer = document.querySelector('footer');
+      if (footer) {
+        const body = document.body;
+        const html = document.documentElement;
+        
+        // Asegurar que body termine exactamente donde termina el footer
+        body.style.margin = '0';
+        body.style.padding = '0';
+        html.style.margin = '0';
+        html.style.padding = '0';
+        
+        // Forzar altura mínima del body
+        const footerBottom = footer.getBoundingClientRect().bottom + window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        if (footerBottom < windowHeight) {
+          body.style.minHeight = windowHeight + 'px';
+        }
+      }
+    }
+    
+    eliminarEspacioFooter();
+    window.addEventListener('resize', eliminarEspacioFooter);
+    window.addEventListener('load', eliminarEspacioFooter);
   });
 </script>
 

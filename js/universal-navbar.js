@@ -172,6 +172,7 @@ class UniversalNavbar {
     if (this.currentUser) {
       return this.renderUserMenuFixed();
     } else {
+      // Solo mostrar botón "Entrar" - SIN botón "Crear Cuenta"
       return `
         <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
                 style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">

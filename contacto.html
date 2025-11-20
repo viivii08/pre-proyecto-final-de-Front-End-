@@ -1,9 +1,38 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacto - Patagonia Style | Comunícate con Nosotros</title>
+  <style>
+    /* 🎯 DISEÑO PROFESIONAL LIMPIO - ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100%;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow-x: hidden !important;
+      background: #e6e8ea !important;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex-shrink: 0;
+      margin-bottom: 0 !important;
+    }
+  </style>
   <meta name="description" content="Contacta con Patagonia Style. Estamos aquí para ayudarte con consultas, pedidos, devoluciones y soporte. Formulario de contacto seguro y rápido.">
   <meta name="keywords" content="contacto, patagonia style, consultas, soporte, formulario contacto, atención al cliente">
   <link rel="canonical" href="https://patagoniastyle.com/contacto">
@@ -664,5 +693,8 @@
       e.target.value = value;
     });
   </script>
+  
+  <!-- Botón WhatsApp flotante -->
+  <script src="js/simple-whatsapp.js"></script>
 </body>
 </html>

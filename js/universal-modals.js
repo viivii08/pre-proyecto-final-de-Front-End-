@@ -60,13 +60,6 @@ class UniversalModals {
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
                             </form>
-                            <div class="text-center mt-3">
-                                <p class="mb-0">¿No tienes cuenta? 
-                                    <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
-                                        <strong>Crear cuenta</strong>
-                                    </a>
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
