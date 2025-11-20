@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Test Completo Carrito - Flujo de Compra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .test-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .step {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid #00b894;
+        }
+        .step.completed {
+            border-left-color: #00b894;
+            background: #d4edda;
+        }
+        .step.active {
+            border-left-color: #0984e3;
+            background: #cfe2ff;
+        }
+        .step.pending {
+            border-left-color: #ddd;
+            background: #f8f9fa;
+        }
+        .product-card-test {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .product-card-test img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .log-area {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center text-white mb-5">
+            <h1 class="display-4 fw-bold">🧪 Test Completo del Carrito</h1>
+            <p class="lead">Flujo de compra de principio a fin</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Paso 1: Seleccionar Producto -->
+                <div class="test-card">
+                    <h3 id="step1-title">
+                        <span class="badge bg-secondary">1</span>
+                        Seleccionar Producto
+                    </h3>
+                    <div id="step1-content">
+                        <p class="text-muted">Elige un producto para agregar al carrito</p>
+                        <div id="productos-test"></div>
+                    </div>
+                </div>
+
+                <!-- Paso 2: Ver Carrito -->
+                <div class="test-card">
+                    <h3 id="step2-title">
+                        <span class="badge bg-secondary">2</span>
+                        Verificar Carrito
+                    </h3>
+                    <div id="step2-content">
+                        <p class="text-muted">Productos en el carrito:</p>
+                        <div id="carrito-preview"></div>
+                        <button class="btn btn-primary" onclick="irAlCarrito()">
+                            <i class="bi bi-cart3 me-2"></i>Ir al Carrito
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Paso 3: Página del Carrito -->
+                <div class="test-card">
+                    <h3 id="step3-title">
+                        <span class="badge bg-secondary">3</span>
+                        Página del Carrito
+                    </h3>
+                    <div id="step3-content">
+                        <p class="text-muted">El carrito debería mostrar tus productos</p>
+                        <div class="alert alert-info">
+                            <strong>Instrucción:</strong> Haz clic en "Ir al Carrito" arriba o abre directamente:
+                            <br><a href="carrito.html" target="_blank">carrito.html</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <!-- Estado del Sistema -->
+                <div class="test-card">
+                    <h5><i class="bi bi-gear me-2"></i>Estado del Sistema</h5>
+                    <div id="system-status"></div>
+                </div>
+
+                <!-- Resumen del Carrito -->
+                <div class="test-card">
+                    <h5><i class="bi bi-cart3 me-2"></i>Resumen del Carrito</h5>
+                    <div id="cart-summary">
+                        <p class="text-muted">Productos: <strong id="cart-count">0</strong></p>
+                        <p class="text-muted">Total: <strong id="cart-total">$0</strong></p>
+                    </div>
+                </div>
+
+                <!-- Log de Eventos -->
+                <div class="test-card">
+                    <h5><i class="bi bi-terminal me-2"></i>Log de Eventos</h5>
+                    <div id="log-output" class="log-area"></div>
+                    <button class="btn btn-sm btn-secondary mt-2 w-100" onclick="clearLog()">
+                        Limpiar Log
+                    </button>
+                </div>
+
+                <!-- Acciones Rápidas -->
+                <div class="test-card">
+                    <h5><i class="bi bi-lightning me-2"></i>Acciones Rápidas</h5>
+                    <button class="btn btn-warning btn-sm w-100 mb-2" onclick="vaciarCarrito()">
+                        🗑️ Vaciar Carrito
+                    </button>
+                    <button class="btn btn-info btn-sm w-100 mb-2" onclick="verLocalStorage()">
+                        📦 Ver LocalStorage
+                    </button>
+                    <button class="btn btn-success btn-sm w-100" onclick="location.reload()">
+                        🔄 Recargar Test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/carrito-unificado.js"></script>
+    <script>
+        // Logging
+        const logOutput = document.getElementById('log-output');
+        function log(message, type = 'info') {
+            const colors = {
+                success: '#4ec9b0',
+                error: '#f48771',
+                warning: '#dcdcaa',
+                info: '#569cd6'
+            };
+            const timestamp = new Date().toLocaleTimeString();
+            logOutput.innerHTML += `<div style="color: ${colors[type]}">[${timestamp}] ${message}</div>`;
+            logOutput.scrollTop = logOutput.scrollHeight;
+            console.log(`[${type.toUpperCase()}] ${message}`);
+        }
+
+        function clearLog() {
+            logOutput.innerHTML = '';
+        }
+
+        // Productos de prueba
+        const productosTest = [
+            {
+                id: 1,
+                nombre: 'Jarro Zorrito Invierno',
+                precio: 21900,
+                imagen: 'pages/jarroportada.webp'
+            },
+            {
+                id: 2,
+                nombre: 'Cuaderno Zorro',
+                precio: 18900,
+                imagen: 'pages/cuadernoportada.webp'
+            },
+            {
+                id: 3,
+                nombre: 'Yerbera Bariloche',
+                precio: 24900,
+                imagen: 'pages/yerbraportada.webp'
+            }
+        ];
+
+        // Renderizar productos
+        function renderProductos() {
+            const container = document.getElementById('productos-test');
+            container.innerHTML = productosTest.map(p => `
+                <div class="product-card-test">
+                    <img src="${p.imagen}" alt="${p.nombre}" onerror="this.style.display='none'">
+                    <div class="flex-grow-1">
+                        <h6>${p.nombre}</h6>
+                        <p class="mb-0 text-muted">$${p.precio.toLocaleString()}</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm" onclick="agregarProducto(${p.id})">
+                        <i class="bi bi-cart-plus me-1"></i>Agregar
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Agregar producto
+        function agregarProducto(id) {
+            log(`🔵 Agregando producto ${id}...`, 'info');
+            const producto = productosTest.find(p => p.id === id);
+            
+            if (!producto) {
+                log(`❌ Producto ${id} no encontrado`, 'error');
+                return;
+            }
+
+            if (typeof carritoUnificado === 'undefined') {
+                log('❌ carritoUnificado no disponible', 'error');
+                alert('Error: El sistema de carrito no está listo');
+                return;
+            }
+
+            const result = carritoUnificado.agregar(producto);
+            if (result) {
+                log(`✅ ${producto.nombre} agregado correctamente`, 'success');
+                actualizarResumen();
+                renderCarrito();
+            } else {
+                log(`❌ Error al agregar ${producto.nombre}`, 'error');
+            }
+        }
+
+        // Renderizar preview del carrito
+        function renderCarrito() {
+            if (typeof carritoUnificado === 'undefined') return;
+            
+            const container = document.getElementById('carrito-preview');
+            const productos = carritoUnificado.productos;
+            
+            if (productos.length === 0) {
+                container.innerHTML = '<p class="text-muted">No hay productos en el carrito</p>';
+                return;
+            }
+
+            container.innerHTML = productos.map(p => `
+                <div class="product-card-test">
+                    <img src="${p.imagen}" alt="${p.nombre}" onerror="this.style.display='none'">
+                    <div class="flex-grow-1">
+                        <h6>${p.nombre}</h6>
+                        <p class="mb-0">
+                            <span class="text-muted">$${p.precio.toLocaleString()} x ${p.cantidad}</span>
+                            <br>
+                            <strong class="text-primary">$${(p.precio * p.cantidad).toLocaleString()}</strong>
+                        </p>
+                    </div>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarProducto(${p.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Actualizar resumen
+        function actualizarResumen() {
+            if (typeof carritoUnificado === 'undefined') return;
+            
+            const count = carritoUnificado.obtenerCantidadTotal();
+            const total = carritoUnificado.obtenerTotal();
+            
+            document.getElementById('cart-count').textContent = count;
+            document.getElementById('cart-total').textContent = '$' + total.toLocaleString();
+            
+            log(`📊 Resumen: ${count} productos, Total: $${total.toLocaleString()}`, 'info');
+        }
+
+        // Eliminar producto
+        function eliminarProducto(id) {
+            if (carritoUnificado.eliminar(id)) {
+                log(`🗑️ Producto ${id} eliminado`, 'warning');
+                actualizarResumen();
+                renderCarrito();
+            }
+        }
+
+        // Vaciar carrito
+        function vaciarCarrito() {
+            if (confirm('¿Vaciar el carrito completamente?')) {
+                carritoUnificado.vaciar();
+                log('🧹 Carrito vaciado', 'warning');
+                actualizarResumen();
+                renderCarrito();
+            }
+        }
+
+        // Ver localStorage
+        function verLocalStorage() {
+            log('📦 Contenido de localStorage:', 'info');
+            const keys = ['patagonia_carrito', 'store_carrito', 'carrito', 'cart'];
+            keys.forEach(key => {
+                const value = localStorage.getItem(key);
+                if (value) {
+                    const data = JSON.parse(value);
+                    log(`  ${key}: ${data.length} productos`, 'info');
+                } else {
+                    log(`  ${key}: (vacío)`, 'info');
+                }
+            });
+        }
+
+        // Ir al carrito
+        function irAlCarrito() {
+            log('🛒 Abriendo página del carrito...', 'info');
+            window.open('carrito.html', '_blank');
+        }
+
+        // Estado del sistema
+        function mostrarEstadoSistema() {
+            const statusHTML = `
+                <ul class="list-group list-group-sm">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>carritoUnificado:</span>
+                        <strong class="text-success">✅</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Productos test:</span>
+                        <strong class="text-success">✅ ${productosTest.length}</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>localStorage:</span>
+                        <strong class="text-success">✅</strong>
+                    </li>
+                </ul>
+            `;
+            document.getElementById('system-status').innerHTML = statusHTML;
+        }
+
+        // Inicialización
+        window.addEventListener('DOMContentLoaded', () => {
+            log('🚀 Test iniciado', 'success');
+            renderProductos();
+            mostrarEstadoSistema();
+            actualizarResumen();
+            renderCarrito();
+            log('✅ Test listo', 'success');
+        });
+
+        // Actualizar cada segundo
+        setInterval(() => {
+            actualizarResumen();
+            renderCarrito();
+        }, 1000);
+    </script>
+</body>
+</html>

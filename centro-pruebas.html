@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Centro de Pruebas - Patagonia Style</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .test-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .test-card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-test {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            margin: 10px 0;
+        }
+        .icon-large {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .badge-custom {
+            font-size: 0.85rem;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">
+                🧪 Centro de Pruebas
+            </h1>
+            <p class="text-white lead">
+                Herramientas de testing y diagnóstico para Patagonia Style
+            </p>
+        </div>
+
+        <div class="row">
+            <!-- Test de Productos -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-box-seam text-primary icon-large"></i>
+                    <h3>Test de Productos</h3>
+                    <p class="text-muted">
+                        Verificación simple y rápida de que los productos se cargan correctamente
+                    </p>
+                    <span class="badge bg-success badge-custom mb-3">✅ Recomendado</span>
+                    <a href="test-productos-simple.html" class="btn btn-primary btn-test">
+                        <i class="bi bi-play-fill me-2"></i>Iniciar Test
+                    </a>
+                </div>
+            </div>
+
+            <!-- Diagnóstico Completo -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-gear-fill text-warning icon-large"></i>
+                    <h3>Diagnóstico Completo</h3>
+                    <p class="text-muted">
+                        Análisis detallado del sistema con logs y estado de componentes
+                    </p>
+                    <span class="badge bg-warning text-dark badge-custom mb-3">🔧 Avanzado</span>
+                    <a href="diagnostico-productos.html" class="btn btn-warning btn-test">
+                        <i class="bi bi-search me-2"></i>Diagnosticar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Test del Carrito -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-cart3 text-success icon-large"></i>
+                    <h3>Test del Carrito</h3>
+                    <p class="text-muted">
+                        Prueba las funcionalidades del carrito de compras
+                    </p>
+                    <span class="badge bg-info badge-custom mb-3">🛒 Funcional</span>
+                    <a href="test-cart.html" class="btn btn-success btn-test">
+                        <i class="bi bi-cart-check me-2"></i>Probar Carrito
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tienda Real -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-shop text-info icon-large"></i>
+                    <h3>Tienda Completa</h3>
+                    <p class="text-muted">
+                        La tienda real con todos los productos y funcionalidades
+                    </p>
+                    <span class="badge bg-primary badge-custom mb-3">🏪 Producción</span>
+                    <a href="tienda.html" class="btn btn-info btn-test">
+                        <i class="bi bi-shop-window me-2"></i>Ir a Tienda
+                    </a>
+                </div>
+            </div>
+
+            <!-- Vista del Carrito -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-bag-check-fill text-danger icon-large"></i>
+                    <h3>Vista del Carrito</h3>
+                    <p class="text-muted">
+                        Página de checkout donde se muestran los productos agregados
+                    </p>
+                    <span class="badge bg-danger badge-custom mb-3">🛍️ Checkout</span>
+                    <a href="carrito.html" class="btn btn-danger btn-test">
+                        <i class="bi bi-bag me-2"></i>Ver Carrito
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tutorial del Carrito -->
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="test-card text-center h-100">
+                    <i class="bi bi-book-fill text-secondary icon-large"></i>
+                    <h3>Tutorial Carrito</h3>
+                    <p class="text-muted">
+                        Guía visual completa del sistema de carrito implementado
+                    </p>
+                    <span class="badge bg-secondary badge-custom mb-3">📚 Documentación</span>
+                    <a href="index-tutorial-carrito.html" class="btn btn-secondary btn-test">
+                        <i class="bi bi-journal-text me-2"></i>Ver Tutorial
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documentación -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="test-card">
+                    <h3 class="text-center mb-4">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Documentación Disponible
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="bi bi-cart text-success me-2"></i>
+                                        Carrito de Compras
+                                    </h5>
+                                    <ul class="list-unstyled small">
+                                        <li><a href="SOLUCION-CARRITO-FINAL.md">📄 Solución Completa</a></li>
+                                        <li><a href="GUIA-RAPIDA-CARRITO.md">⚡ Guía Rápida</a></li>
+                                        <li><a href="COMO-USAR-EL-CARRITO.md">📖 Cómo Usar</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="bi bi-box text-primary me-2"></i>
+                                        Productos
+                                    </h5>
+                                    <ul class="list-unstyled small">
+                                        <li><a href="SOLUCION-PRODUCTOS.md">📄 Solución Productos</a></li>
+                                        <li><a href="data/productos.json">📦 Archivo JSON</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="bi bi-info-circle text-info me-2"></i>
+                                        Información
+                                    </h5>
+                                    <ul class="list-unstyled small">
+                                        <li><a href="README.md">📖 README</a></li>
+                                        <li><a href="index.html">🏠 Página Principal</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estado del Sistema -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="test-card">
+                    <h3 class="text-center mb-4">
+                        <i class="bi bi-check-circle text-success me-2"></i>
+                        Estado del Sistema
+                    </h3>
+                    <div class="row text-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <i class="bi bi-check-circle-fill" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Productos</h5>
+                                    <p class="mb-0">✅ Funcionando</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <i class="bi bi-cart-check-fill" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Carrito</h5>
+                                    <p class="mb-0">✅ Funcionando</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <i class="bi bi-image-fill" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">Imágenes</h5>
+                                    <p class="mb-0">✅ Disponibles</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <i class="bi bi-database-fill" style="font-size: 2rem;"></i>
+                                    <h5 class="mt-2">JSON</h5>
+                                    <p class="mb-0">✅ Cargando</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Start Guide -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="test-card bg-light">
+                    <h4 class="text-center mb-4">
+                        <i class="bi bi-lightbulb text-warning me-2"></i>
+                        Guía de Inicio Rápido
+                    </h4>
+                    <ol class="lead">
+                        <li class="mb-3">
+                            <strong>Verifica los productos:</strong> 
+                            Abre <a href="test-productos-simple.html">Test de Productos</a> 
+                            para confirmar que los 3 productos se cargan correctamente
+                        </li>
+                        <li class="mb-3">
+                            <strong>Prueba el carrito:</strong> 
+                            Abre <a href="test-cart.html">Test del Carrito</a> 
+                            y agrega productos de prueba
+                        </li>
+                        <li class="mb-3">
+                            <strong>Ve la tienda completa:</strong> 
+                            Abre <a href="tienda.html">Tienda</a> 
+                            y verifica que todo funcione integrado
+                        </li>
+                        <li class="mb-3">
+                            <strong>Si algo falla:</strong> 
+                            Usa <a href="diagnostico-productos.html">Diagnóstico</a> 
+                            para ver logs detallados
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-white mt-5">
+            <p>
+                <i class="bi bi-info-circle me-2"></i>
+                Presiona <kbd>F12</kbd> en cualquier página para ver logs de la consola
+            </p>
+            <p class="small">
+                Patagonia Style - Sistema de Testing y Diagnóstico
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

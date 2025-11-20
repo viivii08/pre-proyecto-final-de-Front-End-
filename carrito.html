@@ -283,8 +283,8 @@
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   
-  <!-- SISTEMA DE CARRITO ROBUSTO (debe cargar después de store.js) -->
-  <script src="js/carrito-fix.js"></script>
+  <!-- SISTEMA DE CARRITO UNIFICADO (solución definitiva) -->
+  <script src="js/carrito-unificado.js"></script>
   
   <!-- Sistemas Profesionales -->
   <script src="js/validation.js"></script>
@@ -296,7 +296,7 @@
   <script src="js/frontend-utils.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('🛒 Iniciando página de carrito...');
+      console.log('🛒 [carrito.html] Iniciando página de carrito...');
       
       // Inicializar navbar universal si está disponible
       try {
@@ -304,75 +304,72 @@
           new UniversalNavbar('navbar-container', {
             showSearch: true
           });
-          console.log('✅ Navbar inicializado');
+          console.log('✅ [carrito.html] Navbar inicializado');
         }
       } catch (error) {
-        console.warn('⚠️ Error inicializando navbar:', error);
+        console.warn('⚠️ [carrito.html] Error inicializando navbar:', error);
       }
       
-      // Asegurar que el carrito se renderice
+      // Función para renderizar el carrito
       function renderizarCarritoCompleto() {
-        // El sistema carritoEmergencia se inicializa automáticamente
-        // pero asegurémonos de que se renderice
+        console.log('🎨 [carrito.html] Intentando renderizar carrito...');
+        
+        // Verificar si carritoUnificado está disponible
+        if (typeof carritoUnificado !== 'undefined') {
+          console.log('✅ [carrito.html] Usando carritoUnificado');
+          console.log('📦 [carrito.html] Productos en carrito:', carritoUnificado.productos.length);
+          carritoUnificado.renderizarPaginaCarrito();
+          carritoUnificado.actualizarUI();
+          console.log('✅ [carrito.html] Carrito renderizado correctamente');
+          return;
+        }
+        
+        // Fallback a carritoEmergencia
         if (typeof carritoEmergencia !== 'undefined') {
+          console.log('✅ [carrito.html] Usando carritoEmergencia (fallback)');
           carritoEmergencia.renderizarCarrito();
           carritoEmergencia.actualizarContador();
-          console.log('✅ Carrito renderizado por CarritoEmergencia');
-        } else {
-          // Si CarritoEmergencia no está disponible, intentar con store
-          setTimeout(() => {
-            if (typeof store !== 'undefined' && store.renderizarCarrito) {
-              store.renderizarCarrito();
-              console.log('✅ Carrito renderizado por store');
-            } else {
-              console.warn('⚠️ No se encontró sistema de carrito disponible');
-              // Mostrar mensaje de error
-              const contenedor = document.getElementById('carrito-contenido');
-              if (contenedor) {
-                contenedor.innerHTML = `
-                  <div class="alert alert-warning text-center">
-                    <i class="bi bi-exclamation-triangle fs-2 mb-3 d-block"></i>
-                    <h4>Error al cargar el carrito</h4>
-                    <p>Por favor, recarga la página o vuelve a la tienda.</p>
-                    <a href="tienda.html" class="btn btn-primary">Volver a la Tienda</a>
-                  </div>
-                `;
-              }
-            }
-          }, 500);
+          console.log('✅ [carrito.html] Carrito renderizado por CarritoEmergencia');
+          return;
         }
+        
+        // Si no hay ningún sistema disponible, reintentar
+        console.warn('⚠️ [carrito.html] Sistemas de carrito no disponibles, reintentando...');
+        setTimeout(renderizarCarritoCompleto, 200);
       }
       
       // Renderizar después de un pequeño delay para asegurar que todo esté cargado
       setTimeout(renderizarCarritoCompleto, 300);
       
-      console.log('✅ Página de carrito inicializada');
+      console.log('✅ [carrito.html] Página de carrito inicializada');
     });
 
     // Funciones de compatibilidad con el sistema anterior
     function mostrarCarrito() {
-      if (window.carritoEmergencia) {
+      if (window.carritoUnificado) {
+        window.carritoUnificado.renderizarPaginaCarrito();
+      } else if (window.carritoEmergencia) {
         window.carritoEmergencia.renderizarCarrito();
       }
     }
 
-    function cambiarCantidad(idx, delta) {
-      if (window.carritoEmergencia) {
-        const carrito = window.carritoEmergencia.carrito;
-        if (carrito[idx]) {
-          const nuevaCantidad = carrito[idx].cantidad + delta;
-          window.carritoEmergencia.cambiarCantidad(carrito[idx].id, nuevaCantidad);
-        }
+    function cambiarCantidad(id, nuevaCantidad) {
+      console.log('🔄 Cambiando cantidad:', id, nuevaCantidad);
+      if (window.carritoUnificado) {
+        window.carritoUnificado.cambiarCantidad(id, nuevaCantidad);
+      } else if (window.carritoEmergencia) {
+        window.carritoEmergencia.cambiarCantidad(id, nuevaCantidad);
       }
     }
 
-    function setCantidad(idx, value) {
-      if (window.carritoEmergencia) {
-        const carrito = window.carritoEmergencia.carrito;
-        if (carrito[idx]) {
-          window.carritoEmergencia.cambiarCantidad(carrito[idx].id, parseInt(value));
-        }
+    function eliminarDelCarrito(id) {
+      console.log('🗑️ Eliminando producto:', id);
+      if (window.carritoUnificado) {
+        window.carritoUnificado.eliminar(id);
+      } else if (window.carritoEmergencia) {
+        window.carritoEmergencia.eliminarProducto(id);
       }
+    }
     }
 
     function eliminarProducto(idx) {
