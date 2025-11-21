@@ -41,11 +41,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Layout para footer universal */
     body {
       background: #f4f1ee;
       font-family: 'Poppins', sans-serif;
       color: #2b2b2b;
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: 100vh !important;
+      margin: 0 !important;
     }
+    
+    main {
+      flex: 1 0 auto;
+    }
+    
     .product-container {
       background: #fff;
       border-radius: 18px;
@@ -332,17 +342,10 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 20px 0; margin-top: 50px;">
-    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p>Creado por Vargas Viviana</p>
-    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
-  </footer>
+  <!-- Footer será generado automáticamente por universal-footer.js -->
 
   <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
-    <i class="bi bi-whatsapp"></i>
-  </a>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/store.js"></script>
@@ -759,5 +762,8 @@
       `;
     }
   </script>
+
+  <!-- Sistema de Footer Universal -->
+  <script src="js/universal-footer.js"></script>
 </body>
 </html>

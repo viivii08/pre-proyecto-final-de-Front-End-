@@ -60,11 +60,9 @@ class UserManager {
       localStorage.setItem('patagonia_user', JSON.stringify(this.currentUser));
       
       this.updateUIForLoggedUser();
-      this.showNotification('¡Registro exitoso! Bienvenido a Patagonia Style', 'success');
       
       return { success: true, user: this.currentUser };
     } catch (error) {
-      this.showNotification(error.message, 'error');
       return { success: false, error: error.message };
     }
   }
@@ -93,11 +91,9 @@ class UserManager {
       localStorage.setItem('patagonia_user', JSON.stringify(this.currentUser));
       
       this.updateUIForLoggedUser();
-      this.showNotification(`¡Bienvenido de vuelta, ${user.firstName}!`, 'success');
       
       return { success: true, user: this.currentUser };
     } catch (error) {
-      this.showNotification(error.message, 'error');
       return { success: false, error: error.message };
     }
   }
@@ -115,7 +111,6 @@ class UserManager {
     document.dispatchEvent(event);
     
     this.updateUIForLoggedUser();
-    this.showNotification('Sesión cerrada exitosamente', 'info');
     
     // Actualizar navbar universal si existe
     if (typeof universalNavbar !== 'undefined') {
@@ -466,7 +461,6 @@ class UserManager {
     const confirmPassword = formData.get('confirmPassword') || document.getElementById('confirmPassword').value;
     
     if (password !== confirmPassword) {
-      this.showNotification('Las contraseñas no coinciden', 'error');
       return;
     }
     
@@ -487,36 +481,6 @@ class UserManager {
     }
   }
 
-  showNotification(message, type = 'info') {
-    // Para errores de validación, usar un estilo más suave
-    if (type === 'error' && (message.includes('inválido') || message.includes('debe tener'))) {
-      // Mostrar error en consola y usar tipo 'warning' en lugar de 'error'
-      console.warn('Validación:', message);
-      type = 'warning';
-    }
-    
-    // Reutilizar el sistema de notificaciones existente
-    if (typeof store !== 'undefined' && store.mostrarNotificacion) {
-      store.mostrarNotificacion(message, type);
-    } else {
-      // Fallback mejorado con colores y emojis
-      const styles = {
-        error: 'color: #dc3545; font-weight: bold; background: #f8d7da; padding: 4px 8px; border-radius: 4px;',
-        success: 'color: #155724; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 4px;',
-        warning: 'color: #856404; font-weight: bold; background: #fff3cd; padding: 4px 8px; border-radius: 4px;',
-        info: 'color: #0c5460; font-weight: bold; background: #d1ecf1; padding: 4px 8px; border-radius: 4px;'
-      };
-      
-      const icons = { error: '❌', success: '✅', warning: '⚠️', info: 'ℹ️' };
-      
-      if (type === 'error') {
-        console.error(`%c${icons.error} USER MANAGER ERROR`, styles.error, message);
-      } else {
-        console.log(`%c${icons[type] || 'ℹ️'} USER MANAGER ${type.toUpperCase()}`, styles[type] || styles.info, message);
-      }
-    }
-  }
-
   // Verificar si el usuario está logueado
   isLoggedIn() {
     return this.currentUser !== null;
@@ -530,7 +494,6 @@ class UserManager {
   // Requerir login para ciertas acciones
   requireLogin(action) {
     if (!this.isLoggedIn()) {
-      this.showNotification('Debes iniciar sesión para continuar', 'warning');
       this.showLoginModal();
       return false;
     }

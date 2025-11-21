@@ -164,7 +164,6 @@ class PatagoniaStore {
       // Encontrar el producto
       const producto = this.productos.find(p => p.id === productoId);
       if (!producto || !producto.disponible || producto.stock === 0) {
-        this.mostrarNotificacion('Producto no disponible', 'error');
         return;
       }
 
@@ -177,7 +176,6 @@ class PatagoniaStore {
       if (itemExistente) {
         // Si ya existe, incrementar cantidad
         if (itemExistente.cantidad >= producto.stock) {
-          this.mostrarNotificacion('Stock insuficiente', 'warning');
           return;
         }
         itemExistente.cantidad++;
@@ -201,7 +199,7 @@ class PatagoniaStore {
       
       // Actualizar contador y mostrar notificación
       this.actualizarContadorCarrito();
-      this.mostrarNotificacion(`${producto.nombre} agregado al carrito`, 'success');
+      this.mostrarNotificacion('¡Agregado! ✅', 'success');
       
       // Actualizar modal del carrito si está disponible
       if (window.universalModals && typeof window.universalModals.updateCartModal === 'function') {
@@ -212,7 +210,6 @@ class PatagoniaStore {
       
     } catch (error) {
       console.error('❌ Error agregando producto al carrito:', error);
-      this.mostrarNotificacion('Error agregando al carrito', 'error');
     }
   }
 
@@ -229,7 +226,7 @@ class PatagoniaStore {
     
     if (item && producto) {
       if (nuevaCantidad > producto.stock) {
-        this.mostrarNotificacion('Stock insuficiente', 'warning');
+        this.mostrarNotificacion('¡Ups! No hay más stock 📦', 'warning');
         return;
       }
       if (nuevaCantidad <= 0) {
@@ -456,13 +453,11 @@ class PatagoniaStore {
       this.guardarCarrito();
       this.actualizarContadorCarrito();
       this.renderizarCarrito();
-      this.mostrarNotificacion('Carrito vaciado', 'info');
     }
   }
 
   irACheckout() {
     if (this.carrito.length === 0) {
-      this.mostrarNotificacion('El carrito está vacío', 'warning');
       return;
     }
     window.location.href = 'checkout.html';
@@ -492,92 +487,21 @@ class PatagoniaStore {
         if (termino) {
           const resultados = this.buscarProductos(termino);
           this.renderizarProductos(resultados);
-          this.mostrarNotificacion(`${resultados.length} productos encontrados`, 'info');
         }
       });
     }
   }
 
-  mostrarNotificacion(mensaje, tipo = 'info') {
-    // Sistema de notificaciones toast
-    const toast = document.createElement('div');
-    toast.className = `toast-notification toast-${tipo}`;
-    toast.innerHTML = `
-      <div class="toast-content">
-        <i class="bi bi-${this.getIconoNotificacion(tipo)}"></i>
-        <span>${mensaje}</span>
-      </div>
-    `;
-
-    // Estilos del toast
-    toast.style.cssText = `
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: ${this.getColorNotificacion(tipo)};
-      color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      z-index: 9999;
-      animation: slideInRight 0.3s ease;
-      font-weight: 500;
-    `;
-
-    document.body.appendChild(toast);
-
-    // Remover después de 3 segundos
-    setTimeout(() => {
-      toast.style.animation = 'slideOutRight 0.3s ease';
-      setTimeout(() => {
-        if (document.body.contains(toast)) {
-          document.body.removeChild(toast);
-        }
-      }, 300);
-    }, 3000);
-  }
-
-  getIconoNotificacion(tipo) {
-    const iconos = {
-      success: 'check-circle',
-      error: 'x-circle',
-      warning: 'exclamation-triangle',
-      info: 'info-circle'
-    };
-    return iconos[tipo] || 'info-circle';
-  }
-
   getColorNotificacion(tipo) {
     const colores = {
       success: '#28a745',
-      error: '#dc3545',
-      warning: '#ffc107',
-      info: '#17a2b8'
+      error: '#dc3545', 
+      warning: '#ff8c00',
+      info: '#007bff'
     };
-    return colores[tipo] || '#17a2b8';
+    return colores[tipo] || '#007bff';
   }
 }
-
-// CSS para las animaciones de toast
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes slideInRight {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-  
-  @keyframes slideOutRight {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-  }
-
-  .toast-notification .toast-content {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-`;
-document.head.appendChild(style);
 
 // Inicializar la tienda cuando se carga el documento
 let store;

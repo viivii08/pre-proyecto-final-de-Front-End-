@@ -487,7 +487,7 @@ function logoutUser() {
   
   // Mostrar notificación
   if (typeof store !== 'undefined' && store.mostrarNotificacion) {
-    store.mostrarNotificacion('Sesión cerrada exitosamente', 'info');
+    store.mostrarNotificacion('¡Hasta pronto! 👋', 'info');
   } else {
     console.log('%c✅ NAVBAR: Sesión cerrada exitosamente', 'color: #28a745; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 4px;');
   }

@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="css/dark-theme.css">
   <link rel="stylesheet" href="css/mejoras-semanticas.css">
   <link rel="stylesheet" href="css/product-cards-improved.css">
+  <link rel="stylesheet" href="css/footer-fix-global.css">
   
   <style>
     :root {
@@ -742,36 +743,51 @@
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer role="contentinfo" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
-    <div class="container">
-      <p style="margin-bottom: 10px; font-size: 0.9rem;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-      <p style="margin-bottom: 10px; font-size: 0.85rem;">Creado por Vargas Viviana</p>
-      <nav aria-label="Redes sociales" style="margin: 0;">
-        <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-          <li>
-            <a href="https://instagram.com/patagoniastyle" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               style="color: #b67c3a; text-decoration: none;" 
-               aria-label="Síguenos en Instagram">
-              Instagram
-            </a>
-          </li>
-          <li aria-hidden="true" style="color: #b67c3a;">|</li>
-          <li>
-            <a href="https://facebook.com/patagoniastyle" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               style="color: #b67c3a; text-decoration: none;" 
-               aria-label="Síguenos en Facebook">
-              Facebook
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </footer>
+  <!-- Footer será generado automáticamente por universal-footer.js -->
+
+  <style>
+    /* ✅ SOLUCIÓN FOOTER DEFINITIVA */
+    body {
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: 100vh !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    main {
+      flex: 1 0 auto !important;
+    }
+    
+    footer {
+      flex-shrink: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  </style>
+
+  <style>
+    /* ✅ SOLUCIÓN FOOTER DEFINITIVA Y LIMPIA */
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    body {
+      display: flex !important;
+      flex-direction: column !important;
+      min-height: 100vh !important;
+    }
+    
+    main {
+      flex: 1 0 auto !important;
+    }
+    
+    footer {
+      flex-shrink: 0 !important;
+      margin-bottom: 0 !important;
+    }
+  </style>
 
   <style>
     /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
@@ -1777,5 +1793,11 @@
 <!-- Modales universales -->
 <script src="js/universal-modals.js"></script>
 
+<!-- Contenedor para botón WhatsApp flotante -->
+<div id="whatsapp-unico"></div>
+
+  <!-- Sistema de Footer Universal -->
+  <script src="js/universal-footer.js"></script>
+  <script src="js/whatsapp-global.js"></script>
 </body>
 </html>

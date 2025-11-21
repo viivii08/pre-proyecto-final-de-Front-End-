@@ -597,7 +597,6 @@
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/ratings.js"></script>
-  <script src="js/frontend-utils.js"></script>
   <script>
   // 🔧 Deshabilitar tema oscuro en tienda para mejor legibilidad
   document.addEventListener('DOMContentLoaded', function() {
@@ -789,74 +788,9 @@
   }
 </script>
 
-<footer role="contentinfo" style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
-  <div class="container">
-    <p style="margin-bottom: 10px; font-size: 0.9rem;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p style="margin-bottom: 10px; font-size: 0.85rem;">Creado por Vargas Viviana</p>
-    <nav aria-label="Redes sociales" style="margin: 0;">
-      <ul style="list-style: none; padding: 0; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-        <li>
-          <a href="https://instagram.com/patagoniastyle" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             style="color: #b67c3a; text-decoration: none;" 
-             aria-label="Síguenos en Instagram">
-            Instagram
-          </a>
-        </li>
-        <li aria-hidden="true" style="color: #b67c3a;">|</li>
-        <li>
-          <a href="https://facebook.com/patagoniastyle" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             style="color: #b67c3a; text-decoration: none;" 
-             aria-label="Síguenos en Facebook">
-            Facebook
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</footer>
+<!-- Footer será generado automáticamente por universal-footer.js -->
 
-<style>
-  /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
-  /* Ocultar cualquier botón o enlace con "Crear Cuenta" que NO esté dentro de un modal */
-  body > a[data-bs-target="#registerModal"],
-  body > button[data-bs-target="#registerModal"],
-  body > .auth-button,
-  body > .signup-button,
-  a[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *),
-  button[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *) {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-    position: absolute !important;
-    left: -9999px !important;
-  }
-  
-  /* Ocultar elementos con texto "Crear Cuenta" fuera de modales */
-  footer ~ a:not([href*="instagram"]):not([href*="facebook"]):not([href*="wa.me"]),
-  footer ~ button:not(.whatsapp-simple) {
-    display: none !important;
-  }
-  
-  /* Asegurar que solo WhatsApp sea visible como botón flotante */
-  body > a[href*="wa.me"],
-  .whatsapp-simple {
-    display: flex !important;
-  }
-</style>
-
-<script>
-  // Función para ir al inicio
-  function irAInicio() {
-    window.location.href = 'index.html';
-  }
-</script>
-
-<!-- Modales universales se cargan automáticamente con universal-modals.js -->
+<!-- Modales Universales -->
     <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
@@ -1013,8 +947,6 @@
   `;
 </script>
 
-<!-- Sistema de WhatsApp simple -->
-<script src="js/simple-whatsapp.js"></script>
 <!-- Sistemas de checkout -->
 <script src="js/whatsapp-checkout.js"></script>
 
@@ -1223,5 +1155,11 @@
   });
 </script>
 
+<!-- Contenedor para botón WhatsApp flotante -->
+<div id="whatsapp-unico"></div>
+
+  <!-- Sistema de Footer Universal -->
+  <script src="js/universal-footer.js"></script>
+  <script src="js/whatsapp-global.js"></script>
 </body>
 </html>

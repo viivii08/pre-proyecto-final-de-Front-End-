@@ -1,0 +1,159 @@
+/**
+ * 🌟 SOLUCIÓN GLOBAL ANTI-ESPACIOS FOOTER
+ * Autor: Desarrollador Profesional
+ * Descripción: CSS global para eliminar cualquier espacio debajo del footer
+ */
+
+/* Reset completo para HTML y BODY */
+html {
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+body {
+    min-height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
+}
+
+/* Footer pegado al final sin espacios */
+footer {
+    margin-bottom: 0 !important;
+    padding-bottom: 40px !important;
+    clear: both !important;
+    position: relative !important;
+}
+
+/* Eliminar cualquier espacio después del footer */
+footer ~ * {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Pseudo-elemento para asegurar que no hay espacios */
+footer::after {
+    content: "";
+    display: block;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    clear: both;
+}
+
+/* Eliminación forzada de espacios en contenedores */
+.container,
+.container-fluid {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Asegurar que el body termina con el footer */
+body > *:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Para páginas con flexbox */
+body.d-flex,
+body[style*="display: flex"],
+body[style*="display:flex"] {
+    flex-direction: column !important;
+}
+
+body.d-flex footer,
+body[style*="display: flex"] footer,
+body[style*="display:flex"] footer {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+}
+
+/* Eliminación agresiva de espacios en viewport completo */
+html, body {
+    overflow-x: hidden !important;
+}
+
+/* Para asegurar que modales u otros elementos no creen espacios */
+.modal,
+.offcanvas,
+.dropdown-menu {
+    margin: 0 !important;
+}
+
+/* Forzar altura del contenido principal */
+main {
+    flex: 1 0 auto !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Eliminar cualquier margen o padding en scripts y estilos después del footer */
+footer ~ script,
+footer ~ style,
+footer ~ link {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: none !important;
+}
+
+/* Reset para Bootstrap y otros frameworks */
+.row:last-child,
+.col:last-child,
+.col-*:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* Solución específica para elementos flotantes después del footer */
+body > a:last-child:not([href*="wa.me"]),
+body > button:last-child,
+body > div:last-child:not(.whatsapp-float) {
+    position: absolute !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Mantener solo WhatsApp flotante visible */
+.whatsapp-float,
+a[href*="wa.me"] {
+    position: fixed !important;
+    z-index: 9999 !important;
+}
+
+/* ELIMINAR CUALQUIER BOTÓN DE "INICIO" FLOTANTE */
+#btnVolverInicio,
+.back-to-home,
+.btn-inicio,
+.floating-home,
+button[onclick*="irAInicio"],
+a[onclick*="irAInicio"],
+*[title*="Inicio"]:not(.navbar *):not(.nav *),
+*[aria-label*="Inicio"]:not(.navbar *):not(.nav *) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+}
+
+/* Debug: Marcar visualmente el final del footer (remover en producción) */
+/*
+footer::after {
+    content: "🔚 FIN FOOTER";
+    position: absolute;
+    bottom: -1px;
+    right: 10px;
+    color: red;
+    font-size: 10px;
+    background: white;
+    padding: 2px;
+    border: 1px solid red;
+}
+*/
+
+/* ✅ CSS global anti-espacios footer cargado */

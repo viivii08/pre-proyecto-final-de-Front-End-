@@ -54,28 +54,7 @@
       background-color: var(--bg-light);
       color: var(--text-color);
     }
-    .whatsapp-float {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
-      z-index: 999;
-      background: #25d366;
-      color: #fff;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.3rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-      transition: background 0.2s, transform 0.2s;
-    }
-    .whatsapp-float:hover {
-      background: #128c7e;
-      color: #fff;
-      transform: scale(1.08);
-    }
+    
     /* Navbar */
     .navbar {
       background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -299,80 +278,35 @@
 
   <!-- Sección de Testimonios -->
   <section class="container my-5">
-    <h2 class="text-center mb-5" style="color: #1f3c5a; font-weight: 600;">Testimonios</h2>
+    <h2 class="text-center mb-5" style="color: #1f3c5a; font-weight: 600;">Testimonio</h2>
     <div class="row justify-content-center">
       <div class="col-lg-8">
         <div class="testimonial-container" style="background: white; border-radius: 15px; padding: 0; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 1px solid #f0f0f0; overflow: hidden;">
-          <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
-            <div class="carousel-inner">
-              <!-- Testimonio 1 -->
-              <div class="carousel-item active">
-                <div style="padding: 50px 30px 30px;">
-                  <div class="text-center">
-                    <div class="mb-4">
-                      <i class="bi bi-quote" style="font-size: 3rem; color: #ccc; opacity: 0.5;"></i>
-                    </div>
-                    <p class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
-                      "Vivi, tus productos son pura magia. Compré una libreta y unos jarros enlozados, y cada vez que los uso, siento que me transportan a la Patagonia. La calidad es increíble y los detalles ilustrados son hermosos."
-                    </p>
-                  </div>
-                </div>
-                <div style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); padding: 20px; text-align: center;">
-                  <h5 class="mb-0" style="color: #ffffff !important; font-weight: 700;">Sofia de Buenos Aires</h5>
-                </div>
+          <div style="padding: 50px 30px 30px;">
+            <div class="text-center">
+              <div class="mb-4">
+                <i class="bi bi-quote" style="font-size: 3rem; color: #ccc; opacity: 0.5;"></i>
               </div>
-              <!-- Testimonio 2 -->
-              <div class="carousel-item">
-                <div style="padding: 50px 30px 30px;">
-                  <div class="text-center">
-                    <div class="mb-4">
-                      <i class="bi bi-quote" style="font-size: 3rem; color: #ccc; opacity: 0.5;"></i>
-                    </div>
-                    <p class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
-                      "Increíble calidad y diseños únicos. Compré varios productos para regalar y todos quedaron encantados. El arte patagónico que manejan es realmente especial."
-                    </p>
-                  </div>
-                </div>
-                <div style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); padding: 20px; text-align: center;">
-                  <h5 class="mb-0" style="color: #ffffff !important; font-weight: 700;">María de Córdoba</h5>
-                </div>
-              </div>
-              <!-- Testimonio 3 -->
-              <div class="carousel-item">
-                <div style="padding: 50px 30px 30px;">
-                  <div class="text-center">
-                    <div class="mb-4">
-                      <i class="bi bi-quote" style="font-size: 3rem; color: #ccc; opacity: 0.5;"></i>
-                    </div>
-                    <p class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
-                      "Los cuadernos son hermosos y de excelente calidad. Me encanta escribir en ellos, cada página es una inspiración. Definitivamente volveré a comprar."
-                    </p>
-                  </div>
-                </div>
-                <div style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); padding: 20px; text-align: center;">
-                  <h5 class="mb-0" style="color: #ffffff !important; font-weight: 700;">Carlos de Mendoza</h5>
-                </div>
-              </div>
+              <p class="fs-5 mb-4" style="color: #333; line-height: 1.8; font-style: italic; font-weight: 400; max-width: 600px; margin: 0 auto;">
+                "Vivi, tus productos son pura magia. Compré una libreta y unos jarros enlozados, y cada vez que los uso, siento que me transportan a la Patagonia. La calidad es increíble y los detalles ilustrados son hermosos."
+              </p>
             </div>
-            <!-- Controles del carousel -->
-            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev" style="width: 5%;">
-              <i class="bi bi-chevron-left" style="font-size: 2rem; color: #1f3c5a; opacity: 0.7;"></i>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next" style="width: 5%;">
-              <i class="bi bi-chevron-right" style="font-size: 2rem; color: #1f3c5a; opacity: 0.7;"></i>
-            </button>
+          </div>
+          <div style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); padding: 20px; text-align: center;">
+            <h5 class="mb-0" style="color: #ffffff !important; font-weight: 700;">Sofía de Buenos Aires</h5>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
-    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p>Creado por Vargas Viviana</p>
-    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
-  </footer>
+  <!-- Footer será generado automáticamente por universal-footer.js -->
+
+  <style>
+    html, body { height: 100% !important; margin: 0 !important; padding: 0 !important; }
+    footer { margin-bottom: 0 !important; }
+    footer ~ * { margin: 0 !important; padding: 0 !important; }
+  </style>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -390,63 +324,18 @@
     }
   </script>
 
-  <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/5491136899678" class="whatsapp-float" target="_blank" title="¡Escríbenos por WhatsApp!">
-    <i class="bi bi-whatsapp"></i>
-  </a>
 
-  <!-- Botón flotante para volver al inicio -->
-  <button onclick="irAInicio()" id="btnVolverInicio" style="
-    position: fixed;
-    bottom: 180px;
-    right: 20px;
-    background: linear-gradient(90deg, #1f3c5a, #3b5d50);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 15px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    z-index: 1000;
-    display: none;
-  " title="Ir al inicio">
-    <i class="bi bi-house-fill"></i> Inicio
-  </button>
+
+
 
   <script>
-    // Función para ir al inicio
-    function irAInicio() {
-      window.location.href = 'index.html';
-    }
-
-    // Mostrar/ocultar botón según scroll
-    window.onscroll = function() {
-      let btn = document.getElementById('btnVolverInicio');
-      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        btn.style.display = 'block';
-      } else {
-        btn.style.display = 'none';
-      }
-    }
-
-    // Efecto hover
-    document.getElementById('btnVolverInicio').addEventListener('mouseenter', function() {
-      this.style.transform = 'scale(1.05)';
-      this.style.background = 'linear-gradient(90deg, #b67c3a, #f4a259)';
-    });
-    
-    document.getElementById('btnVolverInicio').addEventListener('mouseleave', function() {
-      this.style.transform = 'scale(1)';
-      this.style.background = 'linear-gradient(90deg, #1f3c5a, #3b5d50)';
-    });
+    console.log('🎨 [portafolio.html] Página cargada correctamente');
   </script>
   
   <!-- Scripts del sistema universal -->
   <script src="js/validation.js"></script>
   <script src="js/loading.js"></script>
+  <script src="js/whatsapp-global.js"></script>
   <script src="js/error-manager.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/performance.js"></script>
@@ -464,7 +353,11 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
-  <!-- Botón WhatsApp flotante -->
-  <script src="js/simple-whatsapp.js"></script>
+  <!-- Contenedor para botón WhatsApp flotante -->
+  <div id="whatsapp-unico"></div>
+
+  <!-- Sistema de Footer Universal -->
+  <script src="js/universal-footer.js"></script>
+  <script src="js/whatsapp-global.js"></script>
 </body>
 </html>

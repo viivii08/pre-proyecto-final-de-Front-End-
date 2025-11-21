@@ -87,27 +87,50 @@
       right: 0;
       bottom: 0;
       background: url('pages/fondo.png') center/cover;
-      opacity: 0.1;
+      opacity: 0.05;
+      z-index: 1;
+    }
+    
+    /* Overlay adicional para mejorar contraste */
+    .contact-hero::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
       z-index: 1;
     }
     
     .contact-hero-content {
       position: relative;
-      z-index: 2;
+      z-index: 3;
     }
     
     .contact-hero h1 {
       font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
       font-weight: var(--font-bold);
       margin-bottom: var(--space-4);
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 
+        2px 2px 4px rgba(0,0,0,0.8),
+        0 0 20px rgba(0,0,0,0.5),
+        0 0 40px rgba(0,0,0,0.3);
+      color: #ffffff;
+      letter-spacing: -0.02em;
     }
     
     .contact-hero p {
       font-size: clamp(var(--text-lg), 2.5vw, var(--text-xl));
-      opacity: 0.9;
+      opacity: 1;
       max-width: 600px;
       margin: 0 auto;
+      text-shadow: 
+        1px 1px 3px rgba(0,0,0,0.8),
+        0 0 15px rgba(0,0,0,0.5);
+      color: #f8f9fa;
+      font-weight: 500;
+      line-height: 1.5;
     }
     
     .contact-section {
@@ -539,23 +562,7 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px;">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <p class="mb-2">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-          <p class="mb-3">Creado por Vargas Viviana</p>
-          <div class="footer-links">
-            <a href="politica-privacidad.html" style="color: #b67c3a; text-decoration: none; margin: 0 15px;">Política de Privacidad</a>
-            <a href="terminos-condiciones.html" style="color: #b67c3a; text-decoration: none; margin: 0 15px;">Términos y Condiciones</a>
-            <a href="https://instagram.com/patagoniastyle" style="color: #b67c3a; text-decoration: none; margin: 0 15px;" target="_blank" rel="noopener">Instagram</a>
-            <a href="https://facebook.com/patagoniastyle" style="color: #b67c3a; text-decoration: none; margin: 0 15px;" target="_blank" rel="noopener">Facebook</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <!-- Footer será generado automáticamente por universal-footer.js -->
 
   <!-- Botón flotante de WhatsApp -->
   <a href="https://wa.me/5491136899678?text=Hola,%20me%20interesa%20conocer%20más%20sobre%20sus%20productos" 
@@ -564,15 +571,6 @@
      rel="noopener"
      aria-label="Contactar por WhatsApp">
     <i class="bi bi-whatsapp" aria-hidden="true"></i>
-  </a>
-
-  <!-- Botón flotante para volver al inicio -->
-  <a href="index.html" 
-     class="back-to-home" 
-     id="backToHome"
-     aria-label="Volver al inicio">
-    <i class="bi bi-house-fill" aria-hidden="true"></i>
-    <span>Inicio</span>
   </a>
 
   <!-- Scripts -->
@@ -694,7 +692,10 @@
     });
   </script>
   
+  <!-- Sistema de Footer Universal -->
+  <script src="js/universal-footer.js"></script>
   <!-- Botón WhatsApp flotante -->
   <script src="js/simple-whatsapp.js"></script>
+  <script src="js/whatsapp-global.js"></script>
 </body>
 </html>
