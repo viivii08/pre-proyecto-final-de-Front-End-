@@ -13,7 +13,6 @@ class FooterMassUpdater {
       'envios.html',
       'jarro.html',
       'mi-cuenta.html',
-      'mis-favoritos.html',
       'mis-pedidos.html',
       'politica-privacidad.html',
       'portafolio.html',

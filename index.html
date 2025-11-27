@@ -1,23 +1,34 @@
 <!DOCTYPE html>
+<!-- 🌟 PATAGONIA STYLE - PÁGINA PRINCIPAL 
+     🏠 Landing page del e-commerce con diseño profesional
+     🚀 Incluye hero section, productos destacados y funcionalidades avanzadas
+     📱 Completamente responsive con Bootstrap 5.3.0 -->
 <html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
+  <!-- 📋 Meta tags esenciales para SEO y responsive -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Patagonia Style - Tienda Online</title>
   <style>
-    /* 🎯 DISEÑO PROFESIONAL LIMPIO - ELIMINAR ESPACIO DEBAJO DEL FOOTER */
+    /* 🎯 DISEÑO PROFESIONAL LIMPIO - ELIMINAR ESPACIO DEBAJO DEL FOOTER 
+       ✨ Reset global para eliminar márgenes y espaciados inconsistentes
+       📐 Box-sizing border-box para cálculos precisos */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      margin: 0;                /* 🚫 Sin márgenes por defecto */
+      padding: 0;               /* 🚫 Sin padding por defecto */
+      box-sizing: border-box;   /* 📦 Incluir bordes en el tamaño */
     }
+    
+    /* 🏠 Configuración HTML para altura completa */
     html {
-      height: 100%;
-      margin: 0;
-      padding: 0;
+      height: 100%;             /* 📏 Altura del 100% de la ventana */
+      margin: 0;                /* 🚫 Sin márgenes */
+      padding: 0;               /* 🚫 Sin padding */
     }
+    
+    /* 🎨 Body principal con flexbox para footer pegajoso */
     body {
-      min-height: 100%;
+      min-height: 100%;         /* 📏 Altura mínima completa */
       margin: 0 !important;
       padding: 0 !important;
       overflow-x: hidden !important;
@@ -38,17 +49,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dropdown-fix.css">
-  
-  <!-- 🚀 MEJORAS FRONTEND - Performance y UX -->
   <link rel="stylesheet" href="css/optimizations.css">
   <link rel="stylesheet" href="css/accessibility.css">
   <link rel="stylesheet" href="css/responsive-advanced.css">
-  <link rel="stylesheet" href="css/dark-theme.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
   <link rel="stylesheet" href="css/mejoras-semanticas.css">
   <link rel="stylesheet" href="css/product-cards-improved.css">
   <link rel="stylesheet" href="css/footer-fix-global.css">
-  
   <style>
     :root {
       --primary-color: #1f3c5a;      
@@ -59,14 +65,12 @@
       --card-shadow: rgba(0,0,0,0.12);
       --btn-radius: 28px;
     }
-
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-color);
       padding-top: 50px; /* Para compensar el navbar fixed */
     }
-
     /* Navbar */
     .navbar {
       background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -77,7 +81,6 @@
     .navbar a:hover { color: var(--accent-color) !important; }
     .icon-nav { font-size: 1.4rem; margin-left: 15px; cursor: pointer; color: #fff; transition: transform .2s ease, color .2s ease; }
     .icon-nav:hover { transform: scale(1.2); color: var(--accent-color); }
-
     /* Dropdown Styles */
     .dropdown-menu {
       background: white !important;
@@ -90,7 +93,6 @@
       font-weight: 500 !important;
       text-decoration: none !important;
     }
-    
     /* Forzar visibilidad del texto en dropdown */
     .dropdown-menu .dropdown-item {
       color: #333333 !important;
@@ -120,36 +122,29 @@
     .dropdown-menu .dropdown-item.text-danger span {
       color: #dc3545 !important;
     }
-    
     /* Hero Carousel */
     .carousel-item { position: relative; min-height: 500px; }
     .carousel-caption { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; z-index: 5; }
     .carousel-caption h1 { font-size: 3.5rem; font-weight: 700; text-shadow: 2px 2px 8px rgba(0,0,0,0.7); margin-bottom: 1rem; }
     .carousel-caption p { font-size: 1.5rem; text-shadow: 1px 1px 4px rgba(0,0,0,0.8); margin-bottom: 2rem; }
-
     /* Buttons */
     .btn-custom { background: var(--accent-color); color: #fff; font-weight: 600; border-radius: var(--btn-radius); padding: 12px 30px; font-size: 1.1rem; border: none; transition: all 0.3s; }
     .btn-custom:hover { background: #996538; color: #fff; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(182, 124, 58, 0.4); }
-
     /* Sections */
     .section-title { text-align:center; font-size:2.5rem; margin-bottom:2rem; color: var(--primary-color); font-weight:600; position: relative; }
     .section-title::after { content: ""; width: 70px; height: 3px; background: var(--accent-color); display:block; margin:10px auto 0; border-radius:2px; }
-
     .card { border:none; border-radius:15px; overflow:hidden; box-shadow:0 6px 20px var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; background-color:#fff; }
     .card:hover { transform: translateY(-8px) scale(1.03); box-shadow:0 15px 30px var(--card-shadow); }
     .card-img-top { object-fit:cover; width:100%; height:250px; transition: transform 0.5s; }
     .card:hover .card-img-top { transform: scale(1.1); }
-
     footer { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); padding:40px 0; color:#fff; text-align:center; font-weight:500; }
     footer a { color:#fff; text-decoration:none; margin:0 10px; }
     footer a:hover { text-decoration:underline; color: var(--accent-color); }
-
     .modal-body { max-height: 400px; overflow-y: auto; }
     .cart-quantity { width:60px; }
     html {
   scroll-behavior: smooth;
 }
-    
     .dropdown-menu {
       border: none;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -158,31 +153,26 @@
       min-width: 280px;
       margin-top: 10px;
     }
-    
     .dropdown-header {
       padding: 15px 20px;
       background: linear-gradient(135deg, #f8f9fa, #e9ecef);
       margin: -10px 0 10px 0;
       border-radius: 15px 15px 0 0;
     }
-    
     .dropdown-item {
       padding: 10px 20px;
       transition: all 0.3s ease;
       border-radius: 0;
     }
-    
     .dropdown-item:hover {
       background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       color: white;
       transform: translateX(5px);
     }
-    
     .dropdown-item i {
       width: 20px;
       text-align: center;
     }
-    
     /* Auth Buttons Styles */
     .btn-warning {
       background: linear-gradient(135deg, var(--accent-color), #d4941e);
@@ -190,13 +180,11 @@
       font-weight: 600;
       transition: all 0.3s ease;
     }
-    
     .btn-warning:hover {
       background: linear-gradient(135deg, #d4941e, var(--accent-color));
       transform: translateY(-2px);
       box-shadow: 0 4px 15px rgba(182, 124, 58, 0.4);
     }
-    
     /* Navbar Button Improvements */
     .navbar .btn-outline-light {
       border: 2px solid rgba(255,255,255,0.3);
@@ -204,13 +192,11 @@
       transition: all 0.3s ease;
       white-space: nowrap;
     }
-    
     .navbar .btn-outline-light:hover {
       background: rgba(255,255,255,0.2);
       border-color: rgba(255,255,255,0.5);
       transform: translateY(-1px);
     }
-    
     /* Search Bar Improvements */
     .input-group .form-control {
       background: rgba(255,255,255,0.15);
@@ -218,48 +204,39 @@
       color: white;
       backdrop-filter: blur(10px);
     }
-    
     .input-group .form-control::placeholder {
       color: rgba(255,255,255,0.7);
     }
-    
     .input-group .form-control:focus {
       background: rgba(255,255,255,0.25);
       color: white;
       box-shadow: none;
       border: none;
     }
-    
     .input-group .btn {
       background: rgba(255,255,255,0.2);
       border: none;
       color: white;
     }
-    
     .input-group .btn:hover {
       background: var(--accent-color);
     }
-    
     /* Responsive improvements */
     @media (max-width: 768px) {
       .navbar .form-control {
         min-width: 180px !important;
       }
-      
       .btn span.d-none.d-sm-inline {
         display: none !important;
       }
-      
       .dropdown-menu {
         min-width: 250px;
       }
-      
       /* Carousel mobile improvements */
       .carousel-item {
         min-height: 70vh !important;
         background-size: cover !important;
       }
-      
       .carousel-caption {
         position: absolute;
         top: 50%;
@@ -269,73 +246,58 @@
         width: 90%;
         padding: 20px;
       }
-      
       .carousel-caption h1 {
         font-size: 2rem !important;
         margin-bottom: 10px !important;
       }
-      
       .carousel-caption p {
         font-size: 1.1rem !important;
         margin-bottom: 15px !important;
       }
-      
       .btn-custom {
         padding: 12px 25px !important;
         font-size: 1rem !important;
       }
     }
-    
     @media (max-width: 576px) {
       .navbar form[role="search"] {
         min-width: 150px !important;
       }
-      
       .navbar .btn {
         padding: 8px 12px !important;
       }
-      
       .navbar .btn i {
         font-size: 1rem;
       }
-      
       /* Mobile carousel specific */
       .carousel-item {
         min-height: 60vh !important;
       }
-      
       .carousel-caption h1 {
         font-size: 1.8rem !important;
       }
-      
       .carousel-caption p {
         font-size: 1rem !important;
       }
-      
       .btn-custom {
         padding: 10px 20px !important;
         font-size: 0.9rem !important;
       }
     }
-
     /* Modal Enhancements */
     .form-control:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 0 0.2rem rgba(31, 60, 90, 0.25);
     }
-    
     .modal-content {
       overflow: hidden;
     }
-    
     .modal-header {
       border: none;
     }
-    
     .modal-body {
       background: #fafafa;
     }
-
     /* Estilos Compactos para Modales */
     .form-label-compact {
       font-size: 0.75rem;
@@ -344,7 +306,6 @@
       margin-bottom: 4px;
       display: block;
     }
-
     .form-control-compact {
       font-size: 0.8rem;
       padding: 6px 10px;
@@ -352,13 +313,11 @@
       border: 1.5px solid #dee2e6;
       transition: all 0.15s ease-in-out;
     }
-
     .form-control-compact:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 0 0.15rem rgba(31, 60, 90, 0.15);
       outline: 0;
     }
-
     .btn-compact {
       font-size: 0.8rem;
       padding: 8px 12px;
@@ -369,13 +328,11 @@
       font-weight: 600;
       transition: all 0.2s ease;
     }
-
     .btn-compact:hover {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(31, 60, 90, 0.3);
       color: white;
     }
-
     .btn-link-compact {
       font-size: 0.75rem;
       color: var(--primary-color);
@@ -384,21 +341,17 @@
       text-decoration: underline;
       padding: 0;
     }
-
     .btn-link-compact:hover {
       color: var(--secondary-color);
     }
-
     .form-check-input-sm {
       width: 0.875rem;
       height: 0.875rem;
     }
-
     /* Floating Label Profesional */
     .form-floating-custom {
       position: relative;
     }
-
     .form-control-custom {
       width: 100%;
       padding: 12px 10px 4px 10px;
@@ -409,12 +362,10 @@
       transition: all 0.2s ease;
       outline: none;
     }
-
     .form-control-custom:focus {
       border-color: var(--primary-color);
       box-shadow: 0 0 0 0.15rem rgba(31, 60, 90, 0.15);
     }
-
     .label-floating {
       position: absolute;
       top: 8px;
@@ -428,7 +379,6 @@
       transform-origin: left top;
       z-index: 2;
     }
-
     /* Estados del Floating Label */
     .form-control-custom:focus + .label-floating,
     .form-control-custom:not(:placeholder-shown) + .label-floating,
@@ -439,7 +389,6 @@
       font-weight: 600;
       transform: scale(1);
     }
-
     /* Animación cuando está vacío */
     .form-control-custom:placeholder-shown + .label-floating {
       top: 8px;
@@ -447,14 +396,12 @@
       color: #6c757d;
       font-weight: normal;
     }
-    
     /* User Avatar Styles */
     .user-avatar, .user-avatar-large {
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
-    
     /* Search Enhancement */
     .navbar .form-control {
       border-radius: 25px;
@@ -463,30 +410,25 @@
       color: white;
       backdrop-filter: blur(10px);
     }
-    
     .navbar .form-control::placeholder {
       color: rgba(255,255,255,0.7);
     }
-    
     .navbar .form-control:focus {
       background: rgba(255,255,255,0.15);
       border-color: var(--accent-color);
       color: white;
       box-shadow: 0 0 0 0.2rem rgba(182, 124, 58, 0.25);
     }
-    
     .navbar .btn-outline-light {
       border-radius: 25px;
       border: 2px solid rgba(255,255,255,0.3);
       backdrop-filter: blur(10px);
     }
-    
     .navbar .btn-outline-light:hover {
       background: var(--accent-color);
       border-color: var(--accent-color);
       transform: translateY(-1px);
     }
-
     /* Hero Carousel */
     .carousel-item {
       height: 90vh;
@@ -504,7 +446,6 @@
     .carousel-item.first-img {
       background-size: contain;
     }
-
     .carousel-item::after {
       content: "";
       position: absolute;
@@ -512,7 +453,6 @@
       width:100%; height:100%;
       background: linear-gradient(rgba(31,60,90,0.55), rgba(31,60,90,0.35));
     }
-
     .carousel-caption {
       position: absolute;
       top: 65%;
@@ -534,36 +474,27 @@
       text-shadow: 2px 2px 10px rgba(0,0,0,0.6);
     }
     .carousel-caption p { font-size: 1.2rem; color: #fdfdfd; margin-bottom: 15px; }
-
     @media (max-width: 768px) {
       .carousel-caption { top: 65%; padding: 15px 20px; }
       .carousel-caption h1 { font-size: 2.2rem; }
       .carousel-caption p { font-size: 1rem; }
     }
-
     .btn-custom { background-color: var(--accent-color); color:#fff; border-radius: var(--btn-radius); padding: 10px 25px; text-transform: uppercase; font-weight: 600; transition: 0.3s; }
     .btn-custom:hover { background-color: #8d5c2b; transform: scale(1.05); }
-
     .section-title { text-align:center; font-size:2.5rem; margin-bottom:2rem; color: var(--primary-color); font-weight:600; position: relative; }
     .section-title::after { content: ""; width: 70px; height: 3px; background: var(--accent-color); display:block; margin:10px auto 0; border-radius:2px; }
-
     .card { border:none; border-radius:15px; overflow:hidden; box-shadow:0 6px 20px var(--card-shadow); transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; background-color:#fff; }
     .card:hover { transform: translateY(-8px) scale(1.03); box-shadow:0 15px 30px var(--card-shadow); }
     .card-img-top { object-fit:cover; width:100%; height:250px; transition: transform 0.5s; }
     .card:hover .card-img-top { transform: scale(1.1); }
-
     footer { background: linear-gradient(90deg, var(--primary-color), var(--secondary-color)); padding:40px 0; color:#fff; text-align:center; font-weight:500; }
     footer a { color:#fff; text-decoration:none; margin:0 10px; }
     footer a:hover { text-decoration:underline; color: var(--accent-color); }
-
     .modal-body { max-height: 400px; overflow-y: auto; }
     .cart-quantity { width:60px; }
     html {
   scroll-behavior: smooth;
 }
-
-
-
     /* FOOTER - Diseño profesional e-commerce sin espacios blancos */
     html, body {
       margin: 0;
@@ -571,7 +502,6 @@
       overflow-x: hidden;
       min-height: 100vh;
     }
-    
     footer { 
       background: linear-gradient(90deg, #1f3c5a, #3b5d50) !important;
       color: white !important;
@@ -582,17 +512,14 @@
       box-sizing: border-box !important;
       position: relative !important;
     }
-    
     footer a {
       color: #b67c3a;
       text-decoration: none;
     }
-    
     footer a:hover {
       text-decoration: underline;
       color: #b67c3a;
     }
-
   </style>
   <style>
     /* Ocultar modales persistentes cuando el usuario está logueado */
@@ -603,12 +530,10 @@
       opacity: 0 !important;
       visibility: hidden !important;
     }
-    
     /* Ocultar elementos flotantes de autenticación */
     .auth-floating-hidden {
       display: none !important;
     }
-    
     /* Skip Link para accesibilidad - debe estar oculto por defecto */
     .skip-link {
       position: absolute;
@@ -624,7 +549,6 @@
       font-weight: bold;
       transition: top 0.2s ease;
     }
-    
     .skip-link:focus {
       top: 6px;
       color: #ffffff;
@@ -633,23 +557,14 @@
   </style>
 </head>
 <body>
-
-  <!-- Skip Link para accesibilidad -->
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-
-  <!-- Header con navegación principal -->
   <header role="banner">
     <nav id="navbar-container" role="navigation" aria-label="Navegación principal"></nav>
   </header>
-
-  <!-- Contenido principal -->
   <main id="main-content" role="main">
-    <!-- Hero Section -->
     <section id="inicio" aria-label="Sección principal - Hero">
       <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="8000" role="region" aria-label="Carrusel de imágenes">
     <div class="carousel-inner">
-
-      <!-- Imagen 1 -->
       <div class="carousel-item active" style="background-image: url('pages/Copilot_20250904_084500 (1).png'); background-size: contain; background-position: center; background-repeat: no-repeat; min-height: 500px;">
         <div class="carousel-caption">
           <h1>Patagonia Style</h1>
@@ -657,8 +572,6 @@
           <a href="tienda.html" class="btn btn-custom mt-3">Explorar Tienda</a>
         </div>
       </div>
-
-      <!-- Imagen 2 -->
       <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?auto=format&fit=crop&w=1600&q=80'); background-size: contain; background-position: center; background-repeat: no-repeat; min-height: 500px;">
         <div class="carousel-caption">
           <h1>Patagonia Style</h1>
@@ -666,10 +579,7 @@
           <a href="tienda.html" class="btn btn-custom mt-3">Explorar Tienda</a>
         </div>
       </div>
-
     </div>
-
-    <!-- Controles -->
     <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon"></span>
     </button>
@@ -678,10 +588,6 @@
     </button>
   </div>
     </section>
-
-
-
-    <!-- Sección de Video de Inspiración -->
     <section class="container my-5" aria-labelledby="inspiracion-title">
       <h2 id="inspiracion-title" class="section-title">Inspiración Patagonia Style</h2>
       <div class="row justify-content-center">
@@ -698,8 +604,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Sección de Servicios -->
     <section class="container my-5" aria-labelledby="servicios-title">
       <h2 id="servicios-title" class="sr-only">Nuestros Servicios</h2>
       <div class="row text-center g-4">
@@ -741,8 +645,6 @@
         </article>
       </div>
     </section>
-
-    <!-- Sección de Testimonios -->
     <section class="container my-5" aria-labelledby="testimonios-title">
       <h2 id="testimonios-title" class="text-center mb-5" style="color: #1f3c5a; font-weight: 600;">Testimonios</h2>
       <div class="row justify-content-center">
@@ -765,9 +667,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Footer será generado automáticamente por universal-footer.js -->
-
   <style>
     /* ✅ SOLUCIÓN FOOTER DEFINITIVA */
     body {
@@ -777,41 +676,34 @@
       margin: 0 !important;
       padding: 0 !important;
     }
-    
     main {
       flex: 1 0 auto !important;
     }
-    
     footer {
       flex-shrink: 0 !important;
       margin: 0 !important;
       padding: 0 !important;
     }
   </style>
-
   <style>
     /* ✅ SOLUCIÓN FOOTER DEFINITIVA Y LIMPIA */
     html, body {
       margin: 0 !important;
       padding: 0 !important;
     }
-    
     body {
       display: flex !important;
       flex-direction: column !important;
       min-height: 100vh !important;
     }
-    
     main {
       flex: 1 0 auto !important;
     }
-    
     footer {
       flex-shrink: 0 !important;
       margin-bottom: 0 !important;
     }
   </style>
-
   <style>
     /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
     /* Ocultar cualquier botón o enlace con "Crear Cuenta" que NO esté dentro de un modal */
@@ -824,18 +716,15 @@
       position: absolute !important;
       left: -9999px !important;
     }
-    
     /* Ocultar elementos con texto "Crear Cuenta" fuera de modales */
     footer ~ a:not([href*="instagram"]):not([href*="facebook"]),
     footer ~ button {
       display: none !important;
     }
-    
     /* Asegurar que solo WhatsApp sea visible como botón flotante */
     body > a[href*="wa.me"] {
       display: flex !important;
     }
-    
     /* FORZAR: Eliminar completamente cualquier barra de búsqueda */
     input[type="search"], 
     form[role="search"], 
@@ -853,7 +742,6 @@
       margin: 0 !important;
       padding: 0 !important;
     }
-    
     /* 🎉 Sistema de Notificaciones Elegantes */
     .notification-container {
       position: fixed;
@@ -862,7 +750,6 @@
       z-index: 9999;
       max-width: 400px;
     }
-    
     .notification {
       background: white;
       border-radius: 12px;
@@ -876,67 +763,53 @@
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
-    
     .notification.show {
       transform: translateX(0);
       opacity: 1;
     }
-    
     .notification.success {
       border-left-color: #28a745;
     }
-    
     .notification.info {
       border-left-color: #007bff;
     }
-    
     .notification.warning {
       border-left-color: #ffc107;
     }
-    
     .notification.error {
       border-left-color: #dc3545;
     }
-    
     .notification-icon {
       font-size: 1.2rem;
       margin-right: 12px;
       width: 24px;
       text-align: center;
     }
-    
     .notification.success .notification-icon {
       color: #28a745;
     }
-    
     .notification.info .notification-icon {
       color: #007bff;
     }
-    
     .notification.warning .notification-icon {
       color: #ffc107;
     }
-    
     .notification.error .notification-icon {
       color: #dc3545;
     }
-    
     .notification-content {
       flex: 1;
     }
-    
     .notification-title {
       font-weight: 600;
       margin-bottom: 4px;
       font-size: 0.9rem;
     }
-    
     .notification-message {
       font-size: 0.8rem;
       color: #666;
       margin: 0;
     }
-    
     .notification-close {
       background: none;
       border: none;
@@ -953,12 +826,10 @@
       border-radius: 50%;
       transition: all 0.2s ease;
     }
-    
     .notification-close:hover {
       background: #f0f0f0;
       color: #333;
     }
-    
     @media (max-width: 768px) {
       .notification-container {
         left: 10px;
@@ -966,18 +837,14 @@
         top: 10px;
         max-width: none;
       }
-      
       .notification {
         transform: translateY(-100px);
       }
-      
       .notification.show {
         transform: translateY(0);
       }
     }
   </style>
-
-  <!-- Modal de Login y Registro con Pestañas -->
   <div class="modal fade" id="simpleLoginModal" tabindex="-1" aria-labelledby="simpleLoginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
       <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
@@ -988,8 +855,6 @@
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" style="padding: 30px;">
-          
-          <!-- Pestañas de navegación -->
           <ul class="nav nav-pills mb-4 justify-content-center" id="authTabs" role="tablist">
             <li class="nav-item" role="presentation">
               <button class="nav-link active px-4 py-2" id="login-tab" data-bs-toggle="pill" data-bs-target="#login-pane" type="button" role="tab" style="border-radius: 25px; font-weight: 600;">
@@ -1002,11 +867,7 @@
               </button>
             </li>
           </ul>
-
-          <!-- Contenido de las pestañas -->
           <div class="tab-content" id="authTabsContent">
-            
-            <!-- Pestaña de Iniciar Sesión -->
             <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab">
               <form id="simple-login-form">
                 <div class="mb-3">
@@ -1015,30 +876,23 @@
                   </label>
                   <input type="email" class="form-control" id="simple-login-email" required>
                 </div>
-                
                 <div class="mb-3">
                   <label for="simple-login-password" class="form-label">
                     <i class="bi bi-lock me-1"></i>Contraseña
                   </label>
                   <input type="password" class="form-control" id="simple-login-password" required>
                 </div>
-                
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" id="simple-remember-me">
                   <label class="form-check-label" for="simple-remember-me">
                     Recordarme
                   </label>
                 </div>
-                
                 <button type="submit" class="btn btn-primary w-100 mb-3" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; padding: 12px; border-radius: 8px;">
                   <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
                 </button>
-                
-
               </form>
             </div>
-
-            <!-- Pestaña de Crear Cuenta -->
             <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab">
               <form id="simple-register-form">
                 <div class="mb-3">
@@ -1047,51 +901,41 @@
                   </label>
                   <input type="text" class="form-control" id="register-name" required>
                 </div>
-                
                 <div class="mb-3">
                   <label for="register-email" class="form-label">
                     <i class="bi bi-envelope me-1"></i>Email
                   </label>
                   <input type="email" class="form-control" id="register-email" required>
                 </div>
-                
                 <div class="mb-3">
                   <label for="register-password" class="form-label">
                     <i class="bi bi-lock me-1"></i>Contraseña
                   </label>
                   <input type="password" class="form-control" id="register-password" required>
                 </div>
-                
                 <div class="mb-3">
                   <label for="register-confirm-password" class="form-label">
                     <i class="bi bi-lock-fill me-1"></i>Confirmar Contraseña
                   </label>
                   <input type="password" class="form-control" id="register-confirm-password" required>
                 </div>
-                
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" id="accept-terms" required>
                   <label class="form-check-label" for="accept-terms">
                     Acepto los <a href="#" style="color: var(--primary-color);">términos y condiciones</a>
                   </label>
                 </div>
-                
                 <button type="submit" class="btn btn-success w-100 mb-3" style="background: linear-gradient(135deg, #28a745, #20c997); border: none; padding: 12px; border-radius: 8px;">
                   <i class="bi bi-person-plus me-2"></i>Crear Cuenta
                 </button>
               </form>
             </div>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- 🎉 Contenedor de Notificaciones -->
   <div id="notification-container" class="notification-container"></div>
-
-  <!-- Welcome Modal for New Users -->
   <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 15px 35px rgba(0,0,0,0.1);">
@@ -1128,8 +972,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Logout Confirmation Modal -->
   <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
@@ -1155,29 +997,17 @@
       </div>
     </div>
   </div>
-
-
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Utilidades JavaScript mejoradas -->
   <script src="js/utils/logger.js"></script>
   <script src="js/utils/validators.js"></script>
   <script src="js/utils/helpers.js"></script>
   <script src="js/utils/improvements.js"></script>
   <script src="js/utils/test-runner.js"></script>
-  
-  <!-- Sistema mejorado de tarjetas de productos -->
   <script src="js/utils/product-card-builder.js"></script>
   <script src="js/utils/product-renderer.js"></script>
-  
-  <!-- Scripts principales -->
-  <script src="js/theme-manager.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/debug-auth.js"></script>
-  
-  <!-- Pruebas (solo en modo desarrollo) -->
   <script src="js/tests/store-tests.js"></script>
   <script>
     // Observer para detectar y eliminar elementos problemáticos inmediatamente
@@ -1195,7 +1025,6 @@
                 node.parentNode.removeChild(node);
               }
             }
-            
             // Verificar elementos hijos también
             const elementosProblematicos = node.querySelectorAll('*');
             elementosProblematicos.forEach(el => {
@@ -1213,7 +1042,6 @@
         });
       });
     });
-
     // Iniciar observación cuando se carga la página
     document.addEventListener('DOMContentLoaded', function() {
       // Observar cambios en todo el document
@@ -1221,7 +1049,6 @@
         childList: true,
         subtree: true
       });
-      
       console.log('🛡️ Observer de limpieza activado');
     });
     // Función para buscar productos
@@ -1233,7 +1060,6 @@
       }
       return false;
     }
-
     // Función para actualizar el navbar según el estado del usuario
     function actualizarNavbarUsuario() {
       // Si tenemos el navbar universal, usarlo
@@ -1242,12 +1068,10 @@
         universalNavbar.renderNavbar();
         return;
       }
-      
       // Fallback para el navbar original
       const currentUser = JSON.parse(localStorage.getItem('currentUser')) || 
                           JSON.parse(localStorage.getItem('patagonia_user'));
       const navbarActions = document.getElementById('navbarActions');
-      
       if (currentUser && navbarActions) {
         // Usuario logueado - mostrar menú desplegable más visible
         navbarActions.innerHTML = `
@@ -1301,20 +1125,16 @@
         `;
       }
     }
-
     // Función para cerrar sesión compatible con ambos sistemas
     function cerrarSesion() {
       logoutUser();
     }
-
     // Función para ocultar elementos de autenticación si el usuario está logueado
     function ocultarElementosAuth() {
       const currentUser = getCurrentUser();
-      
       if (currentUser) {
         // Agregar clase al body para CSS
         document.body.classList.add('user-logged-in');
-        
         // Cerrar cualquier modal de login/registro que pueda estar abierto
         const modales = ['loginModal', 'registerModal', 'welcomeModal', 'logoutModal'];
         modales.forEach(modalId => {
@@ -1329,24 +1149,19 @@
             modal.classList.remove('show');
           }
         });
-        
         // Remover cualquier backdrop de modal
         const backdrops = document.querySelectorAll('.modal-backdrop');
         backdrops.forEach(backdrop => backdrop.remove());
-        
         // Remover clase modal-open del body
         document.body.classList.remove('modal-open');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
-        
         // ELIMINAR COMPLETAMENTE cualquier elemento "Crear Cuenta" fuera de modales
         function eliminarElementosAuth() {
           const textosProblematicos = ['Crear Cuenta', '¿Ya tienes cuenta?', 'Registrarse', 'Regístrate'];
-          
           textosProblematicos.forEach(texto => {
             // Buscar todos los elementos
             const todosLosElementos = document.querySelectorAll('*');
-            
             todosLosElementos.forEach(element => {
               // Si el elemento contiene el texto problemático
               if (element.textContent && 
@@ -1358,9 +1173,7 @@
                   element.tagName !== 'SCRIPT' &&
                   // Y es visible
                   element.offsetParent !== null) {
-                
                 console.log('🗑️ Eliminando elemento problemático:', texto, element);
-                
                 // Eliminar completamente del DOM
                 if (element.parentNode) {
                   element.parentNode.removeChild(element);
@@ -1368,13 +1181,11 @@
               }
             });
           });
-          
           // Buscar botones específicos con clases o ids problemáticos
           const selectoresProblematicos = [
             '.btn-signup',
             '.signup-btn'
           ];
-          
           selectoresProblematicos.forEach(selector => {
             try {
               const elementos = document.querySelectorAll(selector);
@@ -1391,10 +1202,8 @@
             }
           });
         }
-
         // Ejecutar limpieza inmediata
         eliminarElementosAuth();
-        
         // ELIMINAR DIRECTAMENTE cualquier elemento que contenga "Crear Cuenta" fuera de modales
         const crearCuentaElements = document.querySelectorAll('*');
         crearCuentaElements.forEach(element => {
@@ -1407,7 +1216,6 @@
             element.remove(); // Eliminar completamente del DOM
           }
         });
-        
         // ELIMINAR DIRECTAMENTE cualquier elemento que contenga "¿Ya tienes cuenta?"
         const yaTienesCuentaElements = document.querySelectorAll('*');
         yaTienesCuentaElements.forEach(element => {
@@ -1420,7 +1228,6 @@
             element.remove();
           }
         });
-        
         // ELIMINAR DIRECTAMENTE cualquier elemento que contenga "Iniciar Sesión" y no esté en navbar
         const iniciarSesionElements = document.querySelectorAll('*');
         iniciarSesionElements.forEach(element => {
@@ -1435,14 +1242,12 @@
             element.remove();
           }
         });
-        
         console.log('Elementos de autenticación eliminados');
       } else {
         // Usuario no logueado, remover clase
         document.body.classList.remove('user-logged-in');
       }
     }
-
     // Función para obtener usuario actual
     function getCurrentUser() {
       try {
@@ -1452,12 +1257,10 @@
         return null;
       }
     }
-
     // Observer para eliminar elementos de autenticación que aparezcan dinámicamente
     function setupAuthElementsObserver() {
       const currentUser = getCurrentUser();
       if (!currentUser) return;
-
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach((node) => {
@@ -1477,30 +1280,24 @@
           });
         });
       });
-
       observer.observe(document.body, {
         childList: true,
         subtree: true
       });
-
       return observer;
     }
-
     // Inicialización de la página principal
     document.addEventListener('DOMContentLoaded', () => {
       // Actualizar navbar según estado del usuario
       actualizarNavbarUsuario();
-      
       // Ocultar elementos de autenticación si el usuario está logueado
       setTimeout(() => {
         ocultarElementosAuth();
       }, 500);
-      
       // Configurar observer para elementos dinámicos
       setTimeout(() => {
         setupAuthElementsObserver();
       }, 1000);
-      
       // Actualizar contadores después de un momento
       setTimeout(() => {
         if (typeof store !== 'undefined') {
@@ -1508,33 +1305,26 @@
         }
         actualizarCarrito();
       }, 100);
-
       // Event listeners para los formularios de login y registro
       const loginForm = document.getElementById('login-form');
       const registerForm = document.getElementById('register-form');
-
       if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
           e.preventDefault();
-          
           const email = document.getElementById('login-email').value;
           const password = document.getElementById('login-password').value;
-          
           // Usar el sistema de usuarios oficial
           if (typeof userManager !== 'undefined') {
             const result = await userManager.login(email, password);
-            
             if (result.success) {
               // Cerrar modal
               const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
               modal.hide();
-              
               // Disparar evento para actualizar navbar
               const event = new CustomEvent('userLoggedIn', {
                 detail: result.user
               });
               document.dispatchEvent(event);
-              
               // Actualizar navbar
               if (typeof universalNavbar !== 'undefined') {
                 universalNavbar.currentUser = result.user;
@@ -1548,34 +1338,27 @@
               firstName: email.split('@')[0],
               id: Date.now()
             };
-            
             localStorage.setItem('currentUser', JSON.stringify(userData));
             localStorage.setItem('patagonia_user', JSON.stringify(userData));
-            
             // Cerrar modal
             const modal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
             modal.hide();
-            
             // Disparar evento
             const event = new CustomEvent('userLoggedIn', {
               detail: userData
             });
             document.dispatchEvent(event);
-            
             alert('¡Bienvenido de vuelta!');
           }
         });
       }
-
       if (registerForm) {
         registerForm.addEventListener('submit', async function(e) {
           e.preventDefault();
-          
           const name = document.getElementById('register-name').value;
           const email = document.getElementById('register-email').value;
           const password = document.getElementById('register-password').value;
           const confirmPassword = document.getElementById('register-confirm-password').value;
-          
           // Validar contraseñas
           if (password !== confirmPassword) {
             console.log('Error: Contraseñas no coinciden');
@@ -1583,12 +1366,10 @@
             alert('Las contraseñas no coinciden');
             return;
           }
-          
           // Separar nombre en firstName y lastName
           const nameParts = name.trim().split(' ');
           const firstName = nameParts[0] || '';
           const lastName = nameParts.slice(1).join(' ') || 'Usuario';
-          
           const userData = {
             firstName: firstName,
             lastName: lastName,
@@ -1596,31 +1377,24 @@
             password: password,
             phone: '1234567890' // Teléfono válido por defecto
           };
-          
           console.log('Intentando registrar usuario:', { ...userData, password: '[OCULTA]' });
-          
           // Usar el sistema de usuarios oficial
           if (typeof userManager !== 'undefined') {
             try {
               const result = await userManager.register(userData);
-              
               console.log('Resultado del registro:', result);
-              
               if (result.success) {
                 // Ya no hay modal de registro
-                
                 // Disparar evento para actualizar navbar
                 const event = new CustomEvent('userLoggedIn', {
                   detail: result.user
                 });
                 document.dispatchEvent(event);
-                
                 // Actualizar navbar
                 if (typeof universalNavbar !== 'undefined') {
                   universalNavbar.currentUser = result.user;
                   universalNavbar.renderNavbar();
                 }
-                
                 // Mostrar modal de bienvenida
                 setTimeout(() => {
                   const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
@@ -1642,18 +1416,14 @@
               lastName: lastName,
               id: Date.now()
             };
-            
             localStorage.setItem('currentUser', JSON.stringify(userDataFallback));
             localStorage.setItem('patagonia_user', JSON.stringify(userDataFallback));
-            
             // Ya no hay modal de registro
-            
             // Disparar evento
             const event = new CustomEvent('userLoggedIn', {
               detail: userDataFallback
             });
             document.dispatchEvent(event);
-            
             // Mostrar modal de bienvenida
             setTimeout(() => {
               const welcomeModal = new bootstrap.Modal(document.getElementById('welcomeModal'));
@@ -1663,7 +1433,6 @@
         });
       }
     });
-
     // Agregar funcionalidad de búsqueda en navbar
     document.addEventListener('submit', function(e) {
       if (e.target.matches('form[role="search"]')) {
@@ -1675,7 +1444,6 @@
         }
       }
     });
-
     // 🛡️ CÓDIGO DE CARRITO PROTEGIDO (NO GENERA ERRORES)
     try {
       // Funciones legacy mantenidas para compatibilidad
@@ -1684,13 +1452,11 @@
         {name:"Cuaderno", price:12, img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80"},
         {name:"Stickers", price:5, img:"https://images.unsplash.com/photo-1600783245996-2e8a09852ffb?auto=format&fit=crop&w=800&q=80"}
       ];
-
       const productsContainer = document.getElementById('products');
       const cartItemsEl = document.getElementById('cartItems');
       const cartTotalEl = document.getElementById('cartTotal');
       const cartCountEl = document.getElementById('cartCount');
       let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
       function renderProducts() {
         if (!productsContainer) return;
         productsContainer.innerHTML = '';
@@ -1708,7 +1474,6 @@
             </div>`;
         });
       }
-
       function updateCart() {
         if (!cartItemsEl) return;
         cartItemsEl.innerHTML = '';
@@ -1729,7 +1494,6 @@
         if (cartCountEl) cartCountEl.textContent = cart.reduce((sum, i) => sum + i.quantity,0);
         localStorage.setItem('cart', JSON.stringify(cart));
       }
-
       function addToCart(index) {
         const product = products[index];
         const existing = cart.find(i => i.name === product.name);
@@ -1737,24 +1501,20 @@
         else cart.push({...product, quantity:1});
         updateCart();
       }
-
       function removeFromCart(index){ cart.splice(index,1); updateCart(); }
       function changeQuantity(index, value){ cart[index].quantity = parseInt(value)||1; updateCart(); }
-
       // Inicialización solo si existen los elementos
       if (productsContainer) {
         renderProducts();
         updateCart();
         document.querySelectorAll('.add-to-cart').forEach((btn,i) => btn.addEventListener('click', () => addToCart(i)));
       }
-      
       if (document.getElementById('checkoutBtn')) {
         document.getElementById('checkoutBtn').addEventListener('click', () => {
           if(cart.length===0) {
             alert('El carrito está vacío.');
           } else {
             const total = cart.reduce((s,i)=>s+i.price*i.quantity,0);
-            
             // Crear mensaje detallado para WhatsApp
             let mensaje = "¡Hola! Quiero confirmar mi pedido:%0A%0A";
             cart.forEach(item => {
@@ -1762,17 +1522,14 @@
             });
             mensaje += `%0A*Total: $${total}*%0A%0A`;
             mensaje += "¡Esperando la confirmación! 😊";
-            
             // Limpiar carrito
             cart = [];
             updateCart();
-            
             // Cerrar modal
             const modal = document.getElementById('cartModal');
             if (modal) {
               bootstrap.Modal.getInstance(modal).hide();
             }
-            
             // Redirigir a WhatsApp después de un breve delay
             setTimeout(() => {
               window.open(`https://wa.me/5491136899678?text=${mensaje}`, '_blank');
@@ -1784,7 +1541,6 @@
       console.log('🔇 Sistema de carrito en modo silencioso:', error.message);
       // No mostrar errores al usuario, solo continuar sin carrito
     }
-
     function actualizarCarrito() {
       if (typeof store !== 'undefined') {
         store.actualizarContadorCarrito();
@@ -1798,18 +1554,15 @@
         }
       }
     }
-
     // Floating Label Professional Implementation
     class FloatingLabel {
       constructor() {
         this.init();
       }
-
       init() {
         this.setupEventListeners();
         this.checkInitialValues();
       }
-
       setupEventListeners() {
         // Usar event delegation para manejar modales dinámicos
         document.addEventListener('focus', (e) => {
@@ -1817,39 +1570,32 @@
             this.handleFocus(e.target);
           }
         }, true);
-
         document.addEventListener('blur', (e) => {
           if (e.target.classList.contains('form-control-custom')) {
             this.handleBlur(e.target);
           }
         }, true);
-
         document.addEventListener('input', (e) => {
           if (e.target.classList.contains('form-control-custom')) {
             this.handleInput(e.target);
           }
         });
-
         // Reinicializar cuando se abran los modales
         document.addEventListener('shown.bs.modal', () => {
           this.checkInitialValues();
         });
       }
-
       handleFocus(input) {
         input.classList.add('focused');
         this.updateLabel(input);
       }
-
       handleBlur(input) {
         input.classList.remove('focused');
         this.updateLabel(input);
       }
-
       handleInput(input) {
         this.updateLabel(input);
       }
-
       updateLabel(input) {
         const hasValue = input.value.trim() !== '';
         if (hasValue) {
@@ -1858,7 +1604,6 @@
           input.classList.remove('has-value');
         }
       }
-
       checkInitialValues() {
         const inputs = document.querySelectorAll('.form-control-custom');
         inputs.forEach(input => {
@@ -1866,14 +1611,11 @@
         });
       }
     }
-
     // Inicializar Floating Labels
     let floatingLabelManager;
-    
     document.addEventListener('DOMContentLoaded', function() {
       floatingLabelManager = new FloatingLabel();
     });
-
     // Escuchar eventos de login/logout para ocultar elementos de auth
     document.addEventListener('userLoggedIn', () => {
       setTimeout(() => {
@@ -1881,15 +1623,12 @@
         setupAuthElementsObserver();
       }, 500);
     });
-
     // Listener único para logout events - remover listeners duplicados primero
     document.removeEventListener('userLoggedOut', handleLogout);
     document.addEventListener('userLoggedOut', handleLogout);
-    
     function handleLogout(event) {
       // Cuando se cierra sesión, los elementos de auth deberían ser visibles de nuevo
       document.body.classList.remove('user-logged-in');
-      
       // Mostrar notificación solo si viene del evento y no se ha mostrado ya
       if (event.detail && event.detail.showNotification && event.detail.userName) {
         // Pequeño delay para asegurar que solo se muestre una vez
@@ -1898,7 +1637,6 @@
         }, 100);
       }
     }
-
     // Función para limpiar elementos persistentes cada 2 segundos
     setInterval(() => {
       const currentUser = getCurrentUser();
@@ -1921,7 +1659,6 @@
             }
           });
         });
-        
         // Eliminar botones específicos que puedan haber aparecido
         const buttonsToRemove = document.querySelectorAll('button, a');
         buttonsToRemove.forEach(btn => {
@@ -1937,16 +1674,10 @@
       }
     }, 2000); // Cada 2 segundos
   </script>
-
-<!-- Protección contra errores (debe cargarse PRIMERO) -->
 <script src="js/error-protection.js"></script>
-<!-- Sistema de WhatsApp simple -->
 <script src="js/simple-whatsapp.js"></script>
-<!-- Sistemas de checkout -->
 <script src="js/whatsapp-checkout.js"></script>
-<!-- Universal Navbar -->
 <script src="js/universal-navbar.js?v=nosearch2"></script>
-<!-- Frontend Utilities -->
 <script src="js/frontend-utils.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -1954,7 +1685,6 @@
     new UniversalNavbar('navbar-container', {
       showSearch: false
     });
-    
     // FORZAR eliminación de búsqueda por si acaso
     setTimeout(() => {
       // Eliminar cualquier elemento de búsqueda que pueda aparecer
@@ -1962,14 +1692,12 @@
         el.style.display = 'none';
         el.remove();
       });
-      
       // Eliminar cualquier contenedor de búsqueda
       document.querySelectorAll('.search-container, .search-wrapper').forEach(el => {
         el.style.display = 'none';
         el.remove();
       });
     }, 100);
-    
     // Función para ocultar "Crear Cuenta" sin romper funcionalidad
     function ocultarCrearCuentaSinRomper() {
       const elementos = document.querySelectorAll('button, a');
@@ -1983,25 +1711,18 @@
         }
       });
     }
-    
     // Ejecutar después de que el navbar se cargue
     setTimeout(ocultarCrearCuentaSinRomper, 2000);
   });
 </script>
-
-<!-- Modales universales -->
 <script src="js/universal-modals.js"></script>
-
-<!-- 🎉 Sistema de Notificaciones Elegantes -->
 <script>
 // Funciones para mostrar notificaciones elegantes
 function showNotification(type, title, message, duration = 4000) {
   const container = document.getElementById('notification-container');
   if (!container) return;
-  
   const notification = document.createElement('div');
   notification.className = `notification ${type}`;
-  
   // Iconos según el tipo
   const icons = {
     success: 'bi-check-circle-fill',
@@ -2009,7 +1730,6 @@ function showNotification(type, title, message, duration = 4000) {
     warning: 'bi-exclamation-triangle-fill',
     info: 'bi-info-circle-fill'
   };
-  
   notification.innerHTML = `
     <div class="notification-icon">
       <i class="bi ${icons[type]}"></i>
@@ -2022,39 +1742,31 @@ function showNotification(type, title, message, duration = 4000) {
       <i class="bi bi-x"></i>
     </button>
   `;
-  
   container.appendChild(notification);
-  
   // Mostrar con animación
   setTimeout(() => {
     notification.classList.add('show');
   }, 10);
-  
   // Auto-cerrar después del tiempo especificado
   setTimeout(() => {
     closeNotification(notification.querySelector('.notification-close'));
   }, duration);
 }
-
 function closeNotification(button) {
   const notification = button.closest('.notification');
   notification.classList.remove('show');
-  
   setTimeout(() => {
     if (notification.parentNode) {
       notification.parentNode.removeChild(notification);
     }
   }, 400);
 }
-
 // Funciones específicas para diferentes tipos de notificaciones
 function showWelcomeNotification(userName) {
   showNotification('success', '¡Bienvenido!', `Hola ${userName}, has iniciado sesión correctamente`, 5000);
 }
-
 // Variables de control para notificaciones
 let lastLogoutTime = 0;
-
 function showLogoutNotification(userName = null) {
   // Evitar múltiples notificaciones de logout en un período corto
   const now = Date.now();
@@ -2062,24 +1774,19 @@ function showLogoutNotification(userName = null) {
     console.log('Notificación de logout bloqueada (muy reciente)');
     return;
   }
-  
   lastLogoutTime = now;
   const message = userName ? 
     `¡Hasta pronto ${userName}! Has cerrado sesión exitosamente` : 
     'Has cerrado sesión exitosamente. ¡Hasta pronto!';
   showNotification('info', 'Sesión cerrada', message, 4000);
 }
-
 function showRegistrationNotification(userName) {
   showNotification('success', '¡Cuenta creada!', `Bienvenido ${userName}, tu cuenta ha sido creada exitosamente`, 5000);
 }
-
 function showErrorNotification(message) {
   showNotification('error', 'Error', message, 5000);
 }
 </script>
-
-<!-- Script de Login y Registro para Presentación -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   // Interceptar clics en iconos de usuario para mostrar modal
@@ -2091,11 +1798,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const simpleModal = new bootstrap.Modal(document.getElementById('simpleLoginModal'));
       simpleModal.show();
     }
-    
     // Manejar cerrar sesión
     if (e.target.textContent && (e.target.textContent.includes('Cerrar Sesión') || e.target.textContent.includes('Cerrar sesión'))) {
       e.preventDefault();
-      
       // Usar la función logoutUser global si está disponible
       if (typeof logoutUser !== 'undefined') {
         logoutUser();
@@ -2109,57 +1814,46 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   });
-  
   // Manejar submit del formulario de LOGIN
   document.getElementById('simple-login-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const email = document.getElementById('simple-login-email').value;
     const password = document.getElementById('simple-login-password').value;
-    
     if (email && password) {
       // Simular login exitoso
       loginUser(email, email.split('@')[0]);
     }
   });
-  
   // Manejar submit del formulario de REGISTRO
   document.getElementById('simple-register-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    
     const name = document.getElementById('register-name').value;
     const email = document.getElementById('register-email').value;
     const password = document.getElementById('register-password').value;
     const confirmPassword = document.getElementById('register-confirm-password').value;
     const terms = document.getElementById('accept-terms').checked;
-    
     // Validaciones
     if (password !== confirmPassword) {
       showErrorNotification('Las contraseñas no coinciden');
       return;
     }
-    
     if (password.length < 6) {
       showErrorNotification('La contraseña debe tener al menos 6 caracteres');
       return;
     }
-    
     if (!terms) {
       showErrorNotification('Debes aceptar los términos y condiciones');
       return;
     }
-    
     if (name && email && password) {
       // Simular registro exitoso
       registerUser(email, name);
     }
   });
-  
   // Función para iniciar sesión
   function loginUser(email, name) {
     // Cerrar modal
     bootstrap.Modal.getInstance(document.getElementById('simpleLoginModal')).hide();
-    
     // Simular usuario logueado
     localStorage.setItem('currentUser', JSON.stringify({
       email: email,
@@ -2167,25 +1861,21 @@ document.addEventListener('DOMContentLoaded', function() {
       loggedIn: true,
       canReview: true // Puede escribir reseñas
     }));
-    
     // Actualizar navbar
     setTimeout(() => {
       if (window.universalNavbar && window.universalNavbar.actualizarIconoUsuario) {
         window.universalNavbar.actualizarIconoUsuario();
       }
-      
       showWelcomeNotification(name);
       setTimeout(() => {
         window.location.reload();
       }, 2000); // Dar tiempo para ver la notificación
     }, 500);
   }
-  
   // Función para registrar usuario
   function registerUser(email, name) {
     // Cerrar modal
     bootstrap.Modal.getInstance(document.getElementById('simpleLoginModal')).hide();
-    
     // Simular usuario registrado y logueado
     localStorage.setItem('currentUser', JSON.stringify({
       email: email,
@@ -2194,13 +1884,11 @@ document.addEventListener('DOMContentLoaded', function() {
       canReview: true,
       isNew: true // Usuario recién registrado
     }));
-    
     // Actualizar navbar
     setTimeout(() => {
       if (window.universalNavbar && window.universalNavbar.actualizarIconoUsuario) {
         window.universalNavbar.actualizarIconoUsuario();
       }
-      
       showRegistrationNotification(name);
       setTimeout(() => {
         window.location.reload();
@@ -2209,11 +1897,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
-<!-- Contenedor para botón WhatsApp flotante -->
 <div id="whatsapp-unico"></div>
-
-  <!-- Sistema de Footer Universal -->
   <script src="js/universal-footer.js"></script>
   <script src="js/whatsapp-global.js"></script>
 </body>

@@ -5,65 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contacta con Nosotros - Patagonia Style</title>
   <link rel="icon" type="image/png" href="pages/logo sin fondo (1).png">
-  
-  <!-- 
-    FORMULARIO DE CONTACTO HÍBRIDO - NUEVO ENDPOINT FORMSPREE
-    =======================================================
-    
-    📧 NUEVO ENDPOINT: https://formspree.io/f/mrbyoaga
-    ✅ CONFIGURADO: Sin problemas de reCAPTCHA 
-    ✅ MÉTODO: POST con headers JSON
-    
-    FUNCIONAMIENTO OPTIMIZADO:
-    1. Intenta enviar por Formspree (nuevo endpoint mrbyoaga)
-    2. Timeout de 3 segundos para respuesta rápida
-    3. Si hay problemas, usa sistema local automáticamente
-    4. Usuario siempre recibe confirmación de éxito
-    
-    BENEFICIOS:
-    - ✅ Endpoint fresco sin restricciones
-    - ✅ Configuración limpia POST + JSON
-    - ✅ Sistema híbrido como respaldo
-    - ✅ Experiencia de usuario perfecta
-    - ✅ Panel de administración (Ctrl+Shift+M)
-  -->
-  
-  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-  
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- CSS Principal -->
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
-  
   <style>
     body {
       background: linear-gradient(135deg, #f4f1ee 0%, #e9e6e1 100%);
       font-family: 'Poppins', sans-serif;
       padding-top: 70px;
     }
-    
     .contact-hero {
       background: linear-gradient(135deg, #1f3c5a, #3b5d50);
       color: white;
       padding: 80px 0;
       margin-bottom: 50px;
     }
-    
     .contact-hero h1 {
       font-size: 3rem;
       font-weight: 700;
       margin-bottom: 1rem;
     }
-    
     .contact-hero p {
       font-size: 1.2rem;
       opacity: 0.9;
     }
-    
     .contact-form-container {
       background: white;
       border-radius: 20px;
@@ -71,7 +37,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       margin-bottom: 40px;
     }
-    
     .contact-info-card {
       background: white;
       border-radius: 15px;
@@ -81,24 +46,20 @@
       border-left: 5px solid #3b5d50;
       transition: all 0.3s ease;
     }
-    
     .contact-info-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
-    
     .contact-info-card i {
       font-size: 2.5rem;
       color: #3b5d50;
       margin-bottom: 15px;
     }
-    
     .contact-info-card h4 {
       color: #1f3c5a;
       font-weight: 600;
       margin-bottom: 10px;
     }
-    
     .form-control {
       border-radius: 10px;
       border: 2px solid #e9ecef;
@@ -106,19 +67,16 @@
       font-size: 1rem;
       transition: all 0.3s ease;
     }
-    
     .form-control:focus {
       border-color: #3b5d50;
       box-shadow: 0 0 0 0.2rem rgba(59, 93, 80, 0.25);
       transform: translateY(-2px);
     }
-    
     .form-label {
       font-weight: 600;
       color: #1f3c5a;
       margin-bottom: 8px;
     }
-    
     .btn-submit {
       background: linear-gradient(135deg, #3b5d50, #1f3c5a);
       border: none;
@@ -130,20 +88,17 @@
       width: 100%;
       transition: all 0.3s ease;
     }
-    
     .btn-submit:hover {
       background: linear-gradient(135deg, #1f3c5a, #3b5d50);
       transform: translateY(-3px);
       box-shadow: 0 10px 25px rgba(31, 60, 90, 0.3);
       color: white;
     }
-    
     .btn-submit:disabled {
       background: #6c757d;
       transform: none;
       box-shadow: none;
     }
-    
     .success-message {
       background: linear-gradient(135deg, #28a745, #20c997);
       color: white;
@@ -154,7 +109,6 @@
       font-weight: 500;
       display: none;
     }
-    
     .error-message {
       background: linear-gradient(135deg, #dc3545, #e74c3c);
       color: white;
@@ -165,22 +119,18 @@
       font-weight: 500;
       display: none;
     }
-    
     .loading-spinner {
       display: none;
     }
-    
     @media (max-width: 768px) {
       .contact-hero h1 {
         font-size: 2rem;
       }
-      
       .contact-form-container,
       .contact-info-card {
         padding: 25px;
       }
     }
-    
     /* Animaciones */
     @keyframes fadeInUp {
       from {
@@ -192,11 +142,9 @@
         transform: translateY(0);
       }
     }
-    
     .animate-fade-in {
       animation: fadeInUp 0.8s ease;
     }
-    
     /* Estilo para el mapa */
     .map-container {
       border-radius: 15px;
@@ -204,7 +152,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       margin-top: 30px;
     }
-    
     iframe {
       width: 100%;
       height: 300px;
@@ -213,10 +160,7 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <div id="navbar-container"></div>
-
-  <!-- Hero Section -->
   <section class="contact-hero">
     <div class="container">
       <div class="row justify-content-center text-center">
@@ -227,27 +171,19 @@
       </div>
     </div>
   </section>
-
-  <!-- Contenido Principal -->
   <main class="container">
     <div class="row">
-      <!-- Formulario de Contacto -->
       <div class="col-lg-8">
         <div class="contact-form-container animate-fade-in">
           <h2 class="text-center mb-4" style="color: #1f3c5a; font-weight: 700;">Envíanos un Mensaje</h2>
-          
-          <!-- Mensajes de Estado -->
           <div id="success-message" class="success-message">
             <i class="bi bi-check-circle me-2"></i>
             ¡Mensaje enviado exitosamente! Te responderemos pronto.
           </div>
-          
           <div id="error-message" class="error-message">
             <i class="bi bi-exclamation-triangle me-2"></i>
             Hubo un error al enviar el mensaje. Por favor, intenta de nuevo.
           </div>
-
-          <!-- Formulario Inteligente - Local + Formspree -->
           <form id="contact-form">
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -263,7 +199,6 @@
                 <input type="email" class="form-control" id="email" name="email" required>
               </div>
             </div>
-            
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="telefono" class="form-label">
@@ -286,17 +221,13 @@
                 </select>
               </div>
             </div>
-            
             <div class="mb-4">
               <label for="mensaje" class="form-label">
                 <i class="bi bi-chat-text me-2"></i>Mensaje *
               </label>
               <textarea class="form-control" id="mensaje" name="mensaje" rows="6" placeholder="Escribe tu mensaje aquí..." required></textarea>
             </div>
-            
-            <!-- Campo honeypot para evitar spam -->
             <input type="text" name="_honeypot" style="display: none !important;" tabindex="-1" autocomplete="off">
-            
             <button type="submit" id="submit-btn" class="btn-submit">
               <span id="submit-text">
                 <i class="bi bi-send me-2"></i>Enviar Mensaje
@@ -309,8 +240,6 @@
           </form>
         </div>
       </div>
-
-      <!-- Información de Contacto -->
       <div class="col-lg-4">
         <div class="contact-info-card animate-fade-in">
           <div class="text-center">
@@ -321,7 +250,6 @@
             CP: 9000</p>
           </div>
         </div>
-
         <div class="contact-info-card animate-fade-in">
           <div class="text-center">
             <i class="bi bi-telephone"></i>
@@ -330,7 +258,6 @@
             <small>Lunes a Viernes: 9:00 - 18:00</small>
           </div>
         </div>
-
         <div class="contact-info-card animate-fade-in">
           <div class="text-center">
             <i class="bi bi-envelope"></i>
@@ -339,7 +266,6 @@
             <small>Respuesta en 24 horas</small>
           </div>
         </div>
-
         <div class="contact-info-card animate-fade-in">
           <div class="text-center">
             <i class="bi bi-chat-dots"></i>
@@ -357,8 +283,6 @@
             </div>
           </div>
         </div>
-
-        <!-- Mapa -->
         <div class="map-container">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3283.8571264000586!2d-58.38375682477146!3d-34.60373657295621!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccacf5c5b1f1f%3A0x5c94d3b0f7a5b7d!2sPlaza%20de%20Mayo%2C%20Buenos%20Aires%2C%20Argentina!5e0!3m2!1ses!2sus!4v1701234567890!5m2!1ses!2sus"
@@ -369,8 +293,6 @@
         </div>
       </div>
     </div>
-
-    <!-- FAQ Section -->
     <section class="mt-5">
       <div class="row">
         <div class="col-12">
@@ -405,22 +327,14 @@
       </div>
     </section>
   </main>
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Universal Navbar -->
-  <script src="js/theme-manager.js"></script>
   <script src="js/universal-navbar.js"></script>
-  
-  <!-- JavaScript del Formulario -->
   <script>
     // Inicializar navbar
     document.addEventListener('DOMContentLoaded', function() {
       new UniversalNavbar('navbar-container', {
         showSearch: false
       });
-
       // Configurar formulario
       const form = document.getElementById('contact-form');
       const submitBtn = document.getElementById('submit-btn');
@@ -428,18 +342,15 @@
       const loadingSpinner = document.getElementById('loading-spinner');
       const successMessage = document.getElementById('success-message');
       const errorMessage = document.getElementById('error-message');
-
       // Manejar envío del formulario - Solución Híbrida
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
         // Verificar campo honeypot
         const honeypot = form.querySelector('input[name="_honeypot"]');
         if (honeypot && honeypot.value) {
           console.log('Bot detectado');
           return;
         }
-        
         // Validar formulario
         if (!validateForm()) {
           errorMessage.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i>Por favor, completa todos los campos obligatorios correctamente.';
@@ -447,7 +358,6 @@
           errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
           return;
         }
-        
         // Datos del formulario
         const formDataObj = {
           nombre: form.nombre.value,
@@ -457,14 +367,12 @@
           mensaje: form.mensaje.value,
           fecha: new Date().toLocaleString('es-ES')
         };
-        
         // Mostrar estado de carga
         submitBtn.disabled = true;
         submitText.style.display = 'none';
         loadingSpinner.style.display = 'inline';
         successMessage.style.display = 'none';
         errorMessage.style.display = 'none';
-        
         try {
           // Intentar con Formspree usando fetch (sin reCAPTCHA problemático)
           const formData = new FormData();
@@ -472,20 +380,16 @@
             formData.append(key, value);
           });
           formData.append('_subject', 'Nuevo mensaje desde Patagonia Style');
-          
           // Timeout corto para evitar problemas con reCAPTCHA
           const timeoutPromise = new Promise((_, reject) => 
             setTimeout(() => reject(new Error('timeout')), 3000)
           );
-          
           const fetchPromise = fetch('https://formspree.io/f/mrbyoaga', {
             method: 'POST',
             body: formData,
             headers: { 'Accept': 'application/json' }
           });
-          
           const response = await Promise.race([fetchPromise, timeoutPromise]);
-          
           if (response.ok) {
             // Éxito con Formspree
             console.log('Enviado exitosamente por Formspree');
@@ -505,7 +409,6 @@
             <br><small class="text-muted">Te contactaremos pronto al email ${formDataObj.email}.</small>
           `;
         }
-        
         // Guardar siempre en localStorage como respaldo
         const mensajes = JSON.parse(localStorage.getItem('mensajes_contacto') || '[]');
         mensajes.push({
@@ -515,12 +418,10 @@
           via: 'Sistema Híbrido'
         });
         localStorage.setItem('mensajes_contacto', JSON.stringify(mensajes));
-        
         // Mostrar éxito y limpiar formulario
         successMessage.style.display = 'block';
         form.reset();
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
         // Restaurar botón
         setTimeout(() => {
           submitBtn.disabled = false;
@@ -528,41 +429,33 @@
           loadingSpinner.style.display = 'none';
         }, 2000);
       });
-      
       // Función para validar todo el formulario
       function validateForm() {
         const requiredFields = form.querySelectorAll('[required]');
         let isValid = true;
-        
         requiredFields.forEach(field => {
           if (!validateField({ target: field })) {
             isValid = false;
           }
         });
-        
         return isValid;
       }
-
       // Validación en tiempo real
       const inputs = form.querySelectorAll('input, textarea, select');
       inputs.forEach(input => {
         input.addEventListener('blur', validateField);
         input.addEventListener('input', clearError);
       });
-
       function validateField(e) {
         const field = e.target;
         const value = field.value.trim();
-        
         // Remover clases de error previas
         field.classList.remove('is-invalid');
-        
         // Validaciones específicas
         if (field.required && !value) {
           showFieldError(field, 'Este campo es obligatorio');
           return false;
         }
-        
         if (field.type === 'email' && value) {
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailRegex.test(value)) {
@@ -570,7 +463,6 @@
             return false;
           }
         }
-        
         if (field.type === 'tel' && value) {
           const phoneRegex = /^[\d\s\-\+\(\)]+$/;
           if (!phoneRegex.test(value)) {
@@ -578,16 +470,13 @@
             return false;
           }
         }
-        
         // Campo válido
         field.classList.remove('is-invalid');
         field.classList.add('is-valid');
         return true;
       }
-
       function showFieldError(field, message) {
         field.classList.add('is-invalid');
-        
         // Buscar o crear mensaje de error
         let errorDiv = field.parentNode.querySelector('.invalid-feedback');
         if (!errorDiv) {
@@ -597,7 +486,6 @@
         }
         errorDiv.textContent = message;
       }
-
       function clearError(e) {
         const field = e.target;
         field.classList.remove('is-invalid');
@@ -606,13 +494,11 @@
           errorDiv.remove();
         }
       }
-
       // Animaciones en scroll
       const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
       };
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -621,7 +507,6 @@
           }
         });
       }, observerOptions);
-
       // Observar elementos con animación
       document.querySelectorAll('.animate-fade-in').forEach(el => {
         el.style.opacity = '0';
@@ -632,8 +517,7 @@
     });
   </script>
   </script>
-  
-  <!-- Footer Universal -->
   <script src="js/universal-footer.js"></script>
 </body>
 </html>
+

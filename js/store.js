@@ -1,16 +1,26 @@
+// 🌏 SISTEMA DE TIENDA ONLINE - PATAGONIA STYLE
+// ⚙️ Gestión completa de productos, carrito y funcionalidades avanzadas
+// 📚 Incluye búsqueda en tiempo real, filtros y sistema de calificaciones
+// 🚀 Arquitectura modular con localStorage y eventos personalizados
+
 // Sistema de gestión de productos para Patagonia Style
 class PatagoniaStore {
   constructor() {
+    // 📦 Inicialización de arrays principales
     this.productos = [];
     this.categorias = [];
     this.configuracion = {};
     
-    // Cargar carrito del localStorage usando key consistente
+    // 🛒 Cargar carrito del localStorage usando key consistente
+    // Mantiene persistencia entre sesiones del usuario
     this.carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
     
+    // 🔄 Inicializar sistema completo
     this.init();
   }
 
+  // ⚡ INICIALIZACIÓN ASÍNCRONA DEL SISTEMA
+  // Secuencia ordenada: productos → renderizado → carrito → eventos
   async init() {
     await this.cargarProductos();
     this.renderizarProductos();
@@ -18,21 +28,31 @@ class PatagoniaStore {
     this.inicializarEventos();
   }
 
+  // 📊 CARGA DE DATOS DESDE JSON
+  // Intenta cargar desde archivo, si falla usa datos de respaldo
   async cargarProductos() {
     try {
+      // 🔄 Fetch de datos principales desde archivo JSON
       const response = await fetch('./data/productos.json');
       const data = await response.json();
+      
+      // 📦 Asignación de datos a propiedades de clase
       this.productos = data.productos;
       this.categorias = data.categorias;
       this.configuracion = data.configuracion;
+      
+      console.log('✅ Productos cargados exitosamente:', this.productos.length, 'items');
     } catch (error) {
-      console.error('Error al cargar productos:', error);
-      // Fallback con productos hardcodeados
+      console.error('❌ Error al cargar productos:', error);
+      // 🔄 Fallback con productos hardcodeados para desarrollo
       this.productosFallback();
     }
   }
 
+  // 🆘 DATOS DE RESPALDO PARA DESARROLLO
+  // Se ejecuta si falla la carga del archivo JSON
   productosFallback() {
+    console.log('🔄 Usando productos de respaldo (fallback)');
     this.productos = [
       {
         id: 1,
@@ -76,21 +96,37 @@ class PatagoniaStore {
     ];
   }
 
+  // 🎨 RENDERIZADO PRINCIPAL DE PRODUCTOS
+  // Genera y muestra las tarjetas de productos en el DOM
+  // Acepta array específico o usa todos los productos por defecto
   renderizarProductos(productosAMostrar = null) {
+    // 📊 Determinar qué productos mostrar
     const productos = productosAMostrar || this.productos;
     const contenedor = document.getElementById('productos-container');
     
-    if (!contenedor) return;
+    // 🔍 Validación de existencia del contenedor
+    if (!contenedor) {
+      console.warn('⚠️ Contenedor productos-container no encontrado');
+      return;
+    }
 
+    // 🧹 Limpiar contenedor antes de renderizar
     contenedor.innerHTML = '';
 
+    console.log(`🎨 Renderizando ${productos.length} productos`);
+
+    // 🔄 Crear y agregar cada tarjeta de producto
     productos.forEach(producto => {
       const productCard = this.crearTarjetaProducto(producto);
       contenedor.appendChild(productCard);
     });
   }
 
+  // 🏗️ CREACIÓN DE TARJETA DE PRODUCTO INDIVIDUAL
+  // Genera el HTML completo para un producto específico
+  // Incluye imagen, precio, descuentos, stock y botones
   crearTarjetaProducto(producto) {
+    // 📦 Container principal de la tarjeta
     const productCard = document.createElement('div');
     productCard.className = 'col-12 col-lg-6 col-xl-4';
     productCard.style.cssText = `
@@ -98,12 +134,15 @@ class PatagoniaStore {
       margin-bottom: 2rem;
     `;
 
+    // 🏷️ Badge de descuento (si aplica)
     const discountBadge = producto.descuento > 0 ? 
       `<span class="badge-descuento position-absolute">${producto.descuento}% OFF</span>` : '';
 
+    // 💰 Precio original tachado (si hay descuento)
     const originalPriceDisplay = producto.precioOriginal ? 
       `<span class="card-price-old" style="font-size:1rem; color:#888; text-decoration: line-through; margin-left: 8px;">$${producto.precioOriginal.toLocaleString()}</span>` : '';
 
+    // ⚠️ Advertencia de stock bajo
     const lowStockWarning = producto.stock < 5 ? 
       `<small class="text-warning d-block" style="color: #e67e22 !important; font-weight: 600;">¡Últimas ${producto.stock} unidades!</small>` : '';
 
@@ -210,13 +249,8 @@ class PatagoniaStore {
         
         <!-- Galería de imágenes del producto -->
         <div class="position-relative" style="height:250px; border-radius: 16px 16px 0 0;">
-          <!-- 💝 Botón de wishlist (corazón) -->
-          <i class="bi bi-heart wishlist-heart" 
-             onclick="toggleWishlist(${producto.id})"
-             title="Agregar a favoritos"
-             aria-label="Agregar a lista de deseos"></i>
           
-          <div id="carousel-${producto.id}" class="carousel slide h-100" data-bs-ride="false">
+          <div id="carousel-${producto.id}" class="carousel slide h-100" data-bs-ride="false">>
             <div class="carousel-inner h-100" style="border-radius: 16px 16px 0 0;">
               ${producto.imagenes.map((imagen, index) => `
                 <div class="carousel-item ${index === 0 ? 'active' : ''} h-100">
@@ -322,13 +356,6 @@ class PatagoniaStore {
                     onmouseout="if(!this.disabled) this.style.background='linear-gradient(135deg, #3b5d50, #2c5530)'">
               <i class="bi bi-cart-plus me-2"></i> ${addToCartButtonText}
             </button>
-            
-            <!-- 📊 Botón de comparar -->
-            <button class="btn btn-outline-info btn-compare w-100" 
-                    data-product-id="${producto.id}"
-                    title="Agregar a comparación">
-              <i class="bi bi-graph-up me-1"></i>Comparar
-            </button>
           </div>
         </div>
       </div>
@@ -337,18 +364,24 @@ class PatagoniaStore {
     return productCard;
   }
 
+  // 🛒 AGREGAR PRODUCTO AL CARRITO
+  // Gestiona la lógica completa de añadir productos
+  // Incluye validaciones de stock, duplicados y persistencia
   agregarAlCarrito(productoId) {
     try {
-      // Encontrar el producto
+      // 🔍 Encontrar el producto en el catálogo
       const producto = this.productos.find(p => p.id === productoId);
+      
+      // ✅ Validaciones de disponibilidad y stock
       if (!producto || !producto.disponible || producto.stock === 0) {
+        this.mostrarNotificacion('❌ Producto no disponible', 'error');
         return;
       }
 
-      // Obtener carrito actual del localStorage
+      // 📦 Obtener carrito actual del localStorage
       let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
       
-      // Buscar si el producto ya está en el carrito
+      // 🔍 Buscar si el producto ya está en el carrito
       const itemExistente = carrito.find(item => item.id === productoId);
       
       if (itemExistente) {
@@ -418,8 +451,13 @@ class PatagoniaStore {
     }
   }
 
+  // 🧮 CALCULAR TOTAL DEL CARRITO
+  // Suma todos los productos con sus cantidades respectivas
   calcularTotal() {
-    return this.carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+    return this.carrito.reduce((total, item) => {
+      // 💰 total acumulado + (precio × cantidad)
+      return total + (item.precio * item.cantidad);
+    }, 0);
   }
 
   calcularDescuentoTransferencia() {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
   <meta charset="UTF-8">
@@ -32,7 +32,6 @@
       flex-shrink: 0;
       margin-bottom: 0 !important;
     }
-    
     /* Skip Link para accesibilidad - debe estar oculto por defecto */
     .skip-link {
       position: absolute;
@@ -48,7 +47,6 @@
       font-weight: bold;
       transition: top 0.2s ease;
     }
-    
     .skip-link:focus {
       top: 6px;
       color: #ffffff;
@@ -59,7 +57,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-  
+  <link rel="stylesheet" href="styles.css">
   <style>
     :root {
       --primary-color: #1f3c5a;      /* Azul profundo */
@@ -70,13 +68,11 @@
       --card-shadow: rgba(0,0,0,0.12);
       --btn-radius: 28px;
     }
-
     body {
       font-family: 'Poppins', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-color);
     }
-    
     /* Navbar */
     .navbar {
       background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -88,7 +84,6 @@
     .icon-nav { font-size: 1.4rem; margin-left: 15px; cursor: pointer; color: #fff; transition: transform .2s ease, color .2s ease; }
     .icon-nav:hover { transform: scale(1.2); color: var(--accent-color); }
     .cart-count { position: absolute; top: -6px; right: -10px; background: var(--accent-color); color: #fff; font-size: 0.75rem; border-radius: 50%; padding: 2px 6px; }
-
     /* Header */
     .portfolio-header {
       text-align: center;
@@ -104,7 +99,6 @@
     .portfolio-header p {
       font-size: 1.2rem;
     }
-
     /* Portfolio Grid */
     .portfolio-item {
       border-radius: 12px;
@@ -133,7 +127,6 @@
       font-weight: 600;
       color: var(--primary-color);
     }
-
     /* Footer */
     footer {
       background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -152,7 +145,6 @@
       text-decoration: underline;
       color: var(--accent-color);
     }
-
     .btn-custom {
       background-color: var(--accent-color);
       color: #fff;
@@ -166,7 +158,6 @@
       background-color: #8d5c2b;
       transform: scale(1.05);
     }
-
     .section-title {
       text-align: center;
       font-size: 2.5rem;
@@ -184,7 +175,6 @@
       margin: 10px auto 0;
       border-radius: 2px;
     }
-
     .card {
       border: none;
       border-radius: 15px;
@@ -207,7 +197,6 @@
     .card:hover .card-img-top {
       transform: scale(1.1);
     }
-
     .modal-body {
       max-height: 400px;
       overflow-y: auto;
@@ -221,29 +210,23 @@
   </style>
 </head>
 <body>
-  <!-- Navbar Universal -->
   <div id="navbar-container"></div>
-
-  <!-- Título -->
   <header class="py-5 text-center" style="background:#f4f1ee;">
     <h1 style="color:#1f3c5a; font-weight:700;">Mi Portfolio</h1>
     <p style="color:#3b5d50;">Proyectos creativos inspirados en la Patagonia</p>
   </header>
-
-  <!-- Portfolio sencillo -->
   <main class="container py-5">
     <div class="row justify-content-center mb-5">
       <div class="col-lg-8">
         <div class="alert alert-warning text-center shadow-sm" style="font-size:1.15rem; background: #fffbe6; border: 1px solid #ffe08a;">
           <i class="bi bi-tools" style="font-size:2rem; color:#b67c3a;"></i><br>
-          <b>¡Portafolio en construcción!</b><br>
+          <b>🔨Portafolio en construcción!</b><br>
           Pronto vas a poder ver más proyectos y obras inspiradas en la naturaleza y los paisajes de la Patagonia.<br>
           <span style="color:#b67c3a;">Esta sección está creciendo, igual que la inspiración en cada estación del año.</span>
         </div>
       </div>
     </div>
     <div class="row g-4">
-      <!-- Primavera -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm border-0">
           <img src="pages/primavera.webp" class="card-img-top" alt="Primavera">
@@ -256,7 +239,6 @@
           </div>
         </div>
       </div>
-      <!-- Verano -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm border-0">
           <img src="pages/verano.webp" class="card-img-top" alt="Verano">
@@ -269,7 +251,6 @@
           </div>
         </div>
       </div>
-      <!-- Otoño -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm border-0">
           <img src="pages/cabaña-otonio.webp" class="card-img-top" alt="Otoño">
@@ -282,7 +263,6 @@
           </div>
         </div>
       </div>
-      <!-- Invierno -->
       <div class="col-md-3">
         <div class="card h-100 shadow-sm border-0">
           <img src="pages/invierno.webp" class="card-img-top" alt="Invierno">
@@ -297,8 +277,6 @@
       </div>
     </div>
   </main>
-
-  <!-- Sección de Testimonios -->
   <section class="container my-5">
     <h2 class="text-center mb-5" style="color: #1f3c5a; font-weight: 600;">Testimonio</h2>
     <div class="row justify-content-center">
@@ -321,20 +299,15 @@
       </div>
     </div>
   </section>
-
-  <!-- Footer será generado automáticamente por universal-footer.js -->
-
   <style>
     html, body { height: 100% !important; margin: 0 !important; padding: 0 !important; }
     footer { margin-bottom: 0 !important; }
     footer ~ * { margin: 0 !important; padding: 0 !important; }
   </style>
-
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       actualizarCarrito();
     });
-
     function actualizarCarrito() {
       let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
       let total = carrito.reduce((acc, prod) => acc + prod.cantidad, 0);
@@ -345,16 +318,9 @@
       }
     }
   </script>
-
-
-
-
-
   <script>
-    console.log('🎨 [portafolio.html] Página cargada correctamente');
+    console.log('✅ [portafolio.html] Página cargada correctamente');
   </script>
-  
-  <!-- Scripts del sistema universal -->
   <script src="js/validation.js"></script>
   <script src="js/loading.js"></script>
   <script src="js/whatsapp-global.js"></script>
@@ -364,7 +330,6 @@
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/universal-navbar.js"></script>
-  
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       new UniversalNavbar('navbar-container', {
@@ -372,13 +337,8 @@
       });
     });
   </script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Contenedor para botón WhatsApp flotante -->
   <div id="whatsapp-unico"></div>
-
-  <!-- Sistema de Footer Universal -->
   <script src="js/universal-footer.js"></script>
   <script src="js/whatsapp-global.js"></script>
 </body>

@@ -37,7 +37,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
-  <!-- Frontend Improvements -->
   <link rel="stylesheet" href="css/optimizations.css">
   <link rel="stylesheet" href="css/accessibility.css">
   <link rel="stylesheet" href="css/responsive-advanced.css">
@@ -164,7 +163,6 @@
   </style>
 </head>
 <body>
-  <!-- Navigation -->
   <div id="navbar-container"></div>
 </head>
 <body>
@@ -213,9 +211,7 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
   <div id="navbar"></div>
-
   <main class="container d-flex justify-content-center">
     <section class="carrito-section w-100">
       <h2 class="carrito-titulo"><i class="bi bi-cart3 me-2"></i>Carrito de compras</h2>
@@ -225,8 +221,6 @@
       </div>
     </section>
   </main>
-
-  <!-- Sección de Testimonios -->
   <section class="container my-5">
     <h2 class="text-center mb-5" style="color: #1f3c5a; font-weight: 600;">Testimonio</h2>
     <div class="row justify-content-center">
@@ -249,17 +243,10 @@
       </div>
     </div>
   </section>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Sistemas Base (cargar primero) -->
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
-  
-  <!-- SISTEMA DE CARRITO UNIFICADO (solución definitiva) -->
   <script src="js/carrito-unificado.js"></script>
-  
-  <!-- Sistemas Profesionales -->
   <script src="js/validation.js"></script>
   <script src="js/loading.js"></script>
   <script src="js/error-manager.js"></script>
@@ -270,7 +257,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       console.log('🛒 [carrito.html] Iniciando página de carrito...');
-      
       // Inicializar navbar universal si está disponible
       try {
         if (typeof UniversalNavbar !== 'undefined') {
@@ -282,11 +268,9 @@
       } catch (error) {
         console.warn('⚠️ [carrito.html] Error inicializando navbar:', error);
       }
-      
       // Función para renderizar el carrito
       function renderizarCarritoCompleto() {
         console.log('🎨 [carrito.html] Intentando renderizar carrito...');
-        
         // Verificar si carritoUnificado está disponible
         if (typeof carritoUnificado !== 'undefined') {
           console.log('✅ [carrito.html] Usando carritoUnificado');
@@ -296,7 +280,6 @@
           console.log('✅ [carrito.html] Carrito renderizado correctamente');
           return;
         }
-        
         // Fallback a carritoEmergencia
         if (typeof carritoEmergencia !== 'undefined') {
           console.log('✅ [carrito.html] Usando carritoEmergencia (fallback)');
@@ -305,18 +288,14 @@
           console.log('✅ [carrito.html] Carrito renderizado por CarritoEmergencia');
           return;
         }
-        
         // Si no hay ningún sistema disponible, reintentar
         console.warn('⚠️ [carrito.html] Sistemas de carrito no disponibles, reintentando...');
         setTimeout(renderizarCarritoCompleto, 200);
       }
-      
       // Renderizar después de un pequeño delay para asegurar que todo esté cargado
       setTimeout(renderizarCarritoCompleto, 300);
-      
       console.log('✅ [carrito.html] Página de carrito inicializada');
     });
-
     // Funciones de compatibilidad con el sistema anterior
     function mostrarCarrito() {
       if (window.carritoUnificado) {
@@ -325,9 +304,6 @@
         window.carritoEmergencia.renderizarCarrito();
       }
     }
-
-
-
     function eliminarDelCarrito(id) {
       console.log('🗑️ Eliminando producto:', id);
       if (window.carritoUnificado) {
@@ -336,7 +312,6 @@
         window.carritoEmergencia.eliminarProducto(id);
       }
     }
-
     function eliminarProducto(idx) {
       if (window.carritoEmergencia) {
         const carrito = window.carritoEmergencia.carrito;
@@ -345,33 +320,26 @@
         }
       }
     }
-
     function vaciarCarrito() {
       if (window.carritoEmergencia) {
         window.carritoEmergencia.vaciarCarrito();
       }
     }
-
     function finalizarCompra() {
       if (window.carritoEmergencia) {
         window.carritoEmergencia.irACheckout();
       }
     }
-
     function actualizarCarrito() {
       if (window.carritoEmergencia) {
         window.carritoEmergencia.actualizarContador();
       }
     }
   </script>
-
-  <!-- Modales de autenticación -->
   <div id="auth-modals-container"></div>
-
   <script>
     // Cargar modales de autenticación
     document.getElementById('auth-modals-container').innerHTML = `
-      <!-- Login Modal -->
       <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -404,8 +372,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Register Modal -->
       <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -456,8 +422,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Welcome Modal -->
       <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -478,17 +442,11 @@
       </div>
     `;
   </script>
-
-
-
-
-
   <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px; margin-bottom: 0 !important;">
     <p style="color: #FFFFFF; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
     <p style="color: #FFFFFF; margin-bottom: 10px; font-size: 0.85rem; opacity: 0.9;">Creado por Vargas Viviana</p>
     <p style="margin: 0;"><a href="#" style="color: #b67c3a; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">Facebook</a></p>
   </footer>
-
   <style>
     /* 🌌 SOLUCIÓN ANTI-ESPACIOS FOOTER */
     html, body {
@@ -504,17 +462,13 @@
       padding: 0 !important;
     }
   </style>
-
-  <!-- Scripts necesarios -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/simple-whatsapp.js"></script>
   <script src="js/universal-navbar.js?v=3"></script>
-
   <script>
     // Inicializar cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', function() {
         console.log('🛒 Inicializando página del carrito...');
-        
         // Crear navbar
         try {
             new UniversalNavbar('navbar-container', {
@@ -523,11 +477,9 @@
         } catch (error) {
             console.error('Error creando navbar:', error);
         }
-        
         // Renderizar el carrito inmediatamente
         renderizarCarrito();
     });
-
     // Función para renderizar el carrito
     function renderizarCarrito() {
         try {
@@ -536,24 +488,19 @@
                 console.error('No se encontró el contenedor del carrito');
                 return;
             }
-
             // Obtener productos del carrito
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             console.log('📦 Productos en carrito:', carrito);
-
             if (carrito.length === 0) {
                 mostrarCarritoVacio();
                 return;
             }
-
             // Crear HTML del carrito
             let html = '<div class="carrito-productos">';
             let total = 0;
-
             carrito.forEach((item, index) => {
                 const subtotal = item.precio * item.cantidad;
                 total += subtotal;
-
                 html += `
                     <div class="row align-items-center mb-3 p-3" style="border: 1px solid #eee; border-radius: 10px;">
                         <div class="col-2">
@@ -588,9 +535,7 @@
                     </div>
                 `;
             });
-
             html += '</div>';
-
             // Agregar total y botones
             html += `
                 <hr>
@@ -608,15 +553,12 @@
                     </div>
                 </div>
             `;
-
             contenedor.innerHTML = html;
-
         } catch (error) {
             console.error('❌ Error renderizando carrito:', error);
             mostrarCarritoVacio();
         }
     }
-
     // Función para mostrar carrito vacío
     function mostrarCarritoVacio() {
         const contenedor = document.getElementById('carrito-contenido');
@@ -630,34 +572,27 @@
             `;
         }
     }
-
     // Función para cambiar cantidad
     function cambiarCantidad(index, cambio) {
         try {
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             if (carrito[index]) {
                 const nuevaCantidad = carrito[index].cantidad + cambio;
-                
                 if (nuevaCantidad <= 0) {
                     eliminarProducto(index);
                     return;
                 }
-                
                 carrito[index].cantidad = nuevaCantidad;
                 localStorage.setItem('carrito', JSON.stringify(carrito));
-                
                 // Actualizar el input
                 const inputElement = document.getElementById(`cantidad-${index}`);
                 if (inputElement) {
                     inputElement.value = nuevaCantidad;
                 }
-                
                 // Actualizar subtotal de este producto
                 actualizarSubtotalProducto(index, carrito[index]);
-                
                 // Actualizar total general
                 actualizarTotalGeneral();
-                
                 // Actualizar contador del carrito
                 actualizarContadorCarrito();
             }
@@ -667,12 +602,10 @@
             renderizarCarrito();
         }
     }
-
     // Función para actualizar cantidad directamente
     function actualizarCantidad(index, nuevaCantidad) {
         try {
             const cantidad = parseInt(nuevaCantidad);
-            
             // Validar cantidad
             if (isNaN(cantidad) || cantidad < 0) {
                 // Restaurar valor anterior si es inválido
@@ -682,23 +615,18 @@
                 }
                 return;
             }
-            
             if (cantidad === 0) {
                 eliminarProducto(index);
                 return;
             }
-            
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             if (carrito[index]) {
                 carrito[index].cantidad = cantidad;
                 localStorage.setItem('carrito', JSON.stringify(carrito));
-                
                 // Actualizar inmediatamente el subtotal de este producto
                 actualizarSubtotalProducto(index, carrito[index]);
-                
                 // Actualizar total general
                 actualizarTotalGeneral();
-                
                 // Actualizar contador del carrito
                 actualizarContadorCarrito();
             }
@@ -708,7 +636,6 @@
             renderizarCarrito();
         }
     }
-
     // Función para actualizar el subtotal de un producto específico
     function actualizarSubtotalProducto(index, item) {
         try {
@@ -721,13 +648,11 @@
             console.error('Error actualizando subtotal del producto:', error);
         }
     }
-    
     // Función para actualizar el total general
     function actualizarTotalGeneral() {
         try {
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            
             const totalElement = document.querySelector('[data-total="general"]');
             if (totalElement) {
                 totalElement.textContent = `$${total.toLocaleString()}`;
@@ -747,7 +672,6 @@
             console.error('Error eliminando producto:', error);
         }
     }
-
     // Función para vaciar carrito
     function vaciarCarrito() {
         if (confirm('¿Estás seguro de que quieres vaciar el carrito?')) {
@@ -756,20 +680,17 @@
             actualizarContadorCarrito();
         }
     }
-
     // Función para actualizar contador del carrito
     function actualizarContadorCarrito() {
         try {
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             const contador = carrito.reduce((total, item) => total + item.cantidad, 0);
-            
             // Actualizar contador en navbar si existe
             const contadorElement = document.getElementById('cart-count');
             if (contadorElement) {
                 contadorElement.textContent = contador;
                 contadorElement.style.display = contador > 0 ? 'inline-block' : 'none';
             }
-
             // También actualizar el navbar si existe
             if (window.universalNavbar && typeof window.universalNavbar.refreshCartCounter === 'function') {
                 window.universalNavbar.refreshCartCounter();
@@ -778,7 +699,6 @@
             console.error('Error actualizando contador:', error);
         }
     }
-    
     console.log('🛒 [carrito.html] Sistema de carrito inicializado');
   </script>
   <script src="js/whatsapp-global.js"></script>

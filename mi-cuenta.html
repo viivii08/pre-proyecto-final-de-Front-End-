@@ -11,7 +11,6 @@
     body {
       background: #f4f1ee;
     }
-    
     .account-nav {
       background: linear-gradient(135deg, #f8f9fa, #e9ecef);
       border: 2px solid #3b5d50;
@@ -20,7 +19,6 @@
       margin-bottom: 25px;
       box-shadow: 0 4px 15px rgba(59, 93, 80, 0.1);
     }
-    
     .account-nav .nav-link {
       border: none;
       border-radius: 12px;
@@ -30,27 +28,23 @@
       transition: all 0.3s ease;
       font-weight: 500;
     }
-    
     .account-nav .nav-link.active {
       background: linear-gradient(135deg, #1f3c5a, #3b5d50);
       color: white;
       box-shadow: 0 4px 12px rgba(31, 60, 90, 0.3);
       transform: translateY(-2px);
     }
-    
     .account-nav .nav-link:hover {
       background: linear-gradient(135deg, #e9ecef, #dee2e6);
       color: #1f3c5a;
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    
     .account-nav .nav-link.active:hover {
       background: linear-gradient(135deg, #3b5d50, #1f3c5a);
       color: white;
       transform: translateY(-2px);
     }
-    
     .profile-card {
       background: white;
       border-radius: 20px;
@@ -59,12 +53,10 @@
       margin-bottom: 25px;
       border: 2px solid rgba(59, 93, 80, 0.1);
     }
-    
     .profile-header {
       text-align: center;
       margin-bottom: 25px;
     }
-    
     .profile-avatar {
       width: 90px;
       height: 90px;
@@ -79,7 +71,6 @@
       border: 4px solid rgba(182, 124, 58, 0.3);
       box-shadow: 0 4px 15px rgba(31, 60, 90, 0.3);
     }
-    
     .order-card {
       border: 2px solid rgba(59, 93, 80, 0.2);
       border-radius: 15px;
@@ -87,39 +78,32 @@
       margin-bottom: 20px;
       transition: all 0.3s ease;
     }
-    
     .order-card:hover {
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transform: translateY(-2px);
     }
-    
     .order-status {
       padding: 4px 12px;
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 500;
     }
-    
     .status-pending {
       background: #fff3cd;
       color: #856404;
     }
-    
     .status-processing {
       background: #cce7ff;
       color: #004085;
     }
-    
     .status-shipped {
       background: #d4edda;
       color: #155724;
     }
-    
     .status-delivered {
       background: #d1ecf1;
       color: #0c5460;
     }
-    
     .address-card {
       border: 1px solid #dee2e6;
       border-radius: 10px;
@@ -127,24 +111,20 @@
       margin-bottom: 15px;
       position: relative;
     }
-    
     .address-card.default {
       border-color: #007bff;
       background: #f8fbff;
     }
-    
     .address-card .badge {
       position: absolute;
       top: 10px;
       right: 10px;
     }
-    
     .btn-edit-address {
       position: absolute;
       bottom: 15px;
       right: 15px;
     }
-    
     .tracking-step {
       padding: 15px 0;
       border-left: 3px solid #dee2e6;
@@ -152,15 +132,12 @@
       margin-left: 15px;
       padding-left: 30px;
     }
-    
     .tracking-step.completed {
       border-left-color: #28a745;
     }
-    
     .tracking-step.active {
       border-left-color: #007bff;
     }
-    
     .tracking-step::before {
       content: '';
       position: absolute;
@@ -171,36 +148,29 @@
       border-radius: 50%;
       background: #dee2e6;
     }
-    
     .tracking-step.completed::before {
       background: #28a745;
     }
-    
     .tracking-step.active::before {
       background: #007bff;
     }
-    
     .form-group {
       margin-bottom: 20px;
     }
-    
     .form-control {
       border-radius: 8px;
       padding: 12px;
       border: 1px solid #ddd;
     }
-    
     .form-control:focus {
       border-color: #007bff;
       box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
-    
     .btn-custom {
       border-radius: 8px;
       padding: 10px 20px;
       font-weight: 500;
     }
-    
     .stats-card {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
@@ -209,12 +179,10 @@
       text-align: center;
       margin-bottom: 20px;
     }
-    
     .stats-card h3 {
       font-size: 2rem;
       margin-bottom: 5px;
     }
-    
     .welcome-message {
       background: linear-gradient(135deg, #1f3c5a 0%, #3b5d50 100%);
       color: white;
@@ -225,12 +193,10 @@
       box-shadow: 0 8px 25px rgba(31, 60, 90, 0.3);
       border: 3px solid rgba(182, 124, 58, 0.2);
     }
-    
     .welcome-message h1 {
       font-weight: 700;
       margin-bottom: 10px;
     }
-    
     .welcome-message p {
       font-size: 1.1rem;
       opacity: 0.9;
@@ -238,18 +204,13 @@
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
   <div id="navbar-container"></div>
-
   <div class="container my-5">
-    <!-- Welcome Message -->
     <div class="welcome-message">
       <h1><i class="bi bi-person-circle me-3"></i>Mi Cuenta</h1>
       <p class="mb-0">Gestiona tu perfil, pedidos y configuraciones</p>
     </div>
-
     <div class="row">
-      <!-- Sidebar Navigation -->
       <div class="col-md-3">
         <div class="account-nav">
           <h5 class="mb-3"><i class="bi bi-list me-2"></i>Menú</h5>
@@ -269,11 +230,8 @@
           </div>
         </div>
       </div>
-
-      <!-- Main Content -->
       <div class="col-md-9">
         <div class="tab-content" id="account-content">
-          <!-- Profile Tab -->
           <div class="tab-pane fade show active" id="profile" role="tabpanel">
             <div class="profile-card">
               <div class="profile-header">
@@ -284,7 +242,6 @@
                 <p class="text-muted" id="profile-email">email@ejemplo.com</p>
                 <span class="badge bg-success">Cuenta Verificada</span>
               </div>
-
               <form id="profile-form">
                 <div class="row">
                   <div class="col-md-6">
@@ -300,22 +257,18 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="form-group">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" class="form-control" id="email" required>
                 </div>
-
                 <div class="form-group">
                   <label for="phone" class="form-label">Teléfono</label>
                   <input type="tel" class="form-control" id="phone">
                 </div>
-
                 <div class="form-group">
                   <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
                   <input type="date" class="form-control" id="birthDate">
                 </div>
-
                 <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-primary btn-custom">
                     <i class="bi bi-check-lg me-2"></i>Guardar Cambios
@@ -327,8 +280,6 @@
               </form>
             </div>
           </div>
-
-          <!-- Orders Tab -->
           <div class="tab-pane fade" id="orders" role="tabpanel">
             <div class="profile-card">
               <div class="d-flex justify-content-between align-items-center mb-4">
@@ -338,11 +289,8 @@
                   <small>Pedidos Realizados</small>
                 </div>
               </div>
-
               <div id="orders-list">
-                <!-- Los pedidos se cargan dinámicamente aquí -->
               </div>
-
               <div id="no-orders" class="text-center py-5" style="display: none;">
                 <i class="bi bi-box" style="font-size: 4rem; color: #ccc;"></i>
                 <h4 class="mt-3 text-muted">No tienes pedidos aún</h4>
@@ -353,8 +301,6 @@
               </div>
             </div>
           </div>
-
-          <!-- Addresses Tab -->
           <div class="tab-pane fade" id="addresses" role="tabpanel">
             <div class="profile-card">
               <div class="d-flex justify-content-between align-items-center mb-4">
@@ -363,11 +309,8 @@
                   <i class="bi bi-plus-circle me-2"></i>Nueva Dirección
                 </button>
               </div>
-
               <div id="addresses-list">
-                <!-- Las direcciones se cargan dinámicamente aquí -->
               </div>
-
               <div id="no-addresses" class="text-center py-5" style="display: none;">
                 <i class="bi bi-house" style="font-size: 4rem; color: #ccc;"></i>
                 <h4 class="mt-3 text-muted">No tienes direcciones guardadas</h4>
@@ -378,12 +321,9 @@
               </div>
             </div>
           </div>
-
-          <!-- Settings Tab -->
           <div class="tab-pane fade" id="settings" role="tabpanel">
             <div class="profile-card">
               <h4><i class="bi bi-gear me-2"></i>Configuración de la Cuenta</h4>
-              
               <div class="mt-4">
                 <h6>Notificaciones</h6>
                 <div class="form-check form-switch mb-3">
@@ -405,9 +345,7 @@
                   </label>
                 </div>
               </div>
-
               <hr>
-
               <div class="mt-4">
                 <h6>Privacidad</h6>
                 <div class="form-check form-switch mb-3">
@@ -423,9 +361,7 @@
                   </label>
                 </div>
               </div>
-
               <hr>
-
               <div class="mt-4">
                 <h6 class="text-danger">Zona de Peligro</h6>
                 <p class="text-muted small">Estas acciones son irreversibles</p>
@@ -439,8 +375,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Order Detail Modal -->
   <div class="modal fade" id="orderDetailModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -449,13 +383,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body" id="order-detail-content">
-          <!-- El contenido se carga dinámicamente -->
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Address Modal -->
   <div class="modal fade" id="addressModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -507,8 +438,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Change Password Modal -->
   <div class="modal fade" id="changePasswordModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -539,8 +468,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Login Modal -->
   <div class="modal fade" id="loginModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -571,8 +498,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Register Modal -->
   <div class="modal fade" id="registerModal" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -620,32 +545,24 @@
       </div>
     </div>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Sistemas Profesionales -->
   <script src="js/validation.js"></script>
   <script src="js/loading.js"></script>
   <script src="js/error-manager.js"></script>
   <script src="js/notifications.js"></script>
   <script src="js/performance.js"></script>
-  
-  <!-- Sistemas Base -->
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/universal-navbar.js"></script>
   <script>
     // Variables globales para la página
     let currentUser = null;
-
     function loadUserProfile(user) {
       if (!user) return;
-
       try {
         // Actualizar encabezado del perfil
         const profileName = document.getElementById('profile-name');
         const profileEmail = document.getElementById('profile-email');
-        
         if (profileName) {
           const displayName = user.name || 
                               user.nombre || 
@@ -653,11 +570,9 @@
                               'Usuario';
           profileName.textContent = displayName;
         }
-        
         if (profileEmail) {
           profileEmail.textContent = user.email || '';
         }
-
         // Llenar formulario - adaptar a la estructura de nuestro sistema
         const firstName = user.name ? user.name.split(' ')[0] : 
                          user.nombre ? user.nombre.split(' ')[0] : 
@@ -665,45 +580,36 @@
         const lastName = user.name ? user.name.split(' ').slice(1).join(' ') : 
                         user.nombre ? user.nombre.split(' ').slice(1).join(' ') : 
                         (user.lastName || '');
-        
         const firstNameInput = document.getElementById('firstName');
         const lastNameInput = document.getElementById('lastName');
         const emailInput = document.getElementById('email');
         const phoneInput = document.getElementById('phone');
         const birthDateInput = document.getElementById('birthDate');
-        
         if (firstNameInput) firstNameInput.value = firstName;
         if (lastNameInput) lastNameInput.value = lastName;
         if (emailInput) emailInput.value = user.email || '';
         if (phoneInput) phoneInput.value = user.phone || '';
         if (birthDateInput) birthDateInput.value = user.birthDate || '';
-        
       } catch (error) {
         console.error('Error cargando perfil:', error);
       }
     }
-
     function loadUserOrders() {
       // Obtener pedidos del usuario actual desde localStorage
       const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
       const currentUserEmail = currentUser?.email;
       const userOrders = orders.filter(order => order.userEmail === currentUserEmail);
-      
       const ordersList = document.getElementById('orders-list');
       const noOrders = document.getElementById('no-orders');
       const totalOrdersSpan = document.getElementById('total-orders');
-
       if (totalOrdersSpan) totalOrdersSpan.textContent = userOrders.length;
-
       if (userOrders.length === 0) {
         if (ordersList) ordersList.style.display = 'none';
         if (noOrders) noOrders.style.display = 'block';
         return;
       }
-
       if (ordersList) ordersList.style.display = 'block';
       if (noOrders) noOrders.style.display = 'none';
-
       if (ordersList) {
         ordersList.innerHTML = userOrders.map(order => `
         <div class="order-card">
@@ -740,22 +646,18 @@
       `).join('');
       }
     }
-
     function loadUserAddresses() {
       // Obtener direcciones del usuario actual desde localStorage
       const addresses = currentUser?.addresses || [];
       const addressesList = document.getElementById('addresses-list');
       const noAddresses = document.getElementById('no-addresses');
-
       if (addresses.length === 0) {
         if (addressesList) addressesList.style.display = 'none';
         if (noAddresses) noAddresses.style.display = 'block';
         return;
       }
-
       if (addressesList) addressesList.style.display = 'block';
       if (noAddresses) noAddresses.style.display = 'none';
-
       if (addressesList) {
         addressesList.innerHTML = addresses.map(address => `
         <div class="address-card ${address.isDefault ? 'default' : ''}">
@@ -775,26 +677,20 @@
       `).join('');
       }
     }
-
     function saveProfile(e) {
       e.preventDefault();
-      
       const currentUser = JSON.parse(localStorage.getItem('currentUser'));
       if (!currentUser) return;
-      
       // Actualizar datos del usuario
       const firstName = document.getElementById('firstName').value;
       const lastName = document.getElementById('lastName').value;
-      
       currentUser.name = `${firstName} ${lastName}`.trim();
       currentUser.firstName = firstName;
       currentUser.lastName = lastName;
       currentUser.phone = document.getElementById('phone').value;
       currentUser.birthDate = document.getElementById('birthDate').value;
-
       // Guardar en localStorage
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
       // Actualizar también en la lista de usuarios registrados
       const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
       const userIndex = users.findIndex(u => u.email === currentUser.email);
@@ -802,16 +698,13 @@
         users[userIndex] = currentUser;
         localStorage.setItem('registeredUsers', JSON.stringify(users));
       }
-
       // Mostrar notificación
       if (typeof navigationSystem !== 'undefined') {
         navigationSystem.showNotification('Perfil actualizado correctamente', 'success');
       }
-      
       // Recargar datos del perfil
       loadUserProfile(currentUser);
     }
-
     function getStatusText(status) {
       const statusMap = {
         'pending': 'Pendiente',
@@ -821,11 +714,9 @@
       };
       return statusMap[status] || status;
     }
-
     function viewOrderDetail(orderId) {
       const order = userManager.getOrderById(orderId);
       if (!order) return;
-
       const modalContent = document.getElementById('order-detail-content');
       modalContent.innerHTML = `
         <div class="row">
@@ -868,27 +759,22 @@
           </table>
         </div>
       `;
-
       new bootstrap.Modal(document.getElementById('orderDetailModal')).show();
     }
-
     function trackOrder(orderId) {
       // Implementar seguimiento de pedido
       userManager.showNotification('Función de rastreo en desarrollo', 'info');
     }
-
     function addNewAddress() {
       document.getElementById('address-modal-title').textContent = 'Nueva Dirección';
       document.getElementById('address-form').reset();
       document.getElementById('address-id').value = '';
       new bootstrap.Modal(document.getElementById('addressModal')).show();
     }
-
     function editAddress(addressId) {
       const user = userManager.getCurrentUser();
       const address = user.addresses.find(a => a.id === addressId);
       if (!address) return;
-
       document.getElementById('address-modal-title').textContent = 'Editar Dirección';
       document.getElementById('address-id').value = address.id;
       document.getElementById('address-alias').value = address.alias;
@@ -897,10 +783,8 @@
       document.getElementById('address-postal').value = address.postalCode;
       document.getElementById('address-province').value = address.province;
       document.getElementById('address-default').checked = address.isDefault;
-
       new bootstrap.Modal(document.getElementById('addressModal')).show();
     }
-
     function saveAddress() {
       const addressData = {
         id: document.getElementById('address-id').value,
@@ -911,13 +795,11 @@
         province: document.getElementById('address-province').value,
         isDefault: document.getElementById('address-default').checked
       };
-
       if (userManager.saveAddress(addressData)) {
         bootstrap.Modal.getInstance(document.getElementById('addressModal')).hide();
         loadUserAddresses();
       }
     }
-
     function deleteAddress(addressId) {
       if (confirm('¿Estás seguro de que quieres eliminar esta dirección?')) {
         if (userManager.deleteAddress(addressId)) {
@@ -925,27 +807,22 @@
         }
       }
     }
-
     function changePassword() {
       document.getElementById('change-password-form').reset();
       new bootstrap.Modal(document.getElementById('changePasswordModal')).show();
     }
-
     function updatePassword() {
       const currentPassword = document.getElementById('current-password').value;
       const newPassword = document.getElementById('new-password').value;
       const confirmPassword = document.getElementById('confirm-password').value;
-
       if (newPassword !== confirmPassword) {
         userManager.showNotification('Las contraseñas no coinciden', 'error');
         return;
       }
-
       if (userManager.changePassword(currentPassword, newPassword)) {
         bootstrap.Modal.getInstance(document.getElementById('changePasswordModal')).hide();
       }
     }
-
     function deleteAccount() {
       if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
         if (confirm('Esta acción es irreversible. ¿Continuar?')) {
@@ -954,17 +831,14 @@
         }
       }
     }
-
     // Mejorar lógica de navegación para Mi Cuenta
     function updateNavigation() {
       const userDropdown = document.getElementById('userDropdown');
       const authButtons = document.getElementById('authButtons');
-      
       if (typeof userManager !== 'undefined' && userManager.isLoggedIn()) {
         // Usuario logueado: mostrar dropdown, ocultar botones auth
         if (userDropdown) userDropdown.style.display = 'block';
         if (authButtons) authButtons.style.display = 'none';
-        
         const user = userManager.getCurrentUser();
         const userNameNav = document.getElementById('userNameNav');
         if (userNameNav && user) {
@@ -983,7 +857,6 @@
         }
       }
     }
-
     // Inicializar cuando carga la página
     document.addEventListener('DOMContentLoaded', function() {
       // Inicializar sistemas profesionales
@@ -993,12 +866,10 @@
         if (typeof ErrorManager !== 'undefined') window.errorManager = new ErrorManager();
         if (typeof NotificationSystem !== 'undefined') window.notificationSystem = new NotificationSystem();
         if (typeof PerformanceMonitor !== 'undefined') window.performanceMonitor = new PerformanceMonitor();
-        
         console.log('✅ Sistemas profesionales inicializados');
       } catch (error) {
         console.warn('⚠️ Algunos sistemas profesionales no se pudieron inicializar:', error);
       }
-      
       // Inicializar sistemas base
       try {
         if (typeof Store !== 'undefined') {
@@ -1009,103 +880,83 @@
           window.userManager = new UserManager();
           console.log('✅ UserManager inicializado');
         }
-        
         // Inicializar navbar universal
         new UniversalNavbar('navbar-container', {
           showSearch: false
         });
         console.log('✅ Navbar inicializado');
-        
         // Event listeners para login exitoso
         document.addEventListener('userLoggedIn', function(event) {
           console.log('🔐 Usuario logueado exitosamente');
           currentUser = event.detail.user || JSON.parse(localStorage.getItem('currentUser'));
-          
           // Ocultar modal y mostrar contenido
           const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
           if (loginModal) {
             loginModal.hide();
           }
-          
           // Mostrar contenido de la cuenta
           const accountContent = document.querySelector('.row');
           if (accountContent) accountContent.style.display = 'block';
-          
           // Cargar datos del usuario
           loadUserProfile(currentUser);
           loadUserOrders();
           loadUserAddresses();
-          
           // Event listeners para el formulario
           const profileForm = document.getElementById('profile-form');
           if (profileForm) {
             profileForm.addEventListener('submit', saveProfile);
           }
-          
           if (window.notificationSystem) {
             window.notificationSystem.success('Bienvenido', `Hola ${currentUser.nombre || currentUser.name || 'Usuario'}!`);
           }
         });
-        
         // Event listener para cuando se cierre sesión
         document.addEventListener('userLoggedOut', function() {
           // Ocultar contenido de la cuenta
           const accountContent = document.querySelector('.row');
           if (accountContent) accountContent.style.display = 'none';
-          
           // Redirigir a la página principal
           setTimeout(() => {
             window.location.href = 'index.html';
           }, 1000);
         });
-        
       } catch (error) {
         console.error('❌ Error inicializando sistemas base:', error);
       }
-      
       // Verificar estado de login y cargar contenido
       setTimeout(() => {
         // Verificar diferentes fuentes de datos de usuario
         const userData = JSON.parse(localStorage.getItem('currentUser')) || 
                         JSON.parse(localStorage.getItem('patagonia_user'));
-        
         if (userData && (userData.email || userData.id)) {
           // Usuario logueado: cargar datos directamente
           currentUser = userData;
-          
           // Mostrar la sección de cuenta y ocultar modal de login
           const accountContent = document.querySelector('.row');
           const loginModal = document.getElementById('loginModal');
-          
           if (accountContent) accountContent.style.display = 'block';
           if (loginModal) {
             const modalInstance = bootstrap.Modal.getInstance(loginModal);
             if (modalInstance) modalInstance.hide();
           }
-          
           loadUserProfile(currentUser);
           loadUserOrders();
           loadUserAddresses();
-          
           // Event listeners
           const profileForm = document.getElementById('profile-form');
           if (profileForm) {
             profileForm.addEventListener('submit', saveProfile);
           }
-          
           console.log('✅ Usuario logueado - datos cargados');
         } else {
           // Usuario no logueado: mostrar modal de login
           console.log('⚠️ Usuario no logueado - redirigiendo');
-          
           // Ocultar contenido de la cuenta
           const accountContent = document.querySelector('.row');
           if (accountContent) accountContent.style.display = 'none';
-          
           // Mostrar modal de login inmediatamente
           const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
           loginModal.show();
-          
           if (window.notificationSystem) {
             window.notificationSystem.info('Acceso requerido', 'Inicia sesión para acceder a tu cuenta');
           }

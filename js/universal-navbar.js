@@ -116,24 +116,6 @@ class UniversalNavbar {
                 ${this.renderUserActions()}
               </div>
 
-              <!-- 💝 Botón Wishlist -->
-              <a href="mis-favoritos.html" class="btn btn-outline-light position-relative me-2" title="Lista de deseos"
-                 style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
-                <i class="bi bi-heart" style="font-size:0.85rem;"></i>
-                <span class="wishlist-counter position-absolute top-0 start-100 translate-middle badge rounded-pill" 
-                      style="display: none; 
-                             font-size: 0.65rem; 
-                             font-weight: bold;
-                             background: #dc3545;
-                             color: white;
-                             border: 2px solid white;
-                             min-width: 20px;
-                             height: 20px;
-                             line-height: 16px;
-                             text-align: center;
-                             box-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</span>
-              </a>
-
               <a href="#" class="btn btn-outline-light position-relative" title="Carrito"
                  data-bs-toggle="modal" data-bs-target="#cartModal"
                  style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">

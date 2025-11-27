@@ -1,6 +1,12 @@
 <!DOCTYPE html>
+<!-- 🛍️ TIENDA PRINCIPAL - PATAGONIA STYLE 
+     🏪 Catálogo completo de productos con funcionalidades avanzadas
+     🔍 Incluye búsqueda en tiempo real, filtros por rating y sistema de carrito
+     ⚡ Arquitectura modular con JavaScript ES6+ y localStorage
+     📱 Diseño responsive optimizado para todos los dispositivos -->
 <html lang="es" style="margin: 0; padding: 0; height: 100%;">
 <head>
+  <!-- 📋 Configuración de documento y SEO -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tienda - Patagonia Style</title>
@@ -38,8 +44,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="css/dark-mode.css">
-  <!-- Frontend Improvements -->
   <link rel="stylesheet" href="css/optimizations.css">
   <link rel="stylesheet" href="css/design-system.css">
   <link rel="stylesheet" href="css/mejoras-semanticas.css">
@@ -47,7 +51,6 @@
   <link rel="stylesheet" href="css/responsive-advanced.css">
   <link rel="stylesheet" href="css/dark-theme.css">
   <link rel="stylesheet" href="css/product-cards-improved.css">
-  <!-- Solución para ocultar botón Crear Cuenta flotante -->
   <link rel="stylesheet" href="css/ocultar-crear-cuenta.css">
   <style>
     /* Estilos específicos para que el dropdown se vea como en la imagen 2 */
@@ -59,7 +62,6 @@
       padding: 8px 0 !important;
       min-width: 180px !important;
     }
-    
     .dropdown-item {
       color: white !important;
       background: transparent !important;
@@ -69,61 +71,48 @@
       display: flex !important;
       align-items: center !important;
     }
-    
     .dropdown-item:hover,
     .dropdown-item:focus {
       background: rgba(255,255,255,0.1) !important;
       color: white !important;
     }
-    
     .dropdown-item i {
       color: white !important;
       margin-right: 8px !important;
     }
-    
     .dropdown-item:hover i {
       color: white !important;
     }
-    
     .dropdown-item span {
       color: white !important;
     }
-    
     .dropdown-item:hover span {
       color: white !important;
     }
-    
     /* Específico para cerrar sesión */
     .dropdown-item[onclick*="logoutUser"] {
       color: #ff6b6b !important;
     }
-    
     .dropdown-item[onclick*="logoutUser"] i {
       color: #ff6b6b !important;
     }
-    
     .dropdown-item[onclick*="logoutUser"] span {
       color: #ff6b6b !important;
     }
-    
     .dropdown-item[onclick*="logoutUser"]:hover {
       background: rgba(255,107,107,0.1) !important;
       color: #ff6b6b !important;
     }
-    
     .dropdown-item[onclick*="logoutUser"]:hover i {
       color: #ff6b6b !important;
     }
-    
     .dropdown-item[onclick*="logoutUser"]:hover span {
       color: #ff6b6b !important;
     }
-    
     .dropdown-divider {
       border-color: rgba(255,255,255,0.2) !important;
       margin: 6px 0 !important;
     }
-    
     /* Botón del dropdown */
     .dropdown-toggle {
       background: rgba(255,255,255,0.1) !important;
@@ -133,25 +122,21 @@
       border-radius: 12px !important;
       font-size: 0.8rem !important;
     }
-    
     .dropdown-toggle:hover {
       background: rgba(255,255,255,0.2) !important;
       border-color: rgba(255,255,255,0.4) !important;
       color: white !important;
     }
-    
     .dropdown-toggle:focus {
       background: rgba(255,255,255,0.2) !important;
       border-color: rgba(255,255,255,0.4) !important;
       color: white !important;
       box-shadow: 0 0 0 0.25rem rgba(255,255,255,0.25) !important;
     }
-    
     .dropdown-toggle::after {
       margin-left: 8px !important;
       color: white !important;
     }
-    
     .card-img-top {
       object-fit: cover;
       width: 100%;
@@ -206,9 +191,7 @@
     .navbar .bi-cart3 {
       color: #fff !important;
     }
-
     /* 🔧 CORRECCIONES URGENTES PARA LEGIBILIDAD */
-    
     /* Forzar tema claro en tienda */
     body {
       background: #e6e8ea !important;
@@ -218,7 +201,6 @@
       padding-top: 50px !important; /* Solo para navbar fijo */
       overflow-x: hidden !important;
     }
-    
     /* Eliminar TODA línea blanca debajo del footer */
     html {
       margin: 0 !important;
@@ -226,11 +208,9 @@
       overflow-x: hidden !important;
       height: 100% !important;
     }
-    
     html, body {
       min-height: 100% !important;
     }
-    
     /* Footer pegado al fondo SIN línea blanca */
     footer {
       width: 100vw !important;
@@ -239,33 +219,27 @@
       padding: 30px 0 !important;
       box-sizing: border-box !important;
     }
-    
     /* Cards de productos con fondo claro y texto legible */
     .card-producto {
       background: white !important;
       color: #333 !important;
       border: 1px solid #e0e0e0 !important;
     }
-    
     .card-title {
       color: #1f3c5a !important;
       font-weight: 700 !important;
     }
-    
     .card-text {
       color: #666 !important;
     }
-    
     .card-price {
       color: #3b5d50 !important;
       font-weight: 700 !important;
     }
-    
     .card-price-old {
       color: #888 !important;
       text-decoration: line-through !important;
     }
-    
     /* Selectores de filtro legibles */
     .form-select,
     .form-label {
@@ -273,69 +247,55 @@
       background: white !important;
       border-color: #ddd !important;
     }
-    
     /* Títulos y texto principal */
     h1, h2, h3, h4, h5, h6 {
       color: #3b5d50 !important;
     }
-    
     .lead {
       color: #666 !important;
     }
-    
     /* Breadcrumbs legibles */
     .breadcrumb-section {
       background: rgba(255, 255, 255, 0.9) !important;
     }
-    
     .breadcrumb-item a {
       color: #3b5d50 !important;
     }
-    
     .breadcrumb-item.active {
       color: #666 !important;
     }
-    
     /* Botones mejorados */
     .btn-card {
       background: linear-gradient(90deg, #f4a259 60%, #b67c3a 100%) !important;
       color: white !important;
       border: none !important;
     }
-    
     .btn-card:hover {
       background: linear-gradient(90deg, #e09145 60%, #a26730 100%) !important;
       color: white !important;
     }
-    
     /* Testimonios con mejor contraste */
     .testimonial-container {
       background: white !important;
       color: #333 !important;
     }
-    
     blockquote {
       color: #333 !important;
     }
-    
     cite {
       color: #3b5d50 !important;
     }
-    
     /* Mensaje de no productos */
     #no-productos {
       color: #666 !important;
     }
-    
     #no-productos h3 {
       color: #888 !important;
     }
-    
     /* Mejorar espaciado entre productos */
     .row.g-4 {
       gap: 1.5rem !important;
     }
-    
     /* Mejor visualización de badges de descuento */
     .badge-descuento {
       background: #ff6b35 !important;
@@ -346,13 +306,11 @@
       border-radius: 12px !important;
       box-shadow: 0 2px 8px rgba(255, 107, 53, 0.3) !important;
     }
-    
     /* Warnings de stock bajo */
     .text-warning {
       color: #e67e22 !important;
       font-weight: 600 !important;
     }
-    
     /* Deshabilitar tema oscuro automático */
     [data-theme="dark"] body,
     [data-theme="dark"] .card,
@@ -362,12 +320,6 @@
       color: #333 !important;
       border-color: #ddd !important;
     }
-    
-    /* Ocultar botón de cambio de tema temporalmente */
-    .theme-toggle {
-      display: none !important;
-    }
-    
     /* 🚫 OCULTAR AGRESIVAMENTE todos los botones "Crear Cuenta" fuera de modales */
     body > button[data-bs-target="#registerModal"],
     body > div:not(.modal):not(.modal-backdrop) button[data-bs-target="#registerModal"],
@@ -395,7 +347,6 @@
       height: 0 !important;
       overflow: hidden !important;
     }
-    
     /* ✅ MANTENER visible solo dentro del modal de login */
     .modal#loginModal button[data-bs-target="#registerModal"],
     .modal#loginModal a[data-bs-target="#registerModal"],
@@ -408,23 +359,19 @@
       position: relative !important;
       left: auto !important;
     }
-    
     /* Mejorar contraste del texto en general */
     body * {
       color: inherit;
     }
-    
     /* Asegurar que las imágenes se vean bien */
     .card-img-top {
       border-radius: 12px 12px 0 0 !important;
       object-fit: cover !important;
     }
-    
     /* Container principal con mejor espaciado */
     .container {
       max-width: 1200px !important;
     }
-    
     /* Grid más organizado y espaciado para tarjetas expandidas */
     #productos-container {
       display: flex !important;
@@ -432,23 +379,19 @@
       gap: 2rem !important;
       justify-content: center !important;
     }
-    
     #productos-container .col-12 {
       flex: 0 0 100% !important;
       max-width: 500px !important;
       margin-bottom: 0 !important;
     }
-    
     #productos-container .col-lg-6 {
       flex: 0 0 calc(50% - 1rem) !important;
       max-width: 500px !important;
     }
-    
     #productos-container .col-xl-4 {
       flex: 0 0 calc(33.333% - 1.33rem) !important;
       max-width: 400px !important;
     }
-
     @media (max-width: 768px) {
       #productos-container .col-12,
       #productos-container .col-lg-6,
@@ -456,12 +399,10 @@
         flex: 0 0 100% !important;
         max-width: 500px !important;
       }
-      
       .container {
         padding: 0 1rem !important;
       }
     }
-    
     @media (min-width: 769px) and (max-width: 991px) {
       #productos-container .col-lg-6,
       #productos-container .col-xl-4 {
@@ -469,76 +410,62 @@
         max-width: 450px !important;
       }
     }
-    
     @media (min-width: 1200px) {
       #productos-container .col-xl-4 {
         flex: 0 0 calc(33.333% - 1.33rem) !important;
         max-width: 400px !important;
       }
     }
-    
     /* Estilos para el contenido expandido de las tarjetas */
     .card-producto {
       transition: transform 0.2s ease, box-shadow 0.2s ease !important;
     }
-    
     .card-producto:hover {
       transform: translateY(-5px) !important;
       box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
     }
-    
     /* Estilos para la galería de imágenes de productos */
     .carousel-control-prev,
     .carousel-control-next {
       opacity: 0 !important;
       transition: opacity 0.3s ease !important;
     }
-    
     .card-producto:hover .carousel-control-prev,
     .card-producto:hover .carousel-control-next {
       opacity: 1 !important;
     }
-    
     .carousel-control-prev-icon,
     .carousel-control-next-icon {
       width: 16px !important;
       height: 16px !important;
     }
-    
     .carousel-indicators button {
       border: none !important;
       transition: all 0.3s ease !important;
     }
-    
     .carousel-indicators button:hover {
       opacity: 1 !important;
       transform: scale(1.2) !important;
     }
-    
     .carousel-indicators button.active {
       opacity: 1 !important;
       background-color: white !important;
     }
-    
     .carousel-item img {
       transition: transform 0.3s ease !important;
       cursor: pointer !important;
     }
-    
     .carousel-item:hover img {
       transform: scale(1.05) !important;
     }
-    
     /* Modal de imagen ampliada */
     #imageModal .modal-content {
       background: rgba(0, 0, 0, 0.9) !important;
     }
-    
     #imageModal .modal-body {
       max-height: 80vh;
       overflow: hidden;
     }
-    
     #imageModal img {
       max-height: 70vh;
       object-fit: contain;
@@ -548,7 +475,6 @@
       margin: 0;
       padding: 0;
     }
-    
     body {
       min-height: 100%;
       margin: 0 !important;
@@ -556,17 +482,14 @@
       display: flex;
       flex-direction: column;
     }
-    
     main {
       flex: 1 0 auto;
     }
-    
     footer {
       flex-shrink: 0;
       margin-bottom: 0 !important;
       padding-bottom: 40px !important;
     }
-    
     /* Skip Link para accesibilidad - debe estar oculto por defecto */
     .skip-link {
       position: absolute;
@@ -582,7 +505,6 @@
       font-weight: bold;
       transition: top 0.2s ease;
     }
-    
     .skip-link:focus {
       top: 6px;
       color: #ffffff;
@@ -591,15 +513,10 @@
   </style>
 </head>
 <body>
-  <!-- Skip Link para accesibilidad -->
   <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
-
-  <!-- Header con navegación principal -->
   <header role="banner">
     <nav id="navbar-container" role="navigation" aria-label="Navegación principal"></nav>
   </header>
-
-  <!-- Modal para vista ampliada de imágenes -->
   <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content bg-transparent border-0">
@@ -624,8 +541,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Breadcrumbs -->
   <nav aria-label="Breadcrumb" class="breadcrumb-section py-2">
     <div class="container">
       <ol class="breadcrumb mb-0">
@@ -634,18 +549,13 @@
       </ol>
     </div>
   </nav>
-
-  <!-- Contenido principal -->
   <main id="main-content" class="container py-5" role="main">
     <header class="text-center mb-5">
       <h1 class="section-title" style="font-size:2.7rem; font-weight:700; color:#3b5d50; letter-spacing:1px;">Tienda</h1>
       <p class="lead text-muted">Descubre nuestros productos únicos inspirados en la Patagonia</p>
     </header>
-    
-    <!-- Sección de Filtros y ordenamiento -->
     <section aria-labelledby="filtros-title" class="mb-4">
       <h2 id="filtros-title" class="sr-only">Filtros y ordenamiento de productos</h2>
-      
       <div class="row mb-4">
         <div class="col-12 mb-3">
           <label for="busqueda-tiempo-real" class="form-label fw-bold">
@@ -670,7 +580,6 @@
           </small>
         </div>
       </div>
-      
       <div class="row mb-4">
         <div class="col-md-4 mb-3 mb-md-0">
           <label for="filtro-categoria" class="form-label fw-bold">Filtrar por categoría:</label>
@@ -681,7 +590,6 @@
             <option value="accesorios">Accesorios</option>
           </select>
         </div>
-        
         <div class="col-md-4 mb-3 mb-md-0">
           <label for="filtro-rating" class="form-label fw-bold">
             <i class="bi bi-star-fill me-2" style="color: #ffc107;"></i>Calificación mínima:
@@ -694,7 +602,6 @@
             <option value="1">⭐ 1+ estrellas</option>
           </select>
         </div>
-        
         <div class="col-md-4">
           <label for="ordenamiento" class="form-label fw-bold">Ordenar por:</label>
           <select class="form-select" id="ordenamiento">
@@ -706,18 +613,13 @@
         </select>
       </div>
     </div>
-
-      <!-- Sección de productos -->
       <section aria-labelledby="productos-title" class="mt-4">
         <h2 id="productos-title" class="sr-only">Catálogo de productos</h2>
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" 
              id="productos-container" 
              role="list"
              style="gap: 1.5rem; justify-content: center;">
-          <!-- Los productos se cargan dinámicamente aquí -->
         </div>
-
-        <!-- Mensaje de no hay productos -->
         <div id="no-productos" class="text-center py-5" style="display: none;" role="status" aria-live="polite">
           <i class="bi bi-search" style="font-size: 3rem; color: #ccc;" aria-hidden="true"></i>
           <h3 class="mt-3 text-muted">No se encontraron productos</h3>
@@ -726,8 +628,6 @@
       </section>
     </section>
   </main>
-
-  <!-- Sección de Testimonios -->
   <section class="container my-5" aria-labelledby="testimonios-title">
     <h2 id="testimonios-title" class="text-center mb-5" style="color: #3b5d50; font-weight: 600;">Testimonios</h2>
     <div class="row justify-content-center">
@@ -748,23 +648,13 @@
       </div>
     </div>
   </section>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Utilidades JavaScript mejoradas -->
   <script src="js/utils/logger.js"></script>
   <script src="js/utils/validators.js"></script>
   <script src="js/utils/helpers.js"></script>
   <script src="js/utils/improvements.js"></script>
-  
-  <!-- Sistema mejorado de tarjetas de productos -->
   <script src="js/utils/product-card-builder.js"></script>
   <script src="js/utils/product-renderer.js"></script>
-  
-  <!-- Scripts principales -->
-  <script src="js/theme-manager.js"></script>
-  <script src="js/wishlist.js"></script>
-  <script src="js/product-comparator.js"></script>
   <script src="js/store.js?v=gallery"></script>
   <script src="js/users.js"></script>
   <script src="js/ratings.js"></script>
@@ -774,18 +664,15 @@
     // Forzar tema claro
     document.documentElement.setAttribute('data-theme', 'light');
     localStorage.setItem('theme', 'light');
-    
     // Ocultar botón de cambio de tema
     const themeToggle = document.querySelector('.theme-toggle');
     if (themeToggle) {
       themeToggle.style.display = 'none';
     }
-    
     // Asegurar que el body no tenga clases de tema oscuro
     document.body.classList.remove('theme-dark');
     document.body.classList.add('theme-light');
   });
-  
   // Inicializar tienda
   document.addEventListener('DOMContentLoaded', function() {
     // Esperar a que store se inicialice
@@ -794,27 +681,22 @@
         setTimeout(inicializarTienda, 100);
         return;
       }
-
       // Variables para mantener el estado de filtros
       let productosFiltrados = [...store.productos];
       let categoriaActual = 'todos';
       let ordenamientoActual = 'nombre';
-
       // Función para aplicar filtros
       store.aplicarFiltros = function() {
         const categoria = document.getElementById('filtro-categoria').value;
         const textoBusqueda = document.getElementById('busqueda-tiempo-real')?.value.toLowerCase().trim() || '';
         const ratingMinimo = parseInt(document.getElementById('filtro-rating')?.value) || 0;
-        
         categoriaActual = categoria;
-        
         // Filtrar por categoría
         if (categoria === 'todos') {
           productosFiltrados = [...this.productos];
         } else {
           productosFiltrados = this.filtrarPorCategoria(categoria);
         }
-        
         // Filtrar por búsqueda en tiempo real
         if (textoBusqueda) {
           productosFiltrados = productosFiltrados.filter(producto => {
@@ -824,7 +706,6 @@
                    (producto.tags && producto.tags.some(tag => tag.toLowerCase().includes(textoBusqueda)));
           });
         }
-        
         // ⭐ Filtrar por calificación mínima
         if (ratingMinimo > 0) {
           productosFiltrados = productosFiltrados.filter(producto => {
@@ -833,13 +714,10 @@
             return rating >= ratingMinimo;
           });
         }
-        
         // Aplicar ordenamiento actual
         aplicarOrdenamientoInterno();
-        
         // Renderizar productos filtrados
         this.renderizarProductos(productosFiltrados);
-        
         // Mostrar/ocultar mensaje de no productos
         const noProductos = document.getElementById('no-productos');
         const contenedor = document.getElementById('productos-container');
@@ -851,23 +729,19 @@
           if (contenedor) contenedor.style.display = 'flex';
         }
       };
-
       // ⭐ Función para calcular rating promedio de un producto
       store.calcularRatingPromedio = function(productoId) {
         // Obtener reseñas del localStorage (simuladas)
         const resenasKey = `resenas_producto_${productoId}`;
         const resenas = JSON.parse(localStorage.getItem(resenasKey) || '[]');
-        
         if (resenas.length === 0) {
           // Rating por defecto si no hay reseñas
           const ratingsDefecto = {1: 4.2, 2: 4.7, 3: 4.0, 4: 4.5, 5: 4.3, 6: 4.1};
           return ratingsDefecto[productoId] || 4.0;
         }
-        
         const suma = resenas.reduce((total, resena) => total + resena.rating, 0);
         return (suma / resenas.length);
       };
-
       // Función para aplicar ordenamiento
       store.aplicarOrdenamiento = function() {
         const ordenamiento = document.getElementById('ordenamiento').value;
@@ -875,7 +749,6 @@
         aplicarOrdenamientoInterno();
         this.renderizarProductos(productosFiltrados);
       };
-
       // Función interna para ordenar
       function aplicarOrdenamientoInterno() {
         switch(ordenamientoActual) {
@@ -901,7 +774,6 @@
             break;
         }
       }
-
       // Procesar búsqueda desde URL
       const urlParams = new URLSearchParams(window.location.search);
       const searchTerm = urlParams.get('search');
@@ -909,13 +781,11 @@
         // Realizar búsqueda
         productosFiltrados = store.buscarProductos(searchTerm);
         store.renderizarProductos(productosFiltrados);
-        
         // Mostrar término de búsqueda
         const titulo = document.querySelector('main h2');
         if (titulo && productosFiltrados.length > 0) {
           titulo.innerHTML = `Resultados de búsqueda: "${searchTerm}" <small class="text-muted">(${productosFiltrados.length} producto${productosFiltrados.length !== 1 ? 's' : ''})</small>`;
         }
-        
         // Actualizar select de categoría si hay resultados
         if (productosFiltrados.length > 0 && productosFiltrados[0].categoria) {
           const filtroSelect = document.getElementById('filtro-categoria');
@@ -927,14 +797,12 @@
         // Renderizar todos los productos si no hay búsqueda
         store.renderizarProductos(store.productos);
       }
-      
       // Agregar event listeners a los selectores
       const filtroCategoria = document.getElementById('filtro-categoria');
       const filtroRating = document.getElementById('filtro-rating');
       const ordenamiento = document.getElementById('ordenamiento');
       const busquedaTiempoReal = document.getElementById('busqueda-tiempo-real');
       const limpiarBusqueda = document.getElementById('limpiar-busqueda');
-      
       if (filtroCategoria) {
         filtroCategoria.addEventListener('change', function() {
           if (typeof store !== 'undefined' && store.aplicarFiltros) {
@@ -942,7 +810,6 @@
           }
         });
       }
-
       // ⭐ Event listener para filtro por rating
       if (filtroRating) {
         filtroRating.addEventListener('change', function() {
@@ -951,7 +818,6 @@
           }
         });
       }
-      
       if (ordenamiento) {
         ordenamiento.addEventListener('change', function() {
           if (typeof store !== 'undefined' && store.aplicarOrdenamiento) {
@@ -959,7 +825,6 @@
           }
         });
       }
-
       // 🔍 EVENT LISTENERS PARA BÚSQUEDA EN TIEMPO REAL
       if (busquedaTiempoReal) {
         // Búsqueda mientras escribes (con debounce para performance)
@@ -969,7 +834,6 @@
           timeoutBusqueda = setTimeout(() => {
             if (typeof store !== 'undefined' && store.aplicarFiltros) {
               store.aplicarFiltros();
-              
               // Actualizar título según búsqueda
               const textoBusqueda = this.value.trim();
               const tituloSeccion = document.querySelector('.section-title');
@@ -983,7 +847,6 @@
             }
           }, 300); // Esperar 300ms después de que deje de escribir
         });
-
         // Enter para buscar inmediatamente
         busquedaTiempoReal.addEventListener('keypress', function(e) {
           if (e.key === 'Enter') {
@@ -994,7 +857,6 @@
           }
         });
       }
-
       // Botón limpiar búsqueda
       if (limpiarBusqueda) {
         limpiarBusqueda.addEventListener('click', function() {
@@ -1010,7 +872,6 @@
           }
         });
       }
-      
       // Inicializar contador de carrito
       setTimeout(() => {
         if (typeof store !== 'undefined') {
@@ -1022,22 +883,17 @@
         updateProductCardsWithRatings();
       }, 500);
     }
-
     // Iniciar cuando el DOM esté listo
     inicializarTienda();
   });
-
   function updateProductCardsWithRatings() {
     if (typeof ratingSystem === 'undefined') return;
-    
     const productCards = document.querySelectorAll('.product-card');
     productCards.forEach(card => {
       const productId = parseInt(card.dataset.productId);
       if (!productId) return;
-      
       const averageRating = ratingSystem.getAverageRating(productId);
       const totalReviews = ratingSystem.getTotalReviews(productId);
-      
       if (averageRating > 0) {
         // Buscar el contenedor de precio
         const priceContainer = card.querySelector('.card-text');
@@ -1051,14 +907,12 @@
               <span class="ms-2 text-muted small">(${totalReviews})</span>
             </div>
           `;
-          
           // Insertar antes del precio
           priceContainer.parentNode.insertBefore(ratingDiv, priceContainer);
         }
       }
     });
   }
-
   // Función legacy para mantener compatibilidad
   function actualizarCarrito() {
     if (typeof store !== 'undefined') {
@@ -1066,11 +920,6 @@
     }
   }
 </script>
-
-<!-- Footer será generado automáticamente por universal-footer.js -->
-
-<!-- Modales Universales -->
-    <!-- Login Modal -->
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -1100,8 +949,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Register Modal -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -1156,8 +1003,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Welcome Modal -->
     <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content" style="border-radius: 15px; border: none;">
@@ -1176,8 +1021,6 @@
         </div>
       </div>
     </div>
-    
-    <!-- Cart Modal -->
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content" style="border-radius: 15px; border: none; max-height: 90vh; overflow-y: auto;">
@@ -1189,12 +1032,8 @@
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body" style="padding: 20px;">
-            <!-- Items del carrito -->
             <div id="cart-items" class="cart-items mb-4">
-              <!-- Se llenan dinámicamente -->
             </div>
-            
-            <!-- Estado carrito vacío -->
             <div id="empty-cart" class="text-center py-5" style="display: none;">
               <i class="bi bi-cart-x" style="font-size: 4rem; color: #ccc;"></i>
               <h4 class="mt-3 text-muted">Tu carrito está vacío</h4>
@@ -1205,10 +1044,8 @@
             </div>
           </div>
           <div class="modal-footer" id="cart-footer" style="border-top: 1px solid #eee; padding: 20px; background: #f8f9fa; border-radius: 0 0 15px 15px;">
-            <!-- Resumen del carrito -->
             <div class="w-100">
               <div id="cart-summary" class="cart-summary mb-3">
-                <!-- Se llena dinámicamente -->
               </div>
               <div class="d-flex gap-2 w-100">
                 <button type="button" class="btn btn-outline-secondary flex-grow-1" data-bs-dismiss="modal">
@@ -1225,55 +1062,39 @@
     </div>
   `;
 </script>
-
-<!-- Sistemas de checkout -->
 <script src="js/whatsapp-checkout.js"></script>
-
-<!-- Universal Navbar -->
 <script src="js/universal-navbar.js?v=nosearch"></script>
-
-<!-- Modales universales -->
 <script src="js/universal-modals.js"></script>
-
-<!-- Sistema de carrito optimizado -->
 <script src="js/feedback-system.js"></script>
 <script src="js/cart-validator.js"></script>
 <script src="js/cart-system.js"></script>
 <script src="js/cart-renderer.js"></script>
 <script src="js/carrito-manager.js"></script>
-
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     new UniversalNavbar('navbar-container', {
       showSearch: false
     });
-    
     // 🚫 ELIMINAR AGRESIVAMENTE botones "Crear Cuenta" flotantes
     function eliminarBotonesCrearCuenta() {
       // Buscar todos los elementos que puedan contener "Crear Cuenta"
       const todosLosElementos = document.querySelectorAll('button, a, div, span');
-      
       todosLosElementos.forEach(elemento => {
         // Verificar si está dentro de un modal (SI está, NO tocar)
         const estaEnModal = elemento.closest('.modal') !== null;
         if (estaEnModal) return; // No tocar elementos dentro de modales
-        
         // Verificar si tiene el atributo data-bs-target="#registerModal"
         const targetRegister = elemento.getAttribute('data-bs-target') === '#registerModal';
-        
         // Verificar si el texto contiene "Crear Cuenta" o "Crear cuenta"
         const textoElemento = elemento.textContent || '';
         const tieneTextoCrearCuenta = textoElemento.includes('Crear Cuenta') || 
                                        textoElemento.includes('Crear cuenta') ||
                                        textoElemento.includes('crear cuenta');
-        
         // Si cumple cualquiera de estas condiciones Y NO está en modal, ELIMINAR
         if ((targetRegister || tieneTextoCrearCuenta) && !estaEnModal) {
           console.log('�️ ELIMINANDO elemento "Crear Cuenta":', elemento);
-          
           // Método 1: Remove directo
           elemento.remove();
-          
           // Método 2: Por si el remove no funciona
           if (elemento.parentNode) {
             try {
@@ -1282,7 +1103,6 @@
               // Silenciar errores
             }
           }
-          
           // Método 3: Ocultar completamente
           elemento.style.display = 'none';
           elemento.style.visibility = 'hidden';
@@ -1293,20 +1113,16 @@
         }
       });
     }
-    
     // Ejecutar INMEDIATAMENTE
     eliminarBotonesCrearCuenta();
-    
     // Ejecutar cada 50ms durante los primeros 5 segundos
     const intervalos = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 3000, 4000, 5000];
     intervalos.forEach(delay => {
       setTimeout(eliminarBotonesCrearCuenta, delay);
     });
-    
     // Observer ULTRA agresivo
     const observer = new MutationObserver((mutations) => {
       let debeEliminar = false;
-      
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((node) => {
           if (node.nodeType === 1) { // Es un elemento HTML
@@ -1315,7 +1131,6 @@
             const textoNodo = node.textContent || '';
             const tieneTextoCrearCuenta = textoNodo.includes('Crear Cuenta') || 
                                            textoNodo.includes('Crear cuenta');
-            
             if (targetRegister || tieneTextoCrearCuenta) {
               const estaEnModal = node.closest('.modal') !== null;
               if (!estaEnModal) {
@@ -1325,46 +1140,38 @@
           }
         });
       });
-      
       if (debeEliminar) {
         eliminarBotonesCrearCuenta();
       }
     });
-    
     observer.observe(document.body, {
       childList: true,
       subtree: true,
       attributes: true,
       attributeFilter: ['data-bs-target', 'class', 'id']
     });
-    
     // Esperar a que el carrito esté listo
     document.addEventListener('carritoManager:ready', function() {
       console.log('🛒 Sistema de carrito listo');
-      
       // Función para actualizar contadores del carrito
       const updateCartUI = () => {
         const totalItems = carritoManager.getTotalItems();
         const cartData = carritoManager.getCartSummary();
-        
         // Actualizar contador en navbar
         const navbarCounter = document.getElementById('cart-counter');
         if (navbarCounter) {
           navbarCounter.textContent = totalItems;
           navbarCounter.style.display = totalItems > 0 ? 'inline-block' : 'none';
         }
-        
         // Actualizar modal del carrito
         const modalCounter = document.getElementById('cart-items-count');
         if (modalCounter) {
           modalCounter.textContent = totalItems;
         }
-        
         // Mostrar/ocultar contenido del carrito
         const cartItems = document.getElementById('cart-items');
         const emptyCart = document.getElementById('empty-cart');
         const cartFooter = document.getElementById('cart-footer');
-        
         if (totalItems === 0) {
           if (cartItems) cartItems.style.display = 'none';
           if (emptyCart) emptyCart.style.display = 'block';
@@ -1373,13 +1180,11 @@
           if (cartItems) cartItems.style.display = 'block';
           if (emptyCart) emptyCart.style.display = 'none';
           if (cartFooter) cartFooter.style.display = 'block';
-          
           // Renderizar items en el modal del carrito
           carritoManager.renderComponent('items', cartItems, {
             items: carritoManager.getCartItems(),
             products: [] // Se obtendrán dinámicamente
           });
-          
           // Renderizar resumen
           const cartSummary = document.getElementById('cart-summary');
           if (cartSummary) {
@@ -1389,20 +1194,17 @@
           }
         }
       };
-      
       // Configurar eventos del carrito
       document.addEventListener('cart:updated', updateCartUI);
       document.addEventListener('cart:item:added', updateCartUI);
       document.addEventListener('cart:item:removed', updateCartUI);
       document.addEventListener('cart:item:quantityChanged', updateCartUI);
       document.addEventListener('cart:cleared', updateCartUI);
-      
       // Actualizar al cargar
       updateCartUI();
     });
   });
 </script>
-
 <script>
   // 🎯 SOLUCIÓN DEFINITIVA: Eliminar espacio blanco debajo del footer
   window.addEventListener('DOMContentLoaded', function() {
@@ -1411,41 +1213,33 @@
       if (footer) {
         const body = document.body;
         const html = document.documentElement;
-        
         // Asegurar que body termine exactamente donde termina el footer
         body.style.margin = '0';
         body.style.padding = '0';
         html.style.margin = '0';
         html.style.padding = '0';
-        
         // Forzar altura mínima del body
         const footerBottom = footer.getBoundingClientRect().bottom + window.scrollY;
         const windowHeight = window.innerHeight;
-        
         if (footerBottom < windowHeight) {
           body.style.minHeight = windowHeight + 'px';
         }
       }
     }
-    
     eliminarEspacioFooter();
     window.addEventListener('resize', eliminarEspacioFooter);
     window.addEventListener('load', eliminarEspacioFooter);
   });
 </script>
-
-<!-- Script para galería de imágenes ampliada -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   let currentProduct = null;
   let currentImageIndex = 0;
-
   // Hacer las imágenes del carousel clickeables
   document.addEventListener('click', function(e) {
     if (e.target.matches('.carousel-item img')) {
       const productCard = e.target.closest('.card-producto');
       const productId = productCard.getAttribute('data-producto-id');
-      
       // Buscar el producto en el store
       if (window.store && window.store.productos) {
         currentProduct = window.store.productos.find(p => p.id == productId);
@@ -1454,27 +1248,22 @@ document.addEventListener('DOMContentLoaded', function() {
           const carousel = productCard.querySelector('.carousel');
           const activeItem = carousel.querySelector('.carousel-item.active img');
           currentImageIndex = Array.from(carousel.querySelectorAll('.carousel-item img')).indexOf(activeItem);
-          
           showImageModal();
         }
       }
     }
   });
-
   function showImageModal() {
     if (!currentProduct) return;
-
     const modal = new bootstrap.Modal(document.getElementById('imageModal'));
     const modalImage = document.getElementById('modalImage');
     const imageCounter = document.getElementById('imageCounter');
     const modalTitle = document.getElementById('imageModalLabel');
-
     // Configurar imagen y contador
     modalImage.src = currentProduct.imagenes[currentImageIndex];
     modalImage.alt = `${currentProduct.nombre} - Imagen ${currentImageIndex + 1}`;
     imageCounter.textContent = `${currentImageIndex + 1} / ${currentProduct.imagenes.length}`;
     modalTitle.textContent = currentProduct.nombre;
-
     // Ocultar navegación si solo hay una imagen
     const navigation = document.getElementById('modalImageNavigation');
     if (currentProduct.imagenes.length <= 1) {
@@ -1482,10 +1271,8 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       navigation.style.display = 'flex';
     }
-
     modal.show();
   }
-
   // Navegación en el modal
   document.getElementById('prevModalImage').addEventListener('click', function() {
     if (currentProduct && currentImageIndex > 0) {
@@ -1493,27 +1280,22 @@ document.addEventListener('DOMContentLoaded', function() {
       updateModalImage();
     }
   });
-
   document.getElementById('nextModalImage').addEventListener('click', function() {
     if (currentProduct && currentImageIndex < currentProduct.imagenes.length - 1) {
       currentImageIndex++;
       updateModalImage();
     }
   });
-
   function updateModalImage() {
     const modalImage = document.getElementById('modalImage');
     const imageCounter = document.getElementById('imageCounter');
-    
     modalImage.src = currentProduct.imagenes[currentImageIndex];
     modalImage.alt = `${currentProduct.nombre} - Imagen ${currentImageIndex + 1}`;
     imageCounter.textContent = `${currentImageIndex + 1} / ${currentProduct.imagenes.length}`;
-
     // Actualizar estado de botones
     document.getElementById('prevModalImage').disabled = currentImageIndex === 0;
     document.getElementById('nextModalImage').disabled = currentImageIndex === currentProduct.imagenes.length - 1;
   }
-
   // Navegación con teclado
   document.addEventListener('keydown', function(e) {
     const modal = document.getElementById('imageModal');
@@ -1527,11 +1309,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
-
-<!-- Contenedor para botón WhatsApp flotante -->
 <div id="whatsapp-unico"></div>
-
-  <!-- Sistema de Footer Universal -->
   <script src="js/universal-footer.js"></script>
   <script src="js/whatsapp-global.js"></script>
 </body>

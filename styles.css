@@ -1,37 +1,55 @@
+/* 🎨 PATAGONIA STYLE - SISTEMA DE ESTILOS PRINCIPAL 
+   ⚡ Variables CSS personalizadas para temas consistentes
+   🎯 Diseño responsive con Bootstrap 5.3.0
+   🌟 Efectos avanzados: gradientes, sombras, animaciones
+   📱 Mobile-first approach con breakpoints optimizados
+*/
+
+/* 🔧 VARIABLES CSS GLOBALES - Sistema de colores unificado */
 :root {
+  /* 🎨 Gradientes principales */
   --navbar-gradient: linear-gradient(90deg, #223c54 0%, #3b5c5c 100%);
-  --navbar-text: #f4cba5;
-  --navbar-link: #fff;
-  --navbar-link-active: #f4cba5;
-  --body-bg: #e6e8ea;
+  
+  /* 🌈 Paleta de colores del navbar */
+  --navbar-text: #f4cba5;        /* Color del texto principal */
+  --navbar-link: #fff;           /* Enlaces normales */
+  --navbar-link-active: #f4cba5; /* Enlaces activos */
+  
+  /* 🎯 Fondo general del sitio */
+  --body-bg: #e6e8ea;           /* Color de fondo principal */
 }
 
-/* 🎯 SOLUCIÓN FOOTER SIN LÍNEA BLANCA */
+/* 🎯 SOLUCIÓN FOOTER SIN LÍNEA BLANCA 
+   ✨ Eliminación completa de espacios en blanco
+   🔧 Configuración de altura completa */
 html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  height: 100%;      /* 📏 Altura completa de la ventana */
+  margin: 0;         /* 🚫 Sin márgenes */
+  padding: 0;        /* 🚫 Sin padding */
 }
 
+/* 🏠 CONFIGURACIÓN PRINCIPAL DEL BODY */
 body {
-  background: var(--body-bg);
-  font-family: 'Poppins', sans-serif;
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
+  background: var(--body-bg);              /* 🎨 Fondo con variable CSS */
+  font-family: 'Poppins', sans-serif;      /* 📝 Tipografía principal */
+  min-height: 100%;                        /* 📏 Altura mínima completa */
+  margin: 0;                               /* 🚫 Sin márgenes */
+  padding: 0;                              /* 🚫 Sin padding */
 }
 
-/* Skip Link para accesibilidad - debe estar oculto por defecto */
+/* ♿ ACCESIBILIDAD - Skip Link para navegación por teclado 
+   🔍 Oculto por defecto, visible al recibir foco
+   ⚡ Permite saltar al contenido principal */
 .skip-link {
-  position: absolute;
-  top: -40px;
-  left: 6px;
-  background: #000000;
-  color: #ffffff;
-  padding: 8px;
-  border-radius: 4px;
-  text-decoration: none;
-  z-index: 9999;
+  position: absolute;                      /* 📍 Posicionamiento absoluto */
+  top: -40px;                             /* 👆 Fuera de la vista por defecto */
+  left: 6px;                              /* 👈 Margen izquierdo */
+  background: #000000;                     /* 🎨 Fondo negro */
+  color: #ffffff;                         /* 🎨 Texto blanco */
+  padding: 8px;                           /* 📏 Espaciado interno */
+  border-radius: 4px;                     /* 🔄 Bordes redondeados */
+  text-decoration: none;                   /* 🚫 Sin subrayado */
+  z-index: 9999;                         /* 🔝 Prioridad alta */
   font-size: 14px;
   font-weight: bold;
   transition: top 0.2s ease;
@@ -197,105 +215,6 @@ html, body {
   overflow-x: hidden;
 }
 
-.wishlist-heart {
-  font-size: 1.5rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.wishlist-heart:hover {
-  transform: scale(1.2);
-  background: rgba(255, 255, 255, 1);
-}
-
-.heart-beat {
-  animation: heartBeat 0.6s ease-in-out;
-}
-
-@keyframes heartBeat {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.3); }
-  50% { transform: scale(1.1); }
-  75% { transform: scale(1.25); }
-  100% { transform: scale(1.2); }
-}
-
-.wishlist-counter {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: #dc3545;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  animation: none;
-}
-
-.counter-bounce {
-  animation: counterBounce 0.3s ease;
-}
-
-@keyframes counterBounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-@keyframes counterBounce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
-}
-
-.wishlist-notification {
-  position: fixed;
-  top: 80px;
-  right: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  z-index: 9999;
-  transform: translateX(100%);
-  transition: all 0.3s ease;
-  min-width: 280px;
-  border-left: 4px solid #28a745;
-}
-
-.wishlist-notification.notification-success {
-  border-left-color: #28a745;
-}
-
-.wishlist-notification.notification-info {
-  border-left-color: #17a2b8;
-}
-
-.wishlist-notification.notification-warning {
-  border-left-color: #ffc107;
-}
-
-.wishlist-notification.show {
-  transform: translateX(0);
-}
-
-.wishlist-notification.hide {
-  transform: translateX(100%);
-  opacity: 0;
-}
-
 .notification-content {
   padding: 15px 20px;
   display: flex;
@@ -326,20 +245,6 @@ html, body {
   position: relative !important;
 }
 
-.btn-compare {
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border-radius: 15px;
-  transition: all 0.3s ease;
-  margin-top: 5px;
-}
-
-.btn-compare:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 3px 10px rgba(23, 162, 184, 0.3);
-}
-
-.compare-notification {
   position: fixed;
   top: 130px;
   right: 20px;
@@ -353,29 +258,23 @@ html, body {
   border-left: 4px solid #17a2b8;
 }
 
-.compare-notification.notification-success {
   border-left-color: #28a745;
 }
 
-.compare-notification.notification-warning {
   border-left-color: #ffc107;
 }
 
-.compare-notification.notification-error {
   border-left-color: #dc3545;
 }
 
-.compare-notification.show {
   transform: translateX(0);
 }
 
-.compare-notification.hide {
   transform: translateX(100%);
   opacity: 0;
 }
 
 /* Tabla de comparación */
-#comparisonModal .table th {
   background: linear-gradient(135deg, #1f3c5a, #3b5d50);
   color: white;
   border: none;
@@ -383,40 +282,32 @@ html, body {
   padding: 15px 8px;
 }
 
-#comparisonModal .table td {
   vertical-align: middle;
   padding: 12px 8px;
   border-color: #e9ecef;
 }
 
-#comparisonModal .table-striped tbody tr:nth-of-type(odd) td {
   background: rgba(59, 93, 80, 0.05);
 }
 
-#comparisonModal .modal-header {
   background: linear-gradient(135deg, #1f3c5a, #3b5d50);
   color: white;
 }
 
-#comparisonModal .btn-close {
   filter: invert(1);
 }
 
 /* Responsive para comparación */
 @media (max-width: 768px) {
-  .compare-notification {
     right: 10px;
     left: 10px;
     min-width: auto;
     top: 120px;
   }
   
-  #comparisonModal .table {
     font-size: 0.85rem;
   }
   
-  #comparisonModal .table th,
-  #comparisonModal .table td {
     padding: 8px 4px;
   }
 }

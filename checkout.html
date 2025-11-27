@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navbar -->
     <div id="navbar-container"></div>
-
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
@@ -19,9 +17,7 @@
                 <hr>
             </div>
         </div>
-
         <div class="row">
-            <!-- Resumen del pedido -->
             <div class="col-lg-6">
                 <div class="card mb-4">
                     <div class="card-header">
@@ -29,12 +25,9 @@
                     </div>
                     <div class="card-body">
                         <div id="checkout-items">
-                            <!-- Los items se cargarán aquí -->
                         </div>
                     </div>
                 </div>
-
-                <!-- Método de pago -->
                 <div class="card">
                     <div class="card-header">
                         <h5><i class="bi bi-credit-card me-2"></i>Método de Pago</h5>
@@ -54,7 +47,6 @@
                                     </div>
                                 </label>
                             </div>
-
                             <div class="form-check mb-3 p-3 border rounded">
                                 <input class="form-check-input" type="radio" name="paymentMethod" id="mercadopago" value="mercadopago">
                                 <label class="form-check-label w-100" for="mercadopago">
@@ -67,7 +59,6 @@
                                     </div>
                                 </label>
                             </div>
-
                             <div class="form-check mb-3 p-3 border rounded">
                                 <input class="form-check-input" type="radio" name="paymentMethod" id="efectivo" value="efectivo">
                                 <label class="form-check-label w-100" for="efectivo">
@@ -84,10 +75,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Información del cliente y envío -->
             <div class="col-lg-6">
-                <!-- Información del cliente -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5><i class="bi bi-person me-2"></i>Información de Contacto</h5>
@@ -111,8 +99,6 @@
                         </form>
                     </div>
                 </div>
-
-                <!-- Opciones de envío -->
                 <div class="card mb-4">
                     <div class="card-header">
                         <h5><i class="bi bi-truck me-2"></i>Opciones de Envío</h5>
@@ -133,17 +119,13 @@
                                 <option value="other">Otra provincia</option>
                             </select>
                         </div>
-
                         <div class="mb-3">
                             <label for="customer-address" class="form-label">Dirección completa *</label>
                             <textarea class="form-control" id="customer-address" rows="3" required 
                                       placeholder="Calle, número, piso, departamento, código postal, localidad"></textarea>
                         </div>
-
-                        <!-- Opciones de envío -->
                         <div class="shipping-options" id="shipping-options" style="display: none;">
                             <h6 class="mb-3">Selecciona el tipo de envío:</h6>
-                            
                             <div class="form-check mb-3 p-3 border rounded">
                                 <input class="form-check-input" type="radio" name="shippingMethod" id="standard" value="standard">
                                 <label class="form-check-label w-100" for="standard">
@@ -158,7 +140,6 @@
                                     </div>
                                 </label>
                             </div>
-
                             <div class="form-check mb-3 p-3 border rounded">
                                 <input class="form-check-input" type="radio" name="shippingMethod" id="express" value="express">
                                 <label class="form-check-label w-100" for="express">
@@ -173,7 +154,6 @@
                                     </div>
                                 </label>
                             </div>
-
                             <div class="alert alert-info mt-3" id="free-shipping-alert" style="display: none;">
                                 <i class="bi bi-truck me-2"></i>
                                 <strong>¡Envío gratis!</strong> Tu compra califica para envío gratuito.
@@ -181,8 +161,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Resumen final -->
                 <div class="card">
                     <div class="card-header">
                         <h5><i class="bi bi-calculator me-2"></i>Resumen Final</h5>
@@ -201,7 +179,6 @@
                             <div class="col-8"><h5><strong>Total:</strong></h5></div>
                             <div class="col-4 text-end"><h5><strong id="checkout-total">$0.00</strong></h5></div>
                         </div>
-
                         <div class="d-grid gap-2 mt-4">
                             <button type="button" class="btn btn-success btn-lg" id="confirm-order-btn">
                                 <i class="bi bi-whatsapp me-2"></i>
@@ -212,7 +189,6 @@
                                 Volver
                             </button>
                         </div>
-
                         <div class="text-center mt-3">
                             <small class="text-muted">
                                 <i class="bi bi-shield-check me-1"></i>
@@ -229,35 +205,26 @@
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/error-protection.js"></script>
     <script src="js/simple-whatsapp.js"></script>
     <script src="js/whatsapp-checkout.js"></script>
     <script src="js/universal-navbar.js?v=3"></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Inicializando página de checkout...');
-            
             // Inicializar navbar
             new UniversalNavbar('navbar-container', {
                 showSearch: false
             });
-
             // Cargar items del carrito inmediatamente
             loadCheckoutItems();
-
             // Configurar botón de confirmar
             document.getElementById('confirm-order-btn').addEventListener('click', confirmOrder);
-            
             console.log('✅ Checkout inicializado correctamente');
         });
-
         function loadCheckoutItems() {
             console.log('🛒 Cargando productos del carrito en checkout...');
-            
             // Debug: verificar todas las keys del localStorage
             console.log('🔍 Contenido de localStorage:');
             for (let i = 0; i < localStorage.length; i++) {
@@ -265,16 +232,13 @@
                 const value = localStorage.getItem(key);
                 console.log(`  ${key}:`, value);
             }
-            
             // Solo usar 'carrito' como key para consistencia
             const cart = JSON.parse(localStorage.getItem('carrito') || '[]');
             console.log('📦 Productos encontrados en carrito:', cart);
             console.log('📊 Cantidad de productos:', cart.length);
-            
             const container = document.getElementById('checkout-items');
             const subtotalEl = document.getElementById('checkout-subtotal');
             const totalEl = document.getElementById('checkout-total');
-
             if (cart.length === 0) {
                 container.innerHTML = `
                     <div class="text-center p-4">
@@ -287,10 +251,8 @@
                 totalEl.textContent = '$0.00';
                 return;
             }
-
             let subtotal = 0;
             let html = '';
-
             cart.forEach(item => {
                 const price = item.precio || 0; // Usar solo 'precio'
                 const quantity = item.cantidad || 1; // Usar solo 'cantidad'
@@ -298,7 +260,6 @@
                 const image = item.imagen || 'pages/logo sin fondo (1).png'; // Usar solo 'imagen'
                 const itemTotal = price * quantity;
                 subtotal += itemTotal;
-
                 html += `
                     <div class="row align-items-center mb-3 pb-3 border-bottom">
                         <div class="col-2">
@@ -314,20 +275,14 @@
                     </div>
                 `;
             });
-
             container.innerHTML = html;
-            
             // Guardar subtotal para cálculos posteriores
             window.checkoutSubtotal = subtotal;
-            
             subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
-            
             // Calcular total inicial
             calculateTotals();
-            
             console.log('✅ Productos cargados correctamente. Total:', subtotal);
         }
-
         // Función para calcular envío basado en provincia
         function calcularEnvio() {
             const provincia = document.getElementById('provincia').value;
@@ -337,18 +292,15 @@
             const standardTime = document.getElementById('standard-time');
             const expressTime = document.getElementById('express-time');
             const freeShippingAlert = document.getElementById('free-shipping-alert');
-
             if (!provincia) {
                 shippingOptions.style.display = 'none';
                 return;
             }
-
             let standardCost = 0;
             let expressCost = 0;
             let standardTimeText = '';
             let expressTimeText = '';
             let freeShippingLimit = 0;
-
             if (provincia === 'caba' || provincia === 'bsas') {
                 standardCost = 8500;
                 expressCost = 12000;
@@ -362,11 +314,9 @@
                 expressTimeText = '2-4 días hábiles';
                 freeShippingLimit = 75000;
             }
-
             // Verificar si califica para envío gratis
             const subtotal = window.checkoutSubtotal || 0;
             const qualifiesForFreeShipping = subtotal >= freeShippingLimit;
-
             if (qualifiesForFreeShipping) {
                 standardCost = 0;
                 expressCost = Math.max(0, expressCost - standardCost);
@@ -374,26 +324,21 @@
             } else {
                 freeShippingAlert.style.display = 'none';
             }
-
             standardPrice.textContent = standardCost > 0 ? `$${standardCost.toLocaleString()}` : 'Gratis';
             expressPrice.textContent = expressCost > 0 ? `$${expressCost.toLocaleString()}` : 'Gratis';
             standardTime.textContent = standardTimeText;
             expressTime.textContent = expressTimeText;
-
             // Seleccionar envío estándar por defecto
             document.getElementById('standard').checked = true;
-
             shippingOptions.style.display = 'block';
             calculateTotals();
         }
-
         // Función para calcular totales
         function calculateTotals() {
             const subtotal = window.checkoutSubtotal || 0;
             const subtotalEl = document.getElementById('checkout-subtotal');
             const shippingEl = document.getElementById('checkout-shipping');
             const totalEl = document.getElementById('checkout-total');
-
             // Calcular costo de envío
             let shippingCost = 0;
             const shippingMethod = document.querySelector('input[name="shippingMethod"]:checked')?.value;
@@ -403,82 +348,65 @@
                     shippingCost = parseInt(shippingPriceText.replace('$', '').replace('.', '').replace(',', ''));
                 }
             }
-
             shippingEl.textContent = `$${shippingCost.toLocaleString()}`;
-            
             const total = subtotal + shippingCost;
-
             subtotalEl.textContent = `$${subtotal.toLocaleString()}`;
             totalEl.textContent = `$${total.toLocaleString()}`;
-
             // Guardar para usar en confirmación
             window.checkoutTotal = total;
             window.checkoutShipping = shippingCost;
             window.checkoutShipping = shippingCost;
         }
-
         // Event listeners para recalcular totales
         document.addEventListener('change', function(e) {
             if (e.target.name === 'paymentMethod' || e.target.name === 'shippingMethod') {
                 calculateTotals();
             }
         });
-
         function confirmOrder() {
             const form = document.getElementById('checkout-form');
-            
             // Validar formulario básico
             if (!form.checkValidity()) {
                 form.classList.add('was-validated');
                 alert('Por favor completa todos los campos requeridos');
                 return;
             }
-
             // Validaciones adicionales
             const provincia = document.getElementById('provincia').value;
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value;
             const shippingMethod = document.querySelector('input[name="shippingMethod"]:checked')?.value;
-
             if (!provincia) {
                 alert('Por favor selecciona una provincia');
                 return;
             }
-
             if (provincia !== '' && !shippingMethod) {
                 alert('Por favor selecciona un método de envío');
                 return;
             }
-
             const cart = JSON.parse(localStorage.getItem('carrito') || '[]');
-            
             if (cart.length === 0) {
                 alert('El carrito está vacío');
                 return;
             }
-
             // Obtener datos del formulario
             const customerName = document.getElementById('customer-name').value;
             const customerEmail = document.getElementById('customer-email').value;
             const customerPhone = document.getElementById('customer-phone').value;
             const customerAddress = document.getElementById('customer-address').value;
-
             // Obtener información de pago y envío
             const paymentMethods = {
                 'transferencia': 'Transferencia Bancaria (10% desc.)',
                 'mercadopago': 'MercadoPago',
                 'efectivo': 'Efectivo contra entrega'
             };
-
             const shippingMethods = {
                 'standard': 'Envío Estándar',
                 'express': 'Envío Express'
             };
-
             const paymentText = paymentMethods[paymentMethod] || paymentMethod;
             const shippingText = shippingMethods[shippingMethod] || shippingMethod;
             const shippingPrice = document.getElementById(shippingMethod + '-price').textContent;
             const shippingTime = document.getElementById(shippingMethod + '-time').textContent;
-
             // Crear mensaje para WhatsApp
             let mensaje = `🛍️ *NUEVO PEDIDO - PATAGONIA STYLE*%0A%0A`;
             mensaje += `👤 *DATOS DEL CLIENTE*%0A`;
@@ -487,9 +415,7 @@
             mensaje += `• Teléfono: ${customerPhone}%0A`;
             mensaje += `• Dirección: ${customerAddress}%0A`;
             mensaje += `• Provincia: ${provincia.toUpperCase()}%0A%0A`;
-
             mensaje += `📦 *PRODUCTOS SOLICITADOS*%0A`;
-
             let subtotal = 0;
             cart.forEach(item => {
                 const price = item.precio || 0;
@@ -500,20 +426,16 @@
                 mensaje += `• ${name}%0A`;
                 mensaje += `  Cantidad: ${quantity} x $${price.toLocaleString()} = $${itemTotal.toLocaleString()}%0A`;
             });
-
             mensaje += `%0A� *MÉTODO DE PAGO*%0A`;
             mensaje += `• ${paymentText}%0A%0A`;
-
             mensaje += `🚚 *ENVÍO*%0A`;
             mensaje += `• Método: ${shippingText}%0A`;
             mensaje += `• Tiempo: ${shippingTime}%0A`;
             mensaje += `• Costo: ${shippingPrice}%0A%0A`;
-
             mensaje += ` *RESUMEN FINANCIERO*%0A`;
             mensaje += `• Subtotal: $${subtotal.toLocaleString()}%0A`;
             mensaje += `• Envío: $${window.checkoutShipping.toLocaleString()}%0A`;
             mensaje += `• *TOTAL: $${window.checkoutTotal.toLocaleString()}*%0A%0A`;
-
             if (paymentMethod === 'transferencia') {
                 mensaje += `🏦 *DATOS PARA TRANSFERENCIA*%0A`;
                 mensaje += `• Banco: Banco Nación%0A`;
@@ -521,19 +443,15 @@
                 mensaje += `• Alias: PATAGONIA.STYLE%0A`;
                 mensaje += `• Titular: Patagonia Style%0A%0A`;
             }
-
             mensaje += `📞 *¡Esperamos tu confirmación!*%0A`;
             mensaje += `Nos pondremos en contacto contigo para coordinar el pago y envío.%0A%0A`;
             mensaje += `✨ ¡Gracias por elegirnos! ✨`;
-
             // Abrir WhatsApp
             const whatsappUrl = `https://wa.me/5491136899678?text=${mensaje}`;
             console.log('📱 Abriendo WhatsApp con mensaje:', mensaje);
             window.open(whatsappUrl, '_blank');
-
             // Limpiar carrito después de enviar
             localStorage.removeItem('carrito');
-
             // Mostrar mensaje de éxito y redirigir
             setTimeout(() => {
                 alert('¡Pedido enviado! Te contactaremos pronto por WhatsApp.');
