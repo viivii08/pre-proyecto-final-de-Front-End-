@@ -92,10 +92,10 @@ class PatagoniaStore {
 
   crearTarjetaProducto(producto) {
     const productCard = document.createElement('div');
-    productCard.className = 'col';
+    productCard.className = 'col-12 col-lg-6 col-xl-4';
     productCard.style.cssText = `
       display: flex;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     `;
 
     const discountBadge = producto.descuento > 0 ? 
@@ -110,39 +110,210 @@ class PatagoniaStore {
     const isOutOfStock = !producto.disponible || producto.stock === 0;
     const addToCartButtonText = isOutOfStock ? 'Sin stock' : 'Agregar al carrito';
 
+    // Generar estrellas de calificación (simulada)
+    const rating = 4.5; // Simulamos una calificación
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    let starsHTML = '';
+    for (let i = 0; i < fullStars; i++) {
+      starsHTML += '<i class="bi bi-star-fill text-warning"></i>';
+    }
+    if (hasHalfStar) {
+      starsHTML += '<i class="bi bi-star-half text-warning"></i>';
+    }
+    for (let i = Math.ceil(rating); i < 5; i++) {
+      starsHTML += '<i class="bi bi-star text-warning"></i>';
+    }
+
+    // Características como lista
+    const caracteristicasHTML = (producto.caracteristicas || []).map(caracteristica => 
+      `<li class="mb-1"><i class="bi bi-check-circle text-success me-2"></i>${caracteristica}</li>`
+    ).join('');
+
+    // Reseñas simuladas - cargar desde localStorage si existen
+    const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_producto_${producto.id}`) || '[]');
+    const resenasSimuladas = [
+      { autor: "María G.", comentario: "Excelente calidad, muy contenta con la compra.", rating: 5, fecha: "hace 2 semanas" },
+      { autor: "Carlos R.", comentario: "Hermoso diseño patagónico, lo recomiendo.", rating: 4, fecha: "hace 1 mes" },
+      { autor: "Ana L.", comentario: "Perfecto para regalo, llegó en perfectas condiciones.", rating: 5, fecha: "hace 3 semanas" },
+      ...resenasGuardadas // Agregar reseñas de usuarios reales
+    ];
+
+    const resenasHTML = resenasSimuladas.map(resena => `
+      <div class="border-bottom py-2">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <strong class="small">${resena.autor}</strong>
+          <div class="d-flex align-items-center">
+            <div class="text-warning small me-2">
+              ${Array(resena.rating).fill('<i class="bi bi-star-fill"></i>').join('')}
+              ${Array(5 - resena.rating).fill('<i class="bi bi-star text-muted"></i>').join('')}
+            </div>
+            <small class="text-muted">${resena.fecha}</small>
+          </div>
+        </div>
+        <p class="small mb-0 text-muted">"${resena.comentario}"</p>
+      </div>
+    `).join('');
+
+    // Verificar si el usuario está logueado
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    const canWriteReview = currentUser && currentUser.loggedIn && currentUser.canReview;
+
+    const formularioResenaHTML = canWriteReview ? `
+      <div class="mt-3 p-3" style="background-color: #f8f9fa; border-radius: 8px;">
+        <h6 class="fw-bold mb-3">
+          <i class="bi bi-chat-quote me-2"></i>Escribir reseña
+        </h6>
+        <form id="resena-form-${producto.id}" onsubmit="store.enviarResena(event, ${producto.id})">
+          <div class="mb-2">
+            <label class="small fw-bold">Calificación:</label>
+            <div class="rating-input" data-product="${producto.id}">
+              ${[1,2,3,4,5].map(star => `
+                <i class="bi bi-star rating-star" data-rating="${star}" 
+                   style="cursor: pointer; color: #ddd; font-size: 1.2rem;" 
+                   onclick="store.setRating(${producto.id}, ${star})"></i>
+              `).join('')}
+            </div>
+            <input type="hidden" id="rating-${producto.id}" value="5">
+          </div>
+          <div class="mb-2">
+            <textarea class="form-control form-control-sm" 
+                      id="comentario-${producto.id}" 
+                      placeholder="Comparte tu experiencia con este producto..." 
+                      rows="2" 
+                      maxlength="200" 
+                      required></textarea>
+            <small class="text-muted">Máximo 200 caracteres</small>
+          </div>
+          <button type="submit" class="btn btn-sm" 
+                  style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; border: none;">
+            <i class="bi bi-send me-1"></i>Enviar reseña
+          </button>
+        </form>
+      </div>
+    ` : `
+      <div class="mt-3 p-3 text-center" style="background-color: #f8f9fa; border-radius: 8px;">
+        <small class="text-muted">
+          <i class="bi bi-info-circle me-1"></i>
+          <a href="#" onclick="document.querySelector('[data-bs-target=\\\"#simpleLoginModal\\\"]').click(); return false;" 
+             style="color: var(--primary-color); text-decoration: none;">
+            Inicia sesión
+          </a> para escribir una reseña
+        </small>
+      </div>
+    `;
+
     productCard.innerHTML = `
       <div class="card h-100 border-0 position-relative overflow-hidden card-producto" 
-           data-producto-id="${producto.id}" 
+           data-product-id="${producto.id}" 
            style="box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-radius: 16px; background: white; max-width: 100%; width: 100%;">
-        <div class="overflow-hidden" style="height:220px; border-radius: 16px 16px 0 0;">
-          <img src="${producto.imagenes[0]}" 
-               class="card-img-top" 
-               alt="${producto.nombre}" 
-               style="object-fit: cover; height: 100%; width: 100%; transition: transform 0.3s ease;"
-               onerror="this.src='pages/no-image.png'">
+        
+        <!-- Galería de imágenes del producto -->
+        <div class="position-relative" style="height:250px; border-radius: 16px 16px 0 0;">
+          <!-- 💝 Botón de wishlist (corazón) -->
+          <i class="bi bi-heart wishlist-heart" 
+             onclick="toggleWishlist(${producto.id})"
+             title="Agregar a favoritos"
+             aria-label="Agregar a lista de deseos"></i>
+          
+          <div id="carousel-${producto.id}" class="carousel slide h-100" data-bs-ride="false">
+            <div class="carousel-inner h-100" style="border-radius: 16px 16px 0 0;">
+              ${producto.imagenes.map((imagen, index) => `
+                <div class="carousel-item ${index === 0 ? 'active' : ''} h-100">
+                  <img src="${imagen}" 
+                       class="d-block w-100 h-100" 
+                       alt="${producto.nombre} - Imagen ${index + 1}" 
+                       style="object-fit: cover; border-radius: 16px 16px 0 0;"
+                       onerror="this.src='pages/no-image.png'">
+                </div>
+              `).join('')}
+            </div>
+            
+            ${producto.imagenes.length > 1 ? `
+              <!-- Controles de navegación -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carousel-${producto.id}" data-bs-slide="prev"
+                      style="width: 40px; background: rgba(0,0,0,0.3); border-radius: 0 8px 8px 0; left: 5px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carousel-${producto.id}" data-bs-slide="next"
+                      style="width: 40px; background: rgba(0,0,0,0.3); border-radius: 8px 0 0 8px; right: 5px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+              </button>
+              
+              <!-- Indicadores de imagen -->
+              <div class="carousel-indicators" style="bottom: 10px; margin-bottom: 0;">
+                ${producto.imagenes.map((_, index) => `
+                  <button type="button" data-bs-target="#carousel-${producto.id}" 
+                          data-bs-slide-to="${index}" 
+                          ${index === 0 ? 'class="active" aria-current="true"' : ''}
+                          aria-label="Imagen ${index + 1}"
+                          style="width: 8px; height: 8px; border-radius: 50%; margin: 0 2px; background-color: white; opacity: ${index === 0 ? '1' : '0.5'};">
+                  </button>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+          
           ${discountBadge}
+          
+          ${producto.imagenes.length > 1 ? `
+            <!-- Contador de imágenes -->
+            <div class="position-absolute top-0 end-0 m-2">
+              <span class="badge bg-dark bg-opacity-75 rounded-pill">
+                <i class="bi bi-images me-1"></i>${producto.imagenes.length} fotos
+              </span>
+            </div>
+          ` : ''}
         </div>
-        <div class="card-body d-flex flex-column p-3">
-          <h5 class="card-title mb-2" style="font-weight:700; color:#1f3c5a; font-size:1.1rem; line-height: 1.3; height: 2.6rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${producto.nombre}</h5>
-          <p class="card-text mb-2" style="color:#666; font-size:0.9rem; line-height: 1.4; height: 2.8rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${producto.descripcionCorta}</p>
-          <div class="mb-2">
-            <span class="card-price d-inline" style="font-size:1.3rem; color:#2c5530; font-weight:700;">$${producto.precio.toLocaleString()}</span>
+        
+        <div class="card-body d-flex flex-column p-4">
+          <!-- Título y precio -->
+          <h5 class="card-title mb-2" style="font-weight:700; color:#1f3c5a; font-size:1.2rem;">${producto.nombre}</h5>
+          
+          <!-- Calificación -->
+          <div class="mb-3 d-flex align-items-center">
+            <div class="me-2">${starsHTML}</div>
+            <small class="text-muted">${rating}/5 (${resenasSimuladas.length} reseñas)</small>
+          </div>
+          
+          <div class="mb-3">
+            <span class="card-price d-inline" style="font-size:1.4rem; color:#2c5530; font-weight:700;">$${producto.precio.toLocaleString()}</span>
             ${originalPriceDisplay}
           </div>
           ${lowStockWarning}
-          <div class="mt-auto">
-            <div class="d-flex gap-2 mb-2">
-              <button class="btn btn-outline-secondary flex-grow-1" 
-                      style="border-color: #3b5d50; color: #3b5d50; font-weight: 600; padding: 8px 12px; font-size: 0.9rem;"
-                      onclick="store.verDetalleProducto(${producto.id})"
-                      onmouseover="this.style.background='#3b5d50'; this.style.color='white'"
-                      onmouseout="this.style.background='transparent'; this.style.color='#3b5d50'">
-                <i class="bi bi-eye me-1"></i> Ver más
-              </button>
-              </button>
+          
+          <!-- Descripción completa -->
+          <div class="mb-3">
+            <h6 class="fw-bold text-dark mb-2">Descripción</h6>
+            <p class="text-muted small mb-0">${producto.descripcionLarga || producto.descripcionCorta}</p>
+          </div>
+          
+          <!-- Características -->
+          ${producto.caracteristicas ? `
+          <div class="mb-3">
+            <h6 class="fw-bold text-dark mb-2">Características</h6>
+            <ul class="list-unstyled small">
+              ${caracteristicasHTML}
+            </ul>
+          </div>
+          ` : ''}
+          
+          <!-- Reseñas -->
+          <div class="mb-3">
+            <h6 class="fw-bold text-dark mb-2">Reseñas de clientes</h6>
+            <div id="resenas-container-${producto.id}" style="max-height: 200px; overflow-y: auto;">
+              ${resenasHTML}
             </div>
-            <button class="btn w-100 btn-agregar-carrito" 
-                    style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; font-weight: 600; border: none; padding: 10px; font-size: 0.9rem;"
+            ${formularioResenaHTML}
+          </div>
+          
+          <!-- Botones de acción -->
+          <div class="mt-auto">
+            <!-- Botón de agregar al carrito -->
+            <button class="btn w-100 btn-agregar-carrito mb-2" 
+                    style="background: linear-gradient(135deg, #3b5d50, #2c5530); color: white; font-weight: 600; border: none; padding: 12px; font-size: 1rem;"
                     data-product-id="${producto.id}"
                     data-quantity="1"
                     ${isOutOfStock ? 'disabled' : ''}
@@ -150,6 +321,13 @@ class PatagoniaStore {
                     onmouseover="if(!this.disabled) this.style.background='linear-gradient(135deg, #2c5530, #1d3a22)'"
                     onmouseout="if(!this.disabled) this.style.background='linear-gradient(135deg, #3b5d50, #2c5530)'">
               <i class="bi bi-cart-plus me-2"></i> ${addToCartButtonText}
+            </button>
+            
+            <!-- 📊 Botón de comparar -->
+            <button class="btn btn-outline-info btn-compare w-100" 
+                    data-product-id="${producto.id}"
+                    title="Agregar a comparación">
+              <i class="bi bi-graph-up me-1"></i>Comparar
             </button>
           </div>
         </div>
@@ -463,8 +641,124 @@ class PatagoniaStore {
     window.location.href = 'checkout.html';
   }
 
+  // 🌟 FUNCIONES PARA SISTEMA DE RESEÑAS
+  setRating(productoId, rating) {
+    // Actualizar estrellas visualmente
+    const ratingContainer = document.querySelector(`.rating-input[data-product="${productoId}"]`);
+    if (ratingContainer) {
+      const stars = ratingContainer.querySelectorAll('.rating-star');
+      stars.forEach((star, index) => {
+        if (index < rating) {
+          star.className = 'bi bi-star-fill rating-star';
+          star.style.color = '#ffc107';
+        } else {
+          star.className = 'bi bi-star rating-star';
+          star.style.color = '#ddd';
+        }
+      });
+    }
+    
+    // Guardar rating seleccionado
+    const ratingInput = document.getElementById(`rating-${productoId}`);
+    if (ratingInput) {
+      ratingInput.value = rating;
+    }
+  }
+
+  enviarResena(event, productoId) {
+    event.preventDefault();
+    
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    if (!currentUser || !currentUser.loggedIn) {
+      alert('❌ Debes iniciar sesión para escribir reseñas');
+      return;
+    }
+
+    const rating = parseInt(document.getElementById(`rating-${productoId}`).value);
+    const comentario = document.getElementById(`comentario-${productoId}`).value.trim();
+
+    if (!comentario) {
+      alert('❌ Por favor escribe un comentario');
+      return;
+    }
+
+    if (comentario.length > 200) {
+      alert('❌ El comentario no puede superar los 200 caracteres');
+      return;
+    }
+
+    // Crear nueva reseña
+    const nuevaResena = {
+      autor: currentUser.nombre,
+      comentario: comentario,
+      rating: rating,
+      fecha: 'ahora mismo',
+      timestamp: Date.now()
+    };
+
+    // Guardar en localStorage
+    const resenasExistentes = JSON.parse(localStorage.getItem(`resenas_producto_${productoId}`) || '[]');
+    resenasExistentes.unshift(nuevaResena); // Agregar al principio
+    
+    // Mantener solo las 10 reseñas más recientes
+    if (resenasExistentes.length > 10) {
+      resenasExistentes.splice(10);
+    }
+    
+    localStorage.setItem(`resenas_producto_${productoId}`, JSON.stringify(resenasExistentes));
+
+    // Limpiar formulario
+    document.getElementById(`comentario-${productoId}`).value = '';
+    this.setRating(productoId, 5);
+
+    // Actualizar la visualización de reseñas
+    this.actualizarResenasProducto(productoId);
+
+    // Mostrar notificación elegante si está disponible, sino usar alert
+    if (typeof showNotification === 'function') {
+      showNotification('success', '¡Reseña enviada!', 'Gracias por compartir tu opinión 🌟', 4000);
+    } else {
+      alert('✅ ¡Reseña enviada exitosamente! Gracias por tu opinión 🌟');
+    }
+  }
+
+  actualizarResenasProducto(productoId) {
+    // Recargar todas las reseñas para este producto
+    const resenasGuardadas = JSON.parse(localStorage.getItem(`resenas_producto_${productoId}`) || '[]');
+    const resenasSimuladas = [
+      { autor: "María G.", comentario: "Excelente calidad, muy contenta con la compra.", rating: 5, fecha: "hace 2 semanas" },
+      { autor: "Carlos R.", comentario: "Hermoso diseño patagónico, lo recomiendo.", rating: 4, fecha: "hace 1 mes" },
+      { autor: "Ana L.", comentario: "Perfecto para regalo, llegó en perfectas condiciones.", rating: 5, fecha: "hace 3 semanas" },
+      ...resenasGuardadas
+    ];
+
+    const resenasHTML = resenasSimuladas.map(resena => `
+      <div class="border-bottom py-2">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <strong class="small">${resena.autor}</strong>
+          <div class="d-flex align-items-center">
+            <div class="text-warning small me-2">
+              ${Array(resena.rating).fill('<i class="bi bi-star-fill"></i>').join('')}
+              ${Array(5 - resena.rating).fill('<i class="bi bi-star text-muted"></i>').join('')}
+            </div>
+            <small class="text-muted">${resena.fecha}</small>
+          </div>
+        </div>
+        <p class="small mb-0 text-muted">"${resena.comentario}"</p>
+      </div>
+    `).join('');
+
+    // Actualizar el contenedor de reseñas
+    const contenedor = document.getElementById(`resenas-container-${productoId}`);
+    if (contenedor) {
+      contenedor.innerHTML = resenasHTML;
+    }
+  }
+
   inicializarEventos() {
-    // Buscador
+    // ⚠️ BÚSQUEDA DESHABILITADA: Ya no existe navbar con búsqueda
+    // Buscador comentado para evitar errores
+    /*
     const buscador = document.querySelector('input[type="search"]');
     if (buscador) {
       buscador.addEventListener('input', (e) => {
@@ -490,6 +784,7 @@ class PatagoniaStore {
         }
       });
     }
+    */
   }
 
   getColorNotificacion(tipo) {

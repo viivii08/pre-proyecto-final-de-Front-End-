@@ -51,6 +51,8 @@
         "Ilustración original exclusiva"
       ],
       "imagenes": [
+        "pages/cuadernoportada.webp",
+        "pages/cuadernoportada.webp",
         "pages/cuadernoportada.webp"
       ],
       "tags": ["cuaderno", "anillado", "a4", "zorro", "papeleria", "escritura"],

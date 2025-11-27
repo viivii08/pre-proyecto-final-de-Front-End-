@@ -1,160 +1,160 @@
-# 🛒 Patagonia Style - E-commerce
+# 🛍️ Patagonia Style - Mi Tienda Online
 
-## Sobre el Proyecto
+![Patagonia Style Banner](pages/logo%20sin%20fondo%20(1).png)
 
-Este es mi proyecto final de Front-End donde desarrollé una tienda online inspirada en la estética patagónica. La idea era crear algo que combinara funcionalidad con un diseño que refleje la naturaleza y tranquilidad de la región.
+## 🌟 Sobre este proyecto
 
-## ¿Qué hace este proyecto?
+Este es mi proyecto final del curso de Front-End y la verdad es que estoy súper orgullosa de cómo quedó! La idea era crear una tienda online inspirada en la Patagonia, algo que combinara funcionalidad con ese estilo natural y relajado que me encanta.
 
-Es una tienda e-commerce completa donde podes:
-- Ver productos con sus detalles (precios, descripciones, imágenes)
-- Agregar productos al carrito
-- Gestionar tu carrito de compras
-- Hacer checkout
-- Crear y gestionar tu cuenta de usuario
-- Ver el historial de pedidos
-- Contactar por WhatsApp
+Empecé con la idea básica de una tienda de productos artesanales patagónicos y terminé con algo que realmente funciona de principio a fin. Podes navegar, agregar productos al carrito, crear una cuenta, dejar reseñas, y hasta contactarme a través del formulario.
 
-## Tecnologías que usé
+### ✨ Lo que podes hacer en mi tienda
 
-- **HTML5** - Para toda la estructura de las páginas
-- **CSS3** - Estilos personalizados, con gradientes y efectos
-- **Bootstrap 5** - Para que sea responsive y se vea bien en celular
-- **JavaScript** - Toda la lógica del carrito, productos y usuarios
-- **LocalStorage** - Para guardar el carrito y la sesión del usuario
+- 🛒 **Agregar productos al carrito** - Se actualizan los totales al instante
+- 👤 **Crear tu cuenta** - Login y registro que funciona de verdad
+- ⭐ **Dejar reseñas** - Contá qué te pareció cada producto
+- 🖼️ **Ver galerías de fotos** - Cada producto tiene varias imágenes
+- 📧 **Contactarme** - Formulario que me llega directo al mail
+- 📱 **Usar desde el celular** - Se ve bien en cualquier pantalla
+- 🔔 **Recibir notificaciones** - Te aviso cuando algo pasa
 
-## Páginas principales
+## 🚀 Cómo probarlo
 
-### 🏠 Página de Inicio (`index.html`)
-La landing page con un video de la Patagonia de fondo y las secciones principales.
+### Lo que necesitas
+- Un navegador (Chrome, Firefox, o el que uses)
+- Opcionalmente un servidor local (te explico abajo)
 
-### 🛍️ Tienda (`tienda.html`)
-El catálogo completo con los productos. Tiene filtros y todo.
 
-### 🧉 Páginas de Productos
-Cada producto tiene su propia página con galería de fotos:
-- `jarro.html` - Jarro de cerámica patagónico
-- `cuaderno.html` - Cuaderno artesanal
-- `yerbera.html` - Yerbera de madera
+## 💻 Cómo usar la tienda
 
-### 🛒 Carrito y Checkout
-- `carrito.html` - Donde ves todo lo que agregaste
-- `checkout.html` - Para finalizar la compra
+### 🏠 Para navegar
+- **Inicio**: Es donde está todo el carrusel y la presentación
+- **Tienda**: Acá están todos los productos con filtros
+- **Portafolio**: Mis trabajos y proyectos
+- **Contacto**: Para escribirme si tenes alguna duda
 
-### 👤 Cuenta de Usuario
-- `mi-cuenta.html` - Tu perfil
-- `mis-pedidos.html` - Historial de compras
-
-### 📞 Otras Páginas
-- `contacto.html` - Formulario de contacto
-- `portafolio.html` - Proyectos relacionados
-- `envios.html`, `politica-privacidad.html`, `terminos-condiciones.html` - Info legal
-
-## Funcionalidades que implementé
-
-### 💡 Sistema de Productos
-Los productos se cargan desde `data/productos.json` de forma dinámica. Esto hace que sea fácil agregar más productos sin tocar el código.
-
-### 🛒 Carrito de Compras
-- Agregar/quitar productos
-- Cambiar cantidades
-- Calcular totales automáticamente
-- Se guarda en LocalStorage (no se pierde si refrescas la página)
-
-### 👥 Sistema de Usuarios
-- Login y registro
-- Sesión persistente con LocalStorage
-- Perfil de usuario editable
-
-### 📱 WhatsApp Flotante
-Un botón que está siempre visible para contactar directo por WhatsApp. Sube y baja con el scroll.
-
-### ⭐ Sistema de Reseñas
-Los productos tienen valoraciones y comentarios de usuarios.
-
-## Estructura del Proyecto
-
+### 🛍️ Para comprar
 ```
-📁 pre-proyecto-final-de-Front-End-
-├── 📄 index.html              # Página principal
-├── 📄 tienda.html             # Catálogo de productos
-├── 📄 carrito.html            # Carrito de compras
-├── 📄 checkout.html           # Finalizar compra
-├── 📄 styles.css              # Estilos principales
-├── 📁 js/
-│   ├── store.js               # Lógica de la tienda
-│   ├── carrito-unificado.js   # Sistema del carrito
-│   ├── users.js               # Gestión de usuarios
-│   ├── simple-whatsapp.js     # Botón de WhatsApp
-│   ├── favorites.js           # Productos favoritos
-│   └── reviews.js             # Sistema de reseñas
-├── 📁 data/
-│   └── productos.json         # Base de datos de productos
-├── 📁 pages/
-│   └── (imágenes y recursos)
-└── 📁 videos/
-    └── patagonia.mp4.mp4      # Video del hero
+1. Ir a la tienda
+2. Elegir lo que te guste
+3. Cambiar la cantidad si querés
+4. "Agregar al carrito"
+5. Ver el numerito que aparece arriba
 ```
 
-## Cosas que resolví durante el desarrollo
+### 👤 Para tener cuenta
+```
+1. Click en el iconito de persona
+2. "Registrarse" si es la primera vez
+3. Llenar el formulario
+4. ¡Listo! Ya tenés cuenta
 
-### El problema del footer
-Al principio el footer dejaba un espacio blanco abajo. Lo resolví usando Flexbox con `flex: 1` en el main y haciendo que el body sea un contenedor flex vertical.
-
-### Productos que no cargaban
-Tuve que asegurarme que el script de productos se cargue después del DOM. Usé `DOMContentLoaded` y arreglé la ruta del JSON.
-
-### Carrito vacío en checkout
-El problema era que no se estaba pasando bien la información del carrito entre páginas. Lo unifiqué todo con `carrito-unificado.js`.
-
-## Cómo ver el proyecto
-
-1. Clonar el repositorio
-2. Abrir con Live Server o cualquier servidor local
-3. O simplemente abrir `index.html` en el navegador
-
-```bash
-# Si tenes Python instalado:
-python3 -m http.server 8000
-
-# O con PHP:
-php -S localhost:8000
+Para entrar después:
+1. Click en el mismo iconito
+2. Poner email y contraseña
+3. Entrar
 ```
 
-Después entrás a `http://localhost:8000`
+### ⭐ Para dejar reseñas
+```
+1. Primero tenes que estar logueado
+2. Ir a cualquier producto
+3. Bajar a donde dice "Reseñas"
+4. Elegir cuántas estrellas (1 a 5)
+5. Escribir qué te pareció
+6. Enviar
+```
 
-## Características del diseño
+## 📁 Cómo está organizado todo
 
-- **Paleta de colores**: Grises, verdes y tonos tierra (inspirado en la Patagonia)
-- **Responsive**: Se adapta a celular, tablet y desktop
-- **Animaciones suaves**: Transiciones y efectos hover
-- **Footer pegajoso**: Siempre queda al final de la página
-- **Navegación intuitiva**: Menú fijo arriba
+```
+Mi Proyecto/
+├── index.html                    # La página principal
+├── tienda.html                   # Donde están los productos
+├── portafolio.html               # Mis trabajos
+├── contacto.html                 # Para escribirme
+├── carrito.html                  # El carrito de compras
+├── mi-cuenta.html                # Tu perfil
+├── styles.css                    # Todos los estilos
+│
+├── js/                           # Todo el JavaScript
+│   ├── universal-navbar.js       # El menú que está en todas las páginas
+│   ├── store.js                  # La lógica de la tienda
+│   ├── favorites.js              # Para los favoritos
+│   ├── ratings.js                # Las estrellitas
+│   ├── reviews.js                # Los comentarios
+│   └── users.js                  # Todo lo de usuarios
+│
+├── data/
+│   └── productos.json            # Acá están todos los productos
+│
+├── pages/                        # Las fotos y el logo
+└── videos/                       # Videos que uso
+```
 
-## Lo que aprendí
+## 🛠️ Con qué lo hice
 
-- Cómo estructurar un proyecto de e-commerce desde cero
-- Gestionar estado con LocalStorage
-- Hacer que todo sea responsive con Bootstrap
-- Debugging de JavaScript (mucho console.log 😅)
-- Organizar código en módulos separados
-- CSS Grid y Flexbox para layouts complejos
+### Lo básico
+- **HTML5** - Para armar toda la estructura
+- **CSS3** - Los estilos, colores, animaciones
+- **JavaScript** - Para que funcione todo
 
-## Futuras mejoras
+### Lo que me ayudó
+- **Bootstrap 5** - Para que se vea bien en el celular
+- **Bootstrap Icons** - Los iconitos
+- **Google Fonts** - La letra linda (Poppins)
 
-Si tuviera más tiempo, agregaría:
-- Pasarela de pago real
-- Backend con base de datos
-- Más productos y categorías
-- Filtros más avanzados
-- Sistema de descuentos/cupones
-- Integración con API de envíos
+### Servicios que uso
+- **Formspree** - Para que me lleguen los emails del contacto
+- **LocalStorage** - Para guardar tu carrito y sesión
+- **Git/GitHub** - Para subir el código
 
-## Contacto
+## 🎨 Cosas técnicas que aprendí
 
-Si querés ver más de mi trabajo o contactarme:
-- GitHub: [@viivii08](https://github.com/viivii08)
+### 📱 Se adapta a todo
+- Hice mobile-first (primero celular, después desktop)
+- Se ve bien en tablet, celular, compu
+- Usé el grid de Bootstrap para que todo quede prolijo
+
+### ⚡ Funciona rápido
+- Los componentes cargan de a poco
+- Las imágenes están optimizadas
+- Todo se guarda en tu navegador para que no se pierda
+
+### 🔐 Es seguro
+- Los formularios se validan mientras escribís
+- Hay protección contra spam
+- Los datos se guardan seguros en tu navegador
+
+## 📧 Lo del formulario de contacto
+
+El formulario está conectado con Formspree, así que cuando me escribís, me llega directo al mail:
+
+```
+Endpoint: https://formspree.io/f/mrbyoaga
+Sistema: Se envía por email + se guarda como respaldo
+Validación: En tiempo real mientras escribís
+```
+
+## 📝 Lo que quiero agregar después
+
+- [ ] 💳 Pagos de verdad (MercadoPago o algo así)
+- [ ] 📊 Un panel para administrar todo
+- [ ] 🔍 Búsqueda más avanzada
+- [ ] 📱 Convertirlo en app para el celular
+- [ ] 💬 Un chat para ayuda
+- [ ] 🔔 Notificaciones push
+
+
+
+## 👩‍💻 Sobre mí
+
+Soy Viviana, y este es mi primer proyecto grande de programación. Aprendí un montón haciéndolo.
+## 📞 Contacto
+
+- **Email**: viivii.l.vargas@gmail.com
+- **GitHub**: [@viivii08](https://github.com/viivii08)
 
 ---
 
-Hecho con ☕ y mucha paciencia debuggeando JavaScript
+

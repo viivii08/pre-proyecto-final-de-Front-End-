@@ -54,6 +54,7 @@ class UniversalFooter {
         font-size: 0.9rem !important;
         font-weight: 500 !important;
         line-height: 1.2 !important;
+        color: #FFFFFF !important;
       }
       
       .universal-footer .creator {
@@ -61,6 +62,7 @@ class UniversalFooter {
         font-size: 0.85rem !important;
         opacity: 0.9 !important;
         line-height: 1.2 !important;
+        color: #FFFFFF !important;
       }
       
       .universal-footer .social-nav {
@@ -81,6 +83,7 @@ class UniversalFooter {
         flex-wrap: wrap;
         margin: 0;
         align-items: center;
+        margin-top: 4px;
       }
       
       .universal-footer .social-link {

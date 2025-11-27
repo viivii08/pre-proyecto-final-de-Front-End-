@@ -641,39 +641,71 @@
     function loadUserProfile(user) {
       if (!user) return;
 
-      // Actualizar encabezado del perfil
-      document.getElementById('profile-name').textContent = user.name || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Usuario';
-      document.getElementById('profile-email').textContent = user.email;
+      try {
+        // Actualizar encabezado del perfil
+        const profileName = document.getElementById('profile-name');
+        const profileEmail = document.getElementById('profile-email');
+        
+        if (profileName) {
+          const displayName = user.name || 
+                              user.nombre || 
+                              `${user.firstName || ''} ${user.lastName || ''}`.trim() || 
+                              'Usuario';
+          profileName.textContent = displayName;
+        }
+        
+        if (profileEmail) {
+          profileEmail.textContent = user.email || '';
+        }
 
-      // Llenar formulario - adaptar a la estructura de nuestro sistema
-      const firstName = user.name ? user.name.split(' ')[0] : (user.firstName || '');
-      const lastName = user.name ? user.name.split(' ').slice(1).join(' ') : (user.lastName || '');
-      
-      document.getElementById('firstName').value = firstName;
-      document.getElementById('lastName').value = lastName;
-      document.getElementById('email').value = user.email || '';
-      document.getElementById('phone').value = user.phone || '';
-      document.getElementById('birthDate').value = user.birthDate || '';
+        // Llenar formulario - adaptar a la estructura de nuestro sistema
+        const firstName = user.name ? user.name.split(' ')[0] : 
+                         user.nombre ? user.nombre.split(' ')[0] : 
+                         (user.firstName || '');
+        const lastName = user.name ? user.name.split(' ').slice(1).join(' ') : 
+                        user.nombre ? user.nombre.split(' ').slice(1).join(' ') : 
+                        (user.lastName || '');
+        
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const birthDateInput = document.getElementById('birthDate');
+        
+        if (firstNameInput) firstNameInput.value = firstName;
+        if (lastNameInput) lastNameInput.value = lastName;
+        if (emailInput) emailInput.value = user.email || '';
+        if (phoneInput) phoneInput.value = user.phone || '';
+        if (birthDateInput) birthDateInput.value = user.birthDate || '';
+        
+      } catch (error) {
+        console.error('Error cargando perfil:', error);
+      }
     }
 
     function loadUserOrders() {
-      const orders = userManager.getCurrentUserOrders();
+      // Obtener pedidos del usuario actual desde localStorage
+      const orders = JSON.parse(localStorage.getItem('userOrders') || '[]');
+      const currentUserEmail = currentUser?.email;
+      const userOrders = orders.filter(order => order.userEmail === currentUserEmail);
+      
       const ordersList = document.getElementById('orders-list');
       const noOrders = document.getElementById('no-orders');
       const totalOrdersSpan = document.getElementById('total-orders');
 
-      totalOrdersSpan.textContent = orders.length;
+      if (totalOrdersSpan) totalOrdersSpan.textContent = userOrders.length;
 
-      if (orders.length === 0) {
-        ordersList.style.display = 'none';
-        noOrders.style.display = 'block';
+      if (userOrders.length === 0) {
+        if (ordersList) ordersList.style.display = 'none';
+        if (noOrders) noOrders.style.display = 'block';
         return;
       }
 
-      ordersList.style.display = 'block';
-      noOrders.style.display = 'none';
+      if (ordersList) ordersList.style.display = 'block';
+      if (noOrders) noOrders.style.display = 'none';
 
-      ordersList.innerHTML = orders.map(order => `
+      if (ordersList) {
+        ordersList.innerHTML = userOrders.map(order => `
         <div class="order-card">
           <div class="d-flex justify-content-between align-items-start">
             <div>
@@ -706,24 +738,26 @@
           </div>
         </div>
       `).join('');
+      }
     }
 
     function loadUserAddresses() {
-      const user = userManager.getCurrentUser();
-      const addresses = user.addresses || [];
+      // Obtener direcciones del usuario actual desde localStorage
+      const addresses = currentUser?.addresses || [];
       const addressesList = document.getElementById('addresses-list');
       const noAddresses = document.getElementById('no-addresses');
 
       if (addresses.length === 0) {
-        addressesList.style.display = 'none';
-        noAddresses.style.display = 'block';
+        if (addressesList) addressesList.style.display = 'none';
+        if (noAddresses) noAddresses.style.display = 'block';
         return;
       }
 
-      addressesList.style.display = 'block';
-      noAddresses.style.display = 'none';
+      if (addressesList) addressesList.style.display = 'block';
+      if (noAddresses) noAddresses.style.display = 'none';
 
-      addressesList.innerHTML = addresses.map(address => `
+      if (addressesList) {
+        addressesList.innerHTML = addresses.map(address => `
         <div class="address-card ${address.isDefault ? 'default' : ''}">
           ${address.isDefault ? '<span class="badge bg-primary">Principal</span>' : ''}
           <h6>${address.alias}</h6>
@@ -739,6 +773,7 @@
           </div>
         </div>
       `).join('');
+      }
     }
 
     function saveProfile(e) {
@@ -976,26 +1011,52 @@
         }
         
         // Inicializar navbar universal
-        new UniversalNavbar();
+        new UniversalNavbar('navbar-container', {
+          showSearch: false
+        });
         console.log('✅ Navbar inicializado');
         
         // Event listeners para login exitoso
         document.addEventListener('userLoggedIn', function(event) {
           console.log('🔐 Usuario logueado exitosamente');
-          currentUser = event.detail.user;
-          loadUserProfile(currentUser);
-          loadUserOrders();
-          loadUserAddresses();
+          currentUser = event.detail.user || JSON.parse(localStorage.getItem('currentUser'));
           
-          // Cerrar modal de login si está abierto
+          // Ocultar modal y mostrar contenido
           const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
           if (loginModal) {
             loginModal.hide();
           }
           
-          if (window.notificationSystem) {
-            window.notificationSystem.success('Bienvenido', `Hola ${currentUser.firstName}!`);
+          // Mostrar contenido de la cuenta
+          const accountContent = document.querySelector('.row');
+          if (accountContent) accountContent.style.display = 'block';
+          
+          // Cargar datos del usuario
+          loadUserProfile(currentUser);
+          loadUserOrders();
+          loadUserAddresses();
+          
+          // Event listeners para el formulario
+          const profileForm = document.getElementById('profile-form');
+          if (profileForm) {
+            profileForm.addEventListener('submit', saveProfile);
           }
+          
+          if (window.notificationSystem) {
+            window.notificationSystem.success('Bienvenido', `Hola ${currentUser.nombre || currentUser.name || 'Usuario'}!`);
+          }
+        });
+        
+        // Event listener para cuando se cierre sesión
+        document.addEventListener('userLoggedOut', function() {
+          // Ocultar contenido de la cuenta
+          const accountContent = document.querySelector('.row');
+          if (accountContent) accountContent.style.display = 'none';
+          
+          // Redirigir a la página principal
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1000);
         });
         
       } catch (error) {
@@ -1004,9 +1065,24 @@
       
       // Verificar estado de login y cargar contenido
       setTimeout(() => {
-        if (window.userManager && window.userManager.isLoggedIn()) {
-          // Usuario logueado: cargar datos
-          currentUser = window.userManager.currentUser;
+        // Verificar diferentes fuentes de datos de usuario
+        const userData = JSON.parse(localStorage.getItem('currentUser')) || 
+                        JSON.parse(localStorage.getItem('patagonia_user'));
+        
+        if (userData && (userData.email || userData.id)) {
+          // Usuario logueado: cargar datos directamente
+          currentUser = userData;
+          
+          // Mostrar la sección de cuenta y ocultar modal de login
+          const accountContent = document.querySelector('.row');
+          const loginModal = document.getElementById('loginModal');
+          
+          if (accountContent) accountContent.style.display = 'block';
+          if (loginModal) {
+            const modalInstance = bootstrap.Modal.getInstance(loginModal);
+            if (modalInstance) modalInstance.hide();
+          }
+          
           loadUserProfile(currentUser);
           loadUserOrders();
           loadUserAddresses();
@@ -1020,7 +1096,13 @@
           console.log('✅ Usuario logueado - datos cargados');
         } else {
           // Usuario no logueado: mostrar modal de login
-          console.log('⚠️ Usuario no logueado - mostrando modal login');
+          console.log('⚠️ Usuario no logueado - redirigiendo');
+          
+          // Ocultar contenido de la cuenta
+          const accountContent = document.querySelector('.row');
+          if (accountContent) accountContent.style.display = 'none';
+          
+          // Mostrar modal de login inmediatamente
           const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
           loginModal.show();
           
@@ -1028,7 +1110,7 @@
             window.notificationSystem.info('Acceso requerido', 'Inicia sesión para acceder a tu cuenta');
           }
         }
-      }, 300);
+      }, 100);
     });
   </script>
 </body>

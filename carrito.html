@@ -151,11 +151,15 @@
       font-size: 0.9rem;
     }
     footer a {
-      color: #3b5d50;
+      color: #b67c3a !important;
       text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
     footer a:hover {
+      color: #d4941f !important;
       text-decoration: underline;
+      transform: translateY(-1px);
     }
   </style>
 </head>
@@ -271,7 +275,7 @@
       try {
         if (typeof UniversalNavbar !== 'undefined') {
           new UniversalNavbar('navbar-container', {
-            showSearch: true
+            showSearch: false
           });
           console.log('✅ [carrito.html] Navbar inicializado');
         }
@@ -480,9 +484,9 @@
 
 
   <footer style="background: linear-gradient(90deg, #1f3c5a, #3b5d50); color: white; text-align: center; padding: 40px 0; margin-top: 50px; margin-bottom: 0 !important;">
-    <p>&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
-    <p>Creado por Vargas Viviana</p>
-    <p><a href="#" style="color: #b67c3a; text-decoration: none;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none;">Facebook</a></p>
+    <p style="color: #FFFFFF; margin-bottom: 6px; font-size: 0.9rem; font-weight: 500;">&copy; 2025 Patagonia Style - Todos los derechos reservados</p>
+    <p style="color: #FFFFFF; margin-bottom: 10px; font-size: 0.85rem; opacity: 0.9;">Creado por Vargas Viviana</p>
+    <p style="margin: 0;"><a href="#" style="color: #b67c3a; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">Instagram</a> | <a href="#" style="color: #b67c3a; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">Facebook</a></p>
   </footer>
 
   <style>
@@ -513,7 +517,7 @@
         
         // Crear navbar
         try {
-            new UniversalNavbar('navbar', {
+            new UniversalNavbar('navbar-container', {
                 showSearch: false
             });
         } catch (error) {
@@ -565,14 +569,16 @@
                             <div class="d-flex align-items-center">
                                 <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${index}, -1)">-</button>
                                 <input type="number" value="${item.cantidad}" 
+                                       id="cantidad-${index}"
                                        class="carrito-cantidad-input" 
                                        min="1" 
+                                       oninput="actualizarCantidad(${index}, this.value)"
                                        onchange="actualizarCantidad(${index}, this.value)">
                                 <button class="btn btn-sm btn-outline-secondary" onclick="cambiarCantidad(${index}, 1)">+</button>
                             </div>
                         </div>
                         <div class="col-2">
-                            <div class="carrito-producto-precio">$${subtotal.toLocaleString()}</div>
+                            <div class="carrito-producto-precio" data-subtotal="${index}">$${subtotal.toLocaleString()}</div>
                         </div>
                         <div class="col-2 text-end">
                             <button class="btn btn-sm btn-outline-danger" onclick="eliminarProducto(${index})">
@@ -590,7 +596,7 @@
                 <hr>
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <h4>Total: <span class="carrito-producto-precio">$${total.toLocaleString()}</span></h4>
+                        <h4>Total: <span class="carrito-producto-precio" data-total="general">$${total.toLocaleString()}</span></h4>
                     </div>
                     <div class="col-6 text-end">
                         <button class="btn btn-outline-danger me-2" onclick="vaciarCarrito()">
@@ -630,18 +636,35 @@
         try {
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
             if (carrito[index]) {
-                carrito[index].cantidad += cambio;
+                const nuevaCantidad = carrito[index].cantidad + cambio;
                 
-                if (carrito[index].cantidad <= 0) {
-                    carrito.splice(index, 1);
+                if (nuevaCantidad <= 0) {
+                    eliminarProducto(index);
+                    return;
                 }
                 
+                carrito[index].cantidad = nuevaCantidad;
                 localStorage.setItem('carrito', JSON.stringify(carrito));
-                renderizarCarrito();
+                
+                // Actualizar el input
+                const inputElement = document.getElementById(`cantidad-${index}`);
+                if (inputElement) {
+                    inputElement.value = nuevaCantidad;
+                }
+                
+                // Actualizar subtotal de este producto
+                actualizarSubtotalProducto(index, carrito[index]);
+                
+                // Actualizar total general
+                actualizarTotalGeneral();
+                
+                // Actualizar contador del carrito
                 actualizarContadorCarrito();
             }
         } catch (error) {
             console.error('Error cambiando cantidad:', error);
+            // En caso de error, re-renderizar todo
+            renderizarCarrito();
         }
     }
 
@@ -649,7 +672,18 @@
     function actualizarCantidad(index, nuevaCantidad) {
         try {
             const cantidad = parseInt(nuevaCantidad);
-            if (cantidad <= 0) {
+            
+            // Validar cantidad
+            if (isNaN(cantidad) || cantidad < 0) {
+                // Restaurar valor anterior si es inválido
+                const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+                if (carrito[index]) {
+                    document.getElementById(`cantidad-${index}`).value = carrito[index].cantidad;
+                }
+                return;
+            }
+            
+            if (cantidad === 0) {
                 eliminarProducto(index);
                 return;
             }
@@ -658,15 +692,50 @@
             if (carrito[index]) {
                 carrito[index].cantidad = cantidad;
                 localStorage.setItem('carrito', JSON.stringify(carrito));
-                renderizarCarrito();
+                
+                // Actualizar inmediatamente el subtotal de este producto
+                actualizarSubtotalProducto(index, carrito[index]);
+                
+                // Actualizar total general
+                actualizarTotalGeneral();
+                
+                // Actualizar contador del carrito
                 actualizarContadorCarrito();
             }
         } catch (error) {
             console.error('Error actualizando cantidad:', error);
+            // En caso de error, re-renderizar todo
+            renderizarCarrito();
         }
     }
 
-    // Función para eliminar producto
+    // Función para actualizar el subtotal de un producto específico
+    function actualizarSubtotalProducto(index, item) {
+        try {
+            const subtotalElement = document.querySelector(`[data-subtotal="${index}"]`);
+            if (subtotalElement) {
+                const nuevoSubtotal = item.precio * item.cantidad;
+                subtotalElement.textContent = `$${nuevoSubtotal.toLocaleString()}`;
+            }
+        } catch (error) {
+            console.error('Error actualizando subtotal del producto:', error);
+        }
+    }
+    
+    // Función para actualizar el total general
+    function actualizarTotalGeneral() {
+        try {
+            const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+            const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+            
+            const totalElement = document.querySelector('[data-total="general"]');
+            if (totalElement) {
+                totalElement.textContent = `$${total.toLocaleString()}`;
+            }
+        } catch (error) {
+            console.error('Error actualizando total general:', error);
+        }
+    }
     function eliminarProducto(index) {
         try {
             const carrito = JSON.parse(localStorage.getItem('carrito') || '[]');

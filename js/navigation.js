@@ -198,10 +198,10 @@ class NavigationSystem {
                     <span class="d-none d-md-inline">Iniciar Sesión</span>
                 </button>
                 
-                <a href="mi-cuenta.html" class="btn btn-warning btn-sm">
+                <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#registerModal">
                     <i class="bi bi-person-plus me-1"></i>
-                    <span class="d-none d-md-inline">Crear Cuenta</span>
-                </a>
+                    <span class="d-none d-md-inline">Registrarse</span>
+                </button>
             `;
         }
 

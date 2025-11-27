@@ -44,6 +44,7 @@
   <link rel="stylesheet" href="css/accessibility.css">
   <link rel="stylesheet" href="css/responsive-advanced.css">
   <link rel="stylesheet" href="css/dark-theme.css">
+  <link rel="stylesheet" href="css/dark-mode.css">
   <link rel="stylesheet" href="css/mejoras-semanticas.css">
   <link rel="stylesheet" href="css/product-cards-improved.css">
   <link rel="stylesheet" href="css/footer-fix-global.css">
@@ -607,6 +608,28 @@
     .auth-floating-hidden {
       display: none !important;
     }
+    
+    /* Skip Link para accesibilidad - debe estar oculto por defecto */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: #000000;
+      color: #ffffff;
+      padding: 8px;
+      border-radius: 4px;
+      text-decoration: none;
+      z-index: 9999;
+      font-size: 14px;
+      font-weight: bold;
+      transition: top 0.2s ease;
+    }
+    
+    .skip-link:focus {
+      top: 6px;
+      color: #ffffff;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -792,12 +815,8 @@
   <style>
     /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
     /* Ocultar cualquier botón o enlace con "Crear Cuenta" que NO esté dentro de un modal */
-    body > a[data-bs-target="#registerModal"],
-    body > button[data-bs-target="#registerModal"],
     body > .auth-button,
-    body > .signup-button,
-    a[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *),
-    button[data-bs-target="#registerModal"]:not(.modal *):not(.modal-content *):not(.modal-body *) {
+    body > .signup-button {
       display: none !important;
       visibility: hidden !important;
       opacity: 0 !important;
@@ -816,127 +835,261 @@
     body > a[href*="wa.me"] {
       display: flex !important;
     }
+    
+    /* FORZAR: Eliminar completamente cualquier barra de búsqueda */
+    input[type="search"], 
+    form[role="search"], 
+    .search-form, 
+    .search-container,
+    .search-wrapper,
+    .navbar .input-group,
+    .navbar input[placeholder*="Buscar"],
+    .navbar input[placeholder*="buscar"] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      width: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    
+    /* 🎉 Sistema de Notificaciones Elegantes */
+    .notification-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      max-width: 400px;
+    }
+    
+    .notification {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      border-left: 4px solid;
+      display: flex;
+      align-items: center;
+      transform: translateX(450px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    
+    .notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    
+    .notification.success {
+      border-left-color: #28a745;
+    }
+    
+    .notification.info {
+      border-left-color: #007bff;
+    }
+    
+    .notification.warning {
+      border-left-color: #ffc107;
+    }
+    
+    .notification.error {
+      border-left-color: #dc3545;
+    }
+    
+    .notification-icon {
+      font-size: 1.2rem;
+      margin-right: 12px;
+      width: 24px;
+      text-align: center;
+    }
+    
+    .notification.success .notification-icon {
+      color: #28a745;
+    }
+    
+    .notification.info .notification-icon {
+      color: #007bff;
+    }
+    
+    .notification.warning .notification-icon {
+      color: #ffc107;
+    }
+    
+    .notification.error .notification-icon {
+      color: #dc3545;
+    }
+    
+    .notification-content {
+      flex: 1;
+    }
+    
+    .notification-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .notification-message {
+      font-size: 0.8rem;
+      color: #666;
+      margin: 0;
+    }
+    
+    .notification-close {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 10px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+    
+    .notification-close:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
+    
+    @media (max-width: 768px) {
+      .notification-container {
+        left: 10px;
+        right: 10px;
+        top: 10px;
+        max-width: none;
+      }
+      
+      .notification {
+        transform: translateY(-100px);
+      }
+      
+      .notification.show {
+        transform: translateY(0);
+      }
+    }
   </style>
 
-  <!-- Login Modal - Compacto y Profesional -->
-  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 320px;">
-      <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
-        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 12px 12px 0 0; padding: 12px 16px;">
-          <h6 class="modal-title" id="loginModalLabel" style="font-size: 0.95rem; margin: 0;">
-            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
-          </h6>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
+  <!-- Modal de Login y Registro con Pestañas -->
+  <div class="modal fade" id="simpleLoginModal" tabindex="-1" aria-labelledby="simpleLoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 450px;">
+      <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 15px 15px 0 0;">
+          <h5 class="modal-title" id="simpleLoginModalLabel">
+            <i class="bi bi-person-circle me-2"></i>Mi Cuenta
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" style="padding: 16px;">
-          <form id="login-form">
-            <div class="mb-3">
-              <label for="login-email" class="form-label-compact">
-                <i class="bi bi-envelope me-1"></i>Email
-              </label>
-              <input type="email" class="form-control-compact" id="login-email" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="login-password" class="form-label-compact">
-                <i class="bi bi-lock me-1"></i>Contraseña
-              </label>
-              <input type="password" class="form-control-compact" id="login-password" required>
-            </div>
-            
-            <div class="form-check mb-3">
-              <input class="form-check-input form-check-input-sm" type="checkbox" id="remember-me">
-              <label class="form-check-label" for="remember-me" style="font-size: 0.75rem;">
-                Recordarme
-              </label>
-            </div>
-            
-            <button type="submit" class="btn-compact w-100 mb-2">
-              <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
-            </button>
-          </form>
+        <div class="modal-body" style="padding: 30px;">
           
-          <div class="text-center mb-2">
-            <a href="#" class="text-decoration-none" style="color: var(--primary-color); font-size: 0.75rem;">¿Olvidaste tu contraseña?</a>
-          </div>
-          
-          <div class="text-center">
-            <span style="font-size: 0.75rem; color: #666;">¿No tienes cuenta? </span>
-            <button class="btn-link-compact" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registerModal">
-              Crear Cuenta
-            </button>
+          <!-- Pestañas de navegación -->
+          <ul class="nav nav-pills mb-4 justify-content-center" id="authTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active px-4 py-2" id="login-tab" data-bs-toggle="pill" data-bs-target="#login-pane" type="button" role="tab" style="border-radius: 25px; font-weight: 600;">
+                <i class="bi bi-box-arrow-in-right me-1"></i>Iniciar Sesión
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link px-4 py-2 ms-2" id="register-tab" data-bs-toggle="pill" data-bs-target="#register-pane" type="button" role="tab" style="border-radius: 25px; font-weight: 600;">
+                <i class="bi bi-person-plus me-1"></i>Crear Cuenta
+              </button>
+            </li>
+          </ul>
+
+          <!-- Contenido de las pestañas -->
+          <div class="tab-content" id="authTabsContent">
+            
+            <!-- Pestaña de Iniciar Sesión -->
+            <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab">
+              <form id="simple-login-form">
+                <div class="mb-3">
+                  <label for="simple-login-email" class="form-label">
+                    <i class="bi bi-envelope me-1"></i>Email
+                  </label>
+                  <input type="email" class="form-control" id="simple-login-email" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="simple-login-password" class="form-label">
+                    <i class="bi bi-lock me-1"></i>Contraseña
+                  </label>
+                  <input type="password" class="form-control" id="simple-login-password" required>
+                </div>
+                
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="simple-remember-me">
+                  <label class="form-check-label" for="simple-remember-me">
+                    Recordarme
+                  </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 mb-3" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border: none; padding: 12px; border-radius: 8px;">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+                </button>
+                
+
+              </form>
+            </div>
+
+            <!-- Pestaña de Crear Cuenta -->
+            <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab">
+              <form id="simple-register-form">
+                <div class="mb-3">
+                  <label for="register-name" class="form-label">
+                    <i class="bi bi-person me-1"></i>Nombre Completo
+                  </label>
+                  <input type="text" class="form-control" id="register-name" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="register-email" class="form-label">
+                    <i class="bi bi-envelope me-1"></i>Email
+                  </label>
+                  <input type="email" class="form-control" id="register-email" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="register-password" class="form-label">
+                    <i class="bi bi-lock me-1"></i>Contraseña
+                  </label>
+                  <input type="password" class="form-control" id="register-password" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="register-confirm-password" class="form-label">
+                    <i class="bi bi-lock-fill me-1"></i>Confirmar Contraseña
+                  </label>
+                  <input type="password" class="form-control" id="register-confirm-password" required>
+                </div>
+                
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="accept-terms" required>
+                  <label class="form-check-label" for="accept-terms">
+                    Acepto los <a href="#" style="color: var(--primary-color);">términos y condiciones</a>
+                  </label>
+                </div>
+                
+                <button type="submit" class="btn btn-success w-100 mb-3" style="background: linear-gradient(135deg, #28a745, #20c997); border: none; padding: 12px; border-radius: 8px;">
+                  <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+                </button>
+              </form>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Register Modal - Compacto y Profesional -->
-  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="max-width: 320px;">
-      <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
-        <div class="modal-header" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; border-radius: 12px 12px 0 0; padding: 12px 16px;">
-          <h6 class="modal-title" id="registerModalLabel" style="font-size: 0.95rem; margin: 0;">
-            <i class="bi bi-person-plus me-2"></i>Crear Cuenta
-          </h6>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
-        </div>
-        <div class="modal-body" style="padding: 16px;">
-          <form id="register-form">
-            <!-- Campo con Floating Label Profesional -->
-            <div class="form-floating-custom mb-3">
-              <input type="text" class="form-control-custom" id="register-name-floating" required placeholder="Nombre">
-              <label for="register-name-floating" class="label-floating">
-                <i class="bi bi-person me-1"></i>Nombre Completo
-              </label>
-            </div>
-            
-            <div class="mb-3">
-              <label for="register-email" class="form-label-compact">
-                <i class="bi bi-envelope me-1"></i>Email
-              </label>
-              <input type="email" class="form-control-compact" id="register-email" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="register-password" class="form-label-compact">
-                <i class="bi bi-lock me-1"></i>Contraseña
-              </label>
-              <input type="password" class="form-control-compact" id="register-password" required>
-            </div>
-            
-            <div class="mb-3">
-              <label for="register-confirm-password" class="form-label-compact">
-                <i class="bi bi-lock-fill me-1"></i>Confirmar
-              </label>
-              <input type="password" class="form-control-compact" id="register-confirm-password" required>
-            </div>
-            
-            <div class="form-check mb-3">
-              <input class="form-check-input form-check-input-sm" type="checkbox" id="accept-terms" required>
-              <label class="form-check-label" for="accept-terms" style="font-size: 0.75rem;">
-                Acepto <a href="#" style="color: var(--primary-color);">términos</a>
-              </label>
-            </div>
-            
-            <button type="submit" class="btn-compact w-100 mb-2">
-              <i class="bi bi-person-plus me-1"></i>Crear Cuenta
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-            <button type="submit" class="btn w-100" 
-                    style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); 
-                           color: white; border-radius: 8px; padding: 10px; font-weight: 600; font-size: 0.95rem;">
-              <i class="bi bi-person-plus me-2"></i>Crear Cuenta
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- 🎉 Contenedor de Notificaciones -->
+  <div id="notification-container" class="notification-container"></div>
 
   <!-- Welcome Modal for New Users -->
   <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
@@ -976,6 +1129,33 @@
     </div>
   </div>
 
+  <!-- Logout Confirmation Modal -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        <div class="modal-header" style="background: linear-gradient(135deg, #e74c3c, #c0392b); color: white; border-radius: 12px 12px 0 0; padding: 12px 16px;">
+          <h6 class="modal-title" id="logoutModalLabel" style="font-size: 0.95rem; margin: 0;">
+            <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+          </h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
+        </div>
+        <div class="modal-body text-center" style="padding: 20px;">
+          <i class="bi bi-question-circle" style="font-size: 3rem; color: #e74c3c; margin-bottom: 15px;"></i>
+          <h6 style="margin-bottom: 10px;">¿Estás seguro?</h6>
+          <p style="font-size: 0.9rem; color: #666; margin-bottom: 20px;">Se cerrará tu sesión actual</p>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-secondary btn-sm flex-fill" data-bs-dismiss="modal">
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-danger btn-sm flex-fill" onclick="logoutUser()" data-bs-dismiss="modal">
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -992,6 +1172,7 @@
   <script src="js/utils/product-renderer.js"></script>
   
   <!-- Scripts principales -->
+  <script src="js/theme-manager.js"></script>
   <script src="js/store.js"></script>
   <script src="js/users.js"></script>
   <script src="js/debug-auth.js"></script>
@@ -1135,7 +1316,7 @@
         document.body.classList.add('user-logged-in');
         
         // Cerrar cualquier modal de login/registro que pueda estar abierto
-        const modales = ['loginModal', 'registerModal', 'welcomeModal'];
+        const modales = ['loginModal', 'registerModal', 'welcomeModal', 'logoutModal'];
         modales.forEach(modalId => {
           const modal = document.getElementById(modalId);
           if (modal) {
@@ -1190,12 +1371,8 @@
           
           // Buscar botones específicos con clases o ids problemáticos
           const selectoresProblematicos = [
-            'button[data-bs-target="#registerModal"]',
-            'a[data-bs-target="#registerModal"]', 
             '.btn-signup',
-            '.signup-btn',
-            'button:contains("Crear Cuenta")',
-            'a:contains("Crear Cuenta")'
+            '.signup-btn'
           ];
           
           selectoresProblematicos.forEach(selector => {
@@ -1394,7 +1571,7 @@
         registerForm.addEventListener('submit', async function(e) {
           e.preventDefault();
           
-          const name = document.getElementById('register-name-floating').value;
+          const name = document.getElementById('register-name').value;
           const email = document.getElementById('register-email').value;
           const password = document.getElementById('register-password').value;
           const confirmPassword = document.getElementById('register-confirm-password').value;
@@ -1430,9 +1607,7 @@
               console.log('Resultado del registro:', result);
               
               if (result.success) {
-                // Cerrar modal de registro
-                const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-                modal.hide();
+                // Ya no hay modal de registro
                 
                 // Disparar evento para actualizar navbar
                 const event = new CustomEvent('userLoggedIn', {
@@ -1471,9 +1646,7 @@
             localStorage.setItem('currentUser', JSON.stringify(userDataFallback));
             localStorage.setItem('patagonia_user', JSON.stringify(userDataFallback));
             
-            // Cerrar modal de registro
-            const modal = bootstrap.Modal.getInstance(document.getElementById('registerModal'));
-            modal.hide();
+            // Ya no hay modal de registro
             
             // Disparar evento
             const event = new CustomEvent('userLoggedIn', {
@@ -1709,10 +1882,22 @@
       }, 500);
     });
 
-    document.addEventListener('userLoggedOut', () => {
+    // Listener único para logout events - remover listeners duplicados primero
+    document.removeEventListener('userLoggedOut', handleLogout);
+    document.addEventListener('userLoggedOut', handleLogout);
+    
+    function handleLogout(event) {
       // Cuando se cierra sesión, los elementos de auth deberían ser visibles de nuevo
       document.body.classList.remove('user-logged-in');
-    });
+      
+      // Mostrar notificación solo si viene del evento y no se ha mostrado ya
+      if (event.detail && event.detail.showNotification && event.detail.userName) {
+        // Pequeño delay para asegurar que solo se muestre una vez
+        setTimeout(() => {
+          showLogoutNotification(event.detail.userName);
+        }, 100);
+      }
+    }
 
     // Función para limpiar elementos persistentes cada 2 segundos
     setInterval(() => {
@@ -1741,8 +1926,7 @@
         const buttonsToRemove = document.querySelectorAll('button, a');
         buttonsToRemove.forEach(btn => {
           if ((btn.textContent.includes('Crear Cuenta') || 
-               btn.textContent.includes('Registrarse') ||
-               btn.getAttribute('data-bs-target') === '#registerModal') &&
+               btn.textContent.includes('Registrarse')) &&
               !btn.closest('.modal')) {
             console.log('🧹 Eliminando botón persistente:', btn);
             if (btn.parentNode) {
@@ -1761,15 +1945,30 @@
 <!-- Sistemas de checkout -->
 <script src="js/whatsapp-checkout.js"></script>
 <!-- Universal Navbar -->
-<script src="js/universal-navbar.js?v=3"></script>
+<script src="js/universal-navbar.js?v=nosearch2"></script>
 <!-- Frontend Utilities -->
 <script src="js/frontend-utils.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar el navbar universal
+    // Inicializar el navbar universal SIN búsqueda
     new UniversalNavbar('navbar-container', {
       showSearch: false
     });
+    
+    // FORZAR eliminación de búsqueda por si acaso
+    setTimeout(() => {
+      // Eliminar cualquier elemento de búsqueda que pueda aparecer
+      document.querySelectorAll('input[type="search"], form[role="search"], .search-form, .navbar .input-group').forEach(el => {
+        el.style.display = 'none';
+        el.remove();
+      });
+      
+      // Eliminar cualquier contenedor de búsqueda
+      document.querySelectorAll('.search-container, .search-wrapper').forEach(el => {
+        el.style.display = 'none';
+        el.remove();
+      });
+    }, 100);
     
     // Función para ocultar "Crear Cuenta" sin romper funcionalidad
     function ocultarCrearCuentaSinRomper() {
@@ -1792,6 +1991,224 @@
 
 <!-- Modales universales -->
 <script src="js/universal-modals.js"></script>
+
+<!-- 🎉 Sistema de Notificaciones Elegantes -->
+<script>
+// Funciones para mostrar notificaciones elegantes
+function showNotification(type, title, message, duration = 4000) {
+  const container = document.getElementById('notification-container');
+  if (!container) return;
+  
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  
+  // Iconos según el tipo
+  const icons = {
+    success: 'bi-check-circle-fill',
+    error: 'bi-x-circle-fill', 
+    warning: 'bi-exclamation-triangle-fill',
+    info: 'bi-info-circle-fill'
+  };
+  
+  notification.innerHTML = `
+    <div class="notification-icon">
+      <i class="bi ${icons[type]}"></i>
+    </div>
+    <div class="notification-content">
+      <div class="notification-title">${title}</div>
+      <div class="notification-message">${message}</div>
+    </div>
+    <button class="notification-close" onclick="closeNotification(this)">
+      <i class="bi bi-x"></i>
+    </button>
+  `;
+  
+  container.appendChild(notification);
+  
+  // Mostrar con animación
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+  
+  // Auto-cerrar después del tiempo especificado
+  setTimeout(() => {
+    closeNotification(notification.querySelector('.notification-close'));
+  }, duration);
+}
+
+function closeNotification(button) {
+  const notification = button.closest('.notification');
+  notification.classList.remove('show');
+  
+  setTimeout(() => {
+    if (notification.parentNode) {
+      notification.parentNode.removeChild(notification);
+    }
+  }, 400);
+}
+
+// Funciones específicas para diferentes tipos de notificaciones
+function showWelcomeNotification(userName) {
+  showNotification('success', '¡Bienvenido!', `Hola ${userName}, has iniciado sesión correctamente`, 5000);
+}
+
+// Variables de control para notificaciones
+let lastLogoutTime = 0;
+
+function showLogoutNotification(userName = null) {
+  // Evitar múltiples notificaciones de logout en un período corto
+  const now = Date.now();
+  if (now - lastLogoutTime < 3000) { // 3 segundos de cooldown
+    console.log('Notificación de logout bloqueada (muy reciente)');
+    return;
+  }
+  
+  lastLogoutTime = now;
+  const message = userName ? 
+    `¡Hasta pronto ${userName}! Has cerrado sesión exitosamente` : 
+    'Has cerrado sesión exitosamente. ¡Hasta pronto!';
+  showNotification('info', 'Sesión cerrada', message, 4000);
+}
+
+function showRegistrationNotification(userName) {
+  showNotification('success', '¡Cuenta creada!', `Bienvenido ${userName}, tu cuenta ha sido creada exitosamente`, 5000);
+}
+
+function showErrorNotification(message) {
+  showNotification('error', 'Error', message, 5000);
+}
+</script>
+
+<!-- Script de Login y Registro para Presentación -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Interceptar clics en iconos de usuario para mostrar modal
+  document.addEventListener('click', function(e) {
+    if (e.target.closest('.bi-person-circle') || 
+        e.target.closest('[data-bs-target="#loginModal"]') ||
+        (e.target.textContent && e.target.textContent.includes('Entrar'))) {
+      e.preventDefault();
+      const simpleModal = new bootstrap.Modal(document.getElementById('simpleLoginModal'));
+      simpleModal.show();
+    }
+    
+    // Manejar cerrar sesión
+    if (e.target.textContent && (e.target.textContent.includes('Cerrar Sesión') || e.target.textContent.includes('Cerrar sesión'))) {
+      e.preventDefault();
+      
+      // Usar la función logoutUser global si está disponible
+      if (typeof logoutUser !== 'undefined') {
+        logoutUser();
+      } else {
+        // Fallback mínimo sin notificación (logoutUser ya la maneja)
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('patagonia_user');
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+    }
+  });
+  
+  // Manejar submit del formulario de LOGIN
+  document.getElementById('simple-login-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById('simple-login-email').value;
+    const password = document.getElementById('simple-login-password').value;
+    
+    if (email && password) {
+      // Simular login exitoso
+      loginUser(email, email.split('@')[0]);
+    }
+  });
+  
+  // Manejar submit del formulario de REGISTRO
+  document.getElementById('simple-register-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const confirmPassword = document.getElementById('register-confirm-password').value;
+    const terms = document.getElementById('accept-terms').checked;
+    
+    // Validaciones
+    if (password !== confirmPassword) {
+      showErrorNotification('Las contraseñas no coinciden');
+      return;
+    }
+    
+    if (password.length < 6) {
+      showErrorNotification('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+    
+    if (!terms) {
+      showErrorNotification('Debes aceptar los términos y condiciones');
+      return;
+    }
+    
+    if (name && email && password) {
+      // Simular registro exitoso
+      registerUser(email, name);
+    }
+  });
+  
+  // Función para iniciar sesión
+  function loginUser(email, name) {
+    // Cerrar modal
+    bootstrap.Modal.getInstance(document.getElementById('simpleLoginModal')).hide();
+    
+    // Simular usuario logueado
+    localStorage.setItem('currentUser', JSON.stringify({
+      email: email,
+      nombre: name,
+      loggedIn: true,
+      canReview: true // Puede escribir reseñas
+    }));
+    
+    // Actualizar navbar
+    setTimeout(() => {
+      if (window.universalNavbar && window.universalNavbar.actualizarIconoUsuario) {
+        window.universalNavbar.actualizarIconoUsuario();
+      }
+      
+      showWelcomeNotification(name);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // Dar tiempo para ver la notificación
+    }, 500);
+  }
+  
+  // Función para registrar usuario
+  function registerUser(email, name) {
+    // Cerrar modal
+    bootstrap.Modal.getInstance(document.getElementById('simpleLoginModal')).hide();
+    
+    // Simular usuario registrado y logueado
+    localStorage.setItem('currentUser', JSON.stringify({
+      email: email,
+      nombre: name,
+      loggedIn: true,
+      canReview: true,
+      isNew: true // Usuario recién registrado
+    }));
+    
+    // Actualizar navbar
+    setTimeout(() => {
+      if (window.universalNavbar && window.universalNavbar.actualizarIconoUsuario) {
+        window.universalNavbar.actualizarIconoUsuario();
+      }
+      
+      showRegistrationNotification(name);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000); // Dar tiempo para ver la notificación
+    }, 500);
+  }
+});
+</script>
 
 <!-- Contenedor para botón WhatsApp flotante -->
 <div id="whatsapp-unico"></div>

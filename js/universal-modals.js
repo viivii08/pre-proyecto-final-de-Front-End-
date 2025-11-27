@@ -34,20 +34,20 @@ class UniversalModals {
         }
 
         container.innerHTML = `
-            <!-- Login Modal -->
-            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <!-- Universal Login Modal -->
+            <div class="modal fade" id="universalLoginModal" tabindex="-1" aria-labelledby="universalLoginModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content" style="border-radius: 15px; border: none;">
                         <div class="modal-header" style="background: linear-gradient(135deg, #1f3c5a, #3b5d50); color: white; border-radius: 15px 15px 0 0;">
-                            <h5 class="modal-title" id="loginModalLabel">
+                            <h5 class="modal-title" id="universalLoginModalLabel">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
                             </h5>
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body" style="padding: 30px;">
-                            <form id="login-form">
+                            <form id="universal-login-form">
                                 <div class="mb-3">
-                                    <label for="login-email" class="form-label">Email</label>
+                                    <label for="universal-login-email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="login-email" required>
                                 </div>
                                 <div class="mb-3">

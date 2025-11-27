@@ -4,10 +4,14 @@
  */
 
 class UniversalNavbar {
-  constructor() {
+  constructor(containerId = 'navbar-container', options = {}) {
     this.currentUser = null;
     this.cartCount = 0;
     this.currentPage = this.getCurrentPage();
+    this.options = {
+      showSearch: false, // Por defecto false para consistencia
+      ...options
+    };
     this.init();
   }
 
@@ -59,8 +63,8 @@ class UniversalNavbar {
     const navbarContainer = document.getElementById('navbar-container');
     if (!navbarContainer) return;
 
-    // Determinar si mostrar búsqueda - en todas las páginas
-    const showSearch = true;
+    // FORZAR que nunca se muestre la búsqueda para consistencia total
+    const showSearch = false;
     
     navbarContainer.innerHTML = `
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" 
@@ -107,11 +111,28 @@ class UniversalNavbar {
             </ul>
 
             <div class="d-flex align-items-center">
-              ${showSearch ? this.renderSearchBar() : ''}
               
               <div id="navbarActions" style="margin-right: 8px;">
                 ${this.renderUserActions()}
               </div>
+
+              <!-- 💝 Botón Wishlist -->
+              <a href="mis-favoritos.html" class="btn btn-outline-light position-relative me-2" title="Lista de deseos"
+                 style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
+                <i class="bi bi-heart" style="font-size:0.85rem;"></i>
+                <span class="wishlist-counter position-absolute top-0 start-100 translate-middle badge rounded-pill" 
+                      style="display: none; 
+                             font-size: 0.65rem; 
+                             font-weight: bold;
+                             background: #dc3545;
+                             color: white;
+                             border: 2px solid white;
+                             min-width: 20px;
+                             height: 20px;
+                             line-height: 16px;
+                             text-align: center;
+                             box-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</span>
+              </a>
 
               <a href="#" class="btn btn-outline-light position-relative" title="Carrito"
                  data-bs-toggle="modal" data-bs-target="#cartModal"
@@ -137,35 +158,6 @@ class UniversalNavbar {
     `;
 
     this.addSimpleNavbarStyles();
-  }
-
-  renderSearchBar() {
-    return `
-      <form class="d-flex me-3" role="search" onsubmit="return universalNavbar.handleSearch(event)">
-        <div class="input-group" style="width: 220px;">
-          <input class="form-control" type="search" placeholder="Buscar productos..."
-                 aria-label="Buscar" id="navbar-search"
-                 style="border: 1px solid rgba(255,255,255,0.3); 
-                        background: rgba(255,255,255,0.15); 
-                        color: white; 
-                        font-size: 0.9rem;
-                        border-radius: 20px 0 0 20px;
-                        padding: 8px 12px;
-                        height: 38px;">
-          <button class="btn btn-outline-light" type="submit" 
-                  style="border: 1px solid rgba(255,255,255,0.3); 
-                         border-left: none;
-                         background: rgba(255,255,255,0.1);
-                         color: white;
-                         border-radius: 0 20px 20px 0;
-                         padding: 8px 12px;
-                         height: 38px;
-                         transition: all 0.3s ease;">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-    `;
   }
 
   renderUserActions() {
@@ -228,7 +220,7 @@ class UniversalNavbar {
           </li>
           <li><hr class="dropdown-divider" style="border-color: rgba(255,255,255,0.2);"></li>
           <li>
-            <a class="dropdown-item d-flex align-items-center" href="#" onclick="logoutUser()"
+            <a class="dropdown-item d-flex align-items-center" href="#" onclick="logoutUser(); return false;"
                style="color: #ff6b6b !important; 
                       padding: 8px 16px; 
                       font-size: 0.9rem; 
@@ -447,58 +439,77 @@ class UniversalNavbar {
     this.updateCartCounter();
   }
 
-  handleSearch(event) {
-    event.preventDefault();
-    const searchTerm = document.getElementById('navbar-search').value.trim();
-    if (searchTerm) {
-      // Redirigir a la tienda con el término de búsqueda
-      window.location.href = `tienda.html?search=${encodeURIComponent(searchTerm)}`;
-    }
-    return false;
-  }
-
   logout() {
     logoutUser();
   }
 }
 
 // Función global para logout - Compatibilidad
+// Función para mostrar modal de confirmación de logout
+function showLogoutConfirm() {
+  const logoutModal = new bootstrap.Modal(document.getElementById('logoutModal'));
+  logoutModal.show();
+}
+
 function logoutUser() {
-  // Limpiar localStorage siempre
-  localStorage.removeItem('patagonia_user');
-  localStorage.removeItem('currentUser');
-  
-  // Si tenemos userManager, usarlo
-  if (typeof userManager !== 'undefined') {
-    userManager.currentUser = null;
-  }
-  
-  // Si tenemos navbar universal, actualizarlo inmediatamente
-  if (typeof universalNavbar !== 'undefined') {
-    universalNavbar.currentUser = null;
-    universalNavbar.renderNavbar();
-  }
-  
-  // Disparar evento personalizado para otros componentes
-  const event = new CustomEvent('userLoggedOut', {
-    detail: { timestamp: new Date().toISOString() }
-  });
-  document.dispatchEvent(event);
-  
-  // Mostrar notificación
-  if (typeof store !== 'undefined' && store.mostrarNotificacion) {
-    store.mostrarNotificacion('¡Hasta pronto! 👋', 'info');
-  } else {
-    console.log('%c✅ NAVBAR: Sesión cerrada exitosamente', 'color: #28a745; font-weight: bold; background: #d4edda; padding: 4px 8px; border-radius: 4px;');
-  }
-  
-  // Redirigir a inicio si está en página protegida
-  const currentPath = window.location.pathname;
-  if (currentPath.includes('mi-cuenta') || 
-      currentPath.includes('mis-pedidos')) {
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1000);
+  try {
+    console.log('🚪 Iniciando logout...');
+    
+    // Obtener nombre del usuario antes de limpiar
+    const currentUser = getCurrentUser();
+    const userName = currentUser?.nombre || currentUser?.name || currentUser?.firstName || 'Usuario';
+    
+    // Limpiar localStorage completamente
+    localStorage.removeItem('patagonia_user');
+    localStorage.removeItem('currentUser');
+    
+    // Si tenemos userManager, usarlo
+    if (typeof userManager !== 'undefined') {
+      userManager.currentUser = null;
+    }
+    
+    // Si tenemos navbar universal, actualizarlo inmediatamente
+    if (typeof universalNavbar !== 'undefined') {
+      universalNavbar.currentUser = null;
+      universalNavbar.renderNavbar();
+    }
+    
+    // Mostrar notificación de despedida solo si no hay función específica
+    if (typeof showLogoutNotification === 'undefined' && typeof showNotification !== 'undefined') {
+      showNotification('info', 'Sesión cerrada', `¡Hasta pronto ${userName}! Has cerrado sesión exitosamente`, 4000);
+    }
+    
+    // Disparar evento personalizado para notificación centralizada
+    const logoutEvent = new CustomEvent('userLoggedOut', {
+      detail: { 
+        userName: userName,
+        timestamp: new Date().toISOString(),
+        user: currentUser,
+        showNotification: true // Indicar que se debe mostrar notificación
+      }
+    });
+    document.dispatchEvent(logoutEvent);
+    
+    console.log('✅ Logout completado exitosamente');
+    
+    // Redirigir a inicio si está en página protegida
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('mi-cuenta') || 
+        currentPath.includes('mis-pedidos')) {
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 2000); // Dar más tiempo para ver la notificación
+    } else {
+      // Si está en la página principal, recargar después de mostrar la notificación
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('❌ Error durante logout:', error);
+    return false;
   }
 }
 
@@ -536,8 +547,10 @@ function getCurrentUser() {
 
 // Inicializar el navbar cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
-  if (document.getElementById('navbar-container')) {
-    window.universalNavbar = new UniversalNavbar();
+  if (document.getElementById('navbar-container') && !window.universalNavbar) {
+    window.universalNavbar = new UniversalNavbar('navbar-container', {
+      showSearch: false
+    });
   }
 });
 
@@ -545,11 +558,15 @@ document.addEventListener('DOMContentLoaded', function() {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('navbar-container') && !window.universalNavbar) {
-      window.universalNavbar = new UniversalNavbar();
+      window.universalNavbar = new UniversalNavbar('navbar-container', {
+        showSearch: false
+      });
     }
   });
 } else {
   if (document.getElementById('navbar-container') && !window.universalNavbar) {
-    window.universalNavbar = new UniversalNavbar();
+    window.universalNavbar = new UniversalNavbar('navbar-container', {
+      showSearch: false
+    });
   }
 }
