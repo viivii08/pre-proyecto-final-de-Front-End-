@@ -1,7 +1,6 @@
 /**
  * Sistema Universal de Navegación - Patagonia Style
  * Navbar completo con menú de usuario fijo y todas las funcionalidades
- * Versión: 2.0 - Email en botón dropdown + Diseño blanco unificado
  */
 
 class UniversalNavbar {
@@ -9,14 +8,10 @@ class UniversalNavbar {
     this.currentUser = null;
     this.cartCount = 0;
     this.currentPage = this.getCurrentPage();
-<<<<<<< HEAD
     this.options = {
       showSearch: false, // Por defecto false para consistencia
       ...options
     };
-=======
-    console.log('🚀 UniversalNavbar inicializado en:', this.currentPage);
->>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
     this.init();
   }
 
@@ -50,22 +45,13 @@ class UniversalNavbar {
       
       for (let clave of claves) {
         const userData = localStorage.getItem(clave);
-        if (userData && userData !== 'null' && userData !== 'undefined') {
-          try {
-            const parsedUser = JSON.parse(userData);
-            if (parsedUser && typeof parsedUser === 'object' && (parsedUser.email || parsedUser.id)) {
-              this.currentUser = parsedUser;
-              console.log('✅ Usuario cargado:', parsedUser.email || parsedUser.name);
-              break;
-            }
-          } catch (e) {
-            console.warn(`Error parseando ${clave}:`, e);
+        if (userData && userData !== 'null') {
+          const parsedUser = JSON.parse(userData);
+          if (parsedUser && (parsedUser.email || parsedUser.id)) {
+            this.currentUser = parsedUser;
+            break;
           }
         }
-      }
-      
-      if (!this.currentUser) {
-        console.log('ℹ️ No hay usuario logueado');
       }
     } catch (error) {
       console.warn('Error cargando usuario:', error);
@@ -79,10 +65,6 @@ class UniversalNavbar {
 
     // FORZAR que nunca se muestre la búsqueda para consistencia total
     const showSearch = false;
-    
-    // 🛒 Determinar si mostrar el carrito según la página actual
-    const paginasSinCarrito = ['mi-cuenta.html', 'mis-pedidos.html', 'mis-favoritos.html', 'checkout.html'];
-    const mostrarCarrito = !paginasSinCarrito.includes(this.currentPage);
     
     navbarContainer.innerHTML = `
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top" 
@@ -134,7 +116,6 @@ class UniversalNavbar {
                 ${this.renderUserActions()}
               </div>
 
-<<<<<<< HEAD
               <!-- 💝 Botón Wishlist -->
               <a href="mis-favoritos.html" class="btn btn-outline-light position-relative me-2" title="Lista de deseos"
                  style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
@@ -170,9 +151,6 @@ class UniversalNavbar {
                              text-align: center;
                              box-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</span>
               </a>
-=======
-              ${mostrarCarrito ? this.renderCartButton() : ''}
->>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
             </div>
           </div>
         </div>
@@ -182,65 +160,11 @@ class UniversalNavbar {
     this.addSimpleNavbarStyles();
   }
 
-<<<<<<< HEAD
-=======
-  renderCartButton() {
-    return `
-      <a href="#" class="btn btn-outline-light position-relative" title="Carrito"
-         data-bs-toggle="modal" data-bs-target="#cartModal"
-         style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 7px; border-radius: 12px; font-size: 0.85rem;">
-        <i class="bi bi-cart3" style="font-size:0.85rem;"></i>
-        <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
-              style="display: none; 
-                     font-size: 0.65rem; 
-                     font-weight: bold;
-                     background: #ff4444;
-                     color: white;
-                     border: 2px solid white;
-                     min-width: 20px;
-                     height: 20px;
-                     line-height: 16px;
-                     text-align: center;
-                     box-shadow: 0 2px 4px rgba(0,0,0,0.3);">0</span>
-      </a>
-    `;
-  }
-
-  renderSearchBar() {
-    return `
-      <form class="d-flex me-3" role="search" onsubmit="return universalNavbar.handleSearch(event)">
-        <div class="input-group" style="width: 220px;">
-          <input class="form-control" type="search" placeholder="Buscar productos..."
-                 aria-label="Buscar" id="navbar-search"
-                 style="border: 1px solid rgba(255,255,255,0.3); 
-                        background: rgba(255,255,255,0.15); 
-                        color: white; 
-                        font-size: 0.9rem;
-                        border-radius: 20px 0 0 20px;
-                        padding: 8px 12px;
-                        height: 38px;">
-          <button class="btn btn-outline-light" type="submit" 
-                  style="border: 1px solid rgba(255,255,255,0.3); 
-                         border-left: none;
-                         background: rgba(255,255,255,0.1);
-                         color: white;
-                         border-radius: 0 20px 20px 0;
-                         padding: 8px 12px;
-                         height: 38px;
-                         transition: all 0.3s ease;">
-            <i class="bi bi-search"></i>
-          </button>
-        </div>
-      </form>
-    `;
-  }
-
->>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
   renderUserActions() {
     if (this.currentUser) {
       return this.renderUserMenuFixed();
     } else {
-      // Solo mostrar botón "Entrar"
+      // Solo mostrar botón "Entrar" - SIN botón "Crear Cuenta"
       return `
         <button type="button" class="btn btn-outline-light me-2" data-bs-toggle="modal" data-bs-target="#loginModal"
                 style="border: 1px solid rgba(255,255,255,0.4); padding: 4px 8px; border-radius: 12px; font-size: 0.8rem;">
@@ -265,67 +189,44 @@ class UniversalNavbar {
                        border-radius: 12px; 
                        font-size: 0.8rem;">
           <i class="bi bi-person-circle me-1" style="color: white;"></i>
-          <span style="color: white;">${userEmail}</span>
+          <span style="color: white;">${userName}</span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" 
-            style="background: white; 
-                   border: 1px solid #dee2e6; 
+            style="background: linear-gradient(135deg, #3b5d50, #1f3c5a); 
+                   border: none; 
                    border-radius: 8px; 
                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                   padding: 10px 0;
-                   min-width: 220px;">
-          <li style="padding: 8px 16px; border-bottom: 1px solid #e9ecef;">
-            <div style="font-weight: 600; color: #1f3c5a; font-size: 0.95rem;">${userName} Usuario</div>
-            <div style="font-size: 0.85rem; color: #6c757d;">${userEmail}</div>
-          </li>
-          <li>
-            <a class="dropdown-item d-flex align-items-center" href="tienda.html"
-               style="color: #1f3c5a !important; 
-                      padding: 10px 16px; 
-                      font-size: 0.9rem; 
-                      transition: all 0.2s ease;
-                      background: transparent;">
-              <i class="bi bi-shop me-2" style="color: #1f3c5a !important;"></i>
-              <span style="color: #1f3c5a !important;">Tienda</span>
-            </a>
-          </li>
+                   padding: 8px 0;
+                   min-width: 180px;">
           <li>
             <a class="dropdown-item d-flex align-items-center" href="mi-cuenta.html"
-               style="color: #1f3c5a !important; 
-                      padding: 10px 16px; 
+               style="color: white !important; 
+                      padding: 8px 16px; 
                       font-size: 0.9rem; 
-                      transition: all 0.2s ease;
-                      background: transparent;">
-              <i class="bi bi-person me-2" style="color: #1f3c5a !important;"></i>
-              <span style="color: #1f3c5a !important;">Mi cuenta</span>
+                      transition: all 0.2s ease;">
+              <i class="bi bi-person-circle me-2" style="color: white !important;"></i>
+              <span style="color: white !important;">Mi cuenta</span>
             </a>
           </li>
           <li>
             <a class="dropdown-item d-flex align-items-center" href="mis-pedidos.html"
-               style="color: #1f3c5a !important; 
-                      padding: 10px 16px; 
+               style="color: white !important; 
+                      padding: 8px 16px; 
                       font-size: 0.9rem; 
-                      transition: all 0.2s ease;
-                      background: transparent;">
-              <i class="bi bi-box-seam me-2" style="color: #1f3c5a !important;"></i>
-              <span style="color: #1f3c5a !important;">Mis pedidos</span>
+                      transition: all 0.2s ease;">
+              <i class="bi bi-box-seam me-2" style="color: white !important;"></i>
+              <span style="color: white !important;">Mis pedidos</span>
             </a>
           </li>
-          <li><hr class="dropdown-divider" style="border-color: #e9ecef; margin: 5px 0;"></li>
+          <li><hr class="dropdown-divider" style="border-color: rgba(255,255,255,0.2);"></li>
           <li>
             <a class="dropdown-item d-flex align-items-center" href="#" onclick="logoutUser(); return false;"
-<<<<<<< HEAD
                style="color: #ff6b6b !important; 
                       padding: 8px 16px; 
-=======
-               style="color: #dc3545 !important; 
-                      padding: 10px 16px; 
->>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
                       font-size: 0.9rem; 
-                      transition: all 0.2s ease;
-                      background: transparent;">
-              <i class="bi bi-box-arrow-right me-2" style="color: #dc3545 !important;"></i>
-              <span style="color: #dc3545 !important;">Cerrar sesión</span>
+                      transition: all 0.2s ease;">
+              <i class="bi bi-box-arrow-right me-2" style="color: #ff6b6b !important;"></i>
+              <span style="color: #ff6b6b !important;">Cerrar sesión</span>
             </a>
           </li>
         </ul>
@@ -372,7 +273,7 @@ class UniversalNavbar {
         border-color: rgba(255,255,255,0.9) !important;
       }
       
-      /* Estilos específicos para el dropdown de usuario - DISEÑO BLANCO */
+      /* Estilos específicos para el dropdown de usuario */
       .dropdown-toggle:after {
         margin-left: 8px !important;
         color: white !important;
@@ -380,24 +281,15 @@ class UniversalNavbar {
       
       .dropdown-menu.show {
         display: block !important;
-        background: white !important;
-        border: 1px solid #dee2e6 !important;
+        background: linear-gradient(135deg, #3b5d50, #1f3c5a) !important;
+        border: none !important;
         box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
       }
       
       .dropdown-item {
-        color: #1f3c5a !important;
+        color: white !important;
         background: transparent !important;
         transition: all 0.2s ease !important;
-      }
-      
-      .dropdown-item:hover {
-        background-color: #f8f9fa !important;
-        color: #1f3c5a !important;
-      }
-      
-      .dropdown-item i {
-        color: #1f3c5a !important;
       }
       
       /* Estilos mejorados para el contador del carrito */
@@ -560,7 +452,6 @@ function showLogoutConfirm() {
 }
 
 function logoutUser() {
-<<<<<<< HEAD
   try {
     console.log('🚪 Iniciando logout...');
     
@@ -619,43 +510,6 @@ function logoutUser() {
   } catch (error) {
     console.error('❌ Error durante logout:', error);
     return false;
-=======
-  // Limpiar localStorage siempre
-  localStorage.removeItem('patagonia_user');
-  localStorage.removeItem('currentUser');
-  
-  // Si tenemos userManager, usarlo
-  if (typeof userManager !== 'undefined') {
-    userManager.currentUser = null;
-  }
-  
-  // Si tenemos navbar universal, actualizarlo inmediatamente
-  if (typeof universalNavbar !== 'undefined') {
-    universalNavbar.currentUser = null;
-    universalNavbar.renderNavbar();
-  }
-  
-  // Disparar evento personalizado para otros componentes
-  const event = new CustomEvent('userLoggedOut', {
-    detail: { timestamp: new Date().toISOString() }
-  });
-  document.dispatchEvent(event);
-  
-  // Mostrar notificación suave
-  if (typeof mostrarNotificacionSuave !== 'undefined') {
-    mostrarNotificacionSuave('Hasta pronto 👋', 'info');
-  } else if (typeof store !== 'undefined' && store.mostrarNotificacion) {
-    store.mostrarNotificacion('Hasta pronto 👋', 'info');
-  }
-  
-  // Redirigir a inicio si está en página protegida
-  const currentPath = window.location.pathname;
-  if (currentPath.includes('mi-cuenta') || 
-      currentPath.includes('mis-pedidos')) {
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 1000);
->>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
   }
 }
 

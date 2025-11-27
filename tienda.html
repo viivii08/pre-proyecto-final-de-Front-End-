@@ -50,6 +50,108 @@
   <!-- Solución para ocultar botón Crear Cuenta flotante -->
   <link rel="stylesheet" href="css/ocultar-crear-cuenta.css">
   <style>
+    /* Estilos específicos para que el dropdown se vea como en la imagen 2 */
+    .dropdown-menu {
+      background: linear-gradient(135deg, #3b5d50, #1f3c5a) !important;
+      border: none !important;
+      border-radius: 8px !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+      padding: 8px 0 !important;
+      min-width: 180px !important;
+    }
+    
+    .dropdown-item {
+      color: white !important;
+      background: transparent !important;
+      padding: 8px 16px !important;
+      font-size: 0.9rem !important;
+      transition: all 0.2s ease !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+      background: rgba(255,255,255,0.1) !important;
+      color: white !important;
+    }
+    
+    .dropdown-item i {
+      color: white !important;
+      margin-right: 8px !important;
+    }
+    
+    .dropdown-item:hover i {
+      color: white !important;
+    }
+    
+    .dropdown-item span {
+      color: white !important;
+    }
+    
+    .dropdown-item:hover span {
+      color: white !important;
+    }
+    
+    /* Específico para cerrar sesión */
+    .dropdown-item[onclick*="logoutUser"] {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"] i {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"] span {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover {
+      background: rgba(255,107,107,0.1) !important;
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover i {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-item[onclick*="logoutUser"]:hover span {
+      color: #ff6b6b !important;
+    }
+    
+    .dropdown-divider {
+      border-color: rgba(255,255,255,0.2) !important;
+      margin: 6px 0 !important;
+    }
+    
+    /* Botón del dropdown */
+    .dropdown-toggle {
+      background: rgba(255,255,255,0.1) !important;
+      border: 1px solid rgba(255,255,255,0.3) !important;
+      color: white !important;
+      padding: 4px 8px !important;
+      border-radius: 12px !important;
+      font-size: 0.8rem !important;
+    }
+    
+    .dropdown-toggle:hover {
+      background: rgba(255,255,255,0.2) !important;
+      border-color: rgba(255,255,255,0.4) !important;
+      color: white !important;
+    }
+    
+    .dropdown-toggle:focus {
+      background: rgba(255,255,255,0.2) !important;
+      border-color: rgba(255,255,255,0.4) !important;
+      color: white !important;
+      box-shadow: 0 0 0 0.25rem rgba(255,255,255,0.25) !important;
+    }
+    
+    .dropdown-toggle::after {
+      margin-left: 8px !important;
+      color: white !important;
+    }
+    
     .card-img-top {
       object-fit: cover;
       width: 100%;
@@ -1432,74 +1534,5 @@ document.addEventListener('DOMContentLoaded', function() {
   <!-- Sistema de Footer Universal -->
   <script src="js/universal-footer.js"></script>
   <script src="js/whatsapp-global.js"></script>
-
-  <!-- Sistema de Notificaciones Suaves -->
-  <div id="notificaciones-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999;"></div>
-  
-  <script>
-    // Función para mostrar notificaciones suaves y tranquilas
-    function mostrarNotificacionSuave(mensaje, tipo = 'info') {
-      const container = document.getElementById('notificaciones-container');
-      if (!container) return;
-      
-      const colores = {
-        success: { bg: '#d4edda', border: '#c3e6cb', text: '#155724', icono: 'check-circle-fill' },
-        info: { bg: '#d1ecf1', border: '#bee5eb', text: '#0c5460', icono: 'info-circle-fill' },
-        warning: { bg: '#fff3cd', border: '#ffeaa7', text: '#856404', icono: 'exclamation-triangle-fill' },
-        error: { bg: '#f8d7da', border: '#f5c6cb', text: '#721c24', icono: 'x-circle-fill' }
-      };
-      
-      const config = colores[tipo] || colores.info;
-      
-      const notificacion = document.createElement('div');
-      notificacion.style.cssText = `
-        background: ${config.bg};
-        border: 1px solid ${config.border};
-        border-left: 4px solid ${config.border};
-        color: ${config.text};
-        padding: 12px 16px;
-        border-radius: 8px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-family: 'Poppins', sans-serif;
-        font-size: 0.9rem;
-        min-width: 280px;
-        max-width: 350px;
-        opacity: 0;
-        transform: translateX(100px);
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      `;
-      
-      notificacion.innerHTML = `
-        <i class="bi bi-${config.icono}" style="font-size: 1.2rem;"></i>
-        <span style="flex: 1;">${mensaje}</span>
-      `;
-      
-      container.appendChild(notificacion);
-      
-      // Animar entrada
-      setTimeout(() => {
-        notificacion.style.opacity = '1';
-        notificacion.style.transform = 'translateX(0)';
-      }, 10);
-      
-      // Animar salida y eliminar
-      setTimeout(() => {
-        notificacion.style.opacity = '0';
-        notificacion.style.transform = 'translateX(100px)';
-        setTimeout(() => {
-          if (notificacion.parentElement) {
-            notificacion.remove();
-          }
-        }, 400);
-      }, 3000);
-    }
-    
-    // Hacer la función global
-    window.mostrarNotificacionSuave = mostrarNotificacionSuave;
-  </script>
 </body>
 </html>

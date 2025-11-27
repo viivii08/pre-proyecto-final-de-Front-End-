@@ -37,10 +37,10 @@ class UniversalFooter {
         background: ${this.footerData.gradient} !important;
         color: white !important;
         text-align: center !important;
-        padding: 25px 0 30px 0 !important;
+        padding: 30px 0 40px 0 !important;
         margin-top: 35px !important;
         flex-shrink: 0 !important;
-        line-height: 1.3 !important;
+        line-height: 1.4 !important;
       }
       
       .universal-footer .container {
@@ -50,7 +50,7 @@ class UniversalFooter {
       }
       
       .universal-footer .copyright {
-        margin-bottom: 5px !important;
+        margin-bottom: 6px !important;
         font-size: 0.9rem !important;
         font-weight: 500 !important;
         line-height: 1.2 !important;
@@ -58,7 +58,7 @@ class UniversalFooter {
       }
       
       .universal-footer .creator {
-        margin-bottom: 8px !important;
+        margin-bottom: 10px !important;
         font-size: 0.85rem !important;
         opacity: 0.9 !important;
         line-height: 1.2 !important;
@@ -106,7 +106,7 @@ class UniversalFooter {
       /* 📱 Responsivo */
       @media (max-width: 768px) {
         .universal-footer {
-          padding: 20px 0 25px 0 !important;
+          padding: 25px 0 35px 0 !important;
           margin-top: 25px !important;
         }
         
