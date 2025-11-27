@@ -37,6 +37,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="dropdown-fix.css">
   
   <!-- 🚀 MEJORAS FRONTEND - Performance y UX -->
@@ -812,6 +813,7 @@
     }
   </style>
 
+<<<<<<< HEAD
   <style>
     /* 🚫 ELIMINAR BOTÓN "CREAR CUENTA" FLOTANTE - SOLUCIÓN DEFINITIVA */
     /* Ocultar cualquier botón o enlace con "Crear Cuenta" que NO esté dentro de un modal */
@@ -986,6 +988,17 @@
             <i class="bi bi-person-circle me-2"></i>Mi Cuenta
           </h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+=======
+  <!-- Login Modal - Compacto y Profesional -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 320px;">
+      <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; border-radius: 12px 12px 0 0; padding: 12px 16px;">
+          <h6 class="modal-title" id="loginModalLabel" style="font-size: 0.95rem; margin: 0;">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+          </h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
+>>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
         </div>
         <div class="modal-body" style="padding: 30px;">
           
@@ -1088,8 +1101,67 @@
     </div>
   </div>
 
+<<<<<<< HEAD
   <!-- 🎉 Contenedor de Notificaciones -->
   <div id="notification-container" class="notification-container"></div>
+=======
+  <!-- Register Modal - Compacto y Profesional -->
+  <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 320px;">
+      <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        <div class="modal-header" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); color: white; border-radius: 12px 12px 0 0; padding: 12px 16px;">
+          <h6 class="modal-title" id="registerModalLabel" style="font-size: 0.95rem; margin: 0;">
+            <i class="bi bi-person-plus me-2"></i>Crear Cuenta
+          </h6>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.8rem;"></button>
+        </div>
+        <div class="modal-body" style="padding: 16px;">
+          <form id="register-form">
+            <!-- Campo con Floating Label Profesional -->
+            <div class="form-floating-custom mb-3">
+              <input type="text" class="form-control-custom" id="register-name-floating" required placeholder="Nombre">
+              <label for="register-name-floating" class="label-floating">
+                <i class="bi bi-person me-1"></i>Nombre Completo
+              </label>
+            </div>
+            
+            <div class="mb-3">
+              <label for="register-email" class="form-label-compact">
+                <i class="bi bi-envelope me-1"></i>Email
+              </label>
+              <input type="email" class="form-control-compact" id="register-email" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="register-password" class="form-label-compact">
+                <i class="bi bi-lock me-1"></i>Contraseña
+              </label>
+              <input type="password" class="form-control-compact" id="register-password" required>
+            </div>
+            
+            <div class="mb-3">
+              <label for="register-confirm-password" class="form-label-compact">
+                <i class="bi bi-lock-fill me-1"></i>Confirmar
+              </label>
+              <input type="password" class="form-control-compact" id="register-confirm-password" required>
+            </div>
+            
+            <div class="form-check mb-3">
+              <input class="form-check-input form-check-input-sm" type="checkbox" id="accept-terms" required>
+              <label class="form-check-label" for="accept-terms" style="font-size: 0.75rem;">
+                Acepto <a href="#" style="color: var(--primary-color);">términos</a>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn-compact w-100 mb-2">
+              <i class="bi bi-person-plus me-1"></i>Crear Cuenta
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+>>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
 
   <!-- Welcome Modal for New Users -->
   <div class="modal fade" id="welcomeModal" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
@@ -1180,50 +1252,6 @@
   <!-- Pruebas (solo en modo desarrollo) -->
   <script src="js/tests/store-tests.js"></script>
   <script>
-    // Observer para detectar y eliminar elementos problemáticos inmediatamente
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === 1) { // Elemento HTML
-            // Verificar si el elemento agregado contiene texto problemático
-            if (node.textContent && 
-                (node.textContent.includes('Crear Cuenta') || 
-                 node.textContent.includes('¿Ya tienes cuenta?')) &&
-                !node.closest('.modal')) {
-              console.log('🚫 Observer: Eliminando elemento recién agregado:', node);
-              if (node.parentNode) {
-                node.parentNode.removeChild(node);
-              }
-            }
-            
-            // Verificar elementos hijos también
-            const elementosProblematicos = node.querySelectorAll('*');
-            elementosProblematicos.forEach(el => {
-              if (el.textContent && 
-                  (el.textContent.includes('Crear Cuenta') || 
-                   el.textContent.includes('¿Ya tienes cuenta?')) &&
-                  !el.closest('.modal')) {
-                console.log('🚫 Observer: Eliminando elemento hijo problemático:', el);
-                if (el.parentNode) {
-                  el.parentNode.removeChild(el);
-                }
-              }
-            });
-          }
-        });
-      });
-    });
-
-    // Iniciar observación cuando se carga la página
-    document.addEventListener('DOMContentLoaded', function() {
-      // Observar cambios en todo el document
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-      
-      console.log('🛡️ Observer de limpieza activado');
-    });
     // Función para buscar productos
     function buscarProductos(event) {
       event.preventDefault();
@@ -1339,6 +1367,7 @@
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
         
+<<<<<<< HEAD
         // ELIMINAR COMPLETAMENTE cualquier elemento "Crear Cuenta" fuera de modales
         function eliminarElementosAuth() {
           const textosProblematicos = ['Crear Cuenta', '¿Ya tienes cuenta?', 'Registrarse', 'Regístrate'];
@@ -1437,6 +1466,9 @@
         });
         
         console.log('Elementos de autenticación eliminados');
+=======
+        console.log('Usuario verificado');
+>>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
       } else {
         // Usuario no logueado, remover clase
         document.body.classList.remove('user-logged-in');
@@ -1453,53 +1485,72 @@
       }
     }
 
-    // Observer para eliminar elementos de autenticación que aparezcan dinámicamente
-    function setupAuthElementsObserver() {
-      const currentUser = getCurrentUser();
-      if (!currentUser) return;
-
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((node) => {
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              // Verificar si el nodo o sus hijos contienen texto de autenticación
-              const authTexts = ['Crear Cuenta', '¿Ya tienes cuenta?'];
-              authTexts.forEach(text => {
-                if (node.textContent && node.textContent.includes(text) && 
-                    !node.closest('.modal') && 
-                    !node.closest('nav') &&
-                    node.tagName !== 'SCRIPT') {
-                  console.log('Observer: Eliminando elemento dinámico con:', text);
-                  node.remove();
-                }
-              });
-            }
-          });
-        });
-      });
-
-      observer.observe(document.body, {
-        childList: true,
-        subtree: true
-      });
-
-      return observer;
-    }
-
     // Inicialización de la página principal
     document.addEventListener('DOMContentLoaded', () => {
+      // Definir función de notificaciones PRIMERO
+      window.mostrarNotificacionSuave = function(mensaje, tipo = 'info') {
+        const container = document.getElementById('notificaciones-container');
+        if (!container) {
+          console.warn('Container de notificaciones no encontrado');
+          return;
+        }
+        
+        const colores = {
+          success: { bg: '#d4edda', border: '#c3e6cb', text: '#155724', icono: 'check-circle-fill' },
+          info: { bg: '#d1ecf1', border: '#bee5eb', text: '#0c5460', icono: 'info-circle-fill' },
+          warning: { bg: '#fff3cd', border: '#ffeaa7', text: '#856404', icono: 'exclamation-triangle-fill' },
+          error: { bg: '#f8d7da', border: '#f5c6cb', text: '#721c24', icono: 'x-circle-fill' }
+        };
+        
+        const config = colores[tipo] || colores.info;
+        
+        const notificacion = document.createElement('div');
+        notificacion.style.cssText = `
+          background: ${config.bg};
+          border: 1px solid ${config.border};
+          border-left: 4px solid ${config.border};
+          color: ${config.text};
+          padding: 12px 16px;
+          border-radius: 8px;
+          margin-bottom: 10px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.9rem;
+          min-width: 280px;
+          max-width: 350px;
+          opacity: 0;
+          transform: translateX(100px);
+          transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        `;
+        
+        notificacion.innerHTML = `
+          <i class="bi bi-${config.icono}" style="font-size: 1.2rem;"></i>
+          <span style="flex: 1;">${mensaje}</span>
+        `;
+        
+        container.appendChild(notificacion);
+        
+        setTimeout(() => {
+          notificacion.style.opacity = '1';
+          notificacion.style.transform = 'translateX(0)';
+        }, 10);
+        
+        setTimeout(() => {
+          notificacion.style.opacity = '0';
+          notificacion.style.transform = 'translateX(100px)';
+          setTimeout(() => {
+            if (notificacion.parentElement) {
+              notificacion.remove();
+            }
+          }, 400);
+        }, 3000);
+      };
+      
       // Actualizar navbar según estado del usuario
       actualizarNavbarUsuario();
-      
-      // Ocultar elementos de autenticación si el usuario está logueado
-      setTimeout(() => {
-        ocultarElementosAuth();
-      }, 500);
-      
-      // Configurar observer para elementos dinámicos
-      setTimeout(() => {
-        setupAuthElementsObserver();
-      }, 1000);
       
       // Actualizar contadores después de un momento
       setTimeout(() => {
@@ -1540,6 +1591,13 @@
                 universalNavbar.currentUser = result.user;
                 universalNavbar.renderNavbar();
               }
+              
+              // Mostrar notificación suave
+              setTimeout(() => {
+                if (typeof mostrarNotificacionSuave !== 'undefined') {
+                  mostrarNotificacionSuave('Bienvenido de vuelta ✨', 'success');
+                }
+              }, 300);
             }
           } else {
             // Fallback si userManager no está disponible
@@ -1562,7 +1620,12 @@
             });
             document.dispatchEvent(event);
             
-            alert('¡Bienvenido de vuelta!');
+            // Mostrar notificación suave
+            setTimeout(() => {
+              if (typeof mostrarNotificacionSuave !== 'undefined') {
+                mostrarNotificacionSuave('Bienvenido de vuelta ✨', 'success');
+              }
+            }, 300);
           }
         });
       }
@@ -1874,12 +1937,10 @@
       floatingLabelManager = new FloatingLabel();
     });
 
-    // Escuchar eventos de login/logout para ocultar elementos de auth
+    // Escuchar eventos de login/logout
     document.addEventListener('userLoggedIn', () => {
-      setTimeout(() => {
-        ocultarElementosAuth();
-        setupAuthElementsObserver();
-      }, 500);
+      // Usuario logueado
+      document.body.classList.add('user-logged-in');
     });
 
     // Listener único para logout events - remover listeners duplicados primero
@@ -1889,6 +1950,7 @@
     function handleLogout(event) {
       // Cuando se cierra sesión, los elementos de auth deberían ser visibles de nuevo
       document.body.classList.remove('user-logged-in');
+<<<<<<< HEAD
       
       // Mostrar notificación solo si viene del evento y no se ha mostrado ya
       if (event.detail && event.detail.showNotification && event.detail.userName) {
@@ -1936,6 +1998,9 @@
         });
       }
     }, 2000); // Cada 2 segundos
+=======
+    });
+>>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
   </script>
 
 <!-- Protección contra errores (debe cargarse PRIMERO) -->
@@ -1954,6 +2019,7 @@
     new UniversalNavbar('navbar-container', {
       showSearch: false
     });
+<<<<<<< HEAD
     
     // FORZAR eliminación de búsqueda por si acaso
     setTimeout(() => {
@@ -1986,6 +2052,8 @@
     
     // Ejecutar después de que el navbar se cargue
     setTimeout(ocultarCrearCuentaSinRomper, 2000);
+=======
+>>>>>>> 0fcfc09 (Agrego nuevos archivos y elimino)
   });
 </script>
 
@@ -2215,6 +2283,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   <!-- Sistema de Footer Universal -->
   <script src="js/universal-footer.js"></script>
+
+  <!-- Sistema de Notificaciones Suaves -->
+  <div id="notificaciones-container" style="position: fixed; top: 80px; right: 20px; z-index: 9999;"></div>
+  
   <script src="js/whatsapp-global.js"></script>
+
 </body>
 </html>
